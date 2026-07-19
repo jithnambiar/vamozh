@@ -24,7 +24,10 @@ const CATEGORY_ITEMS = [
   { id: "photography", name: "Photography", emoji: "📸", desc: "Frames, camera angles, and captured moments.", color: "from-blue-500 to-indigo-500" },
   { id: "business", name: "Business", emoji: "💼", desc: "Professional, startup, and customer trust values.", color: "from-slate-700 to-zinc-900" },
   { id: "makeover_artist", name: "Makeover Artists", emoji: "✨", desc: "Bridal, photoshoot glam, freelance artists.", color: "from-violet-400 to-fuchsia-600" },
-  { id: "fashion", name: "Fashion & Style", emoji: "👗", desc: "Clothing boutique, trendy outfits, lifestyle.", color: "from-rose-400 to-red-600" }
+  { id: "fashion", name: "Fashion & Style", emoji: "👗", desc: "Clothing boutique, trendy outfits, lifestyle.", color: "from-rose-400 to-red-600" },
+  { id: "techie", name: "Techie", emoji: "💻", desc: "Gadget reviews, tech tips, and phone hacks.", color: "from-blue-600 to-indigo-600" },
+  { id: "coder", name: "Coder", emoji: "🚀", desc: "Programming, late night debugging, and code life.", color: "from-slate-600 to-zinc-800" },
+  { id: "nostalgia", name: "Nostalgia", emoji: "📻", desc: "90s childhood memories and sweet retro times.", color: "from-amber-500 to-yellow-600" }
 ];
 
 const CATEGORY_TRANSLATIONS: Record<string, { name: string, desc: string }> = {
@@ -83,6 +86,18 @@ const CATEGORY_TRANSLATIONS: Record<string, { name: string, desc: string }> = {
   fashion: {
     name: "ഫാഷൻ & സ്റ്റൈൽ",
     desc: "ട്രെൻഡിങ് വസ്ത്രങ്ങൾ, ബോട്ടിക് കളക്ഷനുകൾ."
+  },
+  techie: {
+    name: "ടെക്കി",
+    desc: "ഗാഡ്‌ജെറ്റ് റിവ്യൂകളും അടിപൊളി ടെക് ടിപ്പുകളും."
+  },
+  coder: {
+    name: "കോഡർ",
+    desc: "കോഡിംഗും ലേറ്റ് നൈറ്റ് ബഗ് ഫിക്സിംഗും."
+  },
+  nostalgia: {
+    name: "നൊസ്റ്റാൾജിയ",
+    desc: "90കളിലെ ആ സുന്ദര പഴയ ഓർമ്മകൾ."
   }
 };
 

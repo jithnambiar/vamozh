@@ -13,8 +13,6 @@ import {
   Filter, 
   MessageSquare, 
   Flame, 
-  Smile, 
-  Activity, 
   Hash, 
   Compass, 
   Loader2 
@@ -53,7 +51,10 @@ const CATEGORIES = [
   { id: "photography", name: "Photography 📸" },
   { id: "business", name: "Business 💼" },
   { id: "makeover_artist", name: "Makeover Artist ✨" },
-  { id: "fashion", name: "Fashion & Style 👗" }
+  { id: "fashion", name: "Fashion & Style 👗" },
+  { id: "techie", name: "Techie 💻" },
+  { id: "coder", name: "Coder 🚀" },
+  { id: "nostalgia", name: "Nostalgia 📻" }
 ] as const;
 
 const TONES = [
@@ -405,41 +406,6 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
                       {t.name}
                     </button>
                   ))}
-                </div>
-              </div>
-
-              {/* Mood & Occasion */}
-              <div className="grid grid-cols-2 gap-3" id="field-mood-occasion-grid">
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1">
-                    <Smile className="w-3.5 h-3.5 text-purple-600" />
-                    {uiLang === 'en' ? "Mood Vibe" : "മൂഡ് വൈബ്"}
-                  </label>
-                  <select
-                    value={mood}
-                    onChange={(e) => setMood(e.target.value)}
-                    className="w-full px-3 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800"
-                  >
-                    {MOODS.map((m) => (
-                      <option key={m.id} value={m.id}>{m.name}</option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1">
-                    <Activity className="w-3.5 h-3.5 text-purple-600" />
-                    {uiLang === 'en' ? "Occasion" : "അവസരം"}
-                  </label>
-                  <select
-                    value={occasion}
-                    onChange={(e) => setOccasion(e.target.value)}
-                    className="w-full px-3 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800"
-                  >
-                    {OCCASIONS.map((o) => (
-                      <option key={o.id} value={o.id}>{o.name}</option>
-                    ))}
-                  </select>
                 </div>
               </div>
 

@@ -94,6 +94,11 @@ const translations: Record<Language, Record<string, string>> = {
     cat_kerala: "Kerala 🌴",
     cat_photography: "Photography 📸",
     cat_business: "Business 💼",
+    cat_makeover_artist: "Makeover Artist ✨",
+    cat_fashion: "Fashion & Style 👗",
+    cat_techie: "Techie 💻",
+    cat_coder: "Coder 🚀",
+    cat_nostalgia: "Nostalgia 📻",
 
     // Results Header
     resultsHeader: "Click below to copy your perfect caption or bio.",
@@ -193,6 +198,11 @@ const translations: Record<Language, Record<string, string>> = {
     cat_kerala: "കേരളം 🌴",
     cat_photography: "ഫോട്ടോഗ്രഫി 📸",
     cat_business: "ബിസിനസ്സ് 💼",
+    cat_makeover_artist: "മേക്കോവർ ആർട്ടിസ്റ്റ് ✨",
+    cat_fashion: "ഫാഷൻ & സ്റ്റൈൽ 👗",
+    cat_techie: "ടെക്കി 💻",
+    cat_coder: "കോഡർ 🚀",
+    cat_nostalgia: "നൊസ്റ്റാൾജിയ 📻",
 
     // Results Header
     resultsHeader: "നിങ്ങളുടെ പ്രിയപ്പെട്ട ക്യാപ്ഷൻ കോപ്പി ചെയ്യാൻ അതിൽ ക്ലിക്ക് ചെയ്യുക.",
