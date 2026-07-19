@@ -19,6 +19,8 @@ import {
   Compass, 
   Loader2 
 } from "lucide-react";
+import { useLanguage } from "../context/LanguageContext";
+
 
 interface GeneratorProps {
   onGenerate: (results: Array<{ text: string; hashtags: string[]; id: string }>) => void;
@@ -81,7 +83,9 @@ const OCCASIONS = [
 ] as const;
 
 export default function Generator({ onGenerate, onSuccessMessage, currentPath }: GeneratorProps) {
+  const { t, language: uiLang } = useLanguage();
   // Main states
+
   const [contentType, setContentType] = useState<string>("photo-caption");
   const [platform, setPlatform] = useState<string>("instagram");
   const [language, setLanguage] = useState<"malayalam" | "manglish" | "mixed">("malayalam");
@@ -211,16 +215,16 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
       {/* Dynamic Header based on route */}
       <div className="text-center max-w-2xl mx-auto mb-10">
         <span className="px-3 py-1 rounded-full bg-purple-50 text-purple-700 text-[10px] font-black tracking-widest uppercase inline-block mb-3">
-          Interactive Writing Studio
+          {uiLang === 'en' ? "Interactive Writing Studio" : "ഇന്ററാക്ടീവ് റൈറ്റിംഗ് സ്റ്റുഡിയോ"}
         </span>
         <h2 className="text-3xl font-black tracking-tight text-neutral-900" id="generator-heading">
-          {contentType === "bio" ? "Malayalam Profile Bio Creator" : 
-           contentType === "hook" ? "Malayalam Reel Hooks Creator" : 
-           contentType === "hashtag_set" ? "Kerala Social Hashtags Generator" : 
-           "Social Caption Generator"}
+          {contentType === "bio" ? (uiLang === 'en' ? "Malayalam Profile Bio Creator" : "മലയാളം പ്രൊഫൈൽ ബയോ ക്രിയേറ്റർ") : 
+           contentType === "hook" ? (uiLang === 'en' ? "Malayalam Reel Hooks Creator" : "മലയാളം റീൽ ഹൂക്ക്സ് ക്രിയേറ്റർ") : 
+           contentType === "hashtag_set" ? (uiLang === 'en' ? "Kerala Social Hashtags Generator" : "കേരളാ ഹാഷ്‌ടാഗ് ജനറേറ്റർ") : 
+           (uiLang === 'en' ? "Social Caption Generator" : "സോഷ്യൽ ക്യാപ്ഷൻ ജനറേറ്റർ")}
         </h2>
         <p className="text-sm text-neutral-500 mt-2">
-          Fine-tune the custom filters below. Vamozhi automatically matches and scores hundreds of handwritten, family-safe captions.
+          {uiLang === 'en' ? "Fine-tune the custom filters below. Vamozhi automatically matches and scores hundreds of handwritten, family-safe captions." : "താഴെയുള്ള ഫിൽട്ടറുകൾ ക്രമീകരിക്കുക. വമൊഴി നിങ്ങൾക്കായി ഏറ്റവും മികച്ചതും കുടുംബത്തോടൊപ്പം വായിക്കാൻ കഴിയുന്നതുമായ യഥാർത്ഥ വരികൾ നൽകുന്നു."}
         </p>
       </div>
 
@@ -235,7 +239,7 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
           <div className="absolute inset-0 bg-white/80 backdrop-blur-xs z-30 flex flex-col items-center justify-center gap-3 rounded-[32px] animate-fade-in" id="loading-overlay">
             <Loader2 className="w-10 h-10 text-purple-800 animate-spin" />
             <span className="text-xs font-extrabold text-purple-950 uppercase tracking-widest animate-pulse">
-              Generating Malayalam Masterpieces...
+              {t("generating")}
             </span>
           </div>
         )}
@@ -249,14 +253,14 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
             <div className="flex flex-col gap-1.5">
               <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
                 <AlignLeft className="w-3.5 h-3.5 text-purple-700" />
-                1. What are you writing?
+                {t("step1")}
               </label>
               <div className="grid grid-cols-2 gap-2" id="input-content-type">
                 {[
-                  { id: "photo-caption", label: "Instagram Caption" },
-                  { id: "bio", label: "Profile Bio" },
-                  { id: "hook", label: "Reel Hook" },
-                  { id: "hashtag_set", label: "Hashtags Only" }
+                  { id: "photo-caption", label: uiLang === 'en' ? "Photo Caption" : "ഫോട്ടോ ക്യാപ്ഷൻ" },
+                  { id: "bio", label: uiLang === 'en' ? "Profile Bio" : "പ്രൊഫൈൽ ബയോ" },
+                  { id: "hook", label: uiLang === 'en' ? "Reel Hook" : "റീൽ ഹൂക്ക്" },
+                  { id: "hashtag_set", label: uiLang === 'en' ? "Hashtags only" : "ഹാഷ്‌ടാഗുകൾ മാത്രം" }
                 ].map((type) => (
                   <button
                     key={type.id}
@@ -278,7 +282,7 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
             <div className="flex flex-col gap-1.5">
               <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
                 <Compass className="w-3.5 h-3.5 text-purple-700" />
-                2. Target Platform
+                {uiLang === 'en' ? "2. Target Platform" : "2. സോഷ്യൽ മീഡിയ പ്ലാറ്റ്‌ഫോം"}
               </label>
               <select
                 value={platform}
@@ -298,13 +302,13 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
             <div className="flex flex-col gap-1.5">
               <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
                 <Globe className="w-3.5 h-3.5 text-purple-700" />
-                3. Script & Language
+                {t("step3")}
               </label>
               <div className="grid grid-cols-3 gap-2" id="input-language">
                 {[
                   { id: "malayalam", label: "മലയാളം" },
                   { id: "manglish", label: "Manglish" },
-                  { id: "mixed", label: "Mixed 🇬🇧" }
+                  { id: "mixed", label: uiLang === 'en' ? "Mixed 🇬🇧" : "മിക്സഡ് 🇬🇧" }
                 ].map((lang) => (
                   <button
                     key={lang.id}
@@ -326,13 +330,13 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
             <div className="flex flex-col gap-1.5">
               <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
                 <MessageSquare className="w-3.5 h-3.5 text-purple-700" />
-                4. Keyword to Weave In
+                {t("step6")}
               </label>
               <input
                 type="text"
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
-                placeholder="E.g., tea, rain, kochi, kalyanam"
+                placeholder={uiLang === 'en' ? "E.g., tea, rain, kochi, kalyanam" : "ഉദാ: ചായ, മഴ, കൊച്ചി, കല്യാണം"}
                 className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-xs font-semibold focus:outline-none focus:ring-1 focus:ring-slate-900 transition-all placeholder:text-slate-400"
                 id="input-keyword"
               />
@@ -347,7 +351,7 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
             <div className="flex flex-col gap-1.5">
               <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
                 <Filter className="w-3.5 h-3.5 text-purple-700" />
-                5. Vibe Category
+                {t("step4")}
               </label>
               <select
                 value={category}
@@ -357,7 +361,7 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
               >
                 {CATEGORIES.map((cat) => (
                   <option key={cat.id} value={cat.id}>
-                    {cat.name}
+                    {t("cat_" + cat.id.replace("-", ""))}
                   </option>
                 ))}
               </select>
@@ -367,7 +371,7 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
             <div className="flex flex-col gap-1.5">
               <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
                 <Flame className="w-3.5 h-3.5 text-purple-700" />
-                6. Expressive Tone Style
+                {uiLang === 'en' ? "6. Expressive Tone Style" : "6. എഴുത്ത് രീതി (Tone)"}
               </label>
               <div className="grid grid-cols-4 gap-1.5" id="input-tone-grid">
                 {TONES.map((t) => (
@@ -392,7 +396,7 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
               <div className="flex flex-col gap-1.5">
                 <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1">
                   <Smile className="w-3.5 h-3.5 text-purple-600" />
-                  Mood Vibe
+                  {uiLang === 'en' ? "Mood Vibe" : "മൂഡ് വൈബ്"}
                 </label>
                 <select
                   value={mood}
@@ -408,7 +412,7 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
               <div className="flex flex-col gap-1.5">
                 <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1">
                   <Activity className="w-3.5 h-3.5 text-purple-600" />
-                  Occasion
+                  {uiLang === 'en' ? "Occasion" : "അവസരം"}
                 </label>
                 <select
                   value={occasion}
@@ -426,32 +430,32 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
             <div className="grid grid-cols-2 gap-3">
               <div className="flex flex-col gap-1.5">
                 <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider">
-                  Output Length
+                  {uiLang === 'en' ? "Output Length" : "വരികളുടെ നീളം"}
                 </label>
                 <select
                   value={length}
                   onChange={(e) => setLength(e.target.value as any)}
                   className="w-full px-3 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800"
                 >
-                  <option value="one-line">One-liner ⚡</option>
-                  <option value="short">Short (1-2 sentences)</option>
-                  <option value="medium">Medium (standard)</option>
-                  <option value="detailed">Detailed (blog/post style)</option>
+                  <option value="one-line">{uiLang === 'en' ? "One-liner ⚡" : "ഒറ്റ വരിയിൽ ⚡"}</option>
+                  <option value="short">{uiLang === 'en' ? "Short (1-2 sentences)" : "ചെറുത് (1-2 വാക്യങ്ങൾ)"}</option>
+                  <option value="medium">{uiLang === 'en' ? "Medium (standard)" : "സാധാരണ അളവിൽ"}</option>
+                  <option value="detailed">{uiLang === 'en' ? "Detailed (blog/post style)" : "വിശദമായി (കൂടുതൽ വരികൾ)"}</option>
                 </select>
               </div>
 
               <div className="flex flex-col gap-1.5">
                 <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider">
-                  Emoji Level
+                  {uiLang === 'en' ? "Emoji Level" : "ഇമോജി അളവ്"}
                 </label>
                 <select
                   value={emojiSetting}
                   onChange={(e) => setEmojiSetting(e.target.value as any)}
                   className="w-full px-3 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800"
                 >
-                  <option value="none">No Emojis 🚫</option>
-                  <option value="minimal">Minimal ✨</option>
-                  <option value="more">More 🥳🔥</option>
+                  <option value="none">{uiLang === 'en' ? "No Emojis 🚫" : "ഇമോജി വേണ്ട 🚫"}</option>
+                  <option value="minimal">{uiLang === 'en' ? "Minimal ✨" : "കുറച്ചു മതി ✨"}</option>
+                  <option value="more">{uiLang === 'en' ? "More 🥳🔥" : "കൂടുതൽ വേണം 🥳🔥"}</option>
                 </select>
               </div>
             </div>
@@ -461,32 +465,32 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
               <div className="flex flex-col gap-1.5">
                 <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1">
                   <Hash className="w-3.5 h-3.5 text-purple-600" />
-                  Hashtag Count
+                  {uiLang === 'en' ? "Hashtag Count" : "ഹാഷ്‌ടാഗ് എണ്ണം"}
                 </label>
                 <select
                   value={hashtagCount}
                   onChange={(e) => setHashtagCount(e.target.value as any)}
                   className="w-full px-3 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800"
                 >
-                  <option value="none">No Hashtags</option>
-                  <option value="5">5 Tags</option>
-                  <option value="10">10 Tags</option>
-                  <option value="15">15 Tags</option>
+                  <option value="none">{uiLang === 'en' ? "No Hashtags" : "ഹാഷ്‌ടാഗ് വേണ്ട"}</option>
+                  <option value="5">{uiLang === 'en' ? "5 Tags" : "5 ടാഗുകൾ"}</option>
+                  <option value="10">{uiLang === 'en' ? "10 Tags" : "10 ടാഗുകൾ"}</option>
+                  <option value="15">{uiLang === 'en' ? "15 Tags" : "15 ടാഗുകൾ"}</option>
                 </select>
               </div>
 
               <div className="flex flex-col gap-1.5">
                 <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider">
-                  Options Count
+                  {uiLang === 'en' ? "Options Count" : "ഓപ്ഷൻ എണ്ണം"}
                 </label>
                 <select
                   value={resultsCount}
                   onChange={(e) => setResultsCount(parseInt(e.target.value, 10))}
                   className="w-full px-3 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800"
                 >
-                  <option value={5}>5 Options</option>
-                  <option value={10}>10 Options</option>
-                  <option value={20}>20 Options</option>
+                  <option value={5}>{uiLang === 'en' ? "5 Options" : "5 എണ്ണം"}</option>
+                  <option value={10}>{uiLang === 'en' ? "10 Options" : "10 എണ്ണം"}</option>
+                  <option value={20}>{uiLang === 'en' ? "20 Options" : "20 എണ്ണം"}</option>
                 </select>
               </div>
             </div>
@@ -503,7 +507,7 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
             id="btn-trigger-generate"
           >
             <Sparkles className="w-4.5 h-4.5 animate-pulse" />
-            Generate Captions
+            {t("step8")}
           </button>
         </div>
 

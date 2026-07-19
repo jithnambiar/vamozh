@@ -5,9 +5,12 @@
 
 import { Sparkles, ArrowRight, Instagram, MessageCircle, Send, Heart, Bookmark } from "lucide-react";
 import { motion } from "motion/react";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function Hero() {
+  const { t, language } = useLanguage();
   const scrollToId = (id: string) => {
+
     const element = document.getElementById(id);
     if (element) {
       const offset = 85;
@@ -24,15 +27,15 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-28 px-4" id="hero-section">
+    <section className="relative overflow-hidden pt-6 pb-10 md:pt-10 md:pb-16 px-4 sm:px-6 lg:px-8" id="hero-section">
       {/* Decorative Orbs */}
       <div className="absolute top-1/4 left-1/10 w-72 h-72 rounded-full bg-purple-300/30 blur-3xl -z-10" />
       <div className="absolute top-1/3 right-1/10 w-96 h-96 rounded-full bg-pink-300/20 blur-3xl -z-10" />
       <div className="absolute bottom-10 left-1/3 w-80 h-80 rounded-full bg-orange-300/20 blur-3xl -z-10" />
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
         {/* Left Column: Copy & Actions */}
-        <div className="lg:col-span-7 flex flex-col items-start gap-6 text-left" id="hero-left-content">
+        <div className="lg:col-span-7 flex flex-col items-start gap-4 md:gap-5 text-left" id="hero-left-content">
           <motion.div
             initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -41,7 +44,7 @@ export default function Hero() {
             id="hero-badge"
           >
             <Sparkles className="w-3.5 h-3.5" />
-            100% Free & No Login Needed
+            {t("heroBadge")}
           </motion.div>
 
           <motion.h1
@@ -51,11 +54,10 @@ export default function Hero() {
             className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-slate-900 leading-tight italic"
             id="hero-title"
           >
-            Free Malayalam <br />
+            {t("heroTitleFirst")} <br />
             <span className="bg-gradient-to-r from-purple-800 via-pink-600 to-orange-500 bg-clip-text text-transparent">
-              Instagram Caption
-            </span>{" "}
-            Generator.
+              {t("heroTitleSecond")}
+            </span>
           </motion.h1>
 
           <motion.p
@@ -65,7 +67,7 @@ export default function Hero() {
             className="text-lg md:text-xl text-slate-600 max-w-xl font-medium leading-relaxed"
             id="hero-description"
           >
-            Create bios, hooks and hashtags in seconds. Fast, original, and 100% Malayalam. Supercharge your social media game with authentic Kerala vibes!
+            {t("heroSubtitle")}
           </motion.p>
 
           <motion.div
@@ -80,7 +82,7 @@ export default function Hero() {
               className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-2xl font-bold shadow-lg shadow-pink-200/50 hover:scale-[0.98] transition-all flex items-center justify-center gap-2 group cursor-pointer"
               id="btn-hero-generate"
             >
-              Generate Caption
+              {t("btnFindPerfect")}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
             <button
@@ -88,7 +90,7 @@ export default function Hero() {
               className="px-8 py-4 bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 font-bold rounded-2xl transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
               id="btn-hero-categories"
             >
-              Explore Categories
+              {language === 'en' ? "Explore Categories" : "വിഭാഗങ്ങൾ കാണുക"}
             </button>
           </motion.div>
 
@@ -106,7 +108,7 @@ export default function Hero() {
               <div className="w-9 h-9 rounded-full ring-2 ring-white bg-orange-500 flex items-center justify-center text-white text-xs font-bold">A</div>
             </div>
             <p className="text-sm text-neutral-500 font-medium text-left">
-              Loved by <span className="text-purple-600 font-extrabold">10,000+</span> Kerala creators, influencers and local brands.
+              {language === 'en' ? "Loved by " : "പതിനായിരത്തിലധികം "}<span className="text-purple-600 font-extrabold">10,000+</span>{language === 'en' ? " Kerala creators, influencers and local brands." : " കേരളാ ക്രിയേറ്റർമാരും ഇൻഫ്ലുവൻസർമാരും ഉപയോഗിക്കുന്നത്."}
             </p>
           </motion.div>
         </div>

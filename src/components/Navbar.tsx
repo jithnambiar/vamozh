@@ -14,8 +14,11 @@ import {
   BookOpen, 
   ChevronRight,
   Info,
-  Mail
+  Mail,
+  Globe
 } from "lucide-react";
+import { useLanguage } from "../context/LanguageContext";
+
 
 interface NavbarProps {
   favouritesCount: number;
@@ -47,7 +50,9 @@ const ALL_SEARCHABLE_TOOLS = [
 ];
 
 export default function Navbar({ favouritesCount, onOpenFavourites, currentPath, onNavigate }: NavbarProps) {
+  const { language, setLanguage, t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
+
   const [isScrolled, setIsScrolled] = useState(false);
   
   // Search state
@@ -132,7 +137,7 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
             </div>
           </div>
 
-          {/* Desktop Navigation Links */}
+           {/* Desktop Navigation Links */}
           <div className="hidden lg:flex items-center gap-5" id="desktop-nav-menu">
             <button
               onClick={() => onNavigate("/")}
@@ -140,7 +145,7 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
                 currentPath === "/" ? "text-purple-900 font-black border-b-2 border-purple-800 pb-0.5" : "text-slate-500 hover:text-purple-800"
               }`}
             >
-              Home
+              {t("home")}
             </button>
 
             <button
@@ -149,7 +154,7 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
                 currentPath === "/manglish-to-malayalam" ? "text-purple-900 font-black border-b-2 border-purple-800 pb-0.5" : "text-slate-500 hover:text-purple-800"
               }`}
             >
-              Malayalam Typing
+              {t("malayalamTyping")}
             </button>
           </div>
 
@@ -161,7 +166,7 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
                 value={searchQuery}
                 onChange={(e) => handleSearchChange(e.target.value)}
                 onFocus={() => setIsSearchFocused(true)}
-                placeholder="Find a writing tool..."
+                placeholder={t("findWritingTool")}
                 className="w-full pl-9 pr-4 py-1.5 bg-slate-50 hover:bg-slate-100/80 focus:bg-white text-xs font-medium rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-purple-600 transition-all text-slate-800 placeholder:text-slate-400"
               />
               <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
@@ -171,7 +176,7 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
             {isSearchFocused && searchResults.length > 0 && (
               <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-slate-100 rounded-2xl shadow-2xl py-2 z-50 text-left">
                 <span className="block px-4 py-1 text-[9px] font-extrabold text-slate-400 uppercase tracking-widest border-b border-slate-50 mb-1">
-                  Suggested Tools
+                  {t("suggestedTools")}
                 </span>
                 {searchResults.map((tool) => (
                   <button
@@ -189,11 +194,22 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
 
           {/* Right Action buttons */}
           <div className="flex items-center gap-2" id="nav-actions">
+            {/* Language Toggle Button */}
+            <button
+              onClick={() => setLanguage(language === 'en' ? 'ml' : 'en')}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-purple-200/60 hover:border-purple-400 bg-purple-50/40 hover:bg-purple-50 text-[10px] sm:text-[11px] font-black transition-all text-purple-950 cursor-pointer"
+              title={language === 'en' ? 'മലയാളം ഭാഷയിലേക്ക് മാറ്റുക' : 'Switch to English'}
+              id="language-toggle-btn"
+            >
+              <Globe className="w-3.5 h-3.5 text-purple-600 shrink-0 animate-pulse" />
+              <span>{language === 'en' ? 'മലയാളം' : 'English'}</span>
+            </button>
+
             {/* Saved Drawer Icon */}
             <button
               onClick={onOpenFavourites}
               className="relative p-2.5 rounded-full hover:bg-slate-50 transition-colors text-slate-600 group cursor-pointer"
-              aria-label="View Saved Items"
+              aria-label={t("savedItems")}
               id="btn-nav-fav"
             >
               <Heart className={`w-5 h-5 group-hover:text-red-500 transition-colors ${favouritesCount > 0 ? 'fill-red-500 text-red-500' : ''}`} />
@@ -242,7 +258,7 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
               type="text"
               value={searchQuery}
               onChange={(e) => handleSearchChange(e.target.value)}
-              placeholder="Search tools..."
+              placeholder={t("searchTools")}
               className="w-full pl-9 pr-4 py-2 bg-slate-50 text-xs font-semibold rounded-xl border border-slate-200 focus:outline-none focus:ring-1 focus:ring-purple-600 text-slate-800"
             />
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
@@ -267,7 +283,7 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
               className="py-2.5 font-extrabold text-slate-800 border-b border-slate-100 text-xs uppercase tracking-wider flex items-center gap-2 text-left"
             >
               <BookOpen className="w-4 h-4 text-purple-600 shrink-0" />
-              Home Page
+              {t("home")}
             </button>
 
             <button
@@ -275,23 +291,25 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
               className="py-2.5 font-extrabold text-slate-800 border-b border-slate-100 text-xs uppercase tracking-wider flex items-center gap-2 text-left"
             >
               <Sparkles className="w-4 h-4 text-amber-500 shrink-0" />
-              Malayalam Typing
+              {t("malayalamTyping")}
             </button>
+          </div>
 
+          <div className="mt-auto border-t border-slate-100 pt-4 flex flex-col gap-4">
             <button
               onClick={() => { onNavigate("/about"); setIsOpen(false); }}
-              className="py-2.5 font-extrabold text-slate-800 border-b border-slate-100 text-xs uppercase tracking-wider flex items-center gap-2 text-left"
+              className="py-2 font-extrabold text-slate-600 hover:text-purple-800 text-xs uppercase tracking-wider flex items-center gap-2 text-left"
             >
-              <Info className="w-4 h-4 text-purple-600 shrink-0" />
-              About
+              <Info className="w-4 h-4 text-purple-500 shrink-0" />
+              {t("about")}
             </button>
 
             <button
               onClick={() => { onNavigate("/contact"); setIsOpen(false); }}
-              className="py-2.5 font-extrabold text-slate-800 border-b border-slate-100 text-xs uppercase tracking-wider flex items-center gap-2 text-left"
+              className="py-2 font-extrabold text-slate-600 hover:text-pink-800 text-xs uppercase tracking-wider flex items-center gap-2 text-left"
             >
-              <Mail className="w-4 h-4 text-pink-600 shrink-0" />
-              Contact
+              <Mail className="w-4 h-4 text-pink-500 shrink-0" />
+              {t("contact")}
             </button>
           </div>
 
@@ -299,7 +317,7 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
             onClick={() => { onNavigate("/"); setIsOpen(false); }}
             className="w-full mt-4 py-3 bg-gradient-to-r from-purple-800 to-pink-600 text-white font-extrabold rounded-2xl shadow-md text-center text-xs uppercase tracking-wider active:scale-95 transition-transform"
           >
-            Launch Main Generator
+            {t("launchMainGenerator")}
           </button>
         </div>
       </div>

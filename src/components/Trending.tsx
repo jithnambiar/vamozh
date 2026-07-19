@@ -5,6 +5,7 @@
 
 import { useState } from "react";
 import { Sparkles, Copy, Share2, Heart, Check } from "lucide-react";
+import { useLanguage } from "../context/LanguageContext";
 
 interface TrendingItem {
   id: string;
@@ -217,6 +218,19 @@ const TRENDING_CAPTIONS: TrendingItem[] = [
   }
 ];
 
+const TRENDING_CATEGORIES_TRANSLATIONS: Record<string, string> = {
+  aesthetic: "ആസ്വാദനം",
+  love: "പ്രണയം",
+  attitude: "ആറ്റിറ്റ്യൂഡ്",
+  short: "ചെറിയ വരികൾ",
+  girls: "പെൺകുട്ടികൾക്കായി",
+  boys: "ആൺകുട്ടികൾക്കായി",
+  travel: "യാത്രകൾ",
+  wedding: "കല്യാണം",
+  manglish: "മാംഗ്ലീഷ്",
+  bio: "പ്രൊഫൈൽ ബയോ"
+};
+
 export default function Trending({
   onToggleFavourite,
   favourites,
@@ -226,18 +240,19 @@ export default function Trending({
   favourites: string[];
   onSuccessMessage: (msg: string) => void;
 }) {
+  const { t, language } = useLanguage();
   const [activeCategory, setActiveCategory] = useState<string>("aesthetic");
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
-    onSuccessMessage("Copied trending caption to clipboard! 📋");
+    onSuccessMessage(language === 'en' ? "Copied trending caption to clipboard! 📋" : "ക്യാപ്ഷൻ കോപ്പി ചെയ്തു! 📋");
   };
 
   const handleShare = (text: string) => {
     const encodedText = encodeURIComponent(text);
     const waUrl = `https://wa.me/?text=${encodedText}`;
     window.open(waUrl, "_blank");
-    onSuccessMessage("Opening WhatsApp to share...");
+    onSuccessMessage(language === 'en' ? "Opening WhatsApp to share..." : "വാട്സാപ്പ് തുറക്കുന്നു...");
   };
 
   const filteredCaptions = TRENDING_CAPTIONS.filter(
@@ -250,39 +265,43 @@ export default function Trending({
         {/* Header */}
         <div className="max-w-3xl mx-auto mb-10 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-purple-50 text-purple-600 rounded-full text-xs font-bold uppercase tracking-wider mb-3 border border-slate-200">
-            <Sparkles className="w-3.5 h-3.5 animate-pulse" />
-            Highly Curated & bot-crawlable
+            <Sparkles className="w-3.5 h-3.5" />
+            {language === 'en' ? "Highly Curated & family-safe" : "ഉയർന്ന നിലവാരമുള്ളവ"}
           </div>
           <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-900" id="trending-heading">
-            Trending Malayalam Captions
+            {language === 'en' ? "Trending Malayalam Captions" : "ഇപ്പോൾ ട്രെൻഡിംഗ് ആയവ"}
           </h2>
           <p className="text-sm text-slate-500 mt-2 max-w-xl mx-auto">
-            Explore organic, highly searched, and highly engaging Malayalam and Manglish captions for social media platforms.
+            {language === 'en' ? "Explore organic, highly searched, and highly engaging Malayalam and Manglish captions for social media platforms." : "സോഷ്യൽ മീഡിയകളിൽ ഇപ്പോൾ തരംഗമായിക്കൊണ്ടിരിക്കുന്ന മലയാളം, മാംഗ്ലീഷ് ക്യാപ്ഷനുകൾ താഴെ വിഭാഗങ്ങളിൽ നിന്നും തിരഞ്ഞെടുത്ത് കാണാം."}
           </p>
         </div>
 
         {/* Filter Badges Category Selection Slider */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-10" id="trending-categories-tabs">
-          {TRENDING_CATEGORIES.map((cat) => (
-            <button
-              key={cat.key}
-              onClick={() => setActiveCategory(cat.key)}
-              className={`px-4.5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                activeCategory === cat.key
-                  ? "bg-slate-900 text-white border-transparent shadow-sm"
-                  : "bg-white hover:bg-slate-50 border border-slate-200 text-slate-600 hover:text-slate-800"
-              }`}
-              id={`tab-trending-${cat.key}`}
-            >
-              {cat.label}
-            </button>
-          ))}
+          {TRENDING_CATEGORIES.map((cat) => {
+            const label = language === 'en' ? cat.label : (TRENDING_CATEGORIES_TRANSLATIONS[cat.key] || cat.label);
+            return (
+              <button
+                key={cat.key}
+                onClick={() => setActiveCategory(cat.key)}
+                className={`px-4.5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                  activeCategory === cat.key
+                    ? "bg-slate-900 text-white border-transparent shadow-sm"
+                    : "bg-white hover:bg-slate-50 border border-slate-200 text-slate-600 hover:text-slate-800"
+                }`}
+                id={`tab-trending-${cat.key}`}
+              >
+                {label}
+              </button>
+            );
+          })}
         </div>
 
         {/* Trending items grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto" id="trending-cards-grid">
           {filteredCaptions.map((item) => {
             const isSaved = favourites.includes(item.text);
+            const categoryLabel = language === 'en' ? item.categoryLabel : (TRENDING_CATEGORIES_TRANSLATIONS[item.categoryKey] || item.categoryLabel);
             return (
               <div
                 key={item.id}
@@ -291,7 +310,7 @@ export default function Trending({
               >
                 <div>
                   <span className="text-[9px] font-black tracking-wider uppercase text-purple-600 bg-purple-50 px-2.5 py-1 rounded-full inline-block mb-3 border border-slate-100">
-                    {item.categoryLabel}
+                    {categoryLabel}
                   </span>
                   <p className="text-sm font-semibold text-slate-800 leading-relaxed font-sans">
                     "{item.text}"
@@ -332,7 +351,7 @@ export default function Trending({
                     }`}
                   >
                     <Heart className={`w-3 h-3 ${isSaved ? "fill-red-500 text-red-500" : ""}`} />
-                    {isSaved ? "SAVED" : "SAVE"}
+                    {isSaved ? (language === 'en' ? "SAVED" : "സേവ് ചെയ്തവ") : (language === 'en' ? "SAVE" : "സേവ് ചെയ്യുക")}
                   </button>
                 </div>
               </div>

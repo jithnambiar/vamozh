@@ -137,15 +137,6 @@ const ROUTE_META_MAP: Record<string, RouteMeta> = {
   }
 };
 
-// Google AdSense component - configured for pure auto ads via index.html script tag
-interface AdSenseUnitProps {
-  typeKey?: 'top' | 'bottom' | 'sidebar' | 'main';
-}
-
-function AdSenseUnit({ typeKey = "main" }: AdSenseUnitProps) {
-  return null;
-}
-
 export default function App() {
   // Navigation states
   const [currentPath, setCurrentPath] = useState<string>(window.location.pathname);
@@ -294,9 +285,6 @@ export default function App() {
             {/* Elegant Hero card */}
             <Hero />
 
-            {/* Top Leaderboard Ad Slot */}
-            <AdSenseUnit typeKey="top" />
-
             {/* Categories bento grid selection */}
             <Categories 
               onSelectCategory={(catId) => {
@@ -331,9 +319,6 @@ export default function App() {
               onSuccessMessage={(msg) => triggerToast(msg, 'success')}
             />
 
-            {/* In-Feed Bottom Ad Slot */}
-            <AdSenseUnit typeKey="bottom" />
-
             {/* Trending categories lookup grids */}
             <Trending
               onToggleFavourite={handleToggleFavourite}
@@ -352,19 +337,14 @@ export default function App() {
         {isPhoneticTypingRoute && (
           <>
             <TranslitTool onSuccessMessage={(msg) => triggerToast(msg, 'success')} />
-            <AdSenseUnit typeKey="main" />
           </>
         )}
 
         {!isHomeOrGeneratorRoute && !isPhoneticTypingRoute && (
           <>
             <InfoPages currentPath={currentPath} onSuccessMessage={(msg) => triggerToast(msg, 'success')} />
-            <AdSenseUnit typeKey="main" />
           </>
         )}
-
-        {/* Sidebar/Extra Footer Ad Slot if configured */}
-        <AdSenseUnit typeKey="sidebar" />
       </div>
 
       {/* Corporate footer, copyright & disclaimers */}

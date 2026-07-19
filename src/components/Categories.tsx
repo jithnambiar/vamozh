@@ -4,6 +4,7 @@
  */
 
 import { Sparkles, FolderHeart } from "lucide-react";
+import { useLanguage } from "../context/LanguageContext";
 
 interface CategoriesProps {
   onSelectCategory: (catId: string) => void;
@@ -24,7 +25,60 @@ const CATEGORY_ITEMS = [
   { id: "business", name: "Business", emoji: "💼", desc: "Professional, startup, and customer trust values.", color: "from-slate-700 to-zinc-900" }
 ];
 
+const CATEGORY_TRANSLATIONS: Record<string, { name: string, desc: string }> = {
+  love: {
+    name: "പ്രണയം",
+    desc: "പ്രിയപ്പെട്ടവർക്കായി മനോഹരമായ പ്രണയ വരികൾ."
+  },
+  attitude: {
+    name: "ആറ്റിറ്റ്യൂഡ്",
+    desc: "ധീരവും വ്യത്യസ്തവുമായ മാസ് വരികൾ."
+  },
+  travel: {
+    name: "യാത്രകൾ",
+    desc: "വഴി ദൂരങ്ങളും യാത്രാ വൈബുകളും പങ്കുവെക്കാം."
+  },
+  friendship: {
+    name: "സൗഹൃദം",
+    desc: "ചങ്കുകൾക്കായുള്ള അടിച്ചുപൊളി വരികൾ."
+  },
+  wedding: {
+    name: "കല്യാണം",
+    desc: "കേരളാ തനിമയുള്ള കല്യാണ വരികൾ."
+  },
+  "self-love": {
+    name: "സ്വയം സ്നേഹം",
+    desc: "സ്വന്തം സന്തോഷവും സമാധാനവും ആഘോഷിക്കാം."
+  },
+  motivation: {
+    name: "പ്രചോദനം",
+    desc: "സ്വപ്നങ്ങളിലേക്ക് കുതിക്കാൻ പോസിറ്റീവ് ചിന്തകൾ."
+  },
+  aesthetic: {
+    name: "ആസ്വാദനം",
+    desc: "മഴയും ചായയും പ്രകൃതിയും നിറഞ്ഞ മനോഹരമായ വരികൾ."
+  },
+  funny: {
+    name: "തമാശകൾ",
+    desc: "പൊട്ടിച്ചിരിപ്പിക്കുന്ന തമാശകളും ട്രോളുകളും."
+  },
+  kerala: {
+    name: "കേരളം",
+    desc: "നാട്ടുവിശേഷങ്ങളും കേരളാ തനിമയും."
+  },
+  photography: {
+    name: "ഫോട്ടോഗ്രഫി",
+    desc: "ക്യാമറക്കണ്ണിലൂടെ കണ്ടെത്തിയ నిമിഷങ്ങൾ."
+  },
+  business: {
+    name: "ബിസിനസ്സ്",
+    desc: "വിശ്വാസ്യതയും പ്രൊഫഷണൽ രീതികളും."
+  }
+};
+
 export default function Categories({ onSelectCategory }: CategoriesProps) {
+  const { t, language } = useLanguage();
+
   return (
     <section className="py-16 bg-[#faf9f6]" id="categories">
       <div className="max-w-6xl mx-auto px-4 text-center">
@@ -36,45 +90,52 @@ export default function Categories({ onSelectCategory }: CategoriesProps) {
             </div>
           </div>
           <h2 className="text-3xl font-black text-slate-900 tracking-tight" id="categories-heading">
-            Explore Caption Categories
+            {language === 'en' ? "Explore Caption Categories" : "വിഭാഗങ്ങൾ കണ്ടെത്തൂ"}
           </h2>
           <p className="text-sm text-slate-500 mt-2">
-            Click on any category to load custom curated templates directly into the generator studio.
+            {language === 'en' ? "Click on any category to load custom curated templates directly into the generator studio." : "കൂടുതൽ വരികൾ ജനറേറ്ററിലേക്ക് ലോഡ് ചെയ്യുന്നതിനായി ഏതെങ്കിലും ഒരു വിഭാഗം തിരഞ്ഞെടുക്കുക."}
           </p>
         </div>
 
         {/* Categories Bento Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="categories-grid-container">
-          {CATEGORY_ITEMS.map((item) => (
-            <div
-              key={item.id}
-              onClick={() => onSelectCategory(item.id)}
-              className="group bg-white rounded-[24px] p-5 border border-slate-200 hover:border-purple-300 hover:shadow-md transition-all duration-300 cursor-pointer flex flex-col justify-between text-left relative overflow-hidden"
-              id={`category-card-${item.id}`}
-            >
-              {/* Corner Color Dot */}
-              <div className={`absolute top-0 right-0 w-3 h-3 bg-gradient-to-br ${item.color} rounded-bl-xl opacity-80 group-hover:w-full group-hover:h-1 group-hover:rounded-none transition-all duration-300`} />
+          {CATEGORY_ITEMS.map((item) => {
+            const translation = CATEGORY_TRANSLATIONS[item.id];
+            const name = language === 'en' || !translation ? item.name : translation.name;
+            const desc = language === 'en' || !translation ? item.desc : translation.desc;
 
-              <div>
-                <span className="text-3xl block mb-4 group-hover:scale-110 transition-transform origin-left">
-                  {item.emoji}
-                </span>
-                <h3 className="font-extrabold text-neutral-800 text-sm md:text-base group-hover:text-purple-600 transition-colors">
-                  {item.name}
-                </h3>
-                <p className="text-[11px] text-neutral-400 mt-1 leading-normal">
-                  {item.desc}
-                </p>
-              </div>
+            return (
+              <div
+                key={item.id}
+                onClick={() => onSelectCategory(item.id)}
+                className="group bg-white rounded-[24px] p-5 border border-slate-200 hover:border-purple-300 hover:shadow-md transition-all duration-300 cursor-pointer flex flex-col justify-between text-left relative overflow-hidden"
+                id={`category-card-${item.id}`}
+              >
+                {/* Corner Color Dot */}
+                <div className={`absolute top-0 right-0 w-3 h-3 bg-gradient-to-br ${item.color} rounded-bl-xl opacity-80 group-hover:w-full group-hover:h-1 group-hover:rounded-none transition-all duration-300`} />
 
-              <div className="mt-4 flex items-center gap-1.5 text-[10px] font-extrabold text-purple-600 uppercase tracking-widest group-hover:translate-x-1 transition-transform">
-                Generate Captions
-                <span className="text-xs">→</span>
+                <div>
+                  <span className="text-3xl block mb-4 group-hover:scale-110 transition-transform origin-left">
+                    {item.emoji}
+                  </span>
+                  <h3 className="font-extrabold text-neutral-800 text-sm md:text-base group-hover:text-purple-600 transition-colors">
+                    {name}
+                  </h3>
+                  <p className="text-[11px] text-neutral-400 mt-1 leading-normal">
+                    {desc}
+                  </p>
+                </div>
+
+                <div className="mt-4 flex items-center gap-1.5 text-[10px] font-extrabold text-purple-600 uppercase tracking-widest group-hover:translate-x-1 transition-transform">
+                  {language === 'en' ? "Generate Captions" : "ക്യാപ്ഷൻ തയ്യാറാക്കുക"}
+                  <span className="text-xs">→</span>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
+
