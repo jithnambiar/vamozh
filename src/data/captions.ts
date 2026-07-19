@@ -6,11 +6,22 @@
 export interface CaptionItem {
   id: string;
   text: string;
-  language: 'malayalam' | 'manglish' | 'mixed';
-  category: 'love' | 'attitude' | 'travel' | 'friendship' | 'wedding' | 'self-love' | 'motivation' | 'aesthetic' | 'funny' | 'kerala' | 'photography' | 'business';
-  tone: 'short' | 'emotional' | 'classy' | 'cute' | 'bold' | 'funny' | 'romantic' | 'professional' | 'aesthetic' | 'motivation';
-  type: 'caption' | 'bio' | 'hook' | 'hashtag_set';
-  tags: string[];
+  language: 'malayalam' | 'manglish' | 'english' | 'mixed';
+  category?: string; // legacy support
+  tone?: string; // legacy support
+  type?: string; // legacy support
+  tags?: string[]; // legacy support
+
+  // New multi-dimensional properties for high-precision writing assistant
+  platforms?: string[];
+  contentTypes?: string[];
+  categories?: string[];
+  moods?: string[];
+  occasions?: string[];
+  tones?: string[];
+  length?: 'one-line' | 'short' | 'medium' | 'detailed';
+  keywords?: string[];
+  hashtags?: string[];
 }
 
 // Opening phrases based on Category and Tone to prepend for variation
@@ -1819,138 +1830,263 @@ export const EMOJI_BANK: Record<string, string[]> = {
   business: ["💼", "📈", "🎯", "🚀", "💡", "💰", "🤝", "📊", "🏛️"]
 };
 
-// Generates varied, customized caption results
-export function generateCaptions(options: {
-  contentType: 'caption' | 'bio' | 'hook' | 'hashtag_set';
-  language: 'malayalam' | 'manglish' | 'mixed';
-  category: CaptionItem['category'];
-  tone: CaptionItem['tone'];
-  keyword?: string;
-  emojiSetting: 'none' | 'minimal' | 'more';
-  resultsCount: number;
-}): Array<{ text: string; hashtags: string[]; id: string }> {
-  const fullDb = generateDatabase();
+// Helper to map any legacy item to the complete modern multi-dimensional schema
+export function mapToNewSchema(item: any): Required<Omit<CaptionItem, 'category' | 'tone' | 'type' | 'tags'>> {
+  const platforms = item.platforms || [
+    item.type === 'bio' ? 'general' : 'instagram'
+  ];
   
-  // Filter base on conditions
-  let filtered = fullDb.filter(item => {
-    // Check type
-    if (item.type !== options.contentType) return false;
-    
-    // Check language
-    if (item.language !== options.language) return false;
-    
-    // Check category
-    if (item.category !== options.category) return false;
-    
-    // Check keyword if specified
-    if (options.keyword && options.keyword.trim() !== '') {
-      const kw = options.keyword.toLowerCase().trim();
-      const textMatch = item.text.toLowerCase().includes(kw);
-      const tagMatch = item.tags.some(t => t.toLowerCase().includes(kw));
-      if (!textMatch && !tagMatch) return false;
-    }
-    
-    return true;
-  });
+  const contentTypes = item.contentTypes || [
+    item.type === 'bio' ? 'bio' : 
+    item.type === 'hook' ? 'reel-hook' : 'photo-caption'
+  ];
 
-  // If filtered is empty, relax category/tone restrictions to offer related matches
-  if (filtered.length === 0) {
-    filtered = fullDb.filter(item => {
-      if (item.type !== options.contentType) return false;
-      if (item.language !== options.language) return false;
-      return true;
-    });
+  const categories = item.categories || (item.category ? [item.category] : ['kerala']);
+  
+  const moods = item.moods || [
+    item.tone === 'romantic' ? 'romantic' :
+    item.tone === 'funny' ? 'sarcastic' :
+    item.tone === 'emotional' ? 'emotional' : 'calm'
+  ];
+
+  const occasions = item.occasions || ['general'];
+  const tones = item.tones || (item.tone ? [item.tone] : ['classy']);
+  
+  let lengthVal: 'one-line' | 'short' | 'medium' | 'detailed' = 'medium';
+  if (item.length) {
+    lengthVal = item.length;
+  } else if (item.tone === 'short') {
+    lengthVal = 'short';
   }
 
-  // Shuffle filtered array to get original order each time
-  const shuffled = [...filtered].sort(() => Math.random() - 0.5);
-  
-  // Select resultsCount items
-  const selected = shuffled.slice(0, options.resultsCount);
+  const keywords = item.keywords || item.tags || [];
+  const hashtags = item.hashtags || (item.tags ? item.tags.map((t: string) => `#${t}`) : []);
 
-  // If even then we have less than requested, fill with generic templates + keyword injection
+  return {
+    id: item.id,
+    text: item.text,
+    language: item.language || 'malayalam',
+    platforms,
+    contentTypes,
+    categories,
+    moods,
+    occasions,
+    tones,
+    length: lengthVal,
+    keywords,
+    hashtags
+  };
+}
+
+export interface GenerateOptions {
+  platform: string;
+  contentType: string;
+  language: 'malayalam' | 'manglish' | 'english' | 'mixed';
+  category: string;
+  mood: string;
+  occasion: string;
+  tone: string;
+  length: 'one-line' | 'short' | 'medium' | 'detailed';
+  emojiSetting: 'none' | 'minimal' | 'more';
+  resultsCount: number;
+  keyword?: string;
+  hashtagCount: 'none' | '5' | '10' | '15';
+}
+
+export interface GenerateResponse {
+  results: Array<{
+    id: string;
+    text: string;
+    hashtags: string[];
+    platform: string;
+    language: string;
+    mood: string;
+    occasion: string;
+    charCount: number;
+  }>;
+  isFallbackUsed: boolean;
+  message?: string;
+}
+
+// Generates varied, customized caption results with exact-match scoring and robust fallback mapping
+export function generateCaptions(options: GenerateOptions): GenerateResponse {
+  const fullDb = generateDatabase();
+  
+  // Scoring algorithm
+  const scoredItems = fullDb.map(rawItem => {
+    const item = mapToNewSchema(rawItem);
+    let score = 0;
+    
+    // 1. Language matching (Critical: +5)
+    if (item.language === options.language) {
+      score += 5;
+    }
+    
+    // 2. Platform compatibility (+4)
+    if (item.platforms.includes(options.platform) || item.platforms.includes('general')) {
+      score += 4;
+    }
+    
+    // 3. Content Type compatibility (+4)
+    if (item.contentTypes.includes(options.contentType)) {
+      score += 4;
+    }
+    
+    // 4. Vibe Category compatibility (+3)
+    if (item.categories.includes(options.category)) {
+      score += 3;
+    }
+    
+    // 5. Mood matching (+2)
+    if (item.moods.includes(options.mood)) {
+      score += 2;
+    }
+    
+    // 6. Occasion matching (+2)
+    if (item.occasions.includes(options.occasion)) {
+      score += 2;
+    }
+    
+    // 7. Expressive Tone matching (+2)
+    if (item.tones.includes(options.tone)) {
+      score += 2;
+    }
+    
+    // 8. Length matching (+1)
+    if (item.length === options.length) {
+      score += 1;
+    }
+    
+    // 9. Specific Keyword Search (+8 - huge bump for intent)
+    if (options.keyword && options.keyword.trim()) {
+      const kw = options.keyword.toLowerCase().trim();
+      const textContains = item.text.toLowerCase().includes(kw);
+      const keywordsContain = item.keywords.some(k => k.toLowerCase().includes(kw));
+      if (textContains || keywordsContain) {
+        score += 8;
+      }
+    }
+    
+    return { item, score };
+  });
+
+  // Sort items descending by score
+  const sorted = scoredItems.sort((a, b) => b.score - a.score);
+  
+  // Decide threshold for "Good Match"
+  // Maximum possible score (without keyword) is 5+4+4+3+2+2+2+1 = 23.
+  // If top item has less than 13 points, we count it as a partial/fallback match.
+  const topScore = sorted[0]?.score || 0;
+  const isFallbackUsed = topScore < 13;
+
+  // Take the top results
+  let selected = sorted.slice(0, options.resultsCount).map(s => s.item);
+
+  // If we don't have enough results, fill them dynamically
   while (selected.length < options.resultsCount) {
-    // Generate a fallback caption dynamically
-    const randomId = `dynamic_fallback_${Math.random().toString(36).substr(2, 9)}`;
-    const categoryHashtags = CATEGORY_HASHTAGS[options.category] || [];
-    const randomTags = [categoryHashtags[0], categoryHashtags[1]].filter(Boolean);
+    const randomId = `dyn_${Math.random().toString(36).substring(2, 9)}`;
+    let text = "";
     
-    let dynText = "";
-    const isMalayalam = options.language === 'malayalam';
-    const isMixed = options.language === 'mixed';
-    
-    if (isMalayalam) {
+    // Simple organic combinations
+    const categoryHashtags = CATEGORY_HASHTAGS[options.category] || ["#KeralaVibes"];
+    const hashtagSeed1 = categoryHashtags[0] || "#vamozhi";
+    const hashtagSeed2 = categoryHashtags[1] || "#keralagram";
+
+    if (options.language === 'malayalam') {
       const openings = OPENING_PHRASES.malayalam[options.category] || ["ചില നിമിഷങ്ങൾ... "];
       const bridges = EMOTIONAL_BRIDGES.malayalam;
       const opening = openings[Math.floor(Math.random() * openings.length)];
       const bridge = bridges[Math.floor(Math.random() * bridges.length)];
-      
-      const kw = options.keyword && options.keyword.trim() !== '' ? ` (${options.keyword})` : "";
-      dynText = `${opening}${bridge}${kw} എപ്പോഴും സ്നേഹത്തോടെയും സന്തോഷത്തോടെയും മുന്നോട്ട്.`;
-    } else if (isMixed) {
-      const kw = options.keyword && options.keyword.trim() !== '' ? `${options.keyword} is essential.` : "Life is beautiful.";
-      dynText = `${kw} ചില മനോഹരമായ ഓർമ്മകൾ നമ്മെ ജീവിക്കാൻ പ്രേരിപ്പിക്കുന്നു. Let's make memories together.`;
-    } else {
+      const kwStr = options.keyword ? ` ${options.keyword} - ` : "";
+      text = `${opening}${bridge}${kwStr}നമ്മുടെ ജീവിതത്തിൽ സന്തോഷവും പോസിറ്റിവിറ്റിയും എപ്പോഴും നിറഞ്ഞുനിൽക്കട്ടെ.`;
+    } else if (options.language === 'manglish') {
       const openings = OPENING_PHRASES.manglish[options.category] || ["Chila nalla nimishangal... "];
       const bridges = EMOTIONAL_BRIDGES.manglish;
       const opening = openings[Math.floor(Math.random() * openings.length)];
       const bridge = bridges[Math.floor(Math.random() * bridges.length)];
-      
-      const kw = options.keyword && options.keyword.trim() !== '' ? ` about ${options.keyword}` : "";
-      dynText = `${opening}${bridge}${kw} Keep smiling and love life forever!`;
+      const kwStr = options.keyword ? ` about ${options.keyword} ` : "";
+      text = `${opening}${bridge}${kwStr}Keep spreading positive vibes everywhere you go!`;
+    } else if (options.language === 'mixed') {
+      const kwStr = options.keyword ? `${options.keyword} - ` : "";
+      text = `✨ ${kwStr}ഒരു കൊച്ചു സുന്ദരമായ ഓർമ്മക്കൂട്ട്. Truly special and heart touching moments in life!`;
+    } else {
+      // English fallback
+      const kwStr = options.keyword ? `Regarding ${options.keyword}: ` : "";
+      text = `${kwStr}Life is a collection of beautiful moments. Keep smiling and cherish every single second!`;
     }
 
-    // Double check to avoid repeating
-    if (selected.some(item => item.text === dynText)) {
-      break; 
+    if (selected.some(s => s.text === text)) {
+      break; // Avoid infinite loop
     }
 
     selected.push({
       id: randomId,
-      text: dynText,
+      text,
       language: options.language,
-      category: options.category,
-      tone: options.tone,
-      type: options.contentType,
-      tags: ['dynamic', ...randomTags]
+      platforms: [options.platform],
+      contentTypes: [options.contentType],
+      categories: [options.category],
+      moods: [options.mood],
+      occasions: [options.occasion],
+      tones: [options.tone],
+      length: options.length,
+      keywords: options.keyword ? [options.keyword] : [],
+      hashtags: [hashtagSeed1, hashtagSeed2]
     });
   }
 
-  // Map and apply emoji setting and hashtags
-  return selected.map((item, index) => {
+  // Deduplicate and process results (apply emoji configurations and hashtag counts)
+  const results = selected.map((item, index) => {
     let text = item.text;
-    
-    // Check if keyword can be replaced inside text
-    if (options.keyword && options.keyword.trim() !== '') {
-      const keywordClean = options.keyword.trim();
-      // Replace placeholder if present
-      text = text.replace(/\[KEYWORD\]/g, keywordClean)
-                 .replace(/\[TOPIC\]/g, keywordClean);
+
+    // Organic keyword injection if keyword is active but not inside text
+    if (options.keyword && options.keyword.trim()) {
+      const kw = options.keyword.trim();
+      if (!text.toLowerCase().includes(kw.toLowerCase())) {
+        if (options.language === 'malayalam') {
+          text = `[${kw}] ${text}`;
+        } else {
+          text = `✨ ${kw} - ${text}`;
+        }
+      }
     }
 
     // Apply Emojis
-    const catEmojis = EMOJI_BANK[options.category] || ["✨", "🚀"];
+    const catEmojis = EMOJI_BANK[options.category] || ["✨", "💖"];
     const shuffledEmojis = [...catEmojis].sort(() => Math.random() - 0.5);
     
     if (options.emojiSetting === 'none') {
-      // Clean existing emojis from the text if possible (optional, but keep natural emojis)
+      // Keep plain text
     } else if (options.emojiSetting === 'minimal') {
-      text = `${shuffledEmojis[0]} ${text} ${shuffledEmojis[1] || ''}`;
+      text = `${shuffledEmojis[0]} ${text} ${shuffledEmojis[1] || ""}`;
     } else if (options.emojiSetting === 'more') {
-      text = `${shuffledEmojis[0]}${shuffledEmojis[1] || ''} ${text} ${shuffledEmojis[2] || ''}${shuffledEmojis[3] || ''} ✨🔥`;
+      text = `${shuffledEmojis[0]}${shuffledEmojis[1] || "✨"} ${text} ${shuffledEmojis[2] || "🔥"}${shuffledEmojis[3] || "🌴"} 🙌`;
     }
 
-    // Form appropriate hashtags
-    const availableHashtags = CATEGORY_HASHTAGS[options.category] || ["#instavibes", "#keralavibes"];
-    // Shuffle and pick 4-6 hashtags
-    const chosenHashtags = [...availableHashtags]
+    // Build requested number of hashtags
+    const hCount = options.hashtagCount === 'none' ? 0 : parseInt(options.hashtagCount, 10) || 5;
+    const categoryHashtags = CATEGORY_HASHTAGS[options.category] || ["#Vamozhi", "#KeralaVibes"];
+    const chosenHashtags = [...categoryHashtags]
       .sort(() => Math.random() - 0.5)
-      .slice(0, 5);
+      .slice(0, hCount);
 
     return {
-      id: item.id + "_" + index,
-      text: text,
-      hashtags: chosenHashtags
+      id: `${item.id}_res_${index}`,
+      text,
+      hashtags: chosenHashtags,
+      platform: options.platform,
+      language: options.language,
+      mood: options.mood,
+      occasion: options.occasion,
+      charCount: text.length + (chosenHashtags.join(" ").length)
     };
   });
+
+  return {
+    results,
+    isFallbackUsed,
+    message: isFallbackUsed 
+      ? "Perfect direct-match captions are currently being expanded. Showing highly relevant partial matches instead!" 
+      : "Original, high-precision matches generated successfully!"
+  };
 }

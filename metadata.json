@@ -1,6 +1,6 @@
 {
-  "name": "CaptionMallu",
-  "description": "Free Malayalam Instagram Caption Generator – Create original Malayalam & Manglish captions, bios, Reel hooks, and hashtags.",
+  "name": "VAMOZHI",
+  "description": "Create Malayalam and Manglish captions, bios, Reel hooks, social posts and hashtags for Instagram, Facebook, WhatsApp, Snapchat, TikTok and more with VAMOZHI.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

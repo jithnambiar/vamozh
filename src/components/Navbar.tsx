@@ -3,17 +3,70 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect } from "react";
-import { Menu, X, Sparkles, Heart } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { 
+  Menu, 
+  X, 
+  Heart, 
+  Search, 
+  ChevronDown, 
+  Smartphone, 
+  HeartHandshake, 
+  Sparkles, 
+  BookOpen, 
+  Info,
+  ChevronRight
+} from "lucide-react";
 
 interface NavbarProps {
   favouritesCount: number;
   onOpenFavourites: () => void;
+  currentPath: string;
+  onNavigate: (path: string) => void;
 }
 
-export default function Navbar({ favouritesCount, onOpenFavourites }: NavbarProps) {
+const SOCIAL_APPS_TOOLS = [
+  { name: "Instagram Captions", path: "/instagram-caption-generator" },
+  { name: "Facebook Posts", path: "/facebook-caption-generator" },
+  { name: "WhatsApp Status", path: "/whatsapp-status-generator" },
+  { name: "Snapchat Captions", path: "/snapchat-caption-generator" },
+  { name: "TikTok Captions", path: "/tiktok-caption-generator" }
+];
+
+const DATING_MATRIMONY_TOOLS = [
+  { name: "Arike Dating Bio", path: "/arike-bio-generator" },
+  { name: "Bumble Profile Bio", path: "/bumble-bio-generator" },
+  { name: "Tinder Intros", path: "/bumble-bio-generator" },
+  { name: "Matrimony Profile", path: "/matrimony-bio-generator" }
+];
+
+const ALL_SEARCHABLE_TOOLS = [
+  { name: "Instagram Caption Generator", path: "/instagram-caption-generator" },
+  { name: "Facebook Post Generator", path: "/facebook-caption-generator" },
+  { name: "WhatsApp Status Generator", path: "/whatsapp-status-generator" },
+  { name: "Snapchat Caption Creator", path: "/snapchat-caption-generator" },
+  { name: "TikTok Video Caption", path: "/tiktok-caption-generator" },
+  { name: "Arike Dating Bio", path: "/arike-bio-generator" },
+  { name: "Bumble Profile Bio", path: "/bumble-bio-generator" },
+  { name: "Matrimony Bio Generator", path: "/matrimony-bio-generator" },
+  { name: "Manglish to Malayalam Typing", path: "/manglish-to-malayalam" },
+  { name: "Instagram Reel Hooks", path: "/malayalam-reel-hooks" },
+  { name: "Malayalam Hashtag Sets", path: "/malayalam-hashtags" }
+];
+
+export default function Navbar({ favouritesCount, onOpenFavourites, currentPath, onNavigate }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  
+  // Search state
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<{ name: string; path: string }[]>([]);
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const searchRef = useRef<HTMLDivElement>(null);
+
+  // Active Dropdowns state (Mobile)
+  const [mobileSocialOpen, setMobileSocialOpen] = useState(false);
+  const [mobileDatingOpen, setMobileDatingOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,207 +76,335 @@ export default function Navbar({ favouritesCount, onOpenFavourites }: NavbarProp
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (id: string) => {
-    setIsOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = 80; // height of sticky header
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
+  // Handle outside click to close search suggestions
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setIsSearchFocused(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
+  // Handle search typing
+  const handleSearchChange = (val: string) => {
+    setSearchQuery(val);
+    if (!val.trim()) {
+      setSearchResults([]);
+      return;
     }
+    const filtered = ALL_SEARCHABLE_TOOLS.filter(tool => 
+      tool.name.toLowerCase().includes(val.toLowerCase())
+    );
+    setSearchResults(filtered);
+  };
+
+  const handleSearchResultClick = (path: string) => {
+    onNavigate(path);
+    setSearchQuery("");
+    setSearchResults([]);
+    setIsSearchFocused(false);
+    setIsOpen(false);
+  };
+
+  const handleLogoClick = () => {
+    onNavigate("/");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
     <nav
       id="main-navigation"
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md border-b border-slate-200 shadow-sm py-3"
-          : "bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md border-b border-slate-100 py-4"
+          ? "bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm py-2.5"
+          : "bg-white/90 backdrop-blur-md border-b border-slate-100 py-3.5"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-4">
+          
           {/* Logo / Branding */}
           <div
-            className="flex items-center gap-3 cursor-pointer group"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="flex items-center gap-3 cursor-pointer group shrink-0"
+            onClick={handleLogoClick}
             id="nav-brand-logo"
           >
-            <div className="w-10 h-10 bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg transform -rotate-6 italic group-hover:rotate-0 transition-transform">
-              CM
+            <div className="w-10 h-10 bg-gradient-to-br from-purple-800 via-pink-600 to-orange-500 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-md transform -rotate-3 group-hover:rotate-0 transition-transform italic">
+              V
             </div>
-            <div>
-              <span className="text-xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-purple-800 to-pink-600 italic">
-                CaptionMallu
+            <div className="text-left">
+              <span className="text-xl font-black tracking-tight text-purple-950 uppercase block leading-none">
+                VAMOZHI
               </span>
-              <span className="block text-[9px] font-bold text-slate-400 tracking-widest uppercase">
-                Malayalam Creator
+              <span className="text-[9px] font-extrabold text-pink-600 tracking-wider uppercase block mt-1">
+                Your Vibe. Your Words.
               </span>
             </div>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8" id="desktop-nav-menu">
+          {/* Desktop Navigation Links */}
+          <div className="hidden lg:flex items-center gap-6" id="desktop-nav-menu">
             <button
-              onClick={() => scrollToSection("generator")}
-              className="text-sm font-semibold text-neutral-600 hover:text-purple-600 transition-colors"
-              id="link-generator"
+              onClick={() => onNavigate("/")}
+              className={`text-xs font-extrabold uppercase tracking-wider transition-colors cursor-pointer ${
+                currentPath === "/" ? "text-purple-900" : "text-slate-500 hover:text-purple-800"
+              }`}
             >
-              Generator
+              Home
             </button>
+
+            {/* Social Apps Dropdown */}
+            <div className="relative group/dropdown">
+              <button className="text-xs font-extrabold uppercase tracking-wider text-slate-500 hover:text-purple-800 flex items-center gap-1 py-1 cursor-pointer">
+                Social Apps
+                <ChevronDown className="w-3.5 h-3.5" />
+              </button>
+              <div className="absolute top-full left-0 mt-1 w-48 bg-white border border-slate-100 rounded-xl shadow-xl py-2 opacity-0 translate-y-2 pointer-events-none group-hover/dropdown:opacity-100 group-hover/dropdown:translate-y-0 group-hover/dropdown:pointer-events-auto transition-all duration-200">
+                {SOCIAL_APPS_TOOLS.map((app) => (
+                  <button
+                    key={app.path}
+                    onClick={() => onNavigate(app.path)}
+                    className="w-full text-left px-4 py-2 text-xs font-bold text-slate-700 hover:bg-purple-50 hover:text-purple-900 transition-colors cursor-pointer"
+                  >
+                    {app.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Dating & Matrimony Dropdown */}
+            <div className="relative group/dropdown">
+              <button className="text-xs font-extrabold uppercase tracking-wider text-slate-500 hover:text-purple-800 flex items-center gap-1 py-1 cursor-pointer">
+                Dating & Matrimony
+                <ChevronDown className="w-3.5 h-3.5" />
+              </button>
+              <div className="absolute top-full left-0 mt-1 w-48 bg-white border border-slate-100 rounded-xl shadow-xl py-2 opacity-0 translate-y-2 pointer-events-none group-hover/dropdown:opacity-100 group-hover/dropdown:translate-y-0 group-hover/dropdown:pointer-events-auto transition-all duration-200">
+                {DATING_MATRIMONY_TOOLS.map((app) => (
+                  <button
+                    key={app.path}
+                    onClick={() => onNavigate(app.path)}
+                    className="w-full text-left px-4 py-2 text-xs font-bold text-slate-700 hover:bg-purple-50 hover:text-purple-900 transition-colors cursor-pointer"
+                  >
+                    {app.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             <button
-              onClick={() => scrollToSection("categories")}
-              className="text-sm font-semibold text-neutral-600 hover:text-purple-600 transition-colors"
-              id="link-categories"
+              onClick={() => onNavigate("/manglish-to-malayalam")}
+              className={`text-xs font-extrabold uppercase tracking-wider transition-colors cursor-pointer ${
+                currentPath === "/manglish-to-malayalam" ? "text-purple-900" : "text-slate-500 hover:text-purple-800"
+              }`}
             >
-              Categories
+              Manglish Typing
             </button>
+
             <button
-              onClick={() => scrollToSection("trending")}
-              className="text-sm font-semibold text-neutral-600 hover:text-purple-600 transition-colors"
-              id="link-trending"
+              onClick={() => onNavigate("/about")}
+              className={`text-xs font-extrabold uppercase tracking-wider transition-colors cursor-pointer ${
+                currentPath === "/about" ? "text-purple-900" : "text-slate-500 hover:text-purple-800"
+              }`}
             >
-              Trending
+              About
             </button>
-            <button
-              onClick={() => scrollToSection("seo-content")}
-              className="text-sm font-semibold text-neutral-600 hover:text-purple-600 transition-colors"
-              id="link-guide"
-            >
-              Creator Guide
-            </button>
-            <button
-              onClick={() => scrollToSection("faq")}
-              className="text-sm font-semibold text-neutral-600 hover:text-purple-600 transition-colors"
-              id="link-faq"
-            >
-              FAQ
-            </button>
+          </div>
+
+          {/* Find a Tool Search Bar (Desktop) */}
+          <div ref={searchRef} className="hidden md:block relative max-w-xs w-full" id="nav-search-container">
+            <div className="relative">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => handleSearchChange(e.target.value)}
+                onFocus={() => setIsSearchFocused(true)}
+                placeholder="Find a writing tool..."
+                className="w-full pl-9 pr-4 py-1.5 bg-slate-50 hover:bg-slate-100/80 focus:bg-white text-xs font-medium rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-purple-600 transition-all text-slate-800 placeholder:text-slate-400"
+              />
+              <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
+            </div>
+
+            {/* Suggestions Overlay */}
+            {isSearchFocused && searchResults.length > 0 && (
+              <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-slate-100 rounded-2xl shadow-2xl py-2 z-50 text-left">
+                <span className="block px-4 py-1 text-[9px] font-extrabold text-slate-400 uppercase tracking-widest border-b border-slate-50 mb-1">
+                  Suggested Tools
+                </span>
+                {searchResults.map((tool) => (
+                  <button
+                    key={tool.path}
+                    onClick={() => handleSearchResultClick(tool.path)}
+                    className="w-full text-left px-4 py-2 text-xs font-bold text-slate-700 hover:bg-purple-50 hover:text-purple-900 transition-colors flex items-center justify-between cursor-pointer"
+                  >
+                    {tool.name}
+                    <ChevronRight className="w-3 h-3 text-slate-400" />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Right Action buttons */}
-          <div className="hidden md:flex items-center gap-4" id="nav-actions">
+          <div className="flex items-center gap-2" id="nav-actions">
+            {/* Saved Drawer Icon */}
             <button
               onClick={onOpenFavourites}
-              className="relative p-2.5 rounded-full hover:bg-neutral-100 transition-colors text-neutral-600 group"
-              aria-label="View Favourites"
+              className="relative p-2.5 rounded-full hover:bg-slate-50 transition-colors text-slate-600 group cursor-pointer"
+              aria-label="View Saved Items"
               id="btn-nav-fav"
             >
-              <Heart className={`w-5.5 h-5.5 group-hover:text-red-500 transition-colors ${favouritesCount > 0 ? 'fill-red-500 text-red-500' : ''}`} />
+              <Heart className={`w-5 h-5 group-hover:text-red-500 transition-colors ${favouritesCount > 0 ? 'fill-red-500 text-red-500' : ''}`} />
               {favouritesCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center ring-2 ring-white">
+                <span className="absolute -top-0.5 -right-0.5 bg-pink-600 text-white text-[9px] font-black w-4.5 h-4.5 rounded-full flex items-center justify-center ring-2 ring-white">
                   {favouritesCount}
                 </span>
               )}
             </button>
 
-            <button
-              onClick={() => scrollToSection("generator")}
-              className="px-5 py-2.5 bg-slate-900 text-white rounded-full text-xs font-bold hover:bg-purple-700 transition-colors shadow-sm active:scale-98"
-              id="btn-nav-generate-cta"
-            >
-              Generate Caption
-            </button>
-          </div>
-
-          {/* Mobile Buttons */}
-          <div className="flex items-center gap-2 md:hidden" id="mobile-nav-controls">
-            <button
-              onClick={onOpenFavourites}
-              className="relative p-2 rounded-full text-neutral-600"
-              aria-label="View Favourites"
-              id="btn-mobile-fav"
-            >
-              <Heart className={`w-5.5 h-5.5 ${favouritesCount > 0 ? 'fill-red-500 text-red-500' : ''}`} />
-              {favouritesCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[9px] font-extrabold w-4.5 h-4.5 rounded-full flex items-center justify-center ring-2 ring-white">
-                  {favouritesCount}
-                </span>
-              )}
-            </button>
-
+            {/* Mobile hamburger toggle */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-full text-neutral-600 hover:bg-neutral-100"
-              aria-label="Toggle menu"
+              className="p-2 rounded-full text-slate-600 hover:bg-slate-50 lg:hidden cursor-pointer"
+              aria-label="Toggle main menu"
               id="btn-mobile-menu"
             >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isOpen ? <X className="w-5.5 h-5.5" /> : <Menu className="w-5.5 h-5.5" />}
             </button>
           </div>
+
         </div>
       </div>
 
       {/* Mobile Drawer Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 top-[60px] bg-neutral-900/40 backdrop-blur-sm z-30 md:hidden"
+          className="fixed inset-0 top-[60px] bg-slate-900/30 backdrop-blur-xs z-40 lg:hidden"
           onClick={() => setIsOpen(false)}
           id="mobile-drawer-overlay"
         />
       )}
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Menu Drawer */}
       <div
         id="mobile-drawer-menu"
-        className={`fixed top-[65px] right-0 bottom-0 w-4/5 max-w-sm bg-white border-l border-neutral-100 shadow-2xl z-35 md:hidden transition-transform duration-350 ease-out transform ${
+        className={`fixed top-[58px] right-0 bottom-0 w-4/5 max-w-sm bg-white border-l border-slate-200 shadow-2xl z-45 lg:hidden transition-transform duration-300 ease-out transform ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="p-6 flex flex-col gap-5">
-          <button
-            onClick={() => scrollToSection("generator")}
-            className="flex items-center justify-between text-left py-2 font-bold text-neutral-700 hover:text-purple-600 border-b border-neutral-50"
-            id="mobile-link-generator"
-          >
-            Caption Generator ⚡
-          </button>
-          <button
-            onClick={() => scrollToSection("categories")}
-            className="flex items-center justify-between text-left py-2 font-bold text-neutral-700 hover:text-purple-600 border-b border-neutral-50"
-            id="mobile-link-categories"
-          >
-            Explore Categories 📁
-          </button>
-          <button
-            onClick={() => scrollToSection("trending")}
-            className="flex items-center justify-between text-left py-2 font-bold text-neutral-700 hover:text-purple-600 border-b border-neutral-50"
-            id="mobile-link-trending"
-          >
-            Trending Captions 🔥
-          </button>
-          <button
-            onClick={() => scrollToSection("seo-content")}
-            className="flex items-center justify-between text-left py-2 font-bold text-neutral-700 hover:text-purple-600 border-b border-neutral-50"
-            id="mobile-link-guide"
-          >
-            Creator Guide 📝
-          </button>
-          <button
-            onClick={() => scrollToSection("faq")}
-            className="flex items-center justify-between text-left py-2 font-bold text-neutral-700 hover:text-purple-600 border-b border-neutral-50"
-            id="mobile-link-faq"
-          >
-            FAQ Help ❓
-          </button>
+        <div className="p-6 flex flex-col gap-5 overflow-y-auto h-full text-left">
+          
+          {/* Mobile Search field */}
+          <div className="relative w-full">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => handleSearchChange(e.target.value)}
+              placeholder="Search tools..."
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 text-xs font-semibold rounded-xl border border-slate-200 focus:outline-none focus:ring-1 focus:ring-purple-600 text-slate-800"
+            />
+            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+            {searchResults.length > 0 && (
+              <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-slate-200 rounded-xl shadow-xl z-50 text-left py-1.5 max-h-48 overflow-y-auto">
+                {searchResults.map((tool) => (
+                  <button
+                    key={tool.path}
+                    onClick={() => handleSearchResultClick(tool.path)}
+                    className="w-full text-left px-4 py-2 text-xs font-bold text-slate-700 hover:bg-purple-50 transition-colors block"
+                  >
+                    {tool.name}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <button
+              onClick={() => { onNavigate("/"); setIsOpen(false); }}
+              className="py-2.5 font-extrabold text-slate-800 border-b border-slate-50 text-xs uppercase tracking-wider flex items-center gap-2"
+            >
+              <BookOpen className="w-4 h-4 text-purple-600" />
+              Home Page
+            </button>
+
+            {/* Mobile Social Apps Dropdown */}
+            <div>
+              <button
+                onClick={() => setMobileSocialOpen(!mobileSocialOpen)}
+                className="w-full text-left py-2.5 font-extrabold text-slate-800 border-b border-slate-50 text-xs uppercase tracking-wider flex items-center justify-between"
+              >
+                <span className="flex items-center gap-2">
+                  <Smartphone className="w-4 h-4 text-pink-600" />
+                  Social Apps
+                </span>
+                <ChevronDown className={`w-4 h-4 transition-transform ${mobileSocialOpen ? "rotate-180" : ""}`} />
+              </button>
+              {mobileSocialOpen && (
+                <div className="bg-slate-50 rounded-xl p-2 mt-2 flex flex-col gap-1.5">
+                  {SOCIAL_APPS_TOOLS.map((app) => (
+                    <button
+                      key={app.path}
+                      onClick={() => { onNavigate(app.path); setIsOpen(false); }}
+                      className="text-left px-3 py-2 text-xs font-bold text-slate-600 hover:text-purple-900"
+                    >
+                      {app.name}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Mobile Dating Dropdown */}
+            <div>
+              <button
+                onClick={() => setMobileDatingOpen(!mobileDatingOpen)}
+                className="w-full text-left py-2.5 font-extrabold text-slate-800 border-b border-slate-50 text-xs uppercase tracking-wider flex items-center justify-between"
+              >
+                <span className="flex items-center gap-2">
+                  <HeartHandshake className="w-4 h-4 text-red-500" />
+                  Dating & Matrimony
+                </span>
+                <ChevronDown className={`w-4 h-4 transition-transform ${mobileDatingOpen ? "rotate-180" : ""}`} />
+              </button>
+              {mobileDatingOpen && (
+                <div className="bg-slate-50 rounded-xl p-2 mt-2 flex flex-col gap-1.5">
+                  {DATING_MATRIMONY_TOOLS.map((app) => (
+                    <button
+                      key={app.path}
+                      onClick={() => { onNavigate(app.path); setIsOpen(false); }}
+                      className="text-left px-3 py-2 text-xs font-bold text-slate-600 hover:text-purple-900"
+                    >
+                      {app.name}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <button
+              onClick={() => { onNavigate("/manglish-to-malayalam"); setIsOpen(false); }}
+              className="py-2.5 font-extrabold text-slate-800 border-b border-slate-50 text-xs uppercase tracking-wider flex items-center gap-2"
+            >
+              <Sparkles className="w-4 h-4 text-amber-500" />
+              Manglish Typing
+            </button>
+
+            <button
+              onClick={() => { onNavigate("/about"); setIsOpen(false); }}
+              className="py-2.5 font-extrabold text-slate-800 border-b border-slate-50 text-xs uppercase tracking-wider flex items-center gap-2"
+            >
+              <Info className="w-4 h-4 text-blue-500" />
+              About Vamozhi
+            </button>
+          </div>
 
           <button
-            onClick={() => {
-              setIsOpen(false);
-              scrollToSection("generator");
-            }}
-            className="w-full mt-4 py-3 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 text-white font-extrabold rounded-2xl shadow-xl shadow-pink-500/15 text-center active:scale-95 transition-transform"
-            id="mobile-btn-generate"
+            onClick={() => { onNavigate("/"); setIsOpen(false); }}
+            className="w-full mt-4 py-3 bg-gradient-to-r from-purple-800 to-pink-600 text-white font-extrabold rounded-2xl shadow-md text-center text-xs uppercase tracking-wider active:scale-95 transition-transform"
           >
-            Generate Caption Now
+            Launch Main Generator
           </button>
         </div>
       </div>

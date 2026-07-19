@@ -3,9 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Sparkles, Heart } from "lucide-react";
+import { Heart, Globe } from "lucide-react";
 
-export default function Footer() {
+interface FooterProps {
+  onNavigate: (path: string) => void;
+}
+
+export default function Footer({ onNavigate }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -17,78 +21,83 @@ export default function Footer() {
           
           {/* Brand Col */}
           <div className="md:col-span-5 text-left flex flex-col gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg transform -rotate-6 italic">
-                CM
+            <div className="flex items-center gap-3" onClick={() => onNavigate("/")}>
+              <div className="w-9 h-9 bg-gradient-to-br from-purple-800 via-pink-600 to-orange-500 rounded-xl flex items-center justify-center text-white font-black text-lg shadow-md transform -rotate-3 italic cursor-pointer">
+                V
               </div>
-              <span className="font-extrabold text-lg text-white tracking-tight italic">
-                CaptionMallu
+              <span className="font-extrabold text-lg text-white tracking-tight uppercase cursor-pointer">
+                VAMOZHI
               </span>
             </div>
-            <p className="text-sm text-neutral-400 leading-relaxed max-w-sm">
-              The premier Malayalam and Manglish Instagram Caption Generator, empowering Kerala creators and brands with original, high-quality social copy in seconds.
+            <p className="text-xs text-neutral-400 leading-relaxed max-w-sm">
+              Your Vibe. Your Words. In Malayalam. The premier social writing platform and phonetic transliteration suite designed with absolute love for Kerala creators, brands, and lovers around the globe.
             </p>
           </div>
 
           {/* Quick links */}
           <div className="md:col-span-3 text-left">
-            <h4 className="text-xs font-black text-neutral-300 uppercase tracking-widest mb-4">
+            <h4 className="text-[10px] font-black text-neutral-300 uppercase tracking-widest mb-4">
               Creator Hub
             </h4>
-            <ul className="space-y-2.5 text-sm" id="footer-links-hub">
+            <ul className="space-y-2.5 text-xs" id="footer-links-hub">
               <li>
-                <a href="#generator" className="hover:text-purple-400 transition-colors">
+                <button onClick={() => onNavigate("/")} className="hover:text-purple-400 transition-colors cursor-pointer text-left">
                   Caption Generator
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#categories" className="hover:text-purple-400 transition-colors">
-                  Category Explorer
-                </a>
+                <button onClick={() => onNavigate("/manglish-to-malayalam")} className="hover:text-purple-400 transition-colors cursor-pointer text-left">
+                  Phonetic Typing Tool
+                </button>
               </li>
               <li>
-                <a href="#trending" className="hover:text-purple-400 transition-colors">
-                  Trending Captions
-                </a>
+                <button onClick={() => onNavigate("/malayalam-instagram-bio")} className="hover:text-purple-400 transition-colors cursor-pointer text-left">
+                  Instagram Bio Generator
+                </button>
               </li>
               <li>
-                <a href="#seo-content" className="hover:text-purple-400 transition-colors">
-                  Creator Guidelines
-                </a>
+                <button onClick={() => onNavigate("/arike-bio-generator")} className="hover:text-purple-400 transition-colors cursor-pointer text-left">
+                  Arike dating Profile
+                </button>
               </li>
             </ul>
           </div>
 
           {/* Legal and Support */}
           <div className="md:col-span-4 text-left">
-            <h4 className="text-xs font-black text-neutral-300 uppercase tracking-widest mb-4">
+            <h4 className="text-[10px] font-black text-neutral-300 uppercase tracking-widest mb-4">
               Company & Legal
             </h4>
-            <ul className="space-y-2.5 text-sm" id="footer-links-legal">
+            <ul className="space-y-2.5 text-xs" id="footer-links-legal">
               <li>
-                <span className="hover:text-purple-400 transition-colors cursor-pointer">
+                <button onClick={() => onNavigate("/about")} className="hover:text-purple-400 transition-colors cursor-pointer text-left">
                   About Us
-                </span>
+                </button>
               </li>
               <li>
-                <span className="hover:text-purple-400 transition-colors cursor-pointer">
+                <button onClick={() => onNavigate("/privacy-policy")} className="hover:text-purple-400 transition-colors cursor-pointer text-left">
                   Privacy Policy
-                </span>
+                </button>
               </li>
               <li>
-                <span className="hover:text-purple-400 transition-colors cursor-pointer">
-                  Terms of Service
-                </span>
+                <button onClick={() => onNavigate("/cookie-policy")} className="hover:text-purple-400 transition-colors cursor-pointer text-left">
+                  Cookie Policy
+                </button>
               </li>
               <li>
-                <span className="hover:text-purple-400 transition-colors cursor-pointer">
+                <button onClick={() => onNavigate("/terms")} className="hover:text-purple-400 transition-colors cursor-pointer text-left">
+                  Terms & Conditions
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate("/disclaimer")} className="hover:text-purple-400 transition-colors cursor-pointer text-left">
                   Disclaimer Notice
-                </span>
+                </button>
               </li>
               <li>
-                <span className="hover:text-purple-400 transition-colors cursor-pointer">
-                  Contact Support
-                </span>
+                <button onClick={() => onNavigate("/contact")} className="hover:text-purple-400 transition-colors cursor-pointer text-left">
+                  Contact Support / Feedback
+                </button>
               </li>
             </ul>
           </div>
@@ -98,21 +107,19 @@ export default function Footer() {
         {/* Lower Disclaimer Box */}
         <div className="border-t border-neutral-900 pt-8 mt-4 flex flex-col md:flex-row items-center justify-between gap-6" id="footer-credits-box">
           
-          <div className="text-left text-xs text-neutral-500 max-w-xl space-y-2">
+          <div className="text-left text-[11px] text-neutral-500 max-w-xl space-y-2">
             <p className="font-bold">
-              © {currentYear} CaptionMallu. All rights reserved. Made with <Heart className="w-3 h-3 text-red-500 fill-red-500 inline" /> for the Kerala creator community.
+              © {currentYear} VAMOZHI. All rights reserved. Crafted with <Heart className="w-3 h-3 text-red-500 fill-red-500 inline" /> in Kerala.
             </p>
             <p className="leading-relaxed">
-              <strong>Disclaimer:</strong> Instagram, Facebook, WhatsApp, and Meta are registered trademarks of their respective owners. CaptionMallu is an independent, 100% free tool and is not affiliated, sponsored, associated, or officially connected with Meta Platforms Inc. or any of its subsidiaries.
+              <strong>Disclaimer:</strong> Instagram, Facebook, WhatsApp, Snapchat, TikTok, Arike, Bumble, and Tinder are registered trademarks of their respective copyright holders. Vamozhi is an independent, 100% free writing tool and is not affiliated, sponsored, associated, or officially connected with Meta Platforms Inc., ByteDance, Match Group, or any subsidiaries.
             </p>
           </div>
 
           <div className="flex gap-4 text-xs font-bold text-neutral-400">
-            <span className="bg-neutral-900 px-3 py-1.5 rounded-lg border border-neutral-800">
-              Offline Ready 📡
-            </span>
-            <span className="bg-neutral-900 px-3 py-1.5 rounded-lg border border-neutral-800">
-              PWA Supported 📱
+            <span className="bg-neutral-900 px-3 py-1.5 rounded-lg border border-neutral-800 flex items-center gap-1">
+              <Globe className="w-3.5 h-3.5 text-purple-400" />
+              https://vamozhi.com
             </span>
           </div>
 
