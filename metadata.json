@@ -1,0 +1,6 @@
+{
+  "name": "CaptionMallu",
+  "description": "Free Malayalam Instagram Caption Generator – Create original Malayalam & Manglish captions, bios, Reel hooks, and hashtags.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
