@@ -31,13 +31,13 @@ export default function SeoContent() {
           <div className="space-y-4">
             <h3 className="text-xl font-black text-neutral-800 flex items-center gap-2">
               <Compass className="w-5 h-5 text-purple-600" />
-              1. What is CaptionMallu?
+              1. What is Vamozhi?
             </h3>
             <p>
-              <strong>CaptionMallu</strong> is an organic, highly optimized, and completely free Malayalam Instagram Caption Generator built specifically for Kerala creators, influencers, small businesses, and social media enthusiasts. In the rapidly evolving landscape of social media, the difference between an average post and a highly viral post often lies in the caption. For Malayali audiences, this holds even truer. A creative, witty, or deeply emotional Malayalam caption creates an instant cultural connection, fostering genuine user engagement and building real communities.
+              <strong>Vamozhi</strong> is an organic, highly optimized, and completely free Malayalam Instagram Caption Generator built specifically for Kerala creators, influencers, small businesses, and social media enthusiasts. In the rapidly evolving landscape of social media, the difference between an average post and a highly viral post often lies in the caption. For Malayali audiences, this holds even truer. A creative, witty, or deeply emotional Malayalam caption creates an instant cultural connection, fostering genuine user engagement and building real communities.
             </p>
             <p>
-              Whether you are sharing a traditional Kerala Kasavu saree click, a high-octane road trip video through the misty hairpin turns of Idukki and Wayanad, or a heartfelt quote with your closest friends (<em>chanks</em>), CaptionMallu has you covered. It combines a robust local catalog of authentic phrases, smart category tags, and an active generation logic to provide hundreds of original outputs, entirely without requiring registration, login, or any external API fees.
+              Whether you are sharing a traditional Kerala Kasavu saree click, a high-octane road trip video through the misty hairpin turns of Idukki and Wayanad, or a heartfelt quote with your closest friends (<em>chanks</em>), Vamozhi has you covered. It combines a robust local catalog of authentic phrases, smart category tags, and an active generation logic to provide hundreds of original outputs, entirely without requiring registration, login, or any external API fees.
             </p>
           </div>
 
@@ -48,7 +48,7 @@ export default function SeoContent() {
               2. How to Generate the Perfect Malayalam Instagram Captions
             </h3>
             <p>
-              Generating the ideal caption with CaptionMallu is a seamless, intuitive process designed to put full creative control in your hands. To get started, follow these simple guidelines:
+              Generating the ideal caption with Vamozhi is a seamless, intuitive process designed to put full creative control in your hands. To get started, follow these simple guidelines:
             </p>
             <ul className="list-disc pl-5 space-y-2">
               <li>
@@ -135,7 +135,7 @@ export default function SeoContent() {
               Hashtags are the primary search directory engines of Instagram, helping the algorithm index and deliver your content to interested users. However, using generic hashtags like <em>#love or #instagood</em> will often get your post buried under millions of global uploads. Instead, you must adopt a localized, targeted hashtag strategy:
             </p>
             <p>
-              Always blend high-volume hashtags (e.g., <em>#keralavibes, #godsowncountry</em>) with specific, niche, and native language hashtags (e.g., <em>#malayalamquotes, #chayavibes, #idukkidiaries</em>). This ensures that your content is delivered directly to users searching for localized Kerala vibes. CaptionMallu automatically generates a carefully curated list of 5 high-converting, category-specific local hashtags with every click, keeping your posts discoverable, highly structured, and clean!
+              Always blend high-volume hashtags (e.g., <em>#keralavibes, #godsowncountry</em>) with specific, niche, and native language hashtags (e.g., <em>#malayalamquotes, #chayavibes, #idukkidiaries</em>). This ensures that your content is delivered directly to users searching for localized Kerala vibes. Vamozhi automatically generates a carefully curated list of 5 high-converting, category-specific local hashtags with every click, keeping your posts discoverable, highly structured, and clean!
             </p>
           </div>
 

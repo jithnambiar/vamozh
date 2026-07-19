@@ -8,10 +8,10 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/service-worker.js')
       .then((reg) => {
-        console.log('CaptionMallu Service Worker registered successfully: ', reg.scope);
+        console.log('Vamozhi Service Worker registered successfully: ', reg.scope);
       })
       .catch((err) => {
-        console.error('CaptionMallu Service Worker registration failed: ', err);
+        console.error('Vamozhi Service Worker registration failed: ', err);
       });
   });
 }

@@ -238,12 +238,12 @@ export default function TranslitTool({ onSuccessMessage }: TranslitToolProps) {
     // Draw Top Brand Badge
     ctx.fillStyle = "rgba(255, 255, 255, 0.1)";
     ctx.beginPath();
-    ctx.roundRect(400, 150, 280, 60, 30);
+    ctx.roundRect(440, 150, 200, 60, 30);
     ctx.fill();
 
     ctx.fillStyle = "#ffffff";
     ctx.font = "bold 24px 'Inter', sans-serif";
-    ctx.fillText("VAMOZHI ORIGINAL", 540, 180);
+    ctx.fillText("VAMOZHI", 540, 180);
 
     // Draw Watermark at the bottom
     ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
@@ -423,6 +423,229 @@ export default function TranslitTool({ onSuccessMessage }: TranslitToolProps) {
             <span className="text-emerald-500/70 font-semibold flex items-center gap-1">
               <Check className="w-3.5 h-3.5" /> Complete
             </span>
+          </div>
+        </div>
+
+      </div>
+
+      {/* Interactive Unicode Virtual Keypad & Quick-Map Guide */}
+      <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 mt-8" id="unicode-keypad-panel">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4 mb-6">
+          <div className="text-left">
+            <h3 className="text-lg font-black text-slate-900 tracking-tight flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-purple-600 animate-pulse" />
+              Malayalam Unicode Translation Helper Keypad
+            </h3>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Click any character or conjunct below to insert it directly into your live Malayalam output!
+            </p>
+          </div>
+          
+          {/* Quick Tab Selectors */}
+          <div className="flex flex-wrap gap-1 bg-slate-100 p-1 rounded-xl">
+            {["chillu", "vowels", "consonants", "guide"].map((tab) => (
+              <button
+                key={tab}
+                type="button"
+                onClick={() => {
+                  // Use a dataset attribute or local tracking if needed, here we'll use a local click state
+                  const activeClass = "bg-white text-purple-700 shadow-xs";
+                  const inactiveClass = "text-slate-600 hover:text-slate-900";
+                  const btn = document.getElementById(`tab-btn-${tab}`);
+                  if (btn) {
+                    ["chillu", "vowels", "consonants", "guide"].forEach(t => {
+                      const b = document.getElementById(`tab-btn-${t}`);
+                      if (b) b.className = `px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${inactiveClass}`;
+                    });
+                    btn.className = `px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${activeClass}`;
+                    
+                    ["tab-content-chillu", "tab-content-vowels", "tab-content-consonants", "tab-content-guide"].forEach(tc => {
+                      const el = document.getElementById(tc);
+                      if (el) el.classList.add("hidden");
+                    });
+                    const targetEl = document.getElementById(`tab-content-${tab}`);
+                    if (targetEl) targetEl.classList.remove("hidden");
+                  }
+                }}
+                id={`tab-btn-${tab}`}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  tab === "chillu" ? "bg-white text-purple-700 shadow-xs" : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                {tab === "chillu" ? "Chillu & Conjuncts" : 
+                 tab === "vowels" ? "Vowels & Signs" : 
+                 tab === "consonants" ? "Consonants" : "Phonetic Guide"}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Tab 1: Chillu & Conjuncts (Visible by default) */}
+        <div id="tab-content-chillu" className="text-left">
+          <div className="flex flex-wrap gap-2">
+            {[
+              { char: "ൽ", label: "l (chillu l)" },
+              { char: "ർ", label: "r (chillu r)" },
+              { char: "ൻ", label: "n (chillu n)" },
+              { char: "ൾ", label: "L (chillu L)" },
+              { char: "ൺ", label: "N (chillu N)" },
+              { char: "ന്റെ", label: "nte" },
+              { char: "ക്ക", label: "kka" },
+              { char: "ച്ച", label: "ccha" },
+              { char: "ത്ത", label: "ttha" },
+              { char: "പ്പ", label: "ppa" },
+              { char: "മ്പ", label: "mba" },
+              { char: "ണ്ട", label: "nda" },
+              { char: "ന്ത", label: "ntha" },
+              { char: "ണ്ണ", label: "nna" },
+              { char: "ല്ല", label: "lla" },
+              { char: "മ്മ", label: "mma" },
+              { char: "യ്യ", label: "yya" }
+            ].map((item) => (
+              <button
+                key={item.char}
+                onClick={() => {
+                  setMalayalam(prev => prev + item.char);
+                  onSuccessMessage(`Inserted '${item.char}' into Malayalam output`);
+                }}
+                className="px-4 py-2.5 bg-slate-50 hover:bg-purple-50 text-slate-800 hover:text-purple-700 border border-slate-200 hover:border-purple-200 rounded-xl font-bold text-sm transition-all flex flex-col items-center min-w-[70px] cursor-pointer"
+                title={`Click to insert ${item.char}`}
+              >
+                <span className="text-base font-black">{item.char}</span>
+                <span className="text-[9px] text-slate-400 font-mono mt-0.5">{item.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Tab 2: Vowels & Signs (Hidden by default) */}
+        <div id="tab-content-vowels" className="hidden text-left">
+          <div className="space-y-4">
+            <div>
+              <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider block mb-2">Vowel Signs (Swarachinnam)</span>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { char: "ാ", label: "aa / a" },
+                  { char: "ി", label: "i" },
+                  { char: "ീ", label: "ii" },
+                  { char: "ു", label: "u" },
+                  { char: "ൂ", label: "uu" },
+                  { char: "െ", label: "e" },
+                  { char: "േ", label: "E" },
+                  { char: "ൈ", label: "ai" },
+                  { char: "ൊ", label: "o" },
+                  { char: "ോ", label: "O" },
+                  { char: "ൌ", label: "au" },
+                  { char: "ം", label: "m" }
+                ].map((item) => (
+                  <button
+                    key={item.char}
+                    onClick={() => {
+                      setMalayalam(prev => prev + item.char);
+                      onSuccessMessage(`Inserted sign '${item.char}'`);
+                    }}
+                    className="px-4 py-2.5 bg-slate-50 hover:bg-purple-50 text-slate-800 hover:text-purple-700 border border-slate-200 hover:border-purple-200 rounded-xl font-bold text-sm transition-all flex flex-col items-center min-w-[65px] cursor-pointer"
+                  >
+                    <span className="text-base font-black">{item.char}</span>
+                    <span className="text-[9px] text-slate-400 font-mono mt-0.5">{item.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider block mb-2 font-sans">Full Vowels (Swaram)</span>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { char: "അ", label: "a" },
+                  { char: "ആ", label: "aa" },
+                  { char: "ഇ", label: "i" },
+                  { char: "ഈ", label: "ii" },
+                  { char: "ഉ", label: "u" },
+                  { char: "ഊ", label: "uu" },
+                  { char: "എ", label: "e" },
+                  { char: "ഏ", label: "E" },
+                  { char: "ഐ", label: "ai" },
+                  { char: "ഒ", label: "o" },
+                  { char: "ഓ", label: "O" },
+                  { char: "ഔ", label: "au" }
+                ].map((item) => (
+                  <button
+                    key={item.char}
+                    onClick={() => {
+                      setMalayalam(prev => prev + item.char);
+                      onSuccessMessage(`Inserted vowel '${item.char}'`);
+                    }}
+                    className="px-4 py-2.5 bg-slate-50 hover:bg-purple-50 text-slate-800 hover:text-purple-700 border border-slate-200 hover:border-purple-200 rounded-xl font-bold text-sm transition-all flex flex-col items-center min-w-[65px] cursor-pointer"
+                  >
+                    <span className="text-base font-black">{item.char}</span>
+                    <span className="text-[9px] text-slate-400 font-mono mt-0.5">{item.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Tab 3: Consonants (Hidden by default) */}
+        <div id="tab-content-consonants" className="hidden text-left">
+          <div className="flex flex-wrap gap-2">
+            {[
+              { char: "ക", label: "k" }, { char: "ഖ", label: "kh" }, { char: "ഗ", label: "g" }, { char: "ഘ", label: "gh" }, { char: "ങ", label: "ng" },
+              { char: "ച", label: "ch" }, { char: "ഛ", label: "chh" }, { char: "ജ", label: "j" }, { char: "ഝ", label: "jh" }, { char: "ഞ", label: "nj" },
+              { char: "ട", label: "t" }, { char: "ഠ", label: "th" }, { char: "ഡ", label: "d" }, { char: "ഢ", label: "dh" }, { char: "ണ", label: "N" },
+              { char: "ത", label: "th" }, { char: "ഥ", label: "thh" }, { char: "ദ", label: "d" }, { char: "ധ", label: "dh" }, { char: "ന", label: "n" },
+              { char: "പ", label: "p" }, { char: "ഫ", label: "f/ph" }, { char: "ബ", label: "b" }, { char: "ഭ", label: "bh" }, { char: "മ", label: "m" },
+              { char: "യ", label: "y" }, { char: "ര", label: "r" }, { char: "ല", label: "l" }, { char: "വ", label: "v/w" },
+              { char: "ശ", label: "sh" }, { char: "ഷ", label: "shh" }, { char: "സ", label: "s" }, { char: "ഹ", label: "h" },
+              { char: "ള", label: "L" }, { char: "ഴ", label: "zh" }, { char: "റ", label: "R" }
+            ].map((item) => (
+              <button
+                key={item.char}
+                onClick={() => {
+                  setMalayalam(prev => prev + item.char);
+                  onSuccessMessage(`Inserted '${item.char}'`);
+                }}
+                className="px-3.5 py-2.5 bg-slate-50 hover:bg-purple-50 text-slate-800 hover:text-purple-700 border border-slate-200 hover:border-purple-200 rounded-xl font-bold text-sm transition-all flex flex-col items-center min-w-[55px] cursor-pointer"
+              >
+                <span className="text-base font-black">{item.char}</span>
+                <span className="text-[9px] text-slate-400 font-mono mt-0.5">{item.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Tab 4: Phonetic Guide (Hidden by default) */}
+        <div id="tab-content-guide" className="hidden text-left">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-xs font-semibold text-slate-700">
+            <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
+              <span className="font-extrabold text-purple-700 block mb-1">Common Slang & Phrases</span>
+              <ul className="space-y-1 font-mono text-[10px]">
+                <li>njan / njaan &rarr; ഞാൻ</li>
+                <li>ente &rarr; എന്റെ</li>
+                <li>sukhamano &rarr; സുഖമാണോ</li>
+                <li>ishtamanu &rarr; ഇഷ്ടമാണ്</li>
+                <li>keralam &rarr; കേരളം</li>
+              </ul>
+            </div>
+            <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
+              <span className="font-extrabold text-purple-700 block mb-1">Difficult Combos</span>
+              <ul className="space-y-1 font-mono text-[10px]">
+                <li>zh &rarr; ഴ (e.g. ma<span className="font-bold underline">zh</span>a &rarr; മഴ)</li>
+                <li>nte &rarr; ന്റെ (e.g. e<span className="font-bold underline">nte</span> &rarr; എന്റെ)</li>
+                <li>nj &rarr; ഞ (e.g. <span className="font-bold underline">nj</span>an &rarr; ഞാൻ)</li>
+                <li>th &rarr; ത (e.g. va<span className="font-bold underline">th</span>il &rarr; വാതിൽ)</li>
+              </ul>
+            </div>
+            <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
+              <span className="font-extrabold text-purple-700 block mb-1">Endings (Chillu Letters)</span>
+              <ul className="space-y-1 font-mono text-[10px]">
+                <li>n &rarr; ൻ (e.g. nja<span className="font-bold underline">n</span> &rarr; ഞാൻ)</li>
+                <li>r &rarr; ർ (e.g. avha<span className="font-bold underline">r</span> &rarr; അവർ)</li>
+                <li>l &rarr; ൽ (e.g. ava<span className="font-bold underline">l</span> &rarr; അവൾ)</li>
+                <li>L &rarr; ൾ (e.g. aval &rarr; അവൾ)</li>
+              </ul>
+            </div>
           </div>
         </div>
 

@@ -137,34 +137,13 @@ const ROUTE_META_MAP: Record<string, RouteMeta> = {
   }
 };
 
-// Google AdSense component with safe lazy integration
-function AdSenseUnit() {
-  useEffect(() => {
-    try {
-      // @ts-ignore
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-      console.warn("Google AdSense script not active or failed to fetch ad blocks:", e);
-    }
-  }, []);
+// Google AdSense component - configured for pure auto ads via index.html script tag
+interface AdSenseUnitProps {
+  typeKey?: 'top' | 'bottom' | 'sidebar' | 'main';
+}
 
-  return (
-    <div className="my-8 max-w-4xl mx-auto px-4" id="vamozhi-adsense-slot">
-      <div className="bg-slate-100/60 rounded-2xl p-4 border border-dashed border-slate-200 text-center text-[10px] font-extrabold text-slate-400 tracking-widest uppercase">
-        Sponsored Advertisement
-        <div className="mt-2 min-h-[100px] flex items-center justify-center bg-white rounded-xl overflow-hidden shadow-xs">
-          <ins 
-            className="adsbygoogle"
-            style={{ display: 'block' }}
-            data-ad-client="ca-pub-8686383954199850"
-            data-ad-slot="3963293716"
-            data-ad-format="auto"
-            data-full-width-responsive="true"
-          />
-        </div>
-      </div>
-    </div>
-  );
+function AdSenseUnit({ typeKey = "main" }: AdSenseUnitProps) {
+  return null;
 }
 
 export default function App() {
@@ -315,6 +294,9 @@ export default function App() {
             {/* Elegant Hero card */}
             <Hero />
 
+            {/* Top Leaderboard Ad Slot */}
+            <AdSenseUnit typeKey="top" />
+
             {/* Categories bento grid selection */}
             <Categories 
               onSelectCategory={(catId) => {
@@ -349,8 +331,8 @@ export default function App() {
               onSuccessMessage={(msg) => triggerToast(msg, 'success')}
             />
 
-            {/* Google AdSense Placement Block */}
-            <AdSenseUnit />
+            {/* In-Feed Bottom Ad Slot */}
+            <AdSenseUnit typeKey="bottom" />
 
             {/* Trending categories lookup grids */}
             <Trending
@@ -370,16 +352,19 @@ export default function App() {
         {isPhoneticTypingRoute && (
           <>
             <TranslitTool onSuccessMessage={(msg) => triggerToast(msg, 'success')} />
-            <AdSenseUnit />
+            <AdSenseUnit typeKey="main" />
           </>
         )}
 
         {!isHomeOrGeneratorRoute && !isPhoneticTypingRoute && (
           <>
             <InfoPages currentPath={currentPath} onSuccessMessage={(msg) => triggerToast(msg, 'success')} />
-            <AdSenseUnit />
+            <AdSenseUnit typeKey="main" />
           </>
         )}
+
+        {/* Sidebar/Extra Footer Ad Slot if configured */}
+        <AdSenseUnit typeKey="sidebar" />
       </div>
 
       {/* Corporate footer, copyright & disclaimers */}

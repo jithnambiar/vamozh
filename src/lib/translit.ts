@@ -7,8 +7,12 @@
 export const TRANSLIT_DICTIONARY: Record<string, string> = {
   "njan": "ഞാൻ",
   "njaan": "ഞാൻ",
-  "malayaliyanu": "മലയാളിയാണ്",
+  "malayalam": "മലയാളം",
   "malayali": "മലയാളി",
+  "malayalee": "മലയാളി",
+  "malayaliyanu": "മലയാളിയാണ്",
+  "malayalikal": "മലയാളികൾ",
+  "malayalees": "മലയാളികൾ",
   "ente": "എന്റെ",
   "keralam": "കേരളം",
   "sukhamano": "സുഖമാണോ",
@@ -170,6 +174,7 @@ export function transliterateWord(word: string): string {
     { pattern: /l$/, replacement: "ൽ" },
     { pattern: /L$/, replacement: "ൾ" },
     { pattern: /N$/, replacement: "ൺ" },
+    { pattern: /m$/, replacement: "ം" },
     
     // Standard consonants
     { pattern: /^k/, replacement: "ക" },

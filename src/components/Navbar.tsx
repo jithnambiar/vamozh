@@ -9,13 +9,12 @@ import {
   X, 
   Heart, 
   Search, 
-  ChevronDown, 
   Smartphone, 
-  HeartHandshake, 
   Sparkles, 
   BookOpen, 
+  ChevronRight,
   Info,
-  ChevronRight
+  Mail
 } from "lucide-react";
 
 interface NavbarProps {
@@ -31,13 +30,6 @@ const SOCIAL_APPS_TOOLS = [
   { name: "WhatsApp Status", path: "/whatsapp-status-generator" },
   { name: "Snapchat Captions", path: "/snapchat-caption-generator" },
   { name: "TikTok Captions", path: "/tiktok-caption-generator" }
-];
-
-const DATING_MATRIMONY_TOOLS = [
-  { name: "Arike Dating Bio", path: "/arike-bio-generator" },
-  { name: "Bumble Profile Bio", path: "/bumble-bio-generator" },
-  { name: "Tinder Intros", path: "/bumble-bio-generator" },
-  { name: "Matrimony Profile", path: "/matrimony-bio-generator" }
 ];
 
 const ALL_SEARCHABLE_TOOLS = [
@@ -63,10 +55,6 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
   const [searchResults, setSearchResults] = useState<{ name: string; path: string }[]>([]);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
-
-  // Active Dropdowns state (Mobile)
-  const [mobileSocialOpen, setMobileSocialOpen] = useState(false);
-  const [mobileDatingOpen, setMobileDatingOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -145,70 +133,23 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
           </div>
 
           {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex items-center gap-6" id="desktop-nav-menu">
+          <div className="hidden lg:flex items-center gap-5" id="desktop-nav-menu">
             <button
               onClick={() => onNavigate("/")}
-              className={`text-xs font-extrabold uppercase tracking-wider transition-colors cursor-pointer ${
-                currentPath === "/" ? "text-purple-900" : "text-slate-500 hover:text-purple-800"
+              className={`text-xs font-black uppercase tracking-wider transition-colors cursor-pointer ${
+                currentPath === "/" ? "text-purple-900 font-black border-b-2 border-purple-800 pb-0.5" : "text-slate-500 hover:text-purple-800"
               }`}
             >
               Home
             </button>
 
-            {/* Social Apps Dropdown */}
-            <div className="relative group/dropdown">
-              <button className="text-xs font-extrabold uppercase tracking-wider text-slate-500 hover:text-purple-800 flex items-center gap-1 py-1 cursor-pointer">
-                Social Apps
-                <ChevronDown className="w-3.5 h-3.5" />
-              </button>
-              <div className="absolute top-full left-0 mt-1 w-48 bg-white border border-slate-100 rounded-xl shadow-xl py-2 opacity-0 translate-y-2 pointer-events-none group-hover/dropdown:opacity-100 group-hover/dropdown:translate-y-0 group-hover/dropdown:pointer-events-auto transition-all duration-200">
-                {SOCIAL_APPS_TOOLS.map((app) => (
-                  <button
-                    key={app.path}
-                    onClick={() => onNavigate(app.path)}
-                    className="w-full text-left px-4 py-2 text-xs font-bold text-slate-700 hover:bg-purple-50 hover:text-purple-900 transition-colors cursor-pointer"
-                  >
-                    {app.name}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Dating & Matrimony Dropdown */}
-            <div className="relative group/dropdown">
-              <button className="text-xs font-extrabold uppercase tracking-wider text-slate-500 hover:text-purple-800 flex items-center gap-1 py-1 cursor-pointer">
-                Dating & Matrimony
-                <ChevronDown className="w-3.5 h-3.5" />
-              </button>
-              <div className="absolute top-full left-0 mt-1 w-48 bg-white border border-slate-100 rounded-xl shadow-xl py-2 opacity-0 translate-y-2 pointer-events-none group-hover/dropdown:opacity-100 group-hover/dropdown:translate-y-0 group-hover/dropdown:pointer-events-auto transition-all duration-200">
-                {DATING_MATRIMONY_TOOLS.map((app) => (
-                  <button
-                    key={app.path}
-                    onClick={() => onNavigate(app.path)}
-                    className="w-full text-left px-4 py-2 text-xs font-bold text-slate-700 hover:bg-purple-50 hover:text-purple-900 transition-colors cursor-pointer"
-                  >
-                    {app.name}
-                  </button>
-                ))}
-              </div>
-            </div>
-
             <button
               onClick={() => onNavigate("/manglish-to-malayalam")}
-              className={`text-xs font-extrabold uppercase tracking-wider transition-colors cursor-pointer ${
-                currentPath === "/manglish-to-malayalam" ? "text-purple-900" : "text-slate-500 hover:text-purple-800"
+              className={`text-xs font-black uppercase tracking-wider transition-colors cursor-pointer ${
+                currentPath === "/manglish-to-malayalam" ? "text-purple-900 font-black border-b-2 border-purple-800 pb-0.5" : "text-slate-500 hover:text-purple-800"
               }`}
             >
-              Manglish Typing
-            </button>
-
-            <button
-              onClick={() => onNavigate("/about")}
-              className={`text-xs font-extrabold uppercase tracking-wider transition-colors cursor-pointer ${
-                currentPath === "/about" ? "text-purple-900" : "text-slate-500 hover:text-purple-800"
-              }`}
-            >
-              About
+              Malayalam Typing
             </button>
           </div>
 
@@ -234,7 +175,7 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
                 </span>
                 {searchResults.map((tool) => (
                   <button
-                    key={tool.path}
+                    key={tool.name}
                     onClick={() => handleSearchResultClick(tool.path)}
                     className="w-full text-left px-4 py-2 text-xs font-bold text-slate-700 hover:bg-purple-50 hover:text-purple-900 transition-colors flex items-center justify-between cursor-pointer"
                   >
@@ -309,7 +250,7 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
               <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-slate-200 rounded-xl shadow-xl z-50 text-left py-1.5 max-h-48 overflow-y-auto">
                 {searchResults.map((tool) => (
                   <button
-                    key={tool.path}
+                    key={tool.name}
                     onClick={() => handleSearchResultClick(tool.path)}
                     className="w-full text-left px-4 py-2 text-xs font-bold text-slate-700 hover:bg-purple-50 transition-colors block"
                   >
@@ -323,80 +264,34 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
           <div className="flex flex-col gap-4">
             <button
               onClick={() => { onNavigate("/"); setIsOpen(false); }}
-              className="py-2.5 font-extrabold text-slate-800 border-b border-slate-50 text-xs uppercase tracking-wider flex items-center gap-2"
+              className="py-2.5 font-extrabold text-slate-800 border-b border-slate-100 text-xs uppercase tracking-wider flex items-center gap-2 text-left"
             >
-              <BookOpen className="w-4 h-4 text-purple-600" />
+              <BookOpen className="w-4 h-4 text-purple-600 shrink-0" />
               Home Page
             </button>
 
-            {/* Mobile Social Apps Dropdown */}
-            <div>
-              <button
-                onClick={() => setMobileSocialOpen(!mobileSocialOpen)}
-                className="w-full text-left py-2.5 font-extrabold text-slate-800 border-b border-slate-50 text-xs uppercase tracking-wider flex items-center justify-between"
-              >
-                <span className="flex items-center gap-2">
-                  <Smartphone className="w-4 h-4 text-pink-600" />
-                  Social Apps
-                </span>
-                <ChevronDown className={`w-4 h-4 transition-transform ${mobileSocialOpen ? "rotate-180" : ""}`} />
-              </button>
-              {mobileSocialOpen && (
-                <div className="bg-slate-50 rounded-xl p-2 mt-2 flex flex-col gap-1.5">
-                  {SOCIAL_APPS_TOOLS.map((app) => (
-                    <button
-                      key={app.path}
-                      onClick={() => { onNavigate(app.path); setIsOpen(false); }}
-                      className="text-left px-3 py-2 text-xs font-bold text-slate-600 hover:text-purple-900"
-                    >
-                      {app.name}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Mobile Dating Dropdown */}
-            <div>
-              <button
-                onClick={() => setMobileDatingOpen(!mobileDatingOpen)}
-                className="w-full text-left py-2.5 font-extrabold text-slate-800 border-b border-slate-50 text-xs uppercase tracking-wider flex items-center justify-between"
-              >
-                <span className="flex items-center gap-2">
-                  <HeartHandshake className="w-4 h-4 text-red-500" />
-                  Dating & Matrimony
-                </span>
-                <ChevronDown className={`w-4 h-4 transition-transform ${mobileDatingOpen ? "rotate-180" : ""}`} />
-              </button>
-              {mobileDatingOpen && (
-                <div className="bg-slate-50 rounded-xl p-2 mt-2 flex flex-col gap-1.5">
-                  {DATING_MATRIMONY_TOOLS.map((app) => (
-                    <button
-                      key={app.path}
-                      onClick={() => { onNavigate(app.path); setIsOpen(false); }}
-                      className="text-left px-3 py-2 text-xs font-bold text-slate-600 hover:text-purple-900"
-                    >
-                      {app.name}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
             <button
               onClick={() => { onNavigate("/manglish-to-malayalam"); setIsOpen(false); }}
-              className="py-2.5 font-extrabold text-slate-800 border-b border-slate-50 text-xs uppercase tracking-wider flex items-center gap-2"
+              className="py-2.5 font-extrabold text-slate-800 border-b border-slate-100 text-xs uppercase tracking-wider flex items-center gap-2 text-left"
             >
-              <Sparkles className="w-4 h-4 text-amber-500" />
-              Manglish Typing
+              <Sparkles className="w-4 h-4 text-amber-500 shrink-0" />
+              Malayalam Typing
             </button>
 
             <button
               onClick={() => { onNavigate("/about"); setIsOpen(false); }}
-              className="py-2.5 font-extrabold text-slate-800 border-b border-slate-50 text-xs uppercase tracking-wider flex items-center gap-2"
+              className="py-2.5 font-extrabold text-slate-800 border-b border-slate-100 text-xs uppercase tracking-wider flex items-center gap-2 text-left"
             >
-              <Info className="w-4 h-4 text-blue-500" />
-              About Vamozhi
+              <Info className="w-4 h-4 text-purple-600 shrink-0" />
+              About
+            </button>
+
+            <button
+              onClick={() => { onNavigate("/contact"); setIsOpen(false); }}
+              className="py-2.5 font-extrabold text-slate-800 border-b border-slate-100 text-xs uppercase tracking-wider flex items-center gap-2 text-left"
+            >
+              <Mail className="w-4 h-4 text-pink-600 shrink-0" />
+              Contact
             </button>
           </div>
 

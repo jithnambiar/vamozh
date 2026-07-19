@@ -129,18 +129,18 @@ export default function ResultList({
                 <div className="text-left mb-6">
                   {/* Quote bubble container */}
                   <div className="relative">
-                    <p className="text-lg font-medium text-slate-800 dark:text-neutral-150 leading-relaxed font-sans tracking-wide">
+                    <p className="text-xl font-black text-slate-950 dark:text-white leading-relaxed font-sans tracking-wide">
                       {displayQuote}
                     </p>
                   </div>
 
                   {/* Hashtags block */}
                   {item.hashtags.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mt-4" id={`hashtags-${item.id}`}>
+                    <div className="flex flex-wrap gap-2 mt-5" id={`hashtags-${item.id}`}>
                       {item.hashtags.map((tag) => (
                         <span
                           key={tag}
-                          className="text-xs font-semibold text-slate-500 hover:text-purple-600 cursor-pointer hover:underline transition-all"
+                          className="text-xs font-bold text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-950/40 px-2.5 py-1 rounded-lg border border-purple-100 dark:border-purple-900/60 hover:bg-purple-100 dark:hover:bg-purple-900 transition-all cursor-pointer"
                           onClick={() => handleCopy(tag, false, [])}
                         >
                           {tag}
@@ -150,9 +150,9 @@ export default function ResultList({
                   )}
 
                   {/* Character metrics bar */}
-                  <div className="flex items-center gap-3 mt-5 text-[10px] font-bold text-slate-400 font-mono tracking-wider">
+                  <div className="flex items-center gap-3 mt-6 text-[10px] font-black text-slate-500 dark:text-slate-400 font-mono tracking-wider">
                     <span>LENGTH: {characterCount} CHARACTERS</span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-slate-200" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-700" />
                     <span>WORDS: {displayQuote.split(/\s+/).filter(Boolean).length}</span>
                   </div>
                 </div>

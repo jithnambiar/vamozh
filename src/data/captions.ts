@@ -1809,9 +1809,9 @@ export const CATEGORY_HASHTAGS: Record<string, string[]> = {
   motivation: ["#malayalammotivation", "#keralamotivation", "#successquotes", "#hustlekerala", "#focusquotes", "#dreambig", "#nevergiveup", "#positivitykerala", "#careergoals", "#hardwork", "#chuvadu", "#growth"],
   aesthetic: ["#malayalamaesthetic", "#aesthetic_kerala", "#chayavibe", "#rain_aesthetic", "#vintagekerala", "#sunsetkerala", "#peaceful_evening", "#foggypeak", "#minimalism_kerala", "#visualart", "#poetrystatus", "#nature_lovers"],
   funny: ["#malayalamfunny", "#keralacomedy", "#malayalamtrolls", "#trollkerala", "#diet_naale", "#lazymalayali", "#funnyquotes", "#comedyvibe", "#relatableposts", "#examhumor", "#chiri_nallatha", "#whatsapptroll"],
-  kerala: ["#godsowncountry", "#keralavibes", "#puremalayali", "#sadya", "#thrissurpooram", "#kasavusaree", "#keralagram", "#mallustyle", "#mallugram", "#alappuzhabackwaters", "#cochindiaries", "#keralaforeveryone"],
+  kerala: ["#godsowncountry", "#keralavibes", "#puremalayali", "#sadya", "#thrissurpooram", "#kasavusaree", "#keralagram", "#malayalustyle", "#keralatradition", "#alappuzhabackwaters", "#cochindiaries", "#keralaforeveryone"],
   photography: ["#keralaphotography", "#keralaphotographers", "#click_kerala", "#lens_diaries", "#naturephotography", "#frame_story", "#picoftheday", "#canon_kerala", "#mobilephotography", "#sunsetclick", "#shadows", "#moments"],
-  business: ["#keralabusiness", "#keralastartups", "#malayalambusiness", "#entrepreneur_kerala", "#hustlehard", "#startupkerala", "#businessquotes", "#localbrands", "#malluentrepreneur", "#growthmindset", "#trust_business", "#successjourney"]
+  business: ["#keralabusiness", "#keralastartups", "#malayalambusiness", "#entrepreneur_kerala", "#hustlehard", "#startupkerala", "#businessquotes", "#localbrands", "#keralaentrepreneur", "#growthmindset", "#trust_business", "#successjourney"]
 };
 
 // Emoji bank to append based on tone/category

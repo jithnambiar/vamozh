@@ -77,12 +77,11 @@ export default function StoryModal({ text, onClose, onSuccess }: StoryModalProps
   const [selectedPreset, setSelectedPreset] = useState<ThemePreset>(THEME_PRESETS[0]);
   const [textAlign, setTextAlign] = useState<'left' | 'center' | 'right'>('center');
   const [fontSize, setFontSize] = useState<number>(42); // base font size in canvas space
-  const [includeWatermark, setIncludeWatermark] = useState<boolean>(true);
 
   // Redraw the canvas whenever variables change
   useEffect(() => {
     drawCanvas();
-  }, [selectedPreset, textAlign, fontSize, includeWatermark, text]);
+  }, [selectedPreset, textAlign, fontSize, text]);
 
   const wrapText = (
     ctx: CanvasRenderingContext2D,
@@ -214,20 +213,18 @@ export default function StoryModal({ text, onClose, onSuccess }: StoryModalProps
     ctx.shadowBlur = 0;
     ctx.shadowOffsetY = 0;
 
-    // Draw small CaptionMallu watermark
-    if (includeWatermark) {
-      ctx.textAlign = "center";
-      ctx.textBaseline = "alphabetic";
-      
-      // Bottom watermark
-      ctx.fillStyle = selectedPreset.watermarkColor;
-      ctx.font = 'bold 32px "Plus Jakarta Sans", sans-serif';
-      ctx.fillText("captionmallu.com", canvas.width / 2, canvas.height - 180);
-      
-      ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
-      ctx.font = '300 24px "Plus Jakarta Sans", sans-serif';
-      ctx.fillText("MALAYALAM INSTAGRAM CAPTION GENERATOR", canvas.width / 2, canvas.height - 130);
-    }
+    // Draw small Vamozhi watermark
+    ctx.textAlign = "center";
+    ctx.textBaseline = "alphabetic";
+    
+    // Bottom watermark
+    ctx.fillStyle = selectedPreset.watermarkColor;
+    ctx.font = 'bold 32px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText("vamozhi.com", canvas.width / 2, canvas.height - 180);
+    
+    ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
+    ctx.font = '300 24px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText("MALAYALAM INSTAGRAM CAPTION GENERATOR", canvas.width / 2, canvas.height - 130);
   };
 
   const handleDownload = () => {
@@ -237,7 +234,7 @@ export default function StoryModal({ text, onClose, onSuccess }: StoryModalProps
     try {
       const dataUrl = canvas.toDataURL("image/png");
       const link = document.createElement("a");
-      link.download = `captionmallu_story_${Date.now()}.png`;
+      link.download = `vamozhi_story_${Date.now()}.png`;
       link.href = dataUrl;
       link.click();
       onSuccess("Success! Story image downloaded successfully.");
@@ -359,31 +356,6 @@ export default function StoryModal({ text, onClose, onSuccess }: StoryModalProps
               className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-purple-600"
               id="story-font-slider"
             />
-          </div>
-
-          {/* Watermark toggle */}
-          <div className="flex items-center justify-between p-3.5 bg-white rounded-3xl border border-slate-200">
-            <div className="text-left">
-              <span className="block text-sm font-extrabold text-slate-800">
-                Add CaptionMallu Watermark
-              </span>
-              <span className="block text-xs text-slate-500">
-                Show small brand credits inside story footer.
-              </span>
-            </div>
-            <button
-              onClick={() => setIncludeWatermark(!includeWatermark)}
-              className={`w-12 h-6.5 rounded-full p-1 transition-colors cursor-pointer ${
-                includeWatermark ? "bg-slate-900" : "bg-slate-200"
-              }`}
-              id="toggle-watermark"
-            >
-              <div
-                className={`bg-white w-4.5 h-4.5 rounded-full shadow-md transition-transform transform ${
-                  includeWatermark ? "translate-x-5.5" : "translate-x-0"
-                }`}
-              />
-            </button>
           </div>
 
           {/* Action buttons */}

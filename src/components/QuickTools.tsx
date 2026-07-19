@@ -8,9 +8,7 @@ import {
   Facebook, 
   MessageSquare, 
   Video, 
-  Heart, 
   Sparkles, 
-  Users, 
   Keyboard 
 } from "lucide-react";
 
@@ -26,9 +24,6 @@ const TOOLS = [
   { name: "Snapchat Caption", path: "/snapchat-caption-generator", icon: Sparkles, color: "text-amber-500 border-amber-100 bg-amber-50/50" },
   { name: "TikTok Caption", path: "/tiktok-caption-generator", icon: Video, color: "text-rose-600 border-rose-100 bg-rose-50/50" },
   { name: "Reel Hook", path: "/malayalam-reel-hooks", icon: Sparkles, color: "text-purple-600 border-purple-100 bg-purple-50/50" },
-  { name: "Arike Bio", path: "/arike-bio-generator", icon: Heart, color: "text-red-500 border-red-100 bg-red-50/50" },
-  { name: "Bumble Bio", path: "/bumble-bio-generator", icon: Heart, color: "text-yellow-600 border-yellow-100 bg-yellow-50/50" },
-  { name: "Matrimony Bio", path: "/matrimony-bio-generator", icon: Users, color: "text-indigo-600 border-indigo-100 bg-indigo-50/50" },
   { name: "Manglish Typing", path: "/manglish-to-malayalam", icon: Keyboard, color: "text-slate-700 border-slate-200 bg-slate-50" }
 ];
 

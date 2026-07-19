@@ -19,7 +19,7 @@ const FAQS: FAQItem[] = [
   },
   {
     question: "Is this Malayalam caption generator free?",
-    answer: "Yes, CaptionMallu is 100% free of charge! You do not need to register, create an account, log in, or pay any hidden subscription fees. All features, including the story image canvas generator, are fully unlocked and accessible instantly."
+    answer: "Yes, Vamozhi is 100% free of charge! You do not need to register, create an account, log in, or pay any hidden subscription fees. All features, including the story image canvas generator, are fully unlocked and accessible instantly."
   },
   {
     question: "Can I generate Manglish captions?",
@@ -27,7 +27,7 @@ const FAQS: FAQItem[] = [
   },
   {
     question: "Can I generate Malayalam Instagram bios?",
-    answer: "Yes! Simply change the 'What are you writing?' content type control at the top to 'Profile Bio'. CaptionMallu will instantly generate beautiful, short, and highly impactful Malayalam and English bios tailored to your selected personality vibe."
+    answer: "Yes! Simply change the 'What are you writing?' content type control at the top to 'Profile Bio'. Vamozhi will instantly generate beautiful, short, and highly impactful Malayalam and English bios tailored to your selected personality vibe."
   },
   {
     question: "Can I use these captions for Facebook and WhatsApp?",
@@ -43,7 +43,7 @@ const FAQS: FAQItem[] = [
   },
   {
     question: "Are the generated captions original?",
-    answer: "Yes, all templates and captions in CaptionMallu are original, culturally relevant, and written by local Malayalam copywriters. We do not copy movie dialogues, copyrighted lyrics, poems, or existing quote collections to ensure your posts remain fresh, authentic, and safe."
+    answer: "Yes, all templates and captions in Vamozhi are original, culturally relevant, and written by local Malayalam copywriters. We do not copy movie dialogues, copyrighted lyrics, poems, or existing quote collections to ensure your posts remain fresh, authentic, and safe."
   }
 ];
 

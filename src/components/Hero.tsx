@@ -65,7 +65,7 @@ export default function Hero() {
             className="text-lg md:text-xl text-slate-600 max-w-xl font-medium leading-relaxed"
             id="hero-description"
           >
-            Create bios, hooks and hashtags in seconds. Fast, original, and 100% Mallu. Supercharge your social media game with authentic Kerala vibes!
+            Create bios, hooks and hashtags in seconds. Fast, original, and 100% Malayalam. Supercharge your social media game with authentic Kerala vibes!
           </motion.p>
 
           <motion.div
@@ -125,12 +125,12 @@ export default function Hero() {
               <div className="flex items-center gap-2.5">
                 <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-purple-600 to-orange-500 p-[2px]">
                   <div className="w-full h-full rounded-full bg-neutral-900 flex items-center justify-center text-xs font-extrabold text-pink-500">
-                    CM
+                    VM
                   </div>
                 </div>
                 <div className="text-left">
                   <h4 className="text-xs font-black tracking-wide flex items-center gap-1">
-                    caption_mallu
+                    vamozhi
                     <span className="inline-block w-3.5 h-3.5 bg-blue-500 rounded-full flex items-center justify-center text-[8px] text-white">✓</span>
                   </h4>
                   <p className="text-[9px] font-medium text-neutral-400">Kochi, Kerala</p>
@@ -171,8 +171,8 @@ export default function Hero() {
                 Liked by <span className="text-neutral-100 font-bold">kochi_creators</span> and <span className="text-neutral-100 font-bold">8,492 others</span>
               </p>
               <p className="text-xs mt-1.5 leading-relaxed text-neutral-200">
-                <span className="font-bold text-neutral-100 mr-1.5">caption_mallu</span>
-                മഴയുള്ള വൈകുന്നേരങ്ങളിൽ ഇതിൽ കൂടുതൽ മറ്റെന്ത് വേണം! ഈ മനോഹരമായ ക്യാപ്ഷൻ ഇഷ്ടപ്പെട്ടെങ്കിൽ CaptionMallu ഉപയോഗിച്ച് സൗജന്യമായി കൂടുതൽ കണ്ടെത്തൂ! 🌸✨
+                <span className="font-bold text-neutral-100 mr-1.5">vamozhi</span>
+                മഴയുള്ള വൈകുന്നേരങ്ങളിൽ ഇതിൽ കൂടുതൽ മറ്റെന്ത് വേണം! ഈ മനോഹരമായ ക്യാപ്ഷൻ ഇഷ്ടപ്പെട്ടെങ്കിൽ Vamozhi ഉപയോഗിച്ച് സൗജന്യമായി കൂടുതൽ കണ്ടെത്തൂ! 🌸✨
               </p>
               <p className="text-[10px] text-neutral-500 mt-2 font-semibold">2 HOURS AGO</p>
             </div>
