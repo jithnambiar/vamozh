@@ -51,7 +51,9 @@ const CATEGORIES = [
   { id: "funny", name: "Funny 🤪" },
   { id: "kerala", name: "Kerala 🌴" },
   { id: "photography", name: "Photography 📸" },
-  { id: "business", name: "Business 💼" }
+  { id: "business", name: "Business 💼" },
+  { id: "makeover_artist", name: "Makeover Artist ✨" },
+  { id: "fashion", name: "Fashion & Style 👗" }
 ] as const;
 
 const TONES = [
@@ -88,7 +90,7 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
 
   const [contentType, setContentType] = useState<string>("photo-caption");
   const [platform, setPlatform] = useState<string>("instagram");
-  const [language, setLanguage] = useState<"malayalam" | "manglish" | "mixed">("malayalam");
+  const [language, setLanguage] = useState<"malayalam" | "manglish" | "english" | "mixed">("malayalam");
   const [category, setCategory] = useState<string>("love");
   const [mood, setMood] = useState<string>("cheerful");
   const [occasion, setOccasion] = useState<string>("general");
@@ -96,8 +98,9 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
   const [length, setLength] = useState<"one-line" | "short" | "medium" | "detailed">("medium");
   const [emojiSetting, setEmojiSetting] = useState<"none" | "minimal" | "more">("minimal");
   const [hashtagCount, setHashtagCount] = useState<"none" | "5" | "10" | "15">("5");
-  const [resultsCount, setResultsCount] = useState<number>(5);
+  const [resultsCount, setResultsCount] = useState<number>(10);
   const [keyword, setKeyword] = useState<string>("");
+  const [showAdvanced, setShowAdvanced] = useState<boolean>(false);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -244,13 +247,13 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 text-left">
+        <div className="flex flex-col gap-6 text-left">
           
-          {/* LEFT BENTO BLOCK */}
-          <div className="flex flex-col gap-5">
+          {/* CORE FIELDS (Simple, high-impact grid) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6" id="core-fields-grid">
             
             {/* 1. Content Type */}
-            <div className="flex flex-col gap-1.5">
+            <div className="flex flex-col gap-1.5" id="field-content-type">
               <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
                 <AlignLeft className="w-3.5 h-3.5 text-purple-700" />
                 {t("step1")}
@@ -278,43 +281,44 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
               </div>
             </div>
 
-            {/* 2. Platform */}
-            <div className="flex flex-col gap-1.5">
+            {/* 2. Vibe Category */}
+            <div className="flex flex-col gap-1.5" id="field-vibe-category">
               <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
-                <Compass className="w-3.5 h-3.5 text-purple-700" />
-                {uiLang === 'en' ? "2. Target Platform" : "2. സോഷ്യൽ മീഡിയ പ്ലാറ്റ്‌ഫോം"}
+                <Filter className="w-3.5 h-3.5 text-purple-700" />
+                {t("step4")}
               </label>
               <select
-                value={platform}
-                onChange={(e) => setPlatform(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800"
-                id="input-platform-select"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800 h-[46px]"
+                id="input-category-select"
               >
-                {PLATFORMS.map((p) => (
-                  <option key={p.id} value={p.id}>
-                    {p.name}
+                {CATEGORIES.map((cat) => (
+                  <option key={cat.id} value={cat.id}>
+                    {t("cat_" + cat.id.replace("-", ""))}
                   </option>
                 ))}
               </select>
             </div>
 
             {/* 3. Language Selector */}
-            <div className="flex flex-col gap-1.5">
+            <div className="flex flex-col gap-1.5" id="field-language">
               <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
                 <Globe className="w-3.5 h-3.5 text-purple-700" />
                 {t("step3")}
               </label>
-              <div className="grid grid-cols-3 gap-2" id="input-language">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2" id="input-language">
                 {[
                   { id: "malayalam", label: "മലയാളം" },
                   { id: "manglish", label: "Manglish" },
+                  { id: "english", label: "English" },
                   { id: "mixed", label: uiLang === 'en' ? "Mixed 🇬🇧" : "മിക്സഡ് 🇬🇧" }
                 ].map((lang) => (
                   <button
                     key={lang.id}
                     type="button"
                     onClick={() => setLanguage(lang.id as any)}
-                    className={`py-2.5 px-2 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
+                    className={`py-2.5 px-1 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
                       language === lang.id
                         ? "border-purple-600 bg-purple-50 text-purple-700 font-extrabold"
                         : "bg-white hover:bg-slate-50 text-slate-600 border-slate-200"
@@ -327,7 +331,7 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
             </div>
 
             {/* 4. Keyword */}
-            <div className="flex flex-col gap-1.5">
+            <div className="flex flex-col gap-1.5" id="field-keyword">
               <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
                 <MessageSquare className="w-3.5 h-3.5 text-purple-700" />
                 {t("step6")}
@@ -337,165 +341,179 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
                 placeholder={uiLang === 'en' ? "E.g., tea, rain, kochi, kalyanam" : "ഉദാ: ചായ, മഴ, കൊച്ചി, കല്യാണം"}
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-xs font-semibold focus:outline-none focus:ring-1 focus:ring-slate-900 transition-all placeholder:text-slate-400"
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-xs font-semibold focus:outline-none focus:ring-1 focus:ring-slate-900 transition-all placeholder:text-slate-400 h-[46px]"
                 id="input-keyword"
               />
             </div>
 
           </div>
 
-          {/* RIGHT BENTO BLOCK */}
-          <div className="flex flex-col gap-5">
-            
-            {/* 5. Vibe Category */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
-                <Filter className="w-3.5 h-3.5 text-purple-700" />
-                {t("step4")}
-              </label>
-              <select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800"
-                id="input-category-select"
-              >
-                {CATEGORIES.map((cat) => (
-                  <option key={cat.id} value={cat.id}>
-                    {t("cat_" + cat.id.replace("-", ""))}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* 6. Expressive Tone */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
-                <Flame className="w-3.5 h-3.5 text-purple-700" />
-                {uiLang === 'en' ? "6. Expressive Tone Style" : "6. എഴുത്ത് രീതി (Tone)"}
-              </label>
-              <div className="grid grid-cols-4 gap-1.5" id="input-tone-grid">
-                {TONES.map((t) => (
-                  <button
-                    key={t.id}
-                    type="button"
-                    onClick={() => setTone(t.id)}
-                    className={`py-2 rounded-lg border text-[10px] font-bold transition-all cursor-pointer truncate ${
-                      tone === t.id
-                        ? "border-slate-900 bg-slate-50 text-slate-900 font-extrabold"
-                        : "bg-white hover:bg-slate-50 text-slate-500 border-slate-200"
-                    }`}
-                  >
-                    {t.name}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* 7. Mood & Occasion */}
-            <div className="grid grid-cols-2 gap-3">
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1">
-                  <Smile className="w-3.5 h-3.5 text-purple-600" />
-                  {uiLang === 'en' ? "Mood Vibe" : "മൂഡ് വൈബ്"}
-                </label>
-                <select
-                  value={mood}
-                  onChange={(e) => setMood(e.target.value)}
-                  className="w-full px-3 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800"
-                >
-                  {MOODS.map((m) => (
-                    <option key={m.id} value={m.id}>{m.name}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1">
-                  <Activity className="w-3.5 h-3.5 text-purple-600" />
-                  {uiLang === 'en' ? "Occasion" : "അവസരം"}
-                </label>
-                <select
-                  value={occasion}
-                  onChange={(e) => setOccasion(e.target.value)}
-                  className="w-full px-3 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800"
-                >
-                  {OCCASIONS.map((o) => (
-                    <option key={o.id} value={o.id}>{o.name}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            {/* 8. Length & Emojis */}
-            <div className="grid grid-cols-2 gap-3">
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider">
-                  {uiLang === 'en' ? "Output Length" : "വരികളുടെ നീളം"}
-                </label>
-                <select
-                  value={length}
-                  onChange={(e) => setLength(e.target.value as any)}
-                  className="w-full px-3 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800"
-                >
-                  <option value="one-line">{uiLang === 'en' ? "One-liner ⚡" : "ഒറ്റ വരിയിൽ ⚡"}</option>
-                  <option value="short">{uiLang === 'en' ? "Short (1-2 sentences)" : "ചെറുത് (1-2 വാക്യങ്ങൾ)"}</option>
-                  <option value="medium">{uiLang === 'en' ? "Medium (standard)" : "സാധാരണ അളവിൽ"}</option>
-                  <option value="detailed">{uiLang === 'en' ? "Detailed (blog/post style)" : "വിശദമായി (കൂടുതൽ വരികൾ)"}</option>
-                </select>
-              </div>
-
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider">
-                  {uiLang === 'en' ? "Emoji Level" : "ഇമോജി അളവ്"}
-                </label>
-                <select
-                  value={emojiSetting}
-                  onChange={(e) => setEmojiSetting(e.target.value as any)}
-                  className="w-full px-3 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800"
-                >
-                  <option value="none">{uiLang === 'en' ? "No Emojis 🚫" : "ഇമോജി വേണ്ട 🚫"}</option>
-                  <option value="minimal">{uiLang === 'en' ? "Minimal ✨" : "കുറച്ചു മതി ✨"}</option>
-                  <option value="more">{uiLang === 'en' ? "More 🥳🔥" : "കൂടുതൽ വേണം 🥳🔥"}</option>
-                </select>
-              </div>
-            </div>
-
-            {/* 9. Hashtags & Result Counts */}
-            <div className="grid grid-cols-2 gap-3">
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1">
-                  <Hash className="w-3.5 h-3.5 text-purple-600" />
-                  {uiLang === 'en' ? "Hashtag Count" : "ഹാഷ്‌ടാഗ് എണ്ണം"}
-                </label>
-                <select
-                  value={hashtagCount}
-                  onChange={(e) => setHashtagCount(e.target.value as any)}
-                  className="w-full px-3 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800"
-                >
-                  <option value="none">{uiLang === 'en' ? "No Hashtags" : "ഹാഷ്‌ടാഗ് വേണ്ട"}</option>
-                  <option value="5">{uiLang === 'en' ? "5 Tags" : "5 ടാഗുകൾ"}</option>
-                  <option value="10">{uiLang === 'en' ? "10 Tags" : "10 ടാഗുകൾ"}</option>
-                  <option value="15">{uiLang === 'en' ? "15 Tags" : "15 ടാഗുകൾ"}</option>
-                </select>
-              </div>
-
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider">
-                  {uiLang === 'en' ? "Options Count" : "ഓപ്ഷൻ എണ്ണം"}
-                </label>
-                <select
-                  value={resultsCount}
-                  onChange={(e) => setResultsCount(parseInt(e.target.value, 10))}
-                  className="w-full px-3 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800"
-                >
-                  <option value={5}>{uiLang === 'en' ? "5 Options" : "5 എണ്ണം"}</option>
-                  <option value={10}>{uiLang === 'en' ? "10 Options" : "10 എണ്ണം"}</option>
-                  <option value={20}>{uiLang === 'en' ? "20 Options" : "20 എണ്ണം"}</option>
-                </select>
-              </div>
-            </div>
-
+          {/* ADVANCED COLLAPSIBLE CONTROL BUTTON */}
+          <div className="flex justify-center border-t border-slate-100 pt-4" id="advanced-toggle-bar">
+            <button
+              type="button"
+              onClick={() => setShowAdvanced(!showAdvanced)}
+              className="flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-purple-700 transition-all cursor-pointer py-1 px-3.5 rounded-full hover:bg-slate-50 border border-slate-200 shadow-sm"
+              id="btn-toggle-advanced"
+            >
+              <span>{showAdvanced ? "Hide Advanced Fine-Tuning ⚙️" : "Customize Style & Settings (Tone, Length, Emojis) ⚙️"}</span>
+            </button>
           </div>
+
+          {/* ADVANCED FIELDS (Collapsible panel) */}
+          {showAdvanced && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-slate-50/70 dark:bg-neutral-900/40 rounded-3xl border border-slate-200/60 transition-all duration-300" id="advanced-fields-panel">
+              
+              {/* Target Platform */}
+              <div className="flex flex-col gap-1.5" id="field-platform">
+                <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+                  <Compass className="w-3.5 h-3.5 text-purple-700" />
+                  {uiLang === 'en' ? "Target Platform" : "സോഷ്യൽ മീഡിയ പ്ലാറ്റ്‌ഫോം"}
+                </label>
+                <select
+                  value={platform}
+                  onChange={(e) => setPlatform(e.target.value)}
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800"
+                  id="input-platform-select"
+                >
+                  {PLATFORMS.map((p) => (
+                    <option key={p.id} value={p.id}>
+                      {p.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Expressive Tone Style */}
+              <div className="flex flex-col gap-1.5" id="field-tone">
+                <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+                  <Flame className="w-3.5 h-3.5 text-purple-700" />
+                  {uiLang === 'en' ? "Expressive Tone Style" : "എഴുത്ത് രീതി (Tone)"}
+                </label>
+                <div className="grid grid-cols-4 gap-1.5" id="input-tone-grid">
+                  {TONES.map((t) => (
+                    <button
+                      key={t.id}
+                      type="button"
+                      onClick={() => setTone(t.id)}
+                      className={`py-2 rounded-lg border text-[10px] font-bold transition-all cursor-pointer truncate ${
+                        tone === t.id
+                          ? "border-slate-900 bg-slate-50 text-slate-900 font-extrabold"
+                          : "bg-white hover:bg-slate-50 text-slate-500 border-slate-200"
+                      }`}
+                    >
+                      {t.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Mood & Occasion */}
+              <div className="grid grid-cols-2 gap-3" id="field-mood-occasion-grid">
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1">
+                    <Smile className="w-3.5 h-3.5 text-purple-600" />
+                    {uiLang === 'en' ? "Mood Vibe" : "മൂഡ് വൈബ്"}
+                  </label>
+                  <select
+                    value={mood}
+                    onChange={(e) => setMood(e.target.value)}
+                    className="w-full px-3 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800"
+                  >
+                    {MOODS.map((m) => (
+                      <option key={m.id} value={m.id}>{m.name}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1">
+                    <Activity className="w-3.5 h-3.5 text-purple-600" />
+                    {uiLang === 'en' ? "Occasion" : "അവസരം"}
+                  </label>
+                  <select
+                    value={occasion}
+                    onChange={(e) => setOccasion(e.target.value)}
+                    className="w-full px-3 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800"
+                  >
+                    {OCCASIONS.map((o) => (
+                      <option key={o.id} value={o.id}>{o.name}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* Length & Emojis */}
+              <div className="grid grid-cols-2 gap-3" id="field-length-emojis-grid">
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider">
+                    {uiLang === 'en' ? "Output Length" : "വരികളുടെ നീളം"}
+                  </label>
+                  <select
+                    value={length}
+                    onChange={(e) => setLength(e.target.value as any)}
+                    className="w-full px-3 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800"
+                  >
+                    <option value="one-line">{uiLang === 'en' ? "One-liner ⚡" : "ഒറ്റ വരിയിൽ ⚡"}</option>
+                    <option value="short">{uiLang === 'en' ? "Short (1-2 sentences)" : "ചെറുത് (1-2 വാക്യങ്ങൾ)"}</option>
+                    <option value="medium">{uiLang === 'en' ? "Medium (standard)" : "സാധാരണ അളവിൽ"}</option>
+                    <option value="detailed">{uiLang === 'en' ? "Detailed (blog/post style)" : "വിശദമായി (കൂടുതൽ വരികൾ)"}</option>
+                  </select>
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider">
+                    {uiLang === 'en' ? "Emoji Level" : "ഇമോജി അളവ്"}
+                  </label>
+                  <select
+                    value={emojiSetting}
+                    onChange={(e) => setEmojiSetting(e.target.value as any)}
+                    className="w-full px-3 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800"
+                  >
+                    <option value="none">{uiLang === 'en' ? "No Emojis 🚫" : "ഇമോജി വേണ്ട 🚫"}</option>
+                    <option value="minimal">{uiLang === 'en' ? "Minimal ✨" : "കുറച്ചു മതി ✨"}</option>
+                    <option value="more">{uiLang === 'en' ? "More 🥳🔥" : "കൂടുതൽ വേണം 🥳🔥"}</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Hashtags & Result Counts */}
+              <div className="grid grid-cols-2 gap-3" id="field-hashtags-count-grid">
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1">
+                    <Hash className="w-3.5 h-3.5 text-purple-600" />
+                    {uiLang === 'en' ? "Hashtag Count" : "ഹാഷ്‌ടാഗ് എണ്ണം"}
+                  </label>
+                  <select
+                    value={hashtagCount}
+                    onChange={(e) => setHashtagCount(e.target.value as any)}
+                    className="w-full px-3 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800"
+                  >
+                    <option value="none">{uiLang === 'en' ? "No Hashtags" : "ഹാഷ്‌ടാഗ് വേണ്ട"}</option>
+                    <option value="5">{uiLang === 'en' ? "5 Tags" : "5 ടാഗുകൾ"}</option>
+                    <option value="10">{uiLang === 'en' ? "10 Tags" : "10 ടാഗുകൾ"}</option>
+                    <option value="15">{uiLang === 'en' ? "15 Tags" : "15 ടാഗുകൾ"}</option>
+                  </select>
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider">
+                    {uiLang === 'en' ? "Options Count" : "ഓപ്ഷൻ എണ്ണം"}
+                  </label>
+                  <select
+                    value={resultsCount}
+                    onChange={(e) => setResultsCount(parseInt(e.target.value, 10))}
+                    className="w-full px-3 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800"
+                  >
+                    <option value={5}>{uiLang === 'en' ? "5 Options" : "5 എണ്ണം"}</option>
+                    <option value={10}>{uiLang === 'en' ? "10 Options" : "10 എണ്ണം"}</option>
+                    <option value={20}>{uiLang === 'en' ? "20 Options" : "20 എണ്ണം"}</option>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          )}
 
         </div>
 

@@ -22,7 +22,9 @@ const CATEGORY_ITEMS = [
   { id: "funny", name: "Funny", emoji: "🤪", desc: "Relatable humor, exams, diet jokes, and trolls.", color: "from-lime-500 to-yellow-500" },
   { id: "kerala", name: "Kerala", emoji: "🌴", desc: "Traditional, backwaters, sadyas, and local pride.", color: "from-emerald-600 to-teal-700" },
   { id: "photography", name: "Photography", emoji: "📸", desc: "Frames, camera angles, and captured moments.", color: "from-blue-500 to-indigo-500" },
-  { id: "business", name: "Business", emoji: "💼", desc: "Professional, startup, and customer trust values.", color: "from-slate-700 to-zinc-900" }
+  { id: "business", name: "Business", emoji: "💼", desc: "Professional, startup, and customer trust values.", color: "from-slate-700 to-zinc-900" },
+  { id: "makeover_artist", name: "Makeover Artists", emoji: "✨", desc: "Bridal, photoshoot glam, freelance artists.", color: "from-violet-400 to-fuchsia-600" },
+  { id: "fashion", name: "Fashion & Style", emoji: "👗", desc: "Clothing boutique, trendy outfits, lifestyle.", color: "from-rose-400 to-red-600" }
 ];
 
 const CATEGORY_TRANSLATIONS: Record<string, { name: string, desc: string }> = {
@@ -68,11 +70,19 @@ const CATEGORY_TRANSLATIONS: Record<string, { name: string, desc: string }> = {
   },
   photography: {
     name: "ഫോട്ടോഗ്രഫി",
-    desc: "ക്യാമറക്കണ്ണിലൂടെ കണ്ടെത്തിയ నిമിഷങ്ങൾ."
+    desc: "ക്യാമറക്കണ്ണിലൂടെ കണ്ടെത്തിയ നിമിഷങ്ങൾ."
   },
   business: {
     name: "ബിസിനസ്സ്",
     desc: "വിശ്വാസ്യതയും പ്രൊഫഷണൽ രീതികളും."
+  },
+  makeover_artist: {
+    name: "മേക്കപ്പ് ആർട്ടിസ്റ്റുകൾ",
+    desc: "ബ്രൈഡൽ മേക്കപ്പ്, ഫോട്ടോഷൂട്ട് ഗ്ലാം, ഫ്രീലാൻസ് വർക്കുകൾ."
+  },
+  fashion: {
+    name: "ഫാഷൻ & സ്റ്റൈൽ",
+    desc: "ട്രെൻഡിങ് വസ്ത്രങ്ങൾ, ബോട്ടിക് കളക്ഷനുകൾ."
   }
 };
 

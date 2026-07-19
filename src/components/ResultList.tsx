@@ -101,7 +101,7 @@ export default function ResultList({
               Caption Studio Outputs
             </span>
             <h3 className="text-2xl font-black text-neutral-900 tracking-tight mt-0.5" id="results-title">
-              Generated Results ({results.length})
+              Top {results.length} Generated Captions
             </h3>
           </div>
           <span className="text-xs font-semibold text-neutral-500 bg-neutral-100 dark:bg-neutral-800 px-3 py-1.5 rounded-full">
