@@ -18,7 +18,8 @@ import {
   Sparkles, 
   Smartphone, 
   ShieldCheck,
-  Check
+  Check,
+  Mic
 } from "lucide-react";
 
 interface TranslitToolProps {
@@ -35,6 +36,51 @@ export default function TranslitTool({ onSuccessMessage }: TranslitToolProps) {
   const [history, setHistory] = useState<{ manglish: string; malayalam: string }[]>([{ manglish: "", malayalam: "" }]);
   const [historyIndex, setHistoryIndex] = useState(0);
   const isTransitioningHistory = useRef(false);
+
+  // Voice to text states
+  const [isListeningVoice, setIsListeningVoice] = useState(false);
+
+  const toggleVoiceRecognition = () => {
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      onSuccessMessage("Speech Recognition is not supported in this browser. Try Google Chrome.");
+      return;
+    }
+
+    const rec = new SpeechRecognition();
+    rec.lang = "ml-IN"; // Malayalam language code
+    rec.continuous = false;
+    rec.interimResults = false;
+
+    rec.onstart = () => {
+      setIsListeningVoice(true);
+      onSuccessMessage("Listening... Speak in Malayalam 🎙️");
+    };
+
+    rec.onresult = (event: any) => {
+      const transcript = event.results[0][0].transcript;
+      if (transcript) {
+        setMalayalam(prev => prev ? prev + " " + transcript : transcript);
+        onSuccessMessage(`Added spoken text: "${transcript}" ✨`);
+      }
+    };
+
+    rec.onerror = (event: any) => {
+      console.error(event);
+      setIsListeningVoice(false);
+    };
+
+    rec.onend = () => {
+      setIsListeningVoice(false);
+    };
+
+    try {
+      rec.start();
+    } catch (err) {
+      console.error(err);
+      setIsListeningVoice(false);
+    }
+  };
 
   // Track cursor position for suggestions
   const manglishInputRef = useRef<HTMLTextAreaElement>(null);
@@ -359,7 +405,21 @@ export default function TranslitTool({ onSuccessMessage }: TranslitToolProps) {
                 <Sparkles className="w-4 h-4 text-pink-500 animate-pulse" />
                 2. Live Malayalam Output
               </span>
-              <div className="flex gap-2">
+              <div className="flex gap-2 items-center">
+                <button
+                  type="button"
+                  onClick={toggleVoiceRecognition}
+                  className={`p-1.5 rounded-lg text-xs font-black transition-all flex items-center gap-1 cursor-pointer ${
+                    isListeningVoice 
+                      ? "bg-red-600 text-white animate-pulse" 
+                      : "bg-slate-800 hover:bg-slate-750 text-pink-400 hover:text-pink-300"
+                  }`}
+                  title="Speak in Malayalam (Voice-to-Text)"
+                >
+                  <Mic className="w-3.5 h-3.5" />
+                  {isListeningVoice ? "Listening..." : "Speak 🎙️"}
+                </button>
+
                 <button
                   onClick={handleCopy}
                   disabled={!malayalam}
@@ -371,7 +431,7 @@ export default function TranslitTool({ onSuccessMessage }: TranslitToolProps) {
                 </button>
                 <button
                   onClick={handleClear}
-                  disabled={!manglish}
+                  disabled={!manglish && !malayalam}
                   className="p-1.5 bg-slate-800 hover:bg-slate-750 text-rose-400 hover:text-rose-300 rounded-lg disabled:opacity-40 cursor-pointer transition-all"
                   title="Clear All"
                 >

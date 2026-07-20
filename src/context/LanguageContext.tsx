@@ -227,28 +227,14 @@ const translations: Record<Language, Record<string, string>> = {
 const LanguageContext = createContext<LanguageContextProps | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguageState] = useState<Language>(() => {
-    try {
-      const stored = localStorage.getItem("vamozhi_ui_language");
-      if (stored === "ml" || stored === "en") return stored;
-    } catch {
-      // Ignore
-    }
-    return "en";
-  });
+  const [language, setLanguageState] = useState<Language>("en");
 
   const setLanguage = (lang: Language) => {
-    setLanguageState(lang);
-    try {
-      localStorage.setItem("vamozhi_ui_language", lang);
-    } catch {
-      // Ignore
-    }
+    setLanguageState("en");
   };
 
   const t = (key: string): string => {
-    const translationSet = translations[language];
-    return translationSet[key] || translations["en"][key] || key;
+    return translations["en"][key] || key;
   };
 
   return (

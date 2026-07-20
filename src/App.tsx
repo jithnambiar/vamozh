@@ -5,8 +5,9 @@
 
 import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
-import QuickTools from "./components/QuickTools";
 import Hero from "./components/Hero";
+import MalayalamNumbers from "./components/MalayalamNumbers";
+import LearningSystem from "./components/LearningSystem";
 import Categories from "./components/Categories";
 import Generator from "./components/Generator";
 import ResultList from "./components/ResultList";
@@ -134,6 +135,16 @@ const ROUTE_META_MAP: Record<string, RouteMeta> = {
     title: "Disclaimer Notice – VAMOZHI",
     description: "Intellectual property statements. Independant tool, no official affiliation with Instagram, WhatsApp, or Bumble.",
     canonical: "https://vamozhi.com/disclaimer"
+  },
+  "/malayalam-numbers": {
+    title: "Malayalam Numbers – Learn traditional numbers and play the quiz",
+    description: "Master Malayalam numerals, words, pronunciations, and test your knowledge with interactive matching games.",
+    canonical: "https://vamozhi.com/malayalam-numbers"
+  },
+  "/learn-malayalam": {
+    title: "Learn Malayalam – Complete interactive Malayalam learning system",
+    description: "Learn the Malayalam alphabet, vowels, consonants, everyday conversation phrases, proverbs, and test yourself.",
+    canonical: "https://vamozhi.com/learn-malayalam"
   }
 };
 
@@ -261,6 +272,8 @@ export default function App() {
     currentPath === "/matrimony-bio-generator";
 
   const isPhoneticTypingRoute = currentPath === "/manglish-to-malayalam";
+  const isMalayalamNumbersRoute = currentPath === "/malayalam-numbers";
+  const isLearnMalayalamRoute = currentPath === "/learn-malayalam";
 
   return (
     <div className="min-h-screen flex flex-col bg-[#faf9f6] text-neutral-800" id="app-root-container">
@@ -272,11 +285,7 @@ export default function App() {
         onNavigate={handleNavigate}
       />
 
-      {/* Quick horizontal shortcuts bar */}
-      <QuickTools 
-        onNavigate={handleNavigate}
-        currentPath={currentPath}
-      />
+
 
       {/* Main Container Views Switching */}
       <div className="flex-1 pt-[130px]" id="vamozhi-page-outlet">
@@ -340,7 +349,15 @@ export default function App() {
           </>
         )}
 
-        {!isHomeOrGeneratorRoute && !isPhoneticTypingRoute && (
+        {isMalayalamNumbersRoute && (
+          <MalayalamNumbers />
+        )}
+
+        {isLearnMalayalamRoute && (
+          <LearningSystem />
+        )}
+
+        {!isHomeOrGeneratorRoute && !isPhoneticTypingRoute && !isMalayalamNumbersRoute && !isLearnMalayalamRoute && (
           <>
             <InfoPages currentPath={currentPath} onSuccessMessage={(msg) => triggerToast(msg, 'success')} />
           </>

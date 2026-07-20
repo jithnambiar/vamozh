@@ -84,7 +84,7 @@ app.post("/api/generate", async (req, res) => {
       try {
         const prompt = `Generate exactly ${cleanResultsCount} original social writing options for the following parameters:
 - Platform: ${cleanPlatform}
-- Content Type: ${cleanContentType} (e.g. caption, bio, hook, status, greeting)
+- Content Type: ${cleanContentType} (e.g. caption, bio, hook, status, greeting, pickup_line)
 - Language: ${cleanLanguage}
 - Vibe Category: ${cleanCategory}
 - Mood style: ${cleanMood}
@@ -98,17 +98,17 @@ app.post("/api/generate", async (req, res) => {
 Return your response strictly as a JSON array of objects conforming to this schema, with no markdown code fence or wrapping text outside the JSON:
 [
   {
-    "text": "The custom generated caption/bio text",
+    "text": "The custom generated caption/bio/pickup line text",
     "hashtags": ["#Tag1", "#Tag2"]
   }
 ]
 
 IMPORTANT INSTRUCTIONS:
 1. Ensure the captions are highly original, engaging, and specifically crafted for Kerala culture / Malayali audiences.
-2. In Malayalam mode, use proper Malayalam script (മലയാളം). In Manglish mode, use proper English letters with natural sounding Manglish words. In Mixed mode, combine them organically.
+2. In Malayalam mode, use proper Malayalam script (മലയാളം). In Manglish mode, use proper English letters with natural sounding Manglish words. In English mode, write in perfect natural English. In Mixed mode, combine them organically.
 3. NEVER copy copyrighted lyrics, poems, or movie dialogues.
-4. Keep dating and matrimony bios highly respectful, safe, family-appropriate and safe.
-5. If keyword is provided, weave it organically into the caption text in an appropriate, elegant manner.`;
+4. Keep dating, matrimony, and pickup lines highly respectful, safe, family-appropriate and classy.
+5. If keyword is provided, weave it organically into the text in an appropriate, elegant manner.`;
 
         const response = await ai.models.generateContent({
           model: "gemini-2.5-flash",

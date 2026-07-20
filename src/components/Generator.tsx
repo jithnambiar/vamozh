@@ -15,7 +15,8 @@ import {
   Flame, 
   Hash, 
   Compass, 
-  Loader2 
+  Loader2,
+  Mic
 } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 
@@ -104,6 +105,49 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
   const [showAdvanced, setShowAdvanced] = useState<boolean>(false);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isListeningKeyword, setIsListeningKeyword] = useState(false);
+
+  const toggleKeywordSpeech = () => {
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      onSuccessMessage("Speech Recognition is not supported in this browser. Try Google Chrome.");
+      return;
+    }
+
+    const rec = new SpeechRecognition();
+    rec.lang = "ml-IN"; // Malayalam Voice recognition
+    rec.continuous = false;
+    rec.interimResults = false;
+
+    rec.onstart = () => {
+      setIsListeningKeyword(true);
+      onSuccessMessage("Listening... Speak a keyword in Malayalam 🎙️");
+    };
+
+    rec.onresult = (event: any) => {
+      const transcript = event.results[0][0].transcript;
+      if (transcript) {
+        setKeyword(transcript);
+        onSuccessMessage(`Recognized: "${transcript}" ✨`);
+      }
+    };
+
+    rec.onerror = (event: any) => {
+      console.error(event);
+      setIsListeningKeyword(false);
+    };
+
+    rec.onend = () => {
+      setIsListeningKeyword(false);
+    };
+
+    try {
+      rec.start();
+    } catch (err) {
+      console.error(err);
+      setIsListeningKeyword(false);
+    }
+  };
 
   // Monitor path changes to pre-configure appropriate presets
   useEffect(() => {
@@ -259,11 +303,12 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
                 <AlignLeft className="w-3.5 h-3.5 text-purple-700" />
                 {t("step1")}
               </label>
-              <div className="grid grid-cols-2 gap-2" id="input-content-type">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2" id="input-content-type">
                 {[
                   { id: "photo-caption", label: uiLang === 'en' ? "Photo Caption" : "ഫോട്ടോ ക്യാപ്ഷൻ" },
                   { id: "bio", label: uiLang === 'en' ? "Profile Bio" : "പ്രൊഫൈൽ ബയോ" },
                   { id: "hook", label: uiLang === 'en' ? "Reel Hook" : "റീൽ ഹൂക്ക്" },
+                  { id: "pickup_line", label: uiLang === 'en' ? "Pickup Line 💬" : "പിക്ക്അപ്പ് ലൈൻ 💬" },
                   { id: "hashtag_set", label: uiLang === 'en' ? "Hashtags only" : "ഹാഷ്‌ടാഗുകൾ മാത്രം" }
                 ].map((type) => (
                   <button
@@ -333,18 +378,34 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
 
             {/* 4. Keyword */}
             <div className="flex flex-col gap-1.5" id="field-keyword">
-              <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
-                <MessageSquare className="w-3.5 h-3.5 text-purple-700" />
-                {t("step6")}
+              <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5 justify-between">
+                <span className="flex items-center gap-1.5">
+                  <MessageSquare className="w-3.5 h-3.5 text-purple-700" />
+                  {t("step6")}
+                </span>
               </label>
-              <input
-                type="text"
-                value={keyword}
-                onChange={(e) => setKeyword(e.target.value)}
-                placeholder={uiLang === 'en' ? "E.g., tea, rain, kochi, kalyanam" : "ഉദാ: ചായ, മഴ, കൊച്ചി, കല്യാണം"}
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-xs font-semibold focus:outline-none focus:ring-1 focus:ring-slate-900 transition-all placeholder:text-slate-400 h-[46px]"
-                id="input-keyword"
-              />
+              <div className="relative flex items-center w-full">
+                <input
+                  type="text"
+                  value={keyword}
+                  onChange={(e) => setKeyword(e.target.value)}
+                  placeholder={uiLang === 'en' ? "E.g., tea, rain, kochi, kalyanam" : "ഉദാ: ചായ, മഴ, കൊച്ചി, കല്യാണം"}
+                  className="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-200 bg-white text-xs font-semibold focus:outline-none focus:ring-1 focus:ring-slate-900 transition-all placeholder:text-slate-400 h-[46px]"
+                  id="input-keyword"
+                />
+                <button
+                  type="button"
+                  onClick={toggleKeywordSpeech}
+                  className={`absolute right-2 p-2 rounded-lg transition-all cursor-pointer ${
+                    isListeningKeyword 
+                      ? "bg-red-600 text-white animate-pulse" 
+                      : "text-slate-400 hover:text-purple-700 hover:bg-slate-150"
+                  }`}
+                  title="Speak keyword in Malayalam"
+                >
+                  <Mic className="w-4 h-4" />
+                </button>
+              </div>
             </div>
 
           </div>

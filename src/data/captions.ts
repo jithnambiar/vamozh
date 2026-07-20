@@ -2409,6 +2409,59 @@ export function generateCaptions(options: GenerateOptions): GenerateResponse {
     };
   }
 
+  if (options.contentType === "pickup_line") {
+    const pickupLineFallbacks: Record<string, string[]> = {
+      malayalam: [
+        "നിന്റെ കണ്ണുകളിലേക്ക് നോക്കുമ്പോൾ എന്റെ ഫോണിലെ ചാർജ്ജ് തീരുന്നത് പോലെ എനിക്ക് തോന്നാറുണ്ട്. അത്രയ്ക്ക് പവർഫുൾ ആണ്! ⚡🔌",
+        "ഒരു കിലോ പഞ്ചസാരയും നിന്റെ ഈ ഒരു ചിരിയും തമ്മിൽ യാതൊരു വ്യത്യാസവുമില്ല, അത്രയ്ക്ക് മധുരമാണ്. 🍬🍭",
+        "കൂട്ടത്തിൽ ഏറ്റവും ഭംഗിയുള്ള കുട്ടി ആരാണെന്ന് ചോദിച്ചാൽ ഞാൻ നിന്റെ നേരെ വിരൽ ചൂണ്ടും! 👉💖",
+        "ഗൂഗിൾ മാപ്പ് വഴി ഞാൻ പല വഴികളും തിരഞ്ഞു, ഒടുവിൽ നിന്റെ ഹൃദയത്തിലേക്കുള്ള വഴി മാത്രമാണ് എനിക്ക് കിട്ടാത്തത്. 🗺️📍",
+        "നീ ഒരു ചായയാണോ? കാരണം എനിക്ക് ദിവസവും നിന്നെ ആവശ്യമുണ്ട്! ☕❤️"
+      ],
+      manglish: [
+        "Ninte kannukalilekku nokkumbol ente phone battery speedil theerunna pole thonnum. Athoru magnetic power aanu! ⚡🔋",
+        "Google mapsil njan pala vazhikalum search cheythu, pakshe ninte hridayathilekkulla vazhi mathram kandilla! 🗺️❤️",
+        "Are you a cup of hot chaya? Because my day is incomplete without you! ☕🥰",
+        "Ninte chiri kaanumbol enikku ella sangadangalum marannu pokunnu, enthaayirikkum athinte rahasyam? ✨🤫",
+        "Ninte koode nadakkan pattiya oru nalla buddy aakaan enikku ആഗ്രഹമുണ്ട്. 👭"
+      ],
+      english: [
+        "Are you Google? Because you have everything I’ve been searching for. 🔍❤️",
+        "Is it hot in here, or is it just your smile warming up my whole universe? ☀️🥰",
+        "Are you a cup of tea? Because you are exactly what I need to start my day. ☕✨",
+        "Do you have a map? Because I keep getting lost in your eyes every single time. 🗺️👀",
+        "If beauty was a crime, you would definitely be serving a life sentence! ⚖️💖"
+      ],
+      mixed: [
+        "Ninte chiri is so sweet, are you made of local sugar candy? 🍬😂",
+        "Are you a cup of hot കട്ടൻ ചായ? Because my day is completely blank without you! ☕❤️",
+        "My heart is drifting like a വള്ളം in the Ashtamudi lake when you smile! 🚣‍♂️💘"
+      ]
+    };
+
+    const list = pickupLineFallbacks[options.language] || pickupLineFallbacks.malayalam;
+    const results = [];
+    for (let i = 0; i < options.resultsCount; i++) {
+      const text = list[i % list.length];
+      const tags = CATEGORY_HASHTAGS[options.category]?.slice(0, 3) || ["#vibe", "#love"];
+      results.push({
+        id: `local_pickup_${options.language}_${i}`,
+        text: text,
+        hashtags: options.hashtagCount === "none" ? [] : tags,
+        platform: options.platform,
+        language: options.language,
+        mood: options.mood,
+        occasion: options.occasion,
+        charCount: text.length
+      });
+    }
+    return {
+      results,
+      isFallbackUsed: true,
+      message: `Generated ${options.resultsCount} custom pickup lines for you!`
+    };
+  }
+
   const fullDb = generateDatabase();
   const mappedDb = fullDb.map(rawItem => mapToNewSchema(rawItem));
   const cleanContentType = options.contentType === "hook" ? "reel-hook" : options.contentType;

@@ -156,6 +156,24 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
             >
               {t("malayalamTyping")}
             </button>
+
+            <button
+              onClick={() => onNavigate("/learn-malayalam")}
+              className={`text-xs font-black uppercase tracking-wider transition-colors cursor-pointer ${
+                currentPath === "/learn-malayalam" ? "text-purple-900 font-black border-b-2 border-purple-800 pb-0.5" : "text-slate-500 hover:text-purple-800"
+              }`}
+            >
+              Learn Malayalam 🎓
+            </button>
+
+            <button
+              onClick={() => onNavigate("/malayalam-numbers")}
+              className={`text-xs font-black uppercase tracking-wider transition-colors cursor-pointer ${
+                currentPath === "/malayalam-numbers" ? "text-purple-900 font-black border-b-2 border-purple-800 pb-0.5" : "text-slate-500 hover:text-purple-800"
+              }`}
+            >
+              Numbers 🔢
+            </button>
           </div>
 
           {/* Find a Tool Search Bar (Desktop) */}
@@ -194,17 +212,6 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
 
           {/* Right Action buttons */}
           <div className="flex items-center gap-2" id="nav-actions">
-            {/* Language Toggle Button */}
-            <button
-              onClick={() => setLanguage(language === 'en' ? 'ml' : 'en')}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-purple-200/60 hover:border-purple-400 bg-purple-50/40 hover:bg-purple-50 text-[10px] sm:text-[11px] font-black transition-all text-purple-950 cursor-pointer"
-              title={language === 'en' ? 'മലയാളം ഭാഷയിലേക്ക് മാറ്റുക' : 'Switch to English'}
-              id="language-toggle-btn"
-            >
-              <Globe className="w-3.5 h-3.5 text-purple-600 shrink-0 animate-pulse" />
-              <span>{language === 'en' ? 'മലയാളം' : 'English'}</span>
-            </button>
-
             {/* Saved Drawer Icon */}
             <button
               onClick={onOpenFavourites}
@@ -292,6 +299,22 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
             >
               <Sparkles className="w-4 h-4 text-amber-500 shrink-0" />
               {t("malayalamTyping")}
+            </button>
+
+            <button
+              onClick={() => { onNavigate("/learn-malayalam"); setIsOpen(false); }}
+              className="py-2.5 font-extrabold text-slate-800 border-b border-slate-100 text-xs uppercase tracking-wider flex items-center gap-2 text-left"
+            >
+              <BookOpen className="w-4 h-4 text-pink-600 shrink-0" />
+              Learn Malayalam 🎓
+            </button>
+
+            <button
+              onClick={() => { onNavigate("/malayalam-numbers"); setIsOpen(false); }}
+              className="py-2.5 font-extrabold text-slate-800 border-b border-slate-100 text-xs uppercase tracking-wider flex items-center gap-2 text-left"
+            >
+              <Sparkles className="w-4 h-4 text-emerald-500 shrink-0" />
+              Numbers 🔢
             </button>
           </div>
 
