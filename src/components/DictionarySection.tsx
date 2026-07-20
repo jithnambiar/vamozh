@@ -17,6 +17,7 @@ import {
   ArrowRight
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import localDictionaryData from "../data/dictionary_db.json";
 
 interface DictionaryEntry {
   id: string;
@@ -68,20 +69,46 @@ export default function DictionarySection({ onSuccessMessage }: DictionarySectio
       setError(null);
       setIsAIUsed(false);
 
+      if (trimmed === "") {
+        try {
+          const response = await fetch(`/api/dictionary/search?q=`);
+          if (response.ok) {
+            const data = await response.json();
+            setResults(data.results || []);
+            setIsLoading(false);
+            return;
+          }
+        } catch (e) {
+          // ignore API error and fallback to local
+        }
+        setResults((localDictionaryData as DictionaryEntry[]).slice(0, 15));
+        setIsLoading(false);
+        return;
+      }
+
       try {
         const response = await fetch(`/api/dictionary/search?q=${encodeURIComponent(trimmed)}`);
         if (!response.ok) {
           throw new Error("Failed to search dictionary database.");
         }
         const data = await response.json();
+        if (data.error) {
+          throw new Error(data.error);
+        }
         setResults(data.results || []);
         setIsAIUsed(data.isAIUsed || false);
-        if (data.error) {
-          setError(data.error);
-        }
       } catch (err: any) {
-        console.error(err);
-        setError("Could not retrieve dictionary definitions. Please try again.");
+        console.warn("API lookup failed, falling back to local database search:", err);
+        // Fallback to client-side local search using imported JSON
+        const q = trimmed.toLowerCase();
+        const matches = (localDictionaryData as DictionaryEntry[]).filter((entry) => {
+          const wordMatch = String(entry.word || "").toLowerCase().includes(q);
+          const malMatch = String(entry.malayalam || "").includes(q);
+          const defMatch = String(entry.definition || "").toLowerCase().includes(q);
+          return wordMatch || malMatch || defMatch;
+        });
+        setResults(matches);
+        setIsAIUsed(false);
       } finally {
         setIsLoading(false);
       }
@@ -441,36 +468,7 @@ export default function DictionarySection({ onSuccessMessage }: DictionarySectio
             )}
           </AnimatePresence>
 
-          {/* Database Info Card */}
-          <div className="bg-gradient-to-br from-purple-950 to-indigo-950 text-white rounded-3xl p-6 shadow-sm space-y-4 text-left">
-            <h3 className="text-base font-black uppercase tracking-wider flex items-center gap-1.5">
-              <Clock className="w-5 h-5 text-purple-400" />
-              Database Status
-            </h3>
-            
-            <p className="text-xs text-purple-200 leading-relaxed">
-              Vamozhi features a hybrid storage dictionary engine. It first queries local data index. If absent, it queries Gemini AI, formats a clean entry, and commits it into the database file as a persistent cache.
-            </p>
 
-            <div className="border-t border-white/10 pt-4 space-y-2 text-xs">
-              <div className="flex justify-between">
-                <span className="text-purple-300">Target Core Tables:</span>
-                <span className="font-extrabold text-white">Datuk, Ekkurup, Enml</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-purple-300">Database Engine:</span>
-                <span className="font-extrabold text-emerald-400">Persistent JSON</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-purple-300">Cloud Storage Size:</span>
-                <span className="font-extrabold text-white">Infinite (Auto-Cache)</span>
-              </div>
-            </div>
-
-            <div className="bg-white/5 p-3 rounded-2xl border border-white/10 text-[11px] text-purple-200 font-medium">
-              Contributions are stored in real-time, allowing all concurrent users to access shared translations immediately.
-            </div>
-          </div>
 
           {/* Olam Open Source Credit Card */}
           <div className="bg-slate-50 border border-slate-200 rounded-3xl p-6 text-left space-y-3">

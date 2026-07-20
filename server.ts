@@ -7,7 +7,7 @@ import express from "express";
 import path from "path";
 import dotenv from "dotenv";
 import fs from "fs";
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI, Type } from "@google/genai";
 import { createServer as createViteServer } from "vite";
 import { generateCaptions } from "./src/data/captions";
 
@@ -22,7 +22,14 @@ let aiClient: GoogleGenAI | null = null;
 function getAIClient(): GoogleGenAI | null {
   if (!aiClient && process.env.GEMINI_API_KEY) {
     try {
-      aiClient = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+      aiClient = new GoogleGenAI({ 
+        apiKey: process.env.GEMINI_API_KEY,
+        httpOptions: {
+          headers: {
+            'User-Agent': 'aistudio-build',
+          }
+        }
+      });
     } catch (e) {
       console.error("Failed to initialize Google Gen AI client:", e);
     }
@@ -411,11 +418,49 @@ app.get("/api/community-captions", (req, res) => {
 });
 
 // API: Post a community caption
-app.post("/api/community-captions", (req, res) => {
+app.post("/api/community-captions", async (req, res) => {
   try {
     const { text, hashtags = [], author = "Anonymous" } = req.body;
     if (!text || String(text).trim().length === 0) {
       return res.status(400).json({ error: "Caption text is required to post." });
+    }
+
+    // Content Moderation check using Gemini API
+    const ai = getAIClient();
+    if (ai) {
+      try {
+        const moderationResponse = await ai.models.generateContent({
+          model: "gemini-3.5-flash",
+          contents: `Evaluate the following text for community guidelines. The platform does NOT allow:
+1. Foul words, vulgarity, offensive language, obscenity, or profanity in English, Malayalam, or Manglish.
+2. Anti-national slogans, hate speech, or content promoting division.
+3. Abusing personalities, cyberbullying, harassment, defamation, or targeting/insulting individuals.
+4. Promotion of criminal activities, illegal acts, or violence.
+
+Text to evaluate: "${String(text).replace(/"/g, '\\"')}"`,
+          config: {
+            systemInstruction: "You are an expert AI content moderator for Vamozhi, a Malayalam social caption-sharing platform. Review the text and return a JSON object with 'approved' (boolean) and 'reason' (string, empty if approved). Be strict. Do not wrap with markdown fences or other text.",
+            responseMimeType: "application/json",
+            responseSchema: {
+              type: Type.OBJECT,
+              properties: {
+                approved: { type: Type.BOOLEAN },
+                reason: { type: Type.STRING }
+              },
+              required: ["approved", "reason"]
+            }
+          }
+        });
+
+        const moderationResult = JSON.parse(moderationResponse.text || "{}");
+        if (moderationResult.approved === false) {
+          return res.status(400).json({ 
+            error: `Submission rejected: ${moderationResult.reason || "Content violates community safety guidelines."}` 
+          });
+        }
+      } catch (err) {
+        console.error("Moderation API call failed, falling back to local checks:", err);
+      }
     }
 
     const data = readCommunityCaptions();

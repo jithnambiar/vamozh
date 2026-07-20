@@ -365,15 +365,20 @@ export default function LearningSystem({ defaultTab = "letters" }: LearningSyste
                 <div className="md:col-span-4 flex justify-center">
                   <div className="relative w-full h-auto max-w-[260px] rounded-2xl shadow-md border border-amber-200/80 bg-amber-50 overflow-hidden group">
                     <img
-                      src="/public/ezhuthachan_drawing.jpg"
+                      src="https://vamozhi.com/ezhuthachan_drawing.jpg"
                       alt="Thunchaththu Ezhuthachan Portrait Drawing"
                       referrerPolicy="no-referrer"
                       className="w-full h-auto object-cover rounded-2xl aspect-[3/4] block"
                       onError={(e) => {
-                        // Fallback to elegant placeholder if custom image is not loaded yet
-                        e.currentTarget.style.display = 'none';
-                        const fallback = document.getElementById('ezhuthachan-svg-fallback');
-                        if (fallback) fallback.classList.remove('hidden');
+                        // Fallback to local Vite path /ezhuthachan_drawing.jpg if the live web URL fails
+                        if (e.currentTarget.src !== window.location.origin + "/ezhuthachan_drawing.jpg") {
+                          e.currentTarget.src = "/ezhuthachan_drawing.jpg";
+                        } else {
+                          // Fallback to elegant vector SVG illustration if no image asset is found
+                          e.currentTarget.style.display = 'none';
+                          const fallback = document.getElementById('ezhuthachan-svg-fallback');
+                          if (fallback) fallback.classList.remove('hidden');
+                        }
                       }}
                     />
                     <div id="ezhuthachan-svg-fallback" className="w-full h-auto">
