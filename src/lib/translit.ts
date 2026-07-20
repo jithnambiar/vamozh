@@ -107,14 +107,114 @@ export const TRANSLIT_DICTIONARY: Record<string, string> = {
   "marakkalle": "മറക്കല്ലേ",
   "marakaruthe": "മറക്കരുതേ",
   "ishttam": "ഇഷ്ടം",
+  "ishttame": "ഇഷ്ടമേ",
   "ishtm": "ഇഷ്ടം",
   "snehame": "സ്നേഹമേ",
   "karuth": "കരുത്ത്",
   "thalarathe": "തളരാതെ",
-  "poradu": "പോരാടൂ"
+  "poradu": "പോരാടൂ",
+  
+  // Custom dictionary terms for accuracy matching Google Input Tools / standard Malayalam
+  "vyanjanam": "വ്യഞ്ജനം",
+  "vyanjanangal": "വ്യഞ്ജനങ്ങൾ",
+  "vyanjan": "വ്യഞ്ജനം",
+  "vyanjanas": "വ്യഞ്ജനങ്ങൾ",
+  "swaraksharam": "സ്വരാക്ഷരം",
+  "swaraksharangal": "സ്വരാക്ഷരങ്ങൾ",
+  "aksharam": "അക്ഷരം",
+  "aksharangal": "അക്ഷരങ്ങൾ",
+  "manglish": "മാംഗ്ലീഷ്",
+  "pattu": "പാട്ട്",
+  "paattu": "പാട്ട്",
+  "kuttan": "കുട്ടൻ",
+  "kutti": "കുട്ടി",
+  "pennu": "പെണ്ണ്",
+  "aanu": "ആണ്",
+  "alla": "അല്ല",
+  "poyi": "പോയി",
+  "vannu": "വന്നു",
+  "cheythu": "ചെയ്തു"
 };
 
-// Word suggestions list based on typing prefix
+// Vowel definitions
+const VOWELS: { pattern: RegExp; standalone: string; sign: string }[] = [
+  { pattern: /^aa/, standalone: "ആ", sign: "ാ" },
+  { pattern: /^a/, standalone: "അ", sign: "" },
+  { pattern: /^ii/, standalone: "ഈ", sign: "ീ" },
+  { pattern: /^i/, standalone: "ഇ", sign: "ി" },
+  { pattern: /^uu/, standalone: "ഊ", sign: "ൂ" },
+  { pattern: /^u/, standalone: "ഉ", sign: "ു" },
+  { pattern: /^ee/, standalone: "ഏ", sign: "േ" },
+  { pattern: /^e/, standalone: "എ", sign: "െ" },
+  { pattern: /^oo/, standalone: "ഓ", sign: "ോ" },
+  { pattern: /^o/, standalone: "ഒ", sign: "ൊ" },
+  { pattern: /^ai/, standalone: "ഐ", sign: "ൈ" },
+  { pattern: /^au/, standalone: "ഔ", sign: "ൌ" }
+];
+
+// Consonant definitions (ordered by length descending)
+const CONSONANTS: { pattern: RegExp; malayalam: string }[] = [
+  { pattern: /^nte/, malayalam: "ന്റെ" },
+  { pattern: /^njj/, malayalam: "ഞ്ജ" },
+  { pattern: /^nch/, malayalam: "ഞ്ച" },
+  { pattern: /^nth/, malayalam: "ന്ത" },
+  { pattern: /^ndh/, malayalam: "ന്ധ" },
+  { pattern: /^nd/, malayalam: "ണ്ട" },
+  { pattern: /^nt/, malayalam: "ന്റ" },
+  { pattern: /^mp/, malayalam: "മ്പ" },
+  { pattern: /^ngng/, malayalam: "ങ്ങ" },
+  { pattern: /^njnj/, malayalam: "ഞ്ഞ" },
+  { pattern: /^kk/, malayalam: "ക്ക" },
+  { pattern: /^gg/, malayalam: "ഗ്ഗ" },
+  { pattern: /^cc/, malayalam: "ച്ച" },
+  { pattern: /^jj/, malayalam: "ജ്ജ" },
+  { pattern: /^tt/, malayalam: "റ്റ" },
+  { pattern: /^dd/, malayalam: "ദ്ദ" },
+  { pattern: /^pp/, malayalam: "പ്പ" },
+  { pattern: /^bb/, malayalam: "ബ്ബ" },
+  { pattern: /^mm/, malayalam: "മ്മ" },
+  { pattern: /^yy/, malayalam: "യ്യ" },
+  { pattern: /^rr/, malayalam: "റ്റ" },
+  { pattern: /^ll/, malayalam: "ല്ല" },
+  { pattern: /^vv/, malayalam: "വ്വ" },
+  { pattern: /^ss/, malayalam: "സ്സ" },
+  { pattern: /^nn/, malayalam: "ന്ന" },
+  { pattern: /^nj/, malayalam: "ഞ" },
+  { pattern: /^ng/, malayalam: "ങ്ങ" },
+  { pattern: /^zh/, malayalam: "ഴ" },
+  { pattern: /^sh/, malayalam: "ശ" },
+  { pattern: /^th/, malayalam: "ത" },
+  { pattern: /^kh/, malayalam: "ഖ" },
+  { pattern: /^gh/, malayalam: "ഘ" },
+  { pattern: /^ch/, malayalam: "ച" },
+  { pattern: /^jh/, malayalam: "ഝ" },
+  { pattern: /^ph/, malayalam: "ഫ" },
+  { pattern: /^bh/, malayalam: "ഭ" },
+  
+  // Single letters
+  { pattern: /^k/, malayalam: "ക" },
+  { pattern: /^g/, malayalam: "ഗ" },
+  { pattern: /^j/, malayalam: "ജ" },
+  { pattern: /^t/, malayalam: "ത" },
+  { pattern: /^d/, malayalam: "ദ" },
+  { pattern: /^n/, malayalam: "ന" },
+  { pattern: /^p/, malayalam: "പ" },
+  { pattern: /^f/, malayalam: "ഫ" },
+  { pattern: /^b/, malayalam: "ബ" },
+  { pattern: /^m/, malayalam: "മ" },
+  { pattern: /^y/, malayalam: "യ" },
+  { pattern: /^r/, malayalam: "ര" },
+  { pattern: /^l/, malayalam: "ല" },
+  { pattern: /^v/, malayalam: "വ" },
+  { pattern: /^w/, malayalam: "വ" },
+  { pattern: /^s/, malayalam: "സ" },
+  { pattern: /^h/, malayalam: "ഹ" },
+  { pattern: /^L/, malayalam: "ള" },
+  { pattern: /^R/, malayalam: "റ" },
+  { pattern: /^N/, malayalam: "ണ" }
+];
+
+// Get suggestions list based on typing prefix
 export function getSuggestions(prefix: string): string[] {
   const clean = prefix.toLowerCase().trim();
   if (!clean) return [];
@@ -137,7 +237,7 @@ export function getSuggestions(prefix: string): string[] {
   return Array.from(new Set(matches)).slice(0, 5);
 }
 
-// Convert a single word to Malayalam using rules-based mapping
+// Convert a single word to Malayalam using modern phonetic syllabic parsing
 export function transliterateWord(word: string): string {
   const clean = word.toLowerCase().trim();
   if (!clean) return "";
@@ -147,110 +247,93 @@ export function transliterateWord(word: string): string {
     return TRANSLIT_DICTIONARY[clean];
   }
   
-  // Fallback to rules-based transliterater
-  let result = "";
-  let i = 0;
-  
-  const rules = [
-    // Complex combinations / double characters
-    { pattern: /^njaan/, replacement: "ഞാൻ" },
-    { pattern: /^njan/, replacement: "ഞാൻ" },
-    { pattern: /^nte/, replacement: "ന്റെ" },
-    { pattern: /^ng/, replacement: "ങ" },
-    { pattern: /^nj/, replacement: "ഞ" },
-    { pattern: /^zh/, replacement: "ഴ" },
-    { pattern: /^th/, replacement: "ത" },
-    { pattern: /^kh/, replacement: "ഖ" },
-    { pattern: /^gh/, replacement: "ഘ" },
-    { pattern: /^ch/, replacement: "ച" },
-    { pattern: /^jh/, replacement: "ഝ" },
-    { pattern: /^ph/, replacement: "ഫ" },
-    { pattern: /^bh/, replacement: "ഭ" },
-    { pattern: /^sh/, replacement: "ശ" },
-    
-    // Chillu letters at the end
-    { pattern: /n$/, replacement: "ൻ" },
-    { pattern: /r$/, replacement: "ർ" },
-    { pattern: /l$/, replacement: "ൽ" },
-    { pattern: /L$/, replacement: "ൾ" },
-    { pattern: /N$/, replacement: "ൺ" },
-    { pattern: /m$/, replacement: "ം" },
-    
-    // Standard consonants
-    { pattern: /^k/, replacement: "ക" },
-    { pattern: /^g/, replacement: "ഗ" },
-    { pattern: /^j/, replacement: "ജ" },
-    { pattern: /^t/, replacement: "റ്റ" },
-    { pattern: /^d/, replacement: "ദ" },
-    { pattern: /^n/, replacement: "ന" },
-    { pattern: /^p/, replacement: "പ" },
-    { pattern: /^f/, replacement: "ഫ" },
-    { pattern: /^b/, replacement: "ബ" },
-    { pattern: /^m/, replacement: "മ" },
-    { pattern: /^y/, replacement: "യ" },
-    { pattern: /^r/, replacement: "ര" },
-    { pattern: /^l/, replacement: "ല" },
-    { pattern: /^v/, replacement: "വ" },
-    { pattern: /^w/, replacement: "വ" },
-    { pattern: /^s/, replacement: "സ" },
-    { pattern: /^h/, replacement: "ഹ" },
-    { pattern: /^L/, replacement: "ള" },
-    { pattern: /^R/, replacement: "റ" },
-    
-    // Vowels
-    { pattern: /^aa|^A/, replacement: "ആ" },
-    { pattern: /^a/, replacement: "അ" },
-    { pattern: /^ii|^ee/, replacement: "ഈ" },
-    { pattern: /^i/, replacement: "ഇ" },
-    { pattern: /^uu|^oo/, replacement: "ഊ" },
-    { pattern: /^u/, replacement: "ഉ" },
-    { pattern: /^ee|^E/, replacement: "ഏ" },
-    { pattern: /^e/, replacement: "എ" },
-    { pattern: /^ai/, replacement: "ഐ" },
-    { pattern: /^oo|^O/, replacement: "ഓ" },
-    { pattern: /^o/, replacement: "ഒ" },
-    { pattern: /^au/, replacement: "ഔ" }
-  ];
-
   let temp = clean;
+  const tokens: { type: "consonant" | "vowel"; malayalam: string; standalone?: string; sign?: string; text: string }[] = [];
+
   while (temp.length > 0) {
     let matched = false;
-    for (const rule of rules) {
-      const match = temp.match(rule.pattern);
-      if (match) {
-        // Find if this is a swarachinnam (vowel sign)
-        let replacement = rule.replacement;
-        
-        // If we already have a consonant and we are adding a vowel, convert vowel to vowel sign
-        if (result.length > 0) {
-          const lastChar = result.charCodeAt(result.length - 1);
-          const isConsonant = lastChar >= 0x0D15 && lastChar <= 0x0D39 || lastChar === 0x0D3A || lastChar === 0x0D31;
-          if (isConsonant) {
-            if (rule.replacement === "ആ") replacement = "ാ";
-            else if (rule.replacement === "ഇ") replacement = "ി";
-            else if (rule.replacement === "ഈ") replacement = "ീ";
-            else if (rule.replacement === "ഉ") replacement = "ു";
-            else if (rule.replacement === "ഊ") replacement = "ൂ";
-            else if (rule.replacement === "എ") replacement = "െ";
-            else if (rule.replacement === "ഏ") replacement = "േ";
-            else if (rule.replacement === "ഒ") replacement = "ൊ";
-            else if (rule.replacement === "ഓ") replacement = "ോ";
-            else if (rule.replacement === "ഐ") replacement = "ൈ";
-            else if (rule.replacement === "ഔ") replacement = "ൌ";
-            else if (rule.replacement === "അ") replacement = ""; // inherent vowel
-          }
-        }
-        
-        result += replacement;
-        temp = temp.substring(match[0].length);
+
+    // 1. Match Vowels
+    for (const v of VOWELS) {
+      const m = temp.match(v.pattern);
+      if (m) {
+        tokens.push({
+          type: "vowel",
+          malayalam: v.standalone,
+          standalone: v.standalone,
+          sign: v.sign,
+          text: m[0]
+        });
+        temp = temp.substring(m[0].length);
         matched = true;
         break;
       }
     }
-    if (!matched) {
-      // Keep punctuation or unknown chars
-      result += temp[0];
-      temp = temp.substring(1);
+    if (matched) continue;
+
+    // 2. Match Consonants
+    for (const c of CONSONANTS) {
+      const m = temp.match(c.pattern);
+      if (m) {
+        tokens.push({
+          type: "consonant",
+          malayalam: c.malayalam,
+          text: m[0]
+        });
+        temp = temp.substring(m[0].length);
+        matched = true;
+        break;
+      }
+    }
+    if (matched) continue;
+
+    // Fallback: keep non-alphabetic or unmatched chars as consonant
+    tokens.push({
+      type: "consonant",
+      malayalam: temp[0],
+      text: temp[0]
+    });
+    temp = temp.substring(1);
+  }
+
+  // Assemble the tokens with intelligent Malayalam virama (്) and chillu/anusvara logic
+  let result = "";
+  for (let i = 0; i < tokens.length; i++) {
+    const current = tokens[i];
+    const next = tokens[i + 1];
+
+    if (current.type === "consonant") {
+      // If at the end of the word, map to standard chillu or anusvara letters
+      if (!next) {
+        if (current.text === "n") result += "ൻ";
+        else if (current.text === "r") result += "ർ";
+        else if (current.text === "l") result += "ൽ";
+        else if (current.text === "L") result += "ൾ";
+        else if (current.text === "N") result += "ൺ";
+        else if (current.text === "m") result += "ം";
+        else {
+          result += current.malayalam + "്";
+        }
+      } else if (next.type === "consonant") {
+        // Between two consonants, inject the virama (്) to form conjuncts
+        if (current.malayalam.endsWith("്") || current.malayalam === "ന്റെ") {
+          result += current.malayalam;
+        } else {
+          result += current.malayalam + "്";
+        }
+      } else {
+        // Followed by a vowel, so just add the consonant base
+        result += current.malayalam;
+      }
+    } else if (current.type === "vowel") {
+      const prev = tokens[i - 1];
+      if (!prev || prev.type === "vowel") {
+        // Word start or consecutive vowels get standalone form
+        result += current.standalone;
+      } else {
+        // Consonant follower gets swarachinnam (vowel sign)
+        result += current.sign !== undefined ? current.sign : current.standalone;
+      }
     }
   }
 
@@ -261,17 +344,14 @@ export function transliterateWord(word: string): string {
 export function transliterateSentence(text: string): string {
   if (!text) return "";
   
-  // Retain formatting, spaces, and lines
   const lines = text.split("\n");
   const processedLines = lines.map(line => {
     // Split by words while keeping delimiters (spaces, punctuation)
     const wordsAndDelimiters = line.split(/(\s+|[,.!?;:()"+])/);
     return wordsAndDelimiters.map(part => {
-      // If it's a word (letters only), transliterate it
       if (/^[a-zA-Z]+$/.test(part)) {
         return transliterateWord(part);
       }
-      // Otherwise keep as is (spaces, numbers, emojis, punctuation)
       return part;
     }).join("");
   });

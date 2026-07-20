@@ -15,8 +15,6 @@ const CATEGORY_ITEMS = [
   { id: "attitude", name: "Attitude", emoji: "😎", desc: "Bold, mass, and classy lines to express yourself.", color: "from-purple-600 to-indigo-600" },
   { id: "travel", name: "Travel", emoji: "✈️", desc: "Wanderlust lines for wanderers and road trips.", color: "from-teal-500 to-emerald-500" },
   { id: "friendship", name: "Friendship", emoji: "👬", desc: "Savage, emotional, and fun words for chanks.", color: "from-yellow-400 to-orange-500" },
-  { id: "wedding", name: "Wedding", emoji: "💍", desc: "Traditional Kerala wedding and bridegroom quotes.", color: "from-pink-400 to-purple-500" },
-  { id: "self-love", name: "Self-Love", emoji: "🌸", desc: "Peaceful lines celebrating your unique vibe.", color: "from-fuchsia-400 to-pink-500" },
   { id: "motivation", name: "Motivation", emoji: "🎯", desc: "Empowering hustle quotes to fuel your dreams.", color: "from-red-500 to-orange-500" },
   { id: "aesthetic", name: "Aesthetic", emoji: "🍂", desc: "Cozy elements pairing tea, rain, and quietness.", color: "from-amber-600 to-stone-500" },
   { id: "funny", name: "Funny", emoji: "🤪", desc: "Relatable humor, exams, diet jokes, and trolls.", color: "from-lime-500 to-yellow-500" },
@@ -24,9 +22,7 @@ const CATEGORY_ITEMS = [
   { id: "photography", name: "Photography", emoji: "📸", desc: "Frames, camera angles, and captured moments.", color: "from-blue-500 to-indigo-500" },
   { id: "business", name: "Business", emoji: "💼", desc: "Professional, startup, and customer trust values.", color: "from-slate-700 to-zinc-900" },
   { id: "makeover_artist", name: "Makeover Artists", emoji: "✨", desc: "Bridal, photoshoot glam, freelance artists.", color: "from-violet-400 to-fuchsia-600" },
-  { id: "fashion", name: "Fashion & Style", emoji: "👗", desc: "Clothing boutique, trendy outfits, lifestyle.", color: "from-rose-400 to-red-600" },
   { id: "techie", name: "Techie", emoji: "💻", desc: "Gadget reviews, tech tips, and phone hacks.", color: "from-blue-600 to-indigo-600" },
-  { id: "coder", name: "Coder", emoji: "🚀", desc: "Programming, late night debugging, and code life.", color: "from-slate-600 to-zinc-800" },
   { id: "nostalgia", name: "Nostalgia", emoji: "📻", desc: "90s childhood memories and sweet retro times.", color: "from-amber-500 to-yellow-600" }
 ];
 
@@ -47,14 +43,6 @@ const CATEGORY_TRANSLATIONS: Record<string, { name: string, desc: string }> = {
     name: "സൗഹൃദം",
     desc: "ചങ്കുകൾക്കായുള്ള അടിച്ചുപൊളി വരികൾ."
   },
-  wedding: {
-    name: "കല്യാണം",
-    desc: "കേരളാ തനിമയുള്ള കല്യാണ വരികൾ."
-  },
-  "self-love": {
-    name: "സ്വയം സ്നേഹം",
-    desc: "സ്വന്തം സന്തോഷവും സമാധാനവും ആഘോഷിക്കാം."
-  },
   motivation: {
     name: "പ്രചോദനം",
     desc: "സ്വപ്നങ്ങളിലേക്ക് കുതിക്കാൻ പോസിറ്റീവ് ചിന്തകൾ."
@@ -64,7 +52,7 @@ const CATEGORY_TRANSLATIONS: Record<string, { name: string, desc: string }> = {
     desc: "മഴയും ചായയും പ്രകൃതിയും നിറഞ്ഞ മനോഹരമായ വരികൾ."
   },
   funny: {
-    name: "തമാശകൾ",
+    name: "തмаശകൾ",
     desc: "പൊട്ടിച്ചിരിപ്പിക്കുന്ന തമാശകളും ട്രോളുകളും."
   },
   kerala: {
@@ -83,17 +71,9 @@ const CATEGORY_TRANSLATIONS: Record<string, { name: string, desc: string }> = {
     name: "മേക്കപ്പ് ആർട്ടിസ്റ്റുകൾ",
     desc: "ബ്രൈഡൽ മേക്കപ്പ്, ഫോട്ടോഷൂട്ട് ഗ്ലാം, ഫ്രീലാൻസ് വർക്കുകൾ."
   },
-  fashion: {
-    name: "ഫാഷൻ & സ്റ്റൈൽ",
-    desc: "ട്രെൻഡിങ് വസ്ത്രങ്ങൾ, ബോട്ടിക് കളക്ഷനുകൾ."
-  },
   techie: {
     name: "ടെക്കി",
     desc: "ഗാഡ്‌ജെറ്റ് റിവ്യൂകളും അടിപൊളി ടെക് ടിപ്പുകളും."
-  },
-  coder: {
-    name: "കോഡർ",
-    desc: "കോഡിംഗും ലേറ്റ് നൈറ്റ് ബഗ് ഫിക്സിംഗും."
   },
   nostalgia: {
     name: "നൊസ്റ്റാൾജിയ",

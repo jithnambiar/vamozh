@@ -4,7 +4,7 @@
  */
 
 import { useState } from "react";
-import { Copy, Share2, Heart, Download, RefreshCw, Layers } from "lucide-react";
+import { Copy, Share2, Heart, Download, RefreshCw, Layers, Globe } from "lucide-react";
 import { OPENING_PHRASES, EMOTIONAL_BRIDGES, ENDING_LINES } from "../data/captions";
 
 interface ResultItem {
@@ -19,6 +19,7 @@ interface ResultListProps {
   onToggleFavourite: (caption: string) => void;
   onOpenStoryModal: (caption: string) => void;
   onSuccessMessage: (msg: string) => void;
+  onPostCaption?: () => void;
 }
 
 export default function ResultList({
@@ -26,10 +27,37 @@ export default function ResultList({
   favourites,
   onToggleFavourite,
   onOpenStoryModal,
-  onSuccessMessage
+  onSuccessMessage,
+  onPostCaption
 }: ResultListProps) {
   // Store customized variations per card if regenerated
   const [localVariations, setLocalVariations] = useState<Record<string, string>>({});
+
+  const handlePostToFeed = async (text: string, hashtags: string[]) => {
+    try {
+      const res = await fetch("/api/community-captions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          text,
+          author: "Vamozhi AI Artist 🪄",
+          hashtags
+        })
+      });
+
+      if (res.ok) {
+        onSuccessMessage("Successfully published to Vamozhi Community Board! Scroll down to see it 🌐");
+        if (onPostCaption) {
+          onPostCaption();
+        }
+      } else {
+        onSuccessMessage("Failed to publish caption to feed.");
+      }
+    } catch (e) {
+      console.error(e);
+      onSuccessMessage("Could not connect to community database.");
+    }
+  };
 
   const handleCopy = (text: string, includeHashtags: boolean, hashtags: string[]) => {
     const fullText = includeHashtags ? `${text}\n\n${hashtags.join(" ")}` : text;
@@ -186,6 +214,15 @@ export default function ResultList({
                     >
                       <Share2 className="w-3.5 h-3.5" />
                       WhatsApp
+                    </button>
+
+                    <button
+                      onClick={() => handlePostToFeed(displayQuote, item.hashtags)}
+                      className="px-4 py-2 bg-orange-50 hover:bg-orange-100 text-orange-700 text-xs font-bold rounded-full border border-orange-100 transition-all cursor-pointer flex items-center gap-1.5"
+                      title="Publish to Vamozhi Community Board"
+                    >
+                      <Globe className="w-3.5 h-3.5 text-orange-600" />
+                      Post to Feed
                     </button>
                   </div>
 

@@ -1566,9 +1566,8 @@ export const CAPTIONS_DATABASE: CaptionItem[] = [
 
 // Add generic captions dynamically to scale to 300+ items
 const CATEGORIES: Array<CaptionItem['category']> = [
-  'love', 'attitude', 'travel', 'friendship', 'wedding', 'self-love', 
-  'motivation', 'aesthetic', 'funny', 'kerala', 'photography', 'business',
-  'makeover_artist', 'fashion', 'techie', 'coder', 'nostalgia'
+  'love', 'attitude', 'travel', 'friendship',
+  'motivation', 'aesthetic', 'funny', 'kerala', 'nostalgia'
 ];
 const LANGUAGES: Array<CaptionItem['language']> = ['malayalam', 'manglish', 'english', 'mixed'];
 const TONES: Array<CaptionItem['tone']> = ['short', 'emotional', 'classy', 'cute', 'bold', 'funny', 'romantic', 'professional'];
@@ -2558,8 +2557,12 @@ export function generateCaptions(options: GenerateOptions): GenerateResponse {
     return { item, score };
   });
 
-  // Sort descending by score
-  const sortedCandidates = scoredCandidates.sort((a, b) => b.score - a.score);
+  // Sort descending by score, with a random shake for equal scores to prevent repeating captions!
+  const sortedCandidates = scoredCandidates.sort((a, b) => {
+    const scoreDiff = b.score - a.score;
+    if (scoreDiff !== 0) return scoreDiff;
+    return Math.random() - 0.5;
+  });
   
   // Select top results
   let selected = sortedCandidates.slice(0, options.resultsCount).map(s => s.item);

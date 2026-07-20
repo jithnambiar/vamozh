@@ -24,8 +24,8 @@ export default function Footer({ onNavigate }: FooterProps) {
           {/* Brand Col */}
           <div className="md:col-span-5 text-left flex flex-col gap-4">
             <div className="flex items-center gap-3" onClick={() => onNavigate("/")}>
-              <div className="w-9 h-9 bg-gradient-to-br from-purple-800 via-pink-600 to-orange-500 rounded-xl flex items-center justify-center text-white font-black text-lg shadow-md transform -rotate-3 italic cursor-pointer">
-                V
+              <div className="w-9 h-9 bg-gradient-to-br from-purple-950 via-[#911b5a] to-[#ff2a6d] rounded-xl flex items-center justify-center text-[#fffef0] font-black text-base shadow-md transform -rotate-3 hover:rotate-0 transition-all font-sans cursor-pointer">
+                വാ
               </div>
               <span className="font-extrabold text-lg text-white tracking-tight uppercase cursor-pointer">
                 VAMOZHI

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { 
   Volume2, 
   BookOpen, 
@@ -18,6 +18,7 @@ import {
   CheckCircle2
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import MalayalamNumbers from "./MalayalamNumbers";
 
 interface AlphabetLetter {
   char: string;
@@ -54,31 +55,110 @@ const VOWELS: AlphabetLetter[] = [
   { char: "ഈ", phonetic: "ii", example: "ഈച്ച (Iicha)", exampleEng: "Housefly" },
   { char: "ഉ", phonetic: "u", example: "ഉപ്പ് (Uppu)", exampleEng: "Salt" },
   { char: "ഊ", phonetic: "uu", example: "ഊഞ്ഞാൽ (Oonjal)", exampleEng: "Swing" },
+  { char: "ഋ", phonetic: "r", example: "ഋഷി (Rishi)", exampleEng: "Sage / Saint" },
+  { char: "ൠ", phonetic: "rr", example: "ൠ (Long r)", exampleEng: "Obsolete long vocalic R" },
+  { char: "ഌ", phonetic: "l", example: "ഌ (Vocalic l)", exampleEng: "Obsolete vocalic L" },
+  { char: "ൡ", phonetic: "ll", example: "ൡ (Long l)", exampleEng: "Obsolete long vocalic L" },
   { char: "എ", phonetic: "e", example: "എലി (Eli)", exampleEng: "Rat" },
-  { char: "ഏ", phonetic: "E", example: "ഏണി (Eani)", exampleEng: "Ladder" },
+  { char: "ஏ", phonetic: "E", example: "ഏണി (Eani)", exampleEng: "Ladder" },
   { char: "ഐ", phonetic: "ai", example: "ഐസ്ക്രീം (Ice-cream)", exampleEng: "Ice cream" },
   { char: "ഒ", phonetic: "o", example: "ഒട്ടകം (Ottakam)", exampleEng: "Camel" },
   { char: "ഓ", phonetic: "O", example: "ഓട് (Odu)", exampleEng: "Tile" },
   { char: "ഔ", phonetic: "au", example: "ഔഷധം (Oushadham)", exampleEng: "Medicine" }
 ];
 
-const CONSONANTS: AlphabetLetter[] = [
-  { char: "ക", phonetic: "ka", example: "കണ്ണ് (Kannu)", exampleEng: "Eye" },
-  { char: "ഗ", phonetic: "ga", example: "ഗജം (Gajam)", exampleEng: "Elephant" },
-  { char: "ച", phonetic: "cha", example: "ചായ (Chaya)", exampleEng: "Tea" },
-  { char: "ജ", phonetic: "ja", example: "ജലം (Jalam)", exampleEng: "Water" },
-  { char: "ഞ", phonetic: "nya", example: "ഞണ്ട് (Nyandu)", exampleEng: "Crab" },
-  { char: "ത", phonetic: "tha", example: "താലം (Thaalam)", exampleEng: "Plate" },
-  { char: "ദ", phonetic: "da", example: "ദീപം (Deepam)", exampleEng: "Lamp" },
-  { char: "ന", phonetic: "na", example: "നാരങ്ങ (Narangya)", exampleEng: "Lemon" },
-  { char: "പ", phonetic: "pa", example: "പൂച്ച (Poocha)", exampleEng: "Cat" },
-  { char: "മ", phonetic: "ma", example: "മഴ (Mazha)", exampleEng: "Rain" },
-  { char: "യ", phonetic: "ya", example: "യാത്ര (Yaathra)", exampleEng: "Journey" },
-  { char: "ര", phonetic: "ra", example: "രഥം (Ratham)", exampleEng: "Chariot" },
-  { char: "ല", phonetic: "la", example: "ലേഖനം (Lekhanam)", exampleEng: "Article" },
-  { char: "വ", phonetic: "va", example: "വണ്ടർ (Vandur)", exampleEng: "Beetle" },
-  { char: "ഴ", phonetic: "zha", example: "മഴ (Mazha)", exampleEng: "Rain" },
-  { char: "റ", phonetic: "Ra", example: "റൊട്ടി (Rotti)", exampleEng: "Bread" }
+interface GroupedConsonant {
+  group: string;
+  letters: AlphabetLetter[];
+}
+
+const CONSONANTS_GROUPED: GroupedConsonant[] = [
+  {
+    group: "Kavargam (കവർഗ്ഗം - Gutturals)",
+    letters: [
+      { char: "ക", phonetic: "ka", example: "കണ്ണ് (Kannu)", exampleEng: "Eye" },
+      { char: "ഖ", phonetic: "kha", example: "ഖഡ്ഗം (Khadgam)", exampleEng: "Sword" },
+      { char: "ഗ", phonetic: "ga", example: "ഗജം (Gajam)", exampleEng: "Elephant" },
+      { char: "ഘ", phonetic: "gha", example: "ഘടം (Ghatam)", exampleEng: "Clay Pot" },
+      { char: "ങ", phonetic: "nga", example: "ങ (Nga)", exampleEng: "Nasal sound (e.g. മാങ്ങ - Mango)" }
+    ]
+  },
+  {
+    group: "Chavargam (ചവർഗ്ഗം - Palatals)",
+    letters: [
+      { char: "ച", phonetic: "cha", example: "ചായ (Chaya)", exampleEng: "Tea" },
+      { char: "ഛ", phonetic: "chha", example: "ഛായ (Chhaya)", exampleEng: "Shadow / Image" },
+      { char: "ജ", phonetic: "ja", example: "ജലം (Jalam)", exampleEng: "Water" },
+      { char: "ഝ", phonetic: "jha", example: "ഝഷം (Jhasham)", exampleEng: "Fish" },
+      { char: "ഞ", phonetic: "nya", example: "ഞണ്ട് (Nyandu)", exampleEng: "Crab" }
+    ]
+  },
+  {
+    group: "Thavargam Retroflex (ടവർഗ്ഗം - Cerebrals)",
+    letters: [
+      { char: "ട", phonetic: "ta", example: "ടമാട്ടർ (Tamattar)", exampleEng: "Tomato" },
+      { char: "ഠ", phonetic: "tha", example: "ഠപ്പൂസ് (Thappoos)", exampleEng: "Clapping sound" },
+      { char: "ഡ", phonetic: "da", example: "ഡബ്ബ (Dabba)", exampleEng: "Box / Tin" },
+      { char: "ഢ", phonetic: "dha", example: "ഢക്ക (Dhakka)", exampleEng: "Large traditional drum" },
+      { char: "ണ", phonetic: "na", example: "പണം (Panam)", exampleEng: "Money" }
+    ]
+  },
+  {
+    group: "Thavargam Dental (തവർഗ്ഗം - Dentals)",
+    letters: [
+      { char: "ത", phonetic: "tha", example: "താലം (Thaalam)", exampleEng: "Plate" },
+      { char: "ഥ", phonetic: "thha", example: "രഥം (Ratham)", exampleEng: "Chariot" },
+      { char: "ദ", phonetic: "da", example: "ദീപം (Deepam)", exampleEng: "Lamp" },
+      { char: "ധ", phonetic: "dha", example: "ധനം (Dhanam)", exampleEng: "Wealth" },
+      { char: "ന", phonetic: "na", example: "നാരങ്ങ (Narangya)", exampleEng: "Lemon" }
+    ]
+  },
+  {
+    group: "Pavargam (പവർഗ്ഗം - Labials)",
+    letters: [
+      { char: "പ", phonetic: "pa", example: "പൂച്ച (Poocha)", exampleEng: "Cat" },
+      { char: "ഫ", phonetic: "pha", example: "ഫലം (Phalam)", exampleEng: "Fruit / Result" },
+      { char: "ബ", phonetic: "ba", example: "ബലൂൺ (Balloon)", exampleEng: "Balloon" },
+      { char: "ഭ", phonetic: "bha", example: "ഭക്ഷണം (Bhakshanam)", exampleEng: "Food" },
+      { char: "മ", phonetic: "ma", example: "മഴ (Mazha)", exampleEng: "Rain" }
+    ]
+  },
+  {
+    group: "Madhyasthangal (മധ്യസ്ഥങ്ങൾ - Semi-vowels)",
+    letters: [
+      { char: "യ", phonetic: "ya", example: "യാത്ര (Yaathra)", exampleEng: "Journey" },
+      { char: "ര", phonetic: "ra", example: "രഥം (Ratham)", exampleEng: "Chariot" },
+      { char: "ല", phonetic: "la", example: "ലേഖനം (Lekhanam)", exampleEng: "Article" },
+      { char: "വ", phonetic: "va", example: "വണ്ടർ (Vandur)", exampleEng: "Beetle" }
+    ]
+  },
+  {
+    group: "Ooshmangal (ഊഷ്മാക്കൾ - Sibilants & Aspirate)",
+    letters: [
+      { char: "ശ", phonetic: "sha", example: "ശിവൻ (Shivan)", exampleEng: "Lord Shiva" },
+      { char: "ഷ", phonetic: "sha", example: "ഷൺമുഖൻ (Shanmukhan)", exampleEng: "Six-faced Lord" },
+      { char: "സ", phonetic: "sa", example: "സൂര്യൻ (Sooryan)", exampleEng: "Sun" },
+      { char: "ഹ", phonetic: "ha", example: "ഹംസം (Hamsam)", exampleEng: "Swan" }
+    ]
+  },
+  {
+    group: "Special Consonants (അതിരുപങ്ങൾ)",
+    letters: [
+      { char: "ള", phonetic: "La", example: "വാൾ (VaL)", exampleEng: "Sword" },
+      { char: "ഴ", phonetic: "zha", example: "മഴ (Mazha)", exampleEng: "Rain" },
+      { char: "റ", phonetic: "Ra", example: "റൊട്ടി (Rotti)", exampleEng: "Bread" }
+    ]
+  }
+];
+
+const SPECIAL_CHARS: AlphabetLetter[] = [
+  { char: "ൻ", phonetic: "n", example: "അവൻ (Avan)", exampleEng: "He" },
+  { char: "ർ", phonetic: "r", example: "കാർ (Car)", exampleEng: "Car" },
+  { char: "ൽ", phonetic: "l", example: "കൽ (Kal)", exampleEng: "Stone" },
+  { char: "ൾ", phonetic: "L", example: "വാൾ (Val)", exampleEng: "Sword" },
+  { char: "ൺ", phonetic: "N", example: "കൺ (Kan)", exampleEng: "Eye" },
+  { char: "ം", phonetic: "m", example: "സിംഹം (Simham)", exampleEng: "Lion" },
+  { char: "ഃ", phonetic: "h", example: "ദുഃഖം (Dukham)", exampleEng: "Sadness" }
 ];
 
 const PHRASES: PhraseItem[] = [
@@ -158,11 +238,19 @@ const QUIZ_QUESTIONS: QuizQuestion[] = [
   }
 ];
 
-export default function LearningSystem() {
-  const [activeSubTab, setActiveSubTab] = useState<"letters" | "phrases" | "proverbs" | "quiz">("letters");
-  const [letterGroup, setLetterGroup] = useState<"vowels" | "consonants">("vowels");
+interface LearningSystemProps {
+  defaultTab?: "letters" | "numbers" | "phrases" | "proverbs" | "quiz";
+}
+
+export default function LearningSystem({ defaultTab = "letters" }: LearningSystemProps) {
+  const [activeSubTab, setActiveSubTab] = useState<"letters" | "numbers" | "phrases" | "proverbs" | "quiz">(defaultTab);
+  const [letterGroup, setLetterGroup] = useState<"vowels" | "consonants" | "special">("vowels");
   const [phraseCategory, setPhraseCategory] = useState<PhraseItem["category"]>("greetings");
   const [speakActive, setSpeakActive] = useState<string | null>(null);
+
+  useEffect(() => {
+    setActiveSubTab(defaultTab);
+  }, [defaultTab]);
 
   // Quiz state
   const [currentQ, setCurrentQ] = useState(0);
@@ -230,9 +318,10 @@ export default function LearningSystem() {
         </p>
 
         {/* Tab switchers */}
-        <div className="flex flex-wrap justify-center mt-8 gap-2 bg-slate-100 p-1.5 rounded-2xl max-w-2xl mx-auto">
+        <div className="flex flex-wrap justify-center mt-8 gap-2 bg-slate-100 p-1.5 rounded-2xl max-w-3xl mx-auto">
           {[
             { id: "letters", label: "Alphabet", icon: BookOpen },
+            { id: "numbers", label: "Numbers", icon: Smile },
             { id: "phrases", label: "Everyday Phrases", icon: MessageCircle },
             { id: "proverbs", label: "Heritage Proverbs", icon: Compass },
             { id: "quiz", label: "Interactive Quiz", icon: HelpCircle }
@@ -269,62 +358,300 @@ export default function LearningSystem() {
         >
           {/* Alphabet View */}
           {activeSubTab === "letters" && (
-            <div className="space-y-6" id="learning-letters-view">
+            <div className="space-y-8" id="learning-letters-view">
+              
+              {/* Thunchath Ezhuthachan Biography Card */}
+              <div className="bg-gradient-to-br from-amber-50/60 via-orange-50/20 to-transparent border border-amber-200/60 rounded-3xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-8 items-center" id="ezhuthachan-biography">
+                <div className="md:col-span-4 flex justify-center">
+                  <div className="relative w-full h-auto max-w-[260px] rounded-2xl shadow-md border border-amber-200/80 bg-amber-50 overflow-hidden group">
+                    <img
+                      src="/public/ezhuthachan_drawing.jpg"
+                      alt="Thunchaththu Ezhuthachan Portrait Drawing"
+                      referrerPolicy="no-referrer"
+                      className="w-full h-auto object-cover rounded-2xl aspect-[3/4] block"
+                      onError={(e) => {
+                        // Fallback to elegant placeholder if custom image is not loaded yet
+                        e.currentTarget.style.display = 'none';
+                        const fallback = document.getElementById('ezhuthachan-svg-fallback');
+                        if (fallback) fallback.classList.remove('hidden');
+                      }}
+                    />
+                    <div id="ezhuthachan-svg-fallback" className="w-full h-auto">
+                      <svg viewBox="0 0 400 400" className="w-full h-auto rounded-2xl bg-amber-50">
+                        <defs>
+                          <radialGradient id="sun-glow" cx="50%" cy="40%" r="50%">
+                            <stop offset="0%" stopColor="#fffbeb" stopOpacity="1" />
+                            <stop offset="100%" stopColor="#fef3c7" stopOpacity="1" />
+                          </radialGradient>
+                          <linearGradient id="shawl-grad" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stopColor="#ea580c" />
+                            <stop offset="100%" stopColor="#c2410c" />
+                          </linearGradient>
+                        </defs>
+
+                        <rect width="100%" height="100%" fill="url(#sun-glow)" />
+
+                        {/* Background Aura / Traditional Temple Arch */}
+                        <path d="M 80 400 A 120 120 0 0 1 320 400" fill="none" stroke="#fcd34d" strokeWidth="8" strokeLinecap="round" opacity="0.4" />
+                        <path d="M 100 400 A 100 100 0 0 1 300 400" fill="none" stroke="#fcd34d" strokeWidth="4" strokeLinecap="round" opacity="0.3" strokeDasharray="6 6" />
+
+                        {/* Sacred Flame (Nilavilakku) on the side */}
+                        <g transform="translate(60, 240)">
+                          <path d="M -15 80 L 15 80 L 10 70 L -10 70 Z" fill="#d97706" />
+                          <line x1="0" y1="70" x2="0" y2="20" stroke="#d97706" strokeWidth="8" />
+                          <path d="M -20 20 Q 0 35 20 20 Q 0 10 -20 20" fill="#b45309" />
+                          <path d="M 0 15 Q -8 5 0 -12 Q 8 5 0 15 Z" fill="#f97316" />
+                          <path d="M 0 10 Q -4 3 0 -5 Q 4 3 0 10 Z" fill="#fdba74" />
+                        </g>
+
+                        {/* Ezhuthachan Figure */}
+                        <circle cx="200" cy="115" r="28" fill="#1e293b" />
+                        <circle cx="200" cy="80" r="18" fill="#1e293b" /> {/* Kuduma */}
+
+                        <circle cx="158" cy="155" r="10" fill="#fbcfe8" opacity="0.7" />
+                        <circle cx="242" cy="155" r="10" fill="#fbcfe8" opacity="0.7" />
+
+                        {/* Face */}
+                        <path d="M 160 140 Q 200 110 240 140 Q 240 195 200 205 Q 160 195 160 140 Z" fill="#fed7aa" stroke="#c2410c" strokeWidth="2.5" />
+
+                        {/* Forehead Bhasmam */}
+                        <path d="M 175 142 L 225 142" stroke="#ffffff" strokeWidth="3.5" />
+                        <path d="M 175 148 L 225 148" stroke="#ffffff" strokeWidth="3.5" />
+                        <path d="M 175 154 L 225 154" stroke="#ffffff" strokeWidth="3.5" />
+                        <circle cx="200" cy="148" r="3.5" fill="#dc2626" />
+
+                        {/* Eyes closed in contemplation */}
+                        <path d="M 172 165 Q 185 172 192 165" fill="none" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" />
+                        <path d="M 208 165 Q 215 172 228 165" fill="none" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" />
+
+                        {/* Eyebrows */}
+                        <path d="M 170 159 Q 183 154 194 160" fill="none" stroke="#1e293b" strokeWidth="2" strokeLinecap="round" />
+                        <path d="M 206 160 Q 217 154 230 159" fill="none" stroke="#1e293b" strokeWidth="2" strokeLinecap="round" />
+
+                        <path d="M 200 165 L 200 180 Q 200 183 204 181" fill="none" stroke="#c2410c" strokeWidth="2" strokeLinecap="round" />
+                        <path d="M 188 190 Q 200 198 212 190" fill="none" stroke="#b91c1c" strokeWidth="2.5" strokeLinecap="round" />
+
+                        {/* Beard */}
+                        <path d="M 160 185 Q 200 245 240 185 Q 200 235 160 185" fill="#f8fafc" stroke="#64748b" strokeWidth="1.5" />
+
+                        {/* Rudraksha Beads */}
+                        <g stroke="#7c2d12" strokeWidth="1.5" fill="#ea580c">
+                          <circle cx="200" cy="225" r="4.5" />
+                          <circle cx="188" cy="228" r="4.5" />
+                          <circle cx="212" cy="228" r="4.5" />
+                          <circle cx="177" cy="233" r="4.5" />
+                          <circle cx="223" cy="233" r="4.5" />
+                        </g>
+
+                        {/* Saffron Shawl */}
+                        <path d="M 110 400 L 290 400 L 260 260 L 140 260 Z" fill="#fed7aa" />
+                        <path d="M 130 265 C 130 265 170 330 200 330 C 230 330 270 265 270 265 L 290 400 L 110 400 Z" fill="url(#shawl-grad)" opacity="0.95" stroke="#7c2d12" strokeWidth="1.5" />
+
+                        {/* Thaliyola Palm-leaf manuscript */}
+                        <g transform="translate(140, 310)">
+                          <rect x="-10" y="5" width="140" height="15" rx="3" fill="#fef08a" stroke="#ca8a04" strokeWidth="1.5" />
+                          <path d="M 5 12 Q 15 8 25 12 T 45 12 T 65 12 T 85 12 T 105 12" fill="none" stroke="#71717a" strokeWidth="1" strokeDasharray="3 3" />
+                          <path d="M 100 25 C 105 15 120 15 125 25 L 120 35 Z" fill="#fed7aa" stroke="#c2410c" strokeWidth="1.5" />
+                          <line x1="102" y1="-5" x2="116" y2="28" stroke="#334155" strokeWidth="3.5" strokeLinecap="round" />
+                          <line x1="102" y1="-5" x2="116" y2="28" stroke="#94a3b8" strokeWidth="1.5" strokeLinecap="round" />
+                          <path d="M -5 20 C -10 10 5 10 10 20 Z" fill="#fed7aa" stroke="#c2410c" strokeWidth="1.5" />
+                        </g>
+                      </svg>
+                    </div>
+
+                    {/* Copyright Protected Notice Overlay */}
+                    <div className="absolute bottom-0 left-0 right-0 bg-neutral-900/80 backdrop-blur-xs py-2 px-3 text-center border-t border-white/5">
+                      <span className="text-[10px] text-amber-200 font-extrabold uppercase tracking-wider block">
+                        Drawing copyright protected
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="md:col-span-8 space-y-4 text-left">
+                  <span className="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[10px] font-extrabold uppercase tracking-wider">
+                    Father of Malayalam Literature (മലയാളഭാഷയുടെ പിതാവ്)
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                    Thunchaththu Ramanujan Ezhuthachan
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    Ezhuthachan (16th Century, Tirur, Kerala) is the revered father of the Malayalam language. He revolutionized Kerala's literary culture by standardizing the <strong>56-letter Grantha-based Malayalam script (Lipi)</strong>, allowing all people to read and learn without class division.
+                  </p>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    His masterpieces, including <em>Adhyathmaramayanam Kilippattu</em> and <em>Mahabharatham Kilippattu</em>, formulated the foundational grammar, linguistic beauty, and poetic structure of modern Malayalam. Malayalam was officially recognized as a <strong>Classical Language</strong> in 2013, representing over 38 million speakers worldwide.
+                  </p>
+                  <div className="bg-amber-100/50 border border-amber-200/40 rounded-xl p-3.5 text-xs text-amber-900 flex flex-col gap-1 font-medium">
+                    <span className="font-bold">Did you know?</span>
+                    <span>The modern Malayalam alphabet contains 56 core letters: 16 Swarangal (Vowels), 37 Vyanjanangal (Consonants) and 3 Yogavahangal / Chillus (Special/pure letters). Learn the complete system below.</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Three-Way Letter Group Switchers */}
               <div className="flex justify-center gap-2 border-b border-slate-100 pb-4">
                 <button
                   onClick={() => setLetterGroup("vowels")}
-                  className={`px-4 py-2 text-xs font-extrabold uppercase rounded-lg cursor-pointer ${
-                    letterGroup === "vowels" ? "bg-purple-900 text-white" : "bg-slate-100 text-slate-600"
+                  className={`px-4 py-2 text-xs font-extrabold uppercase rounded-lg cursor-pointer transition-all ${
+                    letterGroup === "vowels" ? "bg-purple-900 text-white shadow-sm" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                   }`}
                 >
-                  Vowels (സ്വരങ്ങൾ - 12)
+                  Vowels (സ്വരങ്ങൾ - 16)
                 </button>
                 <button
                   onClick={() => setLetterGroup("consonants")}
-                  className={`px-4 py-2 text-xs font-extrabold uppercase rounded-lg cursor-pointer ${
-                    letterGroup === "consonants" ? "bg-purple-900 text-white" : "bg-slate-100 text-slate-600"
+                  className={`px-4 py-2 text-xs font-extrabold uppercase rounded-lg cursor-pointer transition-all ${
+                    letterGroup === "consonants" ? "bg-purple-900 text-white shadow-sm" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                   }`}
                 >
-                  Consonants (ব্যഞ്ജനങ്ങൾ - 16 basic)
+                  Consonants (വ്യഞ്ജനങ്ങൾ - 37)
+                </button>
+                <button
+                  onClick={() => setLetterGroup("special")}
+                  className={`px-4 py-2 text-xs font-extrabold uppercase rounded-lg cursor-pointer transition-all ${
+                    letterGroup === "special" ? "bg-purple-900 text-white shadow-sm" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  }`}
+                >
+                  Special & Chillus (ചില്ലുകൾ - 7)
                 </button>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                {(letterGroup === "vowels" ? VOWELS : CONSONANTS).map((item) => (
-                  <div
-                    key={item.char}
-                    className="bg-white border border-slate-200/80 rounded-2xl p-5 hover:shadow-sm transition-all text-left flex flex-col justify-between group"
-                  >
-                    <div>
-                      <div className="flex items-center justify-between border-b border-slate-50 pb-2">
-                        <span className="text-3xl font-black text-purple-950 font-sans">{item.char}</span>
-                        <span className="text-xs font-mono font-bold text-slate-400 bg-slate-100 px-2.5 py-0.5 rounded-full uppercase">
-                          /{item.phonetic}/
-                        </span>
+              {/* Conditionally Render Vowels */}
+              {letterGroup === "vowels" && (
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" id="vowels-grid">
+                  {VOWELS.map((item) => (
+                    <div
+                      key={item.char}
+                      className="bg-white border border-slate-200/80 rounded-2xl p-5 hover:shadow-sm transition-all text-left flex flex-col justify-between group"
+                    >
+                      <div>
+                        <div className="flex items-center justify-between border-b border-slate-50 pb-2">
+                          <span className="text-3xl font-black text-purple-950 font-sans">{item.char}</span>
+                          <span className="text-xs font-mono font-bold text-slate-400 bg-slate-100 px-2.5 py-0.5 rounded-full uppercase">
+                            /{item.phonetic}/
+                          </span>
+                        </div>
+                        <div className="mt-3">
+                          <span className="text-[10px] text-slate-400 block uppercase font-black">Vocabulary:</span>
+                          <span className="text-xs font-extrabold text-slate-800 block mt-0.5">{item.example}</span>
+                          <span className="text-[10px] text-slate-500 block">{item.exampleEng}</span>
+                        </div>
                       </div>
-                      <div className="mt-3">
-                        <span className="text-[10px] text-slate-400 block uppercase font-black">Vocabulary:</span>
-                        <span className="text-xs font-extrabold text-slate-800 block mt-0.5">{item.example}</span>
-                        <span className="text-[10px] text-slate-500 block">{item.exampleEng}</span>
-                      </div>
-                    </div>
 
-                    <div className="mt-5 pt-3 border-t border-slate-100 flex justify-end">
-                      <button
-                        onClick={() => speakText(item.char + ", " + item.example.split(" ")[0], item.char)}
-                        className={`p-2 rounded-full border transition-all cursor-pointer ${
-                          speakActive === item.char
-                            ? "bg-pink-600 text-white border-pink-600 animate-pulse"
-                            : "bg-slate-50 text-slate-500 hover:text-purple-700 hover:bg-purple-50 border-slate-100"
-                        }`}
-                        title="Listen to Malayalam pronunciation"
-                      >
-                        <Volume2 className="w-3.5 h-3.5" />
-                      </button>
+                      <div className="mt-5 pt-3 border-t border-slate-100 flex justify-end">
+                        <button
+                          onClick={() => speakText(item.char + ", " + item.example.split(" ")[0], item.char)}
+                          className={`p-2 rounded-full border transition-all cursor-pointer ${
+                            speakActive === item.char
+                              ? "bg-pink-600 text-white border-pink-600 animate-pulse"
+                              : "bg-slate-50 text-slate-500 hover:text-purple-700 hover:bg-purple-50 border-slate-100"
+                          }`}
+                          title="Listen to pronunciation"
+                        >
+                          <Volume2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Conditionally Render Consonants Grouped by Vargas (Educational Method) */}
+              {letterGroup === "consonants" && (
+                <div className="space-y-8" id="consonants-varga-sections">
+                  {CONSONANTS_GROUPED.map((varga) => (
+                    <div key={varga.group} className="space-y-3">
+                      <h4 className="text-sm font-black text-slate-800 flex items-center gap-2 bg-slate-50 border border-slate-200/60 rounded-xl px-4 py-2 border-l-4 border-l-purple-600">
+                        {varga.group}
+                      </h4>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                        {varga.letters.map((item) => (
+                          <div
+                            key={item.char}
+                            className="bg-white border border-slate-200/80 rounded-2xl p-5 hover:shadow-sm transition-all text-left flex flex-col justify-between group"
+                          >
+                            <div>
+                              <div className="flex items-center justify-between border-b border-slate-50 pb-2">
+                                <span className="text-3xl font-black text-purple-950 font-sans">{item.char}</span>
+                                <span className="text-xs font-mono font-bold text-slate-400 bg-slate-100 px-2.5 py-0.5 rounded-full uppercase">
+                                  /{item.phonetic}/
+                                </span>
+                              </div>
+                              <div className="mt-3">
+                                <span className="text-[10px] text-slate-400 block uppercase font-black">Vocabulary:</span>
+                                <span className="text-xs font-extrabold text-slate-800 block mt-0.5">{item.example}</span>
+                                <span className="text-[10px] text-slate-500 block">{item.exampleEng}</span>
+                              </div>
+                            </div>
+
+                            <div className="mt-5 pt-3 border-t border-slate-100 flex justify-end">
+                              <button
+                                onClick={() => speakText(item.char + ", " + item.example.split(" ")[0], item.char)}
+                                className={`p-2 rounded-full border transition-all cursor-pointer ${
+                                  speakActive === item.char
+                                    ? "bg-pink-600 text-white border-pink-600 animate-pulse"
+                                    : "bg-slate-50 text-slate-500 hover:text-purple-700 hover:bg-purple-50 border-slate-100"
+                                }`}
+                                title="Listen to pronunciation"
+                              >
+                                <Volume2 className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Conditionally Render Special Chillus & Marks */}
+              {letterGroup === "special" && (
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" id="special-grid">
+                  {SPECIAL_CHARS.map((item) => (
+                    <div
+                      key={item.char}
+                      className="bg-white border border-slate-200/80 rounded-2xl p-5 hover:shadow-sm transition-all text-left flex flex-col justify-between group"
+                    >
+                      <div>
+                        <div className="flex items-center justify-between border-b border-slate-50 pb-2">
+                          <span className="text-3xl font-black text-purple-950 font-sans">{item.char}</span>
+                          <span className="text-xs font-mono font-bold text-slate-400 bg-slate-100 px-2.5 py-0.5 rounded-full uppercase">
+                            /{item.phonetic}/
+                          </span>
+                        </div>
+                        <div className="mt-3">
+                          <span className="text-[10px] text-slate-400 block uppercase font-black">Vocabulary:</span>
+                          <span className="text-xs font-extrabold text-slate-800 block mt-0.5">{item.example}</span>
+                          <span className="text-[10px] text-slate-500 block">{item.exampleEng}</span>
+                        </div>
+                      </div>
+
+                      <div className="mt-5 pt-3 border-t border-slate-100 flex justify-end">
+                        <button
+                          onClick={() => speakText(item.char + ", " + item.example.split(" ")[0], item.char)}
+                          className={`p-2 rounded-full border transition-all cursor-pointer ${
+                            speakActive === item.char
+                              ? "bg-pink-600 text-white border-pink-600 animate-pulse"
+                              : "bg-slate-50 text-slate-500 hover:text-purple-700 hover:bg-purple-50 border-slate-100"
+                          }`}
+                          title="Listen to pronunciation"
+                        >
+                          <Volume2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+            </div>
+          )}
+
+          {/* Numbers View */}
+          {activeSubTab === "numbers" && (
+            <div className="space-y-6" id="learning-numbers-view">
+              <MalayalamNumbers />
             </div>
           )}
 

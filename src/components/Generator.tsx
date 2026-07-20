@@ -1,22 +1,14 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { useState, useEffect, FormEvent } from "react";
 import { generateCaptions } from "../data/captions";
 import { 
   Sparkles, 
-  HelpCircle, 
   AlignLeft, 
   Globe, 
   Filter, 
   MessageSquare, 
-  Flame, 
-  Hash, 
-  Compass, 
   Loader2,
-  Mic
+  Mic,
+  RotateCcw
 } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 
@@ -25,6 +17,8 @@ interface GeneratorProps {
   onGenerate: (results: Array<{ text: string; hashtags: string[]; id: string }>) => void;
   onSuccessMessage: (msg: string) => void;
   currentPath: string;
+  selectedCategory: string;
+  onCategoryChange: (category: string) => void;
 }
 
 const PLATFORMS = [
@@ -43,66 +37,29 @@ const CATEGORIES = [
   { id: "attitude", name: "Attitude 😎" },
   { id: "travel", name: "Travel ✈️" },
   { id: "friendship", name: "Friendship 👬" },
-  { id: "wedding", name: "Wedding 💍" },
-  { id: "self-love", name: "Self-Love 🌸" },
   { id: "motivation", name: "Motivation 🎯" },
   { id: "aesthetic", name: "Aesthetic 🍂" },
   { id: "funny", name: "Funny 🤪" },
   { id: "kerala", name: "Kerala 🌴" },
-  { id: "photography", name: "Photography 📸" },
-  { id: "business", name: "Business 💼" },
-  { id: "makeover_artist", name: "Makeover Artist ✨" },
-  { id: "fashion", name: "Fashion & Style 👗" },
-  { id: "techie", name: "Techie 💻" },
-  { id: "coder", name: "Coder 🚀" },
   { id: "nostalgia", name: "Nostalgia 📻" }
 ] as const;
 
-const TONES = [
-  { id: "short", name: "Short ⚡" },
-  { id: "emotional", name: "Emotional 🥺" },
-  { id: "classy", name: "Classy ✨" },
-  { id: "cute", name: "Cute 🥰" },
-  { id: "bold", name: "Bold 🔥" },
-  { id: "funny", name: "Funny 😂" },
-  { id: "romantic", name: "Romantic ❤️" },
-  { id: "professional", name: "Professional 💼" }
-] as const;
-
-const MOODS = [
-  { id: "cheerful", name: "Cheerful ☀️" },
-  { id: "calm", name: "Calm 🍃" },
-  { id: "sarcastic", name: "Sarcastic 😏" },
-  { id: "romantic", name: "Romantic 💕" },
-  { id: "motivational", name: "Motivational 🏆" },
-  { id: "emotional", name: "Emotional 🥺" }
-] as const;
-
-const OCCASIONS = [
-  { id: "general", name: "General Occasion 🌟" },
-  { id: "festival", name: "Festival / Onam / Vishu 🪔" },
-  { id: "birthday", name: "Birthday 🎂" },
-  { id: "anniversary", name: "Anniversary 🎉" },
-  { id: "weekend", name: "Weekend Vibe 🏖️" }
-] as const;
-
-export default function Generator({ onGenerate, onSuccessMessage, currentPath }: GeneratorProps) {
+export default function Generator({ 
+  onGenerate, 
+  onSuccessMessage, 
+  currentPath,
+  selectedCategory,
+  onCategoryChange
+}: GeneratorProps) {
   const { t, language: uiLang } = useLanguage();
+  
   // Main states
-
   const [contentType, setContentType] = useState<string>("photo-caption");
   const [platform, setPlatform] = useState<string>("instagram");
-  const [language, setLanguage] = useState<"malayalam" | "manglish" | "english" | "mixed">("malayalam");
-  const [category, setCategory] = useState<string>("love");
-  const [mood, setMood] = useState<string>("cheerful");
-  const [occasion, setOccasion] = useState<string>("general");
-  const [tone, setTone] = useState<string>("classy");
-  const [length, setLength] = useState<"one-line" | "short" | "medium" | "detailed">("medium");
-  const [emojiSetting, setEmojiSetting] = useState<"none" | "minimal" | "more">("minimal");
-  const [hashtagCount, setHashtagCount] = useState<"none" | "5" | "10" | "15">("5");
-  const [resultsCount, setResultsCount] = useState<number>(10);
+  const [language, setLanguage] = useState<"malayalam" | "manglish">("malayalam");
+  const category = selectedCategory;
+  const setCategory = onCategoryChange;
   const [keyword, setKeyword] = useState<string>("");
-  const [showAdvanced, setShowAdvanced] = useState<boolean>(false);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isListeningKeyword, setIsListeningKeyword] = useState(false);
@@ -185,13 +142,63 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
     } else if (currentPath === "/matrimony-bio-generator") {
       setContentType("bio");
       setPlatform("matrimony");
-      setCategory("wedding");
-    } else if (currentPath === "/malayalam-hashtags") {
-      setContentType("hashtag_set");
+      setCategory("love");
     }
   }, [currentPath]);
 
-  const handleGenerateClick = async (e: FormEvent) => {
+  // Live matching Effect - instantly generates matching presets on selection change
+  useEffect(() => {
+    const localResult = generateCaptions({
+      platform,
+      contentType: contentType === "hashtag_set" ? "hashtag_set" : contentType,
+      language: language as any,
+      category,
+      mood: "cheerful",
+      occasion: "general",
+      tone: "classy",
+      length: "medium",
+      emojiSetting: "minimal",
+      resultsCount: 5,
+      keyword,
+      hashtagCount: "5"
+    });
+    onGenerate(localResult.results);
+  }, [platform, contentType, language, category, keyword]);
+
+  const handleNormalGenerate = (e: FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    
+    setTimeout(() => {
+      const localResult = generateCaptions({
+        platform,
+        contentType: contentType === "hashtag_set" ? "hashtag_set" : contentType,
+        language: language as any,
+        category,
+        mood: "cheerful",
+        occasion: "general",
+        tone: "classy",
+        length: "medium",
+        emojiSetting: "minimal",
+        resultsCount: 5,
+        keyword,
+        hashtagCount: "5"
+      });
+      onGenerate(localResult.results);
+      setIsLoading(false);
+      onSuccessMessage(uiLang === 'en' ? "Matched hand-curated premium presets! ⚡" : "തിരഞ്ഞെടുത്ത പ്രീമിയം വരികൾ തയ്യാറാക്കിയിരിക്കുന്നു! ⚡");
+      
+      // Scroll to result list smoothly
+      setTimeout(() => {
+        const element = document.getElementById("results-section");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 100);
+    }, 400);
+  };
+
+  const handleVamozhiAiGenerate = async (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
@@ -200,14 +207,14 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
       contentType,
       language,
       category,
-      mood,
-      occasion,
-      tone,
-      length,
-      emojiSetting,
-      resultsCount,
+      mood: "cheerful",
+      occasion: "general",
+      tone: "classy",
+      length: "medium",
+      emojiSetting: "minimal",
+      resultsCount: 5,
       keyword,
-      hashtagCount
+      hashtagCount: "5"
     };
 
     try {
@@ -221,29 +228,29 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
       if (response.ok) {
         const data = await response.json();
         onGenerate(data.results);
-        onSuccessMessage(data.message || `Generated ${data.results.length} original captions successfully!`);
+        onSuccessMessage(data.message || `Generated ${data.results.length} Vamozhi AI captions successfully! ✨`);
       } else {
         throw new Error("Server generation returned non-200 state");
       }
     } catch (err) {
-      console.warn("API route failed or key missing, falling back to client-side database:", err);
+      console.warn("Vamozhi AI API failed or key missing, falling back to curated presets:", err);
       // Client-side scoring engine fallback
       const localResult = generateCaptions({
         platform,
         contentType,
-        language: language === "mixed" ? "mixed" : language,
+        language: language as any,
         category,
-        mood,
-        occasion,
-        tone,
-        length,
-        emojiSetting,
-        resultsCount,
+        mood: "cheerful",
+        occasion: "general",
+        tone: "classy",
+        length: "medium",
+        emojiSetting: "minimal",
+        resultsCount: 5,
         keyword,
-        hashtagCount
+        hashtagCount: "5"
       });
       onGenerate(localResult.results);
-      onSuccessMessage(localResult.message || `Generated ${localResult.results.length} offline captions!`);
+      onSuccessMessage(uiLang === 'en' ? "Offline curated presets matched successfully!" : "ഓഫ്‌ലൈൻ വരികൾ വിജയകരമായി തയ്യാറാക്കി!");
     } finally {
       setIsLoading(false);
 
@@ -257,6 +264,15 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
     }
   };
 
+  const handleReset = () => {
+    setContentType("photo-caption");
+    setPlatform("instagram");
+    setLanguage("malayalam");
+    onCategoryChange("love");
+    setKeyword("");
+    onSuccessMessage(uiLang === 'en' ? "Reset caption generator filters! 🔄" : "ഫിൽട്ടറുകൾ റീസെറ്റ് ചെയ്തിരിക്കുന്നു! 🔄");
+  };
+
   return (
     <section className="py-12 px-4 sm:px-6 max-w-5xl mx-auto" id="generator">
       
@@ -268,17 +284,17 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
         <h2 className="text-3xl font-black tracking-tight text-neutral-900" id="generator-heading">
           {contentType === "bio" ? (uiLang === 'en' ? "Malayalam Profile Bio Creator" : "മലയാളം പ്രൊഫൈൽ ബയോ ക്രിയേറ്റർ") : 
            contentType === "hook" ? (uiLang === 'en' ? "Malayalam Reel Hooks Creator" : "മലയാളം റീൽ ഹൂക്ക്സ് ക്രിയേറ്റർ") : 
-           contentType === "hashtag_set" ? (uiLang === 'en' ? "Kerala Social Hashtags Generator" : "കേരളാ ഹാഷ്‌ടാഗ് ജനറേറ്റർ") : 
+           contentType === "pickup_line" ? (uiLang === 'en' ? "Classy Malayalam Pickup Lines" : "പിക്ക്അപ്പ് ലൈൻസ്") : 
            (uiLang === 'en' ? "Social Caption Generator" : "സോഷ്യൽ ക്യാപ്ഷൻ ജനറേറ്റർ")}
         </h2>
         <p className="text-sm text-neutral-500 mt-2">
-          {uiLang === 'en' ? "Fine-tune the custom filters below. Vamozhi automatically matches and scores hundreds of handwritten, family-safe captions." : "താഴെയുള്ള ഫിൽട്ടറുകൾ ക്രമീകരിക്കുക. വമൊഴി നിങ്ങൾക്കായി ഏറ്റവും മികച്ചതും കുടുംബത്തോടൊപ്പം വായിക്കാൻ കഴിയുന്നതുമായ യഥാർത്ഥ വരികൾ നൽകുന്നു."}
+          {uiLang === 'en' ? "Change any filter to instantly display pre-set options from our hand-crafted database. Use the button to generate personalized versions with Gemini AI!" : "താഴെയുള്ള ഫിൽട്ടറുകൾ മാറ്റുമ്പോൾത്തന്നെ വരികൾ തത്സമയം ലഭിക്കും. അതോടൊപ്പം ജെമിനി AI ഉപയോഗിച്ച് പ്രത്യേക വരികൾ നിർമ്മിക്കാനും താഴെയുള്ള ബട്ടൺ പ്രയോജനപ്പെടുത്താം!"}
         </p>
       </div>
 
       {/* Main Form Glass Bento Layout */}
       <form
-        onSubmit={handleGenerateClick}
+        onSubmit={(e) => e.preventDefault()}
         className="bg-white rounded-[32px] p-6 md:p-8 shadow-sm border border-slate-200 relative"
         id="generator-form"
       >
@@ -303,13 +319,12 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
                 <AlignLeft className="w-3.5 h-3.5 text-purple-700" />
                 {t("step1")}
               </label>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2" id="input-content-type">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2" id="input-content-type">
                 {[
                   { id: "photo-caption", label: uiLang === 'en' ? "Photo Caption" : "ഫോട്ടോ ക്യാപ്ഷൻ" },
                   { id: "bio", label: uiLang === 'en' ? "Profile Bio" : "പ്രൊഫൈൽ ബയോ" },
                   { id: "hook", label: uiLang === 'en' ? "Reel Hook" : "റീൽ ഹൂക്ക്" },
-                  { id: "pickup_line", label: uiLang === 'en' ? "Pickup Line 💬" : "പിക്ക്അപ്പ് ലൈൻ 💬" },
-                  { id: "hashtag_set", label: uiLang === 'en' ? "Hashtags only" : "ഹാഷ്‌ടാഗുകൾ മാത്രം" }
+                  { id: "pickup_line", label: uiLang === 'en' ? "Pickup Line" : "പിക്ക്അപ്പ് ലൈൻ" }
                 ].map((type) => (
                   <button
                     key={type.id}
@@ -353,12 +368,10 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
                 <Globe className="w-3.5 h-3.5 text-purple-700" />
                 {t("step3")}
               </label>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2" id="input-language">
+              <div className="grid grid-cols-2 gap-2" id="input-language">
                 {[
                   { id: "malayalam", label: "മലയാളം" },
-                  { id: "manglish", label: "Manglish" },
-                  { id: "english", label: "English" },
-                  { id: "mixed", label: uiLang === 'en' ? "Mixed 🇬🇧" : "മിക്സഡ് 🇬🇧" }
+                  { id: "manglish", label: "Manglish" }
                 ].map((lang) => (
                   <button
                     key={lang.id}
@@ -389,7 +402,7 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
                   type="text"
                   value={keyword}
                   onChange={(e) => setKeyword(e.target.value)}
-                  placeholder={uiLang === 'en' ? "E.g., tea, rain, kochi, kalyanam" : "ഉദാ: ചായ, മഴ, കൊച്ചി, കല്യാണം"}
+                  placeholder={uiLang === 'en' ? "E.g., tea, rain, kochi, puzha" : "ഉദാ: ചായ, മഴ, കൊച്ചി, പുഴ"}
                   className="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-200 bg-white text-xs font-semibold focus:outline-none focus:ring-1 focus:ring-slate-900 transition-all placeholder:text-slate-400 h-[46px]"
                   id="input-keyword"
                 />
@@ -410,149 +423,45 @@ export default function Generator({ onGenerate, onSuccessMessage, currentPath }:
 
           </div>
 
-          {/* ADVANCED COLLAPSIBLE CONTROL BUTTON */}
-          <div className="flex justify-center border-t border-slate-100 pt-4" id="advanced-toggle-bar">
-            <button
-              type="button"
-              onClick={() => setShowAdvanced(!showAdvanced)}
-              className="flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-purple-700 transition-all cursor-pointer py-1 px-3.5 rounded-full hover:bg-slate-50 border border-slate-200 shadow-sm"
-              id="btn-toggle-advanced"
-            >
-              <span>{showAdvanced ? "Hide Advanced Fine-Tuning ⚙️" : "Customize Style & Settings (Tone, Length, Emojis) ⚙️"}</span>
-            </button>
+          <div className="text-center mt-2" id="info-live-matching-banner">
+            <span className="text-[10px] text-slate-500 font-bold bg-slate-50 border border-slate-100 rounded-full py-1 px-4 inline-block">
+              💡 {uiLang === 'en' ? "Presets matching your choices are shown instantly below. Click below to generate fresh, custom AI ideas." : "തെരഞ്ഞെടുത്ത വരികൾ താഴെ തത്സമയം നൽകിയിട്ടുണ്ട്. ജെമിനി AI വഴി പുതിയ വരികൾ നിർമ്മിക്കാൻ താഴെയുള്ള ബട്ടൺ ക്ലിക്ക് ചെയ്യുക."}
+            </span>
           </div>
-
-          {/* ADVANCED FIELDS (Collapsible panel) */}
-          {showAdvanced && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-slate-50/70 dark:bg-neutral-900/40 rounded-3xl border border-slate-200/60 transition-all duration-300" id="advanced-fields-panel">
-              
-              {/* Target Platform */}
-              <div className="flex flex-col gap-1.5" id="field-platform">
-                <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
-                  <Compass className="w-3.5 h-3.5 text-purple-700" />
-                  {uiLang === 'en' ? "Target Platform" : "സോഷ്യൽ മീഡിയ പ്ലാറ്റ്‌ഫോം"}
-                </label>
-                <select
-                  value={platform}
-                  onChange={(e) => setPlatform(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800"
-                  id="input-platform-select"
-                >
-                  {PLATFORMS.map((p) => (
-                    <option key={p.id} value={p.id}>
-                      {p.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Expressive Tone Style */}
-              <div className="flex flex-col gap-1.5" id="field-tone">
-                <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
-                  <Flame className="w-3.5 h-3.5 text-purple-700" />
-                  {uiLang === 'en' ? "Expressive Tone Style" : "എഴുത്ത് രീതി (Tone)"}
-                </label>
-                <div className="grid grid-cols-4 gap-1.5" id="input-tone-grid">
-                  {TONES.map((t) => (
-                    <button
-                      key={t.id}
-                      type="button"
-                      onClick={() => setTone(t.id)}
-                      className={`py-2 rounded-lg border text-[10px] font-bold transition-all cursor-pointer truncate ${
-                        tone === t.id
-                          ? "border-slate-900 bg-slate-50 text-slate-900 font-extrabold"
-                          : "bg-white hover:bg-slate-50 text-slate-500 border-slate-200"
-                      }`}
-                    >
-                      {t.name}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Length & Emojis */}
-              <div className="grid grid-cols-2 gap-3" id="field-length-emojis-grid">
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider">
-                    {uiLang === 'en' ? "Output Length" : "വരികളുടെ നീളം"}
-                  </label>
-                  <select
-                    value={length}
-                    onChange={(e) => setLength(e.target.value as any)}
-                    className="w-full px-3 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800"
-                  >
-                    <option value="one-line">{uiLang === 'en' ? "One-liner ⚡" : "ഒറ്റ വരിയിൽ ⚡"}</option>
-                    <option value="short">{uiLang === 'en' ? "Short (1-2 sentences)" : "ചെറുത് (1-2 വാക്യങ്ങൾ)"}</option>
-                    <option value="medium">{uiLang === 'en' ? "Medium (standard)" : "സാധാരണ അളവിൽ"}</option>
-                    <option value="detailed">{uiLang === 'en' ? "Detailed (blog/post style)" : "വിശദമായി (കൂടുതൽ വരികൾ)"}</option>
-                  </select>
-                </div>
-
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider">
-                    {uiLang === 'en' ? "Emoji Level" : "ഇമോജി അളവ്"}
-                  </label>
-                  <select
-                    value={emojiSetting}
-                    onChange={(e) => setEmojiSetting(e.target.value as any)}
-                    className="w-full px-3 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800"
-                  >
-                    <option value="none">{uiLang === 'en' ? "No Emojis 🚫" : "ഇമോജി വേണ്ട 🚫"}</option>
-                    <option value="minimal">{uiLang === 'en' ? "Minimal ✨" : "കുറച്ചു മതി ✨"}</option>
-                    <option value="more">{uiLang === 'en' ? "More 🥳🔥" : "കൂടുതൽ വേണം 🥳🔥"}</option>
-                  </select>
-                </div>
-              </div>
-
-              {/* Hashtags & Result Counts */}
-              <div className="grid grid-cols-2 gap-3" id="field-hashtags-count-grid">
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1">
-                    <Hash className="w-3.5 h-3.5 text-purple-600" />
-                    {uiLang === 'en' ? "Hashtag Count" : "ഹാഷ്‌ടാഗ് എണ്ണം"}
-                  </label>
-                  <select
-                    value={hashtagCount}
-                    onChange={(e) => setHashtagCount(e.target.value as any)}
-                    className="w-full px-3 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800"
-                  >
-                    <option value="none">{uiLang === 'en' ? "No Hashtags" : "ഹാഷ്‌ടാഗ് വേണ്ട"}</option>
-                    <option value="5">{uiLang === 'en' ? "5 Tags" : "5 ടാഗുകൾ"}</option>
-                    <option value="10">{uiLang === 'en' ? "10 Tags" : "10 ടാഗുകൾ"}</option>
-                    <option value="15">{uiLang === 'en' ? "15 Tags" : "15 ടാഗുകൾ"}</option>
-                  </select>
-                </div>
-
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider">
-                    {uiLang === 'en' ? "Options Count" : "ഓപ്ഷൻ എണ്ണം"}
-                  </label>
-                  <select
-                    value={resultsCount}
-                    onChange={(e) => setResultsCount(parseInt(e.target.value, 10))}
-                    className="w-full px-3 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800"
-                  >
-                    <option value={5}>{uiLang === 'en' ? "5 Options" : "5 എണ്ണം"}</option>
-                    <option value={10}>{uiLang === 'en' ? "10 Options" : "10 എണ്ണം"}</option>
-                    <option value={20}>{uiLang === 'en' ? "20 Options" : "20 എണ്ണം"}</option>
-                  </select>
-                </div>
-              </div>
-
-            </div>
-          )}
 
         </div>
 
         {/* Generate CTA Trigger */}
-        <div className="mt-8 flex justify-center">
+        <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
           <button
-            type="submit"
-            className="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-purple-800 via-pink-600 to-orange-500 hover:scale-[0.98] text-white text-sm font-extrabold rounded-2xl transition-all shadow-md shadow-pink-100 flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider"
-            id="btn-trigger-generate"
+            type="button"
+            onClick={handleNormalGenerate}
+            className="w-full sm:w-auto px-8 py-4 bg-slate-100 hover:bg-slate-200 text-slate-800 text-sm font-extrabold rounded-2xl transition-all flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider border border-slate-200"
+            id="btn-normal-generate"
+          >
+            <AlignLeft className="w-4.5 h-4.5 text-purple-700" />
+            {uiLang === 'en' ? "Normal Generate" : "സാധാരണ ജനറേറ്റ് ചെയ്യുക"}
+          </button>
+
+          <button
+            type="button"
+            onClick={handleVamozhiAiGenerate}
+            className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-purple-800 via-pink-600 to-orange-500 hover:scale-[0.98] text-white text-sm font-extrabold rounded-2xl transition-all shadow-md shadow-pink-100 flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider"
+            id="btn-vamozhi-ai-generate"
           >
             <Sparkles className="w-4.5 h-4.5 animate-pulse" />
-            {t("step8")}
+            {uiLang === 'en' ? "Vamozhi AI" : "വമൊഴി AI 🪄"}
+          </button>
+
+          <button
+            type="button"
+            onClick={handleReset}
+            className="w-full sm:w-auto px-6 py-4 bg-white hover:bg-slate-50 text-slate-500 hover:text-slate-800 text-sm font-bold rounded-2xl transition-all flex items-center justify-center gap-1.5 cursor-pointer uppercase tracking-wider border border-slate-200"
+            id="btn-reset-generator"
+            title="Reset all filters to defaults"
+          >
+            <RotateCcw className="w-4 h-4 text-slate-500" />
+            {uiLang === 'en' ? "Reset" : "റീസെറ്റ്"}
           </button>
         </div>
 

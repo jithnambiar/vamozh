@@ -23,7 +23,6 @@ const TRENDING_CATEGORIES = [
   { key: "girls", label: "Malayalam for Girls" },
   { key: "boys", label: "Malayalam for Boys" },
   { key: "travel", label: "Kerala Travel" },
-  { key: "wedding", label: "Wedding Malayalam" },
   { key: "manglish", label: "Manglish Captions" },
   { key: "bio", label: "Instagram Bio Ideas" }
 ] as const;
@@ -226,7 +225,6 @@ const TRENDING_CATEGORIES_TRANSLATIONS: Record<string, string> = {
   girls: "പെൺകുട്ടികൾക്കായി",
   boys: "ആൺകുട്ടികൾക്കായി",
   travel: "യാത്രകൾ",
-  wedding: "കല്യാണം",
   manglish: "മാംഗ്ലീഷ്",
   bio: "പ്രൊഫൈൽ ബയോ"
 };

@@ -1,0 +1,272 @@
+[
+  {
+    "id": "dict_1",
+    "word": "love",
+    "malayalam": "സ്നേഹം",
+    "partOfSpeech": "noun",
+    "definition": "പ്രണയം, ഇഷ്ടം, ആഴത്തിലുള്ള മമത (Affection, deep attachment)",
+    "example": "Love conquers all -> സ്നേഹം എല്ലാറ്റിനെയും ജയിക്കുന്നു.",
+    "source": "Olam Datuk"
+  },
+  {
+    "id": "dict_2",
+    "word": "beautiful",
+    "malayalam": "മനോഹരമായ",
+    "partOfSpeech": "adjective",
+    "definition": "കാഴ്ചയ്ക്ക് ഇമ്പമുള്ള, ഭംഗിയുള്ള (Aesthetically pleasing, pretty)",
+    "example": "A beautiful sunset -> മനോഹരമായ ഒരു സൂര്യാസ്തമയം.",
+    "source": "Olam Datuk"
+  },
+  {
+    "id": "dict_3",
+    "word": "book",
+    "malayalam": "പുസ്തകം",
+    "partOfSpeech": "noun",
+    "definition": "ഗ്രന്ഥം, വായിക്കാനുള്ള താളുകൾ ചേർത്തുകെട്ടിയത് (A bound set of printed sheets)",
+    "example": "He read a book -> അവൻ ഒരു പുസ്തകം വായിച്ചു.",
+    "source": "Olam Datuk"
+  },
+  {
+    "id": "dict_4",
+    "word": "rain",
+    "malayalam": "മഴ",
+    "partOfSpeech": "noun",
+    "definition": "മേഘങ്ങളിൽ നിന്ന് വീഴുന്ന ജലത്തുള്ളികൾ (Water falling in drops from vapor)",
+    "example": "The rain is beautiful -> മഴ മനോഹരമാണ്.",
+    "source": "Olam Ekkurup"
+  },
+  {
+    "id": "dict_5",
+    "word": "home",
+    "malayalam": "വീട്",
+    "partOfSpeech": "noun",
+    "definition": "ഭവനം, താമസിസ്ഥലം, പാർപ്പിടം (Place of residence, household)",
+    "example": "Welcome home -> വീട്ടിലേക്ക് സ്വാഗതം.",
+    "source": "Olam Datuk"
+  },
+  {
+    "id": "dict_6",
+    "word": "water",
+    "malayalam": "വെള്ളം",
+    "partOfSpeech": "noun",
+    "definition": "ജലം, പാനീയം (A clear liquid, chemical compound H2O)",
+    "example": "Give me some water -> എനിക്ക് കുറച്ചു വെള്ളം തരൂ.",
+    "source": "Olam Datuk"
+  },
+  {
+    "id": "dict_7",
+    "word": "food",
+    "malayalam": "ഭക്ഷണം",
+    "partOfSpeech": "noun",
+    "definition": "ആഹാരം, ഉണ്ണുന്ന സാധനങ്ങൾ (Nutritious substance eaten to maintain life)",
+    "example": "The food is ready -> ഭക്ഷണം തയ്യാറാണ്.",
+    "source": "Olam Datuk"
+  },
+  {
+    "id": "dict_8",
+    "word": "travel",
+    "malayalam": "യാത്ര",
+    "partOfSpeech": "noun / verb",
+    "definition": "ദേശാടനം, ഒരു സ്ഥലത്തുനിന്ന് മറ്റൊരു സ്ഥലത്തേക്കുള്ള പോക്ക് (Journey, trip)",
+    "example": "I love to travel -> എനിക്ക് യാത്ര ചെയ്യാൻ ഇഷ്ടമാണ്.",
+    "source": "Olam Ekkurup"
+  },
+  {
+    "id": "dict_9",
+    "word": "tea",
+    "malayalam": "ചായ",
+    "partOfSpeech": "noun",
+    "definition": "തേയില കൊണ്ട് തയ്യാറാക്കുന്ന ചൂടുള്ള പാനീയം (A hot beverage made with tea leaves)",
+    "example": "A cup of hot tea -> ഒരു കപ്പ് ചൂടു ചായ.",
+    "source": "Olam Datuk"
+  },
+  {
+    "id": "dict_10",
+    "word": "dream",
+    "malayalam": "സ്വപ്നം",
+    "partOfSpeech": "noun",
+    "definition": "ഉറക്കത്തിൽ കാണുന്ന കാര്യങ്ങൾ, ആശയം (Vision/thoughts during sleep, aspiration)",
+    "example": "Follow your dreams -> നിങ്ങളുടെ സ്വപ്നങ്ങളെ പിന്തുടരുക.",
+    "source": "Olam Ekkurup"
+  },
+  {
+    "id": "dict_11",
+    "word": "mother",
+    "malayalam": "അമ്മ",
+    "partOfSpeech": "noun",
+    "definition": "ജനനി, മാതാവ് (A female parent)",
+    "example": "Mother's love is unconditional -> അമ്മയുടെ സ്നേഹം നിരുപാധികമാണ്.",
+    "source": "Olam Datuk"
+  },
+  {
+    "id": "dict_12",
+    "word": "friend",
+    "malayalam": "കൂട്ടുകാരൻ",
+    "partOfSpeech": "noun",
+    "definition": "സുഹൃത്ത്, സഖാവ് (A companion, associate)",
+    "example": "He is my best friend -> അവൻ എന്റെ ഏറ്റവും നല്ല കൂട്ടുകാരനാണ്.",
+    "source": "Olam Datuk"
+  },
+  {
+    "id": "dict_13",
+    "word": "nature",
+    "malayalam": "പ്രകൃതി",
+    "partOfSpeech": "noun",
+    "definition": "പരിസ്ഥിതി, സ്വാഭാവികമായ അവസ്ഥ (The physical world, ecosystem)",
+    "example": "Protect nature -> പ്രകൃതിയെ സംരക്ഷിക്കുക.",
+    "source": "Olam Datuk"
+  },
+  {
+    "id": "dict_14",
+    "word": "culture",
+    "malayalam": "സംസ്കാരം",
+    "partOfSpeech": "noun",
+    "definition": "ആചാരങ്ങൾ, ജീവിതരീതി, സഭ്യത (Customs, arts, social institutions of a nation)",
+    "example": "Kerala's rich culture -> കേരളത്തിന്റെ സമ്പന്നമായ സംസ്കാരം.",
+    "source": "Olam Datuk"
+  },
+  {
+    "id": "dict_15",
+    "word": "literature",
+    "malayalam": "സാഹിത്യം",
+    "partOfSpeech": "noun",
+    "definition": "എഴുത്തുവിദ്യ, കാവ്യസൃഷ്ടികൾ (Written works of superior artistic merit)",
+    "example": "Malayalam literature -> മലയാള സാഹിത്യം.",
+    "source": "Olam Datuk"
+  },
+  {
+    "id": "dict_16",
+    "word": "poetry",
+    "malayalam": "കവിത",
+    "partOfSpeech": "noun",
+    "definition": "പദ്യം, കാവ്യം (Literary work in which special intensity is given to expression)",
+    "example": "He writes poetry -> അവൻ കവിത എഴുതുന്നു.",
+    "source": "Olam Datuk"
+  },
+  {
+    "id": "dict_17",
+    "word": "language",
+    "malayalam": "ഭാഷ",
+    "partOfSpeech": "noun",
+    "definition": "സംസാരരീതി, ലിപി കൂട്ടങ്ങൾ (System of communication through speech/writing)",
+    "example": "Malayalam is a beautiful language -> മലയാളം ഒരു മനോഹരമായ ഭാഷയാണ്.",
+    "source": "Olam Datuk"
+  },
+  {
+    "id": "dict_18",
+    "word": "heart",
+    "malayalam": "ഹൃദയം",
+    "partOfSpeech": "noun",
+    "definition": "നെഞ്ച്, മനസ്സ്, രക്തചംക്രമണ അവയവം (The muscular organ pumping blood, locus of feelings)",
+    "example": "With all my heart -> എന്റെ പൂർണ്ണ ഹൃദയത്തോടെ.",
+    "source": "Olam Datuk"
+  },
+  {
+    "id": "dict_19",
+    "word": "life",
+    "malayalam": "ജീവിതം",
+    "partOfSpeech": "noun",
+    "definition": "ആയുസ്സ്, ജീവൻ, പ്രാണൻ (The condition that distinguishes organisms from inorganic matter)",
+    "example": "Life is a journey -> ജീവിതം ഒരു യാത്രയാണ്.",
+    "source": "Olam Datuk"
+  },
+  {
+    "id": "dict_20",
+    "word": "smile",
+    "malayalam": "ചിരി",
+    "partOfSpeech": "noun / verb",
+    "definition": "മന്ദഹാസം, സന്തോഷം പ്രകടിപ്പിക്കുക (Pleascent facial expression with mouth corners turned up)",
+    "example": "Her smile is warm -> അവളുടെ ചിരിക്ക് നല്ല ചൂടുണ്ട് / തെളിച്ചമുണ്ട്.",
+    "source": "Olam Datuk"
+  },
+  {
+    "id": "dict_21",
+    "word": "happy",
+    "malayalam": "സന്തോഷം",
+    "partOfSpeech": "adjective",
+    "definition": "ആനന്ദം നിറഞ്ഞ, തൃപ്തികരമായ (Feeling or showing pleasure)",
+    "example": "Be happy -> സന്തോഷമായിരിക്കൂ.",
+    "source": "Olam Datuk"
+  },
+  {
+    "id": "dict_22",
+    "word": "world",
+    "malayalam": "ലോകം",
+    "partOfSpeech": "noun",
+    "definition": "പ്രപഞ്ചം, ഭൂമി (The earth, together with all of its countries and peoples)",
+    "example": "A peaceful world -> സമാധാനമുള്ള ഒരു ലോകം.",
+    "source": "Olam Datuk"
+  },
+  {
+    "id": "dict_23",
+    "word": "sky",
+    "malayalam": "ആകാശം",
+    "partOfSpeech": "noun",
+    "definition": "ഗഗനം, അന്തരീക്ഷം (The region of the atmosphere visible from earth)",
+    "example": "Blue sky -> നീലാകാശം.",
+    "source": "Olam Datuk"
+  },
+  {
+    "id": "dict_24",
+    "word": "flower",
+    "malayalam": "പൂവ്",
+    "partOfSpeech": "noun",
+    "definition": "പുഷ്പം, കുസുമം (The seed-bearing part of a plant with colorful petals)",
+    "example": "The flower is blooming -> പൂവ് വിരിയുന്നു.",
+    "source": "Olam Datuk"
+  },
+  {
+    "id": "dict_25",
+    "word": "student",
+    "malayalam": "വിദ്യാർത്ഥി",
+    "partOfSpeech": "noun",
+    "definition": "പഠിക്കുന്നയാൾ, ശിഷ്യൻ (A person who is studying at a school or college)",
+    "example": "An active student -> സജീവനായ ഒരു വിദ്യാർത്ഥി.",
+    "source": "Olam Datuk"
+  },
+  {
+    "id": "dict_26",
+    "word": "ocean",
+    "malayalam": "കടൽ",
+    "partOfSpeech": "noun",
+    "definition": "സമുദ്രം, വൻകടൽ (A very large expanse of sea, in particular, each of the main areas of saline water)",
+    "example": "The ocean breeze is relaxing -> കടൽക്കാറ്റ് വളരെ ആശ്വാസകരമാണ്.",
+    "source": "Olam Datuk"
+  },
+  {
+    "id": "dict_27",
+    "word": "tree",
+    "malayalam": "മരം",
+    "partOfSpeech": "noun",
+    "definition": "വൃക്ഷം, വലിയ സസ്യം (A woody perennial plant, typically having a single stem or trunk)",
+    "example": "Plant trees to save the environment -> പരിസ്ഥിതി സംരക്ഷിക്കാൻ മരങ്ങൾ നട്ടുപിടിപ്പിക്കുക.",
+    "source": "Olam Datuk"
+  },
+  {
+    "id": "dict_28",
+    "word": "knowledge",
+    "malayalam": "അറിവ്",
+    "partOfSpeech": "noun",
+    "definition": "ജ്ഞാനം, വിദ്യാഭ്യാസം (Facts, information, and skills acquired through experience)",
+    "example": "Knowledge is power -> അറിവാണ് ശക്തി.",
+    "source": "Olam Ekkurup"
+  },
+  {
+    "id": "dict_29",
+    "word": "festival",
+    "malayalam": "ഉത്സവം",
+    "partOfSpeech": "noun",
+    "definition": "പെരുന്നാൾ, ആഘോഷവേള (A day or period of celebration, typically a religious one)",
+    "example": "Onam is the national festival of Kerala -> ഓണം കേരളത്തിന്റെ ദേശീയ ഉത്സവമാണ്.",
+    "source": "Olam Datuk"
+  },
+  {
+    "id": "dict_30",
+    "word": "music",
+    "malayalam": "സംഗീതം",
+    "partOfSpeech": "noun",
+    "definition": "നാദം, രാഗം, ഗാനങ്ങൾ (Vocal or instrumental sounds combined in such a way as to produce beauty of form)",
+    "example": "I love listening to music -> എനിക്ക് സംഗീതം കേൾക്കാൻ ഇഷ്ടമാണ്.",
+    "source": "Olam Datuk"
+  }
+]

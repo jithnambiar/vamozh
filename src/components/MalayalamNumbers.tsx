@@ -100,46 +100,33 @@ export default function MalayalamNumbers() {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 min-h-screen text-left" id="malayalam-numbers-page">
+    <div className="w-full text-left" id="malayalam-numbers-page">
       
-      {/* Decorative Heading */}
-      <div className="text-center max-w-3xl mx-auto mb-12">
-        <span className="px-3 py-1 rounded-full bg-purple-100 text-purple-800 text-[10px] font-black tracking-widest uppercase inline-block mb-3">
-          Numbers Module (സംഖ്യകൾ)
-        </span>
-        <h1 className="text-4xl font-black text-slate-900 tracking-tight">
-          Learn Malayalam Numbers
-        </h1>
-        <p className="text-sm text-slate-500 mt-2">
-          Master traditional Malayalam script numerals, words, pronunciations, and test your skills with our interactive game module.
-        </p>
-
-        {/* Tab switchers */}
-        <div className="flex justify-center mt-8 gap-2">
-          <button
-            onClick={() => setActiveTab("chart")}
-            className={`px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer ${
-              activeTab === "chart"
-                ? "bg-slate-900 text-white shadow-md"
-                : "bg-slate-100 hover:bg-slate-200 text-slate-600"
-            }`}
-          >
-            Numbers Grid & Audio
-          </button>
-          <button
-            onClick={() => {
-              setActiveTab("game");
-              setupNewQuestion();
-            }}
-            className={`px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer ${
-              activeTab === "game"
-                ? "bg-slate-900 text-white shadow-md"
-                : "bg-slate-100 hover:bg-slate-200 text-slate-600"
-            }`}
-          >
-            Match-the-Number Game
-          </button>
-        </div>
+      {/* Tab switchers */}
+      <div className="flex justify-center mb-8 gap-2 bg-slate-100 p-1.5 rounded-full max-w-md mx-auto">
+        <button
+          onClick={() => setActiveTab("chart")}
+          className={`flex-1 py-2 px-4 rounded-full text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer text-center ${
+            activeTab === "chart"
+              ? "bg-white text-purple-900 shadow-sm font-black"
+              : "text-slate-500 hover:text-slate-950"
+          }`}
+        >
+          Numbers Grid & Audio
+        </button>
+        <button
+          onClick={() => {
+            setActiveTab("game");
+            setupNewQuestion();
+          }}
+          className={`flex-1 py-2 px-4 rounded-full text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer text-center ${
+            activeTab === "game"
+              ? "bg-white text-purple-900 shadow-sm font-black"
+              : "text-slate-500 hover:text-slate-950"
+          }`}
+        >
+          Match-the-Number Game
+        </button>
       </div>
 
       {activeTab === "chart" ? (

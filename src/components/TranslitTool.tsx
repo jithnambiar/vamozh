@@ -368,7 +368,8 @@ export default function TranslitTool({ onSuccessMessage }: TranslitToolProps) {
               onKeyDown={handleKeyDown}
               placeholder="e.g. Ente keralam ethra sundaram..."
               rows={8}
-              className="w-full flex-1 bg-transparent text-sm font-medium focus:outline-none placeholder:text-slate-400 text-slate-800 resize-none"
+              className="w-full flex-1 bg-transparent text-sm font-medium focus:outline-none placeholder:text-slate-400 text-slate-800 resize-none font-sans"
+              style={{ fontFamily: '"Noto Sans Malayalam", "Plus Jakarta Sans", sans-serif' }}
               id="manglish-textarea-input"
             />
           </div>
@@ -447,6 +448,7 @@ export default function TranslitTool({ onSuccessMessage }: TranslitToolProps) {
               placeholder="മലയാളം എഴുത്ത് ഇവിടെ കാണാം..."
               rows={8}
               className="w-full flex-1 bg-transparent text-base font-bold text-pink-100 focus:outline-none placeholder:text-slate-600 resize-none font-sans"
+              style={{ fontFamily: '"Noto Sans Malayalam", "Plus Jakarta Sans", sans-serif' }}
               id="malayalam-textarea-output"
             />
           </div>

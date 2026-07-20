@@ -124,8 +124,8 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
             onClick={handleLogoClick}
             id="nav-brand-logo"
           >
-            <div className="w-10 h-10 bg-gradient-to-br from-purple-800 via-pink-600 to-orange-500 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-md transform -rotate-3 group-hover:rotate-0 transition-transform italic">
-              V
+            <div className="w-10 h-10 bg-gradient-to-br from-purple-950 via-[#911b5a] to-[#ff2a6d] rounded-xl flex items-center justify-center text-[#fffef0] font-black text-xl shadow-md transform -rotate-3 group-hover:rotate-0 transition-all font-sans">
+              വാ
             </div>
             <div className="text-left">
               <span className="text-xl font-black tracking-tight text-purple-950 uppercase block leading-none">
@@ -167,12 +167,30 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
             </button>
 
             <button
+              onClick={() => onNavigate("/malayalam-dictionary")}
+              className={`text-xs font-black uppercase tracking-wider transition-colors cursor-pointer ${
+                currentPath === "/malayalam-dictionary" ? "text-purple-900 font-black border-b-2 border-purple-800 pb-0.5" : "text-slate-500 hover:text-purple-800"
+              }`}
+            >
+              Dictionary 📖
+            </button>
+
+            <button
               onClick={() => onNavigate("/malayalam-numbers")}
               className={`text-xs font-black uppercase tracking-wider transition-colors cursor-pointer ${
                 currentPath === "/malayalam-numbers" ? "text-purple-900 font-black border-b-2 border-purple-800 pb-0.5" : "text-slate-500 hover:text-purple-800"
               }`}
             >
               Numbers 🔢
+            </button>
+
+            <button
+              onClick={() => onNavigate("/malayalam-hashtags")}
+              className={`text-xs font-black uppercase tracking-wider transition-colors cursor-pointer ${
+                currentPath === "/malayalam-hashtags" ? "text-purple-900 font-black border-b-2 border-purple-800 pb-0.5" : "text-slate-500 hover:text-purple-800"
+              }`}
+            >
+              Hashtags 🏷️
             </button>
           </div>
 
@@ -310,11 +328,27 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
             </button>
 
             <button
+              onClick={() => { onNavigate("/malayalam-dictionary"); setIsOpen(false); }}
+              className="py-2.5 font-extrabold text-slate-800 border-b border-slate-100 text-xs uppercase tracking-wider flex items-center gap-2 text-left"
+            >
+              <BookOpen className="w-4 h-4 text-purple-600 shrink-0" />
+              Dictionary 📖
+            </button>
+
+            <button
               onClick={() => { onNavigate("/malayalam-numbers"); setIsOpen(false); }}
               className="py-2.5 font-extrabold text-slate-800 border-b border-slate-100 text-xs uppercase tracking-wider flex items-center gap-2 text-left"
             >
               <Sparkles className="w-4 h-4 text-emerald-500 shrink-0" />
               Numbers 🔢
+            </button>
+
+            <button
+              onClick={() => { onNavigate("/malayalam-hashtags"); setIsOpen(false); }}
+              className="py-2.5 font-extrabold text-slate-800 border-b border-slate-100 text-xs uppercase tracking-wider flex items-center gap-2 text-left"
+            >
+              <Sparkles className="w-4 h-4 text-pink-500 shrink-0" />
+              Hashtags 🏷️
             </button>
           </div>
 

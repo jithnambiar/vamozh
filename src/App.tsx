@@ -6,8 +6,8 @@
 import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import MalayalamNumbers from "./components/MalayalamNumbers";
 import LearningSystem from "./components/LearningSystem";
+import DictionarySection from "./components/DictionarySection";
 import Categories from "./components/Categories";
 import Generator from "./components/Generator";
 import ResultList from "./components/ResultList";
@@ -20,6 +20,9 @@ import FavouritesDrawer from "./components/FavouritesDrawer";
 import Toast from "./components/Toast";
 import TranslitTool from "./components/TranslitTool";
 import InfoPages from "./components/InfoPages";
+import HashtagGenerator from "./components/HashtagGenerator";
+import LiveChat from "./components/LiveChat";
+import CommunityBoard from "./components/CommunityBoard";
 import { AnimatePresence } from "motion/react";
 
 interface ResultItem {
@@ -145,6 +148,11 @@ const ROUTE_META_MAP: Record<string, RouteMeta> = {
     title: "Learn Malayalam – Complete interactive Malayalam learning system",
     description: "Learn the Malayalam alphabet, vowels, consonants, everyday conversation phrases, proverbs, and test yourself.",
     canonical: "https://vamozhi.com/learn-malayalam"
+  },
+  "/malayalam-dictionary": {
+    title: "Malayalam Dictionary – English to Malayalam & Malayalam to English Olam Database",
+    description: "Search the comprehensive open-source Datuk, Ekkurup, and Enml Malayalam dictionary databases. Fast, reliable, with AI dynamic word enrichment.",
+    canonical: "https://vamozhi.com/malayalam-dictionary"
   }
 };
 
@@ -157,6 +165,8 @@ export default function App() {
   const [favourites, setFavourites] = useState<string[]>([]);
   const [isFavOpen, setIsFavOpen] = useState<boolean>(false);
   const [selectedStoryCaption, setSelectedStoryCaption] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string>("love");
+  const [communityBoardRefreshKey, setCommunityBoardRefreshKey] = useState<number>(0);
 
   // Toast notifications
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'info' } | null>(null);
@@ -266,7 +276,6 @@ export default function App() {
     currentPath === "/tiktok-caption-generator" ||
     currentPath === "/malayalam-instagram-bio" ||
     currentPath === "/malayalam-reel-hooks" ||
-    currentPath === "/malayalam-hashtags" ||
     currentPath === "/arike-bio-generator" ||
     currentPath === "/bumble-bio-generator" ||
     currentPath === "/matrimony-bio-generator";
@@ -274,6 +283,8 @@ export default function App() {
   const isPhoneticTypingRoute = currentPath === "/manglish-to-malayalam";
   const isMalayalamNumbersRoute = currentPath === "/malayalam-numbers";
   const isLearnMalayalamRoute = currentPath === "/learn-malayalam";
+  const isHashtagsRoute = currentPath === "/malayalam-hashtags";
+  const isMalayalamDictionaryRoute = currentPath === "/malayalam-dictionary";
 
   return (
     <div className="min-h-screen flex flex-col bg-[#faf9f6] text-neutral-800" id="app-root-container">
@@ -297,13 +308,7 @@ export default function App() {
             {/* Categories bento grid selection */}
             <Categories 
               onSelectCategory={(catId) => {
-                // Pre-set in DOM or trigger scroll
-                const selectElem = document.getElementById("input-category-select") as HTMLSelectElement;
-                if (selectElem) {
-                  selectElem.value = catId;
-                  const event = new Event('change', { bubbles: true });
-                  selectElem.dispatchEvent(event);
-                }
+                setSelectedCategory(catId);
                 const element = document.getElementById("generator");
                 if (element) {
                   element.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -317,6 +322,8 @@ export default function App() {
               onGenerate={(generated) => setResults(generated)}
               onSuccessMessage={(msg) => triggerToast(msg, 'success')}
               currentPath={currentPath}
+              selectedCategory={selectedCategory}
+              onCategoryChange={(catId) => setSelectedCategory(catId)}
             />
 
             {/* Output cards result block */}
@@ -326,6 +333,13 @@ export default function App() {
               onToggleFavourite={handleToggleFavourite}
               onOpenStoryModal={(caption) => setSelectedStoryCaption(caption)}
               onSuccessMessage={(msg) => triggerToast(msg, 'success')}
+              onPostCaption={() => setCommunityBoardRefreshKey(prev => prev + 1)}
+            />
+
+            {/* LIVE COMMUNITY CAPTIONS BOARD */}
+            <CommunityBoard 
+              key={communityBoardRefreshKey} 
+              onSuccessMessage={(msg) => triggerToast(msg, 'success')} 
             />
 
             {/* Trending categories lookup grids */}
@@ -349,15 +363,27 @@ export default function App() {
           </>
         )}
 
+        {isHashtagsRoute && (
+          <HashtagGenerator
+            onSuccessMessage={(msg) => triggerToast(msg, 'success')}
+            onToggleFavourite={handleToggleFavourite}
+            favourites={favourites}
+          />
+        )}
+
         {isMalayalamNumbersRoute && (
-          <MalayalamNumbers />
+          <LearningSystem defaultTab="numbers" />
         )}
 
         {isLearnMalayalamRoute && (
           <LearningSystem />
         )}
 
-        {!isHomeOrGeneratorRoute && !isPhoneticTypingRoute && !isMalayalamNumbersRoute && !isLearnMalayalamRoute && (
+        {isMalayalamDictionaryRoute && (
+          <DictionarySection onSuccessMessage={(msg, type) => triggerToast(msg, type || 'success')} />
+        )}
+
+        {!isHomeOrGeneratorRoute && !isPhoneticTypingRoute && !isMalayalamNumbersRoute && !isLearnMalayalamRoute && !isHashtagsRoute && !isMalayalamDictionaryRoute && (
           <>
             <InfoPages currentPath={currentPath} onSuccessMessage={(msg) => triggerToast(msg, 'success')} />
           </>
@@ -385,6 +411,9 @@ export default function App() {
         onClearAll={handleClearAllFavourites}
         onSuccessMessage={(msg) => triggerToast(msg, 'success')}
       />
+
+      {/* Intelligent Floating Live Chat */}
+      <LiveChat />
 
       {/* Staggered animated floating alerts */}
       <AnimatePresence>
