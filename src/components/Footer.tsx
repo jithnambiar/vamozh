@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Heart, Globe } from "lucide-react";
+import { Heart, Globe, ExternalLink } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 
 interface FooterProps {
@@ -59,11 +59,6 @@ export default function Footer({ onNavigate }: FooterProps) {
                   {language === 'en' ? "Instagram Bio Generator" : "ഇൻസ്റ്റാഗ്രാം ബയോ ജനറേറ്റർ"}
                 </button>
               </li>
-              <li>
-                <button onClick={() => onNavigate("/arike-bio-generator")} className="hover:text-purple-400 transition-colors cursor-pointer text-left">
-                  {language === 'en' ? "Arike dating Profile" : "അരികെ ഡേറ്റിംഗ് പ്രൊഫൈൽ"}
-                </button>
-              </li>
             </ul>
           </div>
 
@@ -108,24 +103,35 @@ export default function Footer({ onNavigate }: FooterProps) {
 
         </div>
 
-        {/* Lower Disclaimer Box */}
+        {/* Lower Disclaimer Box & Powered By Redbridge Technologies */}
         <div className="border-t border-neutral-900 pt-8 mt-4 flex flex-col md:flex-row items-center justify-between gap-6" id="footer-credits-box">
           
           <div className="text-left text-[11px] text-neutral-500 max-w-xl space-y-2">
             <p className="font-bold">
               {language === 'en' ? (
-                <>© {currentYear} VAMOZHI. All rights reserved. Crafted with <Heart className="w-3 h-3 text-red-500 fill-red-500 inline" /> in Kerala.</>
+                <>© {currentYear} VAMOZHI (Vamozhi.com). All rights reserved. Crafted with <Heart className="w-3 h-3 text-red-500 fill-red-500 inline" /> in Kerala.</>
               ) : (
-                <>© {currentYear} VAMOZHI. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം. കേരളത്തിൽ <Heart className="w-3 h-3 text-red-500 fill-red-500 inline" /> സ്നേഹത്തോടെ നിർമ്മിച്ചത്.</>
+                <>© {currentYear} VAMOZHI (Vamozhi.com). എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം. കേരളത്തിൽ <Heart className="w-3 h-3 text-red-500 fill-red-500 inline" /> സ്നേഹത്തോടെ നിർമ്മിച്ചത്.</>
               )}
             </p>
             <p className="leading-relaxed">
-              <strong>Disclaimer:</strong> Instagram, Facebook, WhatsApp, Snapchat, TikTok, Arike, Bumble, and Tinder are registered trademarks of their respective copyright holders. Vamozhi is an independent, 100% free writing tool and is not affiliated, sponsored, associated, or officially connected with Meta Platforms Inc., ByteDance, Match Group, or any subsidiaries.
+              <strong>Disclaimer:</strong> Instagram, Facebook, WhatsApp, Snapchat, TikTok, Bumble, and Tinder are registered trademarks of their respective copyright holders. Vamozhi is an independent, 100% free writing tool and is not affiliated, sponsored, associated, or officially connected with Meta Platforms Inc., ByteDance, Match Group, or any subsidiaries.
             </p>
           </div>
 
-          <div className="flex gap-4 text-xs font-bold text-neutral-400">
-            <span className="bg-neutral-900 px-3 py-1.5 rounded-lg border border-neutral-800 flex items-center gap-1">
+          <div className="flex flex-col sm:flex-row items-center gap-3 text-xs font-bold text-neutral-400">
+            <a
+              href="https://redbridge.in"
+              target="_blank"
+              rel="noreferrer"
+              className="bg-purple-950/80 hover:bg-purple-900 px-3.5 py-2 rounded-xl border border-purple-800/80 text-purple-200 hover:text-white transition-all flex items-center gap-1.5 cursor-pointer shadow-sm group"
+            >
+              <span className="text-neutral-400 font-semibold">Powered by</span>
+              <strong className="text-amber-400 font-black tracking-wide group-hover:underline">Redbridge Technologies</strong>
+              <ExternalLink className="w-3.5 h-3.5 text-amber-400 group-hover:translate-x-0.5 transition-transform" />
+            </a>
+
+            <span className="bg-neutral-900 px-3.5 py-2 rounded-xl border border-neutral-800 flex items-center gap-1.5 text-neutral-300">
               <Globe className="w-3.5 h-3.5 text-purple-400" />
               https://vamozhi.com
             </span>

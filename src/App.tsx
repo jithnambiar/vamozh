@@ -4,8 +4,8 @@
  */
 
 import { useState, useEffect } from "react";
-import { Keyboard, GraduationCap, Sparkles, Hash } from "lucide-react";
 import Navbar from "./components/Navbar";
+import MobileBottomNav from "./components/MobileBottomNav";
 import Hero from "./components/Hero";
 import LearningSystem from "./components/LearningSystem";
 import DictionarySection from "./components/DictionarySection";
@@ -23,7 +23,7 @@ import TranslitTool from "./components/TranslitTool";
 import InfoPages from "./components/InfoPages";
 import HashtagGenerator from "./components/HashtagGenerator";
 import LiveChat from "./components/LiveChat";
-import CommunityBoard from "./components/CommunityBoard";
+import CertificateVerificationPage from "./components/CertificateVerificationPage";
 import { AnimatePresence } from "motion/react";
 
 interface ResultItem {
@@ -32,7 +32,6 @@ interface ResultItem {
   hashtags: string[];
 }
 
-// Route Meta configuration maps for perfect technical SEO indexing
 interface RouteMeta {
   title: string;
   description: string;
@@ -95,11 +94,6 @@ const ROUTE_META_MAP: Record<string, RouteMeta> = {
     description: "Generate highly relevant Kerala, Malayalam, and regional hashtags for your social media posts.",
     canonical: "https://vamozhi.com/malayalam-hashtags"
   },
-  "/arike-bio-generator": {
-    title: "Malayalam Arike Dating Profile Bio Generator – VAMOZHI",
-    description: "Write attractive and respectful dating profile bios in Malayalam and Manglish for Arike.",
-    canonical: "https://vamozhi.com/arike-bio-generator"
-  },
   "/bumble-bio-generator": {
     title: "Malayalam Bumble Profile Bio Generator – VAMOZHI",
     description: "Create engaging, charismatic, and safe Bumble dating bios in Malayalam & Manglish.",
@@ -158,21 +152,14 @@ const ROUTE_META_MAP: Record<string, RouteMeta> = {
 };
 
 export default function App() {
-  // Navigation states
   const [currentPath, setCurrentPath] = useState<string>(window.location.pathname);
-
-  // Main list outputs
   const [results, setResults] = useState<ResultItem[]>([]);
   const [favourites, setFavourites] = useState<string[]>([]);
   const [isFavOpen, setIsFavOpen] = useState<boolean>(false);
   const [selectedStoryCaption, setSelectedStoryCaption] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>("love");
-  const [communityBoardRefreshKey, setCommunityBoardRefreshKey] = useState<number>(0);
-
-  // Toast notifications
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'info' } | null>(null);
 
-  // Manage browser popstate (back / forward navigation)
   useEffect(() => {
     const handlePopState = () => {
       setCurrentPath(window.location.pathname);
@@ -181,14 +168,10 @@ export default function App() {
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
-  // Update URL metadata in real-time for technical SEO
   useEffect(() => {
     const meta = ROUTE_META_MAP[currentPath] || ROUTE_META_MAP["/"];
-    
-    // Update Title
     document.title = meta.title;
     
-    // Update Meta Description
     const descMeta = document.querySelector('meta[name="description"]');
     if (descMeta) {
       descMeta.setAttribute("content", meta.description);
@@ -199,7 +182,6 @@ export default function App() {
       document.head.appendChild(newMeta);
     }
     
-    // Update Canonical URL
     const canonicalLink = document.querySelector('link[rel="canonical"]');
     if (canonicalLink) {
       canonicalLink.setAttribute("href", meta.canonical);
@@ -210,11 +192,9 @@ export default function App() {
       document.head.appendChild(newLink);
     }
     
-    // Track scroll resetting to top on navigation change
-    window.scrollTo({ top: 0 });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [currentPath]);
 
-  // Load favourites from localStorage on mount
   useEffect(() => {
     try {
       const stored = localStorage.getItem("vamozhi_favourites");
@@ -267,7 +247,6 @@ export default function App() {
     setCurrentPath(path);
   };
 
-  // Determine which page content group is active
   const isHomeOrGeneratorRoute = 
     currentPath === "/" ||
     currentPath === "/malayalam-caption-generator" ||
@@ -278,7 +257,6 @@ export default function App() {
     currentPath === "/tiktok-caption-generator" ||
     currentPath === "/malayalam-instagram-bio" ||
     currentPath === "/malayalam-reel-hooks" ||
-    currentPath === "/arike-bio-generator" ||
     currentPath === "/bumble-bio-generator" ||
     currentPath === "/matrimony-bio-generator";
 
@@ -288,21 +266,9 @@ export default function App() {
   const isHashtagsRoute = currentPath === "/malayalam-hashtags";
   const isMalayalamDictionaryRoute = currentPath === "/malayalam-dictionary";
 
-  // Super-route selectors for Tab Bar grouping
-  const isTypingAndDictionaryActive = isPhoneticTypingRoute || isMalayalamDictionaryRoute;
-  const isLearnMalayalamActive = isLearnMalayalamRoute || isMalayalamNumbersRoute;
-  const isCaptionGeneratorActive = isHomeOrGeneratorRoute;
-  const isHashtagsActive = isHashtagsRoute;
-
-  const isMainWorkspaceRoute = 
-    isTypingAndDictionaryActive || 
-    isLearnMalayalamActive || 
-    isCaptionGeneratorActive || 
-    isHashtagsActive;
-
   return (
     <div className="min-h-screen flex flex-col bg-[#faf9f6] text-neutral-800" id="app-root-container">
-      {/* Sticky Responsive Header Menu */}
+      {/* Unified App Navigation Header */}
       <Navbar
         favouritesCount={favourites.length}
         onOpenFavourites={() => setIsFavOpen(true)}
@@ -310,155 +276,57 @@ export default function App() {
         onNavigate={handleNavigate}
       />
 
-
-
-      {/* Main Container Views Switching */}
-      <div className="flex-1 pt-[130px]" id="vamozhi-page-outlet">
-        
-        {/* Dynamic Main Workspace Tabs (Adheres to user's ordered layout request) */}
-        {isMainWorkspaceRoute && (
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8" id="vamozhi-tools-dashboard-tabs">
-            <div className="bg-white border border-slate-200/80 p-2 rounded-3xl shadow-sm flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
-              <div className="flex flex-wrap items-center gap-1.5 w-full lg:w-auto overflow-x-auto no-scrollbar" id="primary-tools-switcher">
-                <button
-                  onClick={() => handleNavigate("/")}
-                  className={`flex items-center gap-2 px-5 py-3 rounded-2xl text-xs font-black uppercase tracking-wider transition-all duration-300 cursor-pointer shrink-0 ${
-                    isCaptionGeneratorActive
-                      ? "bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white shadow-md shadow-purple-950/10 scale-[1.02]"
-                      : "bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-slate-800"
-                  }`}
-                >
-                  <Sparkles className="w-4 h-4 text-amber-500" />
-                  Caption Generator
-                </button>
-
-                <button
-                  onClick={() => handleNavigate("/manglish-to-malayalam")}
-                  className={`flex items-center gap-2 px-5 py-3 rounded-2xl text-xs font-black uppercase tracking-wider transition-all duration-300 cursor-pointer shrink-0 ${
-                    isTypingAndDictionaryActive
-                      ? "bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white shadow-md shadow-purple-950/10 scale-[1.02]"
-                      : "bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-slate-800"
-                  }`}
-                >
-                  <Keyboard className="w-4 h-4 text-pink-500" />
-                  Typing & Dictionary
-                </button>
-
-                <button
-                  onClick={() => handleNavigate("/learn-malayalam")}
-                  className={`flex items-center gap-2 px-5 py-3 rounded-2xl text-xs font-black uppercase tracking-wider transition-all duration-300 cursor-pointer shrink-0 ${
-                    isLearnMalayalamActive
-                      ? "bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white shadow-md shadow-purple-950/10 scale-[1.02]"
-                      : "bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-slate-800"
-                  }`}
-                >
-                  <GraduationCap className="w-4 h-4 text-purple-500" />
-                  Learn Malayalam
-                </button>
-
-                <button
-                  onClick={() => handleNavigate("/malayalam-hashtags")}
-                  className={`flex items-center gap-2 px-5 py-3 rounded-2xl text-xs font-black uppercase tracking-wider transition-all duration-300 cursor-pointer shrink-0 ${
-                    isHashtagsActive
-                      ? "bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white shadow-md shadow-purple-950/10 scale-[1.02]"
-                      : "bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-slate-800"
-                  }`}
-                >
-                  <Hash className="w-4 h-4 text-pink-500" />
-                  Hashtags
-                </button>
-              </div>
-
-              {/* Quick Sub-Toggles for nested tools (like Typing vs Dictionary) */}
-              {isTypingAndDictionaryActive && (
-                <div className="flex items-center gap-1 bg-slate-50 p-1 rounded-2xl shrink-0 self-center" id="sub-tool-toggle">
-                  <button
-                    onClick={() => handleNavigate("/manglish-to-malayalam")}
-                    className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-200 cursor-pointer ${
-                      currentPath === "/manglish-to-malayalam"
-                        ? "bg-white text-purple-950 shadow-sm font-black"
-                        : "text-slate-500 hover:text-slate-800"
-                    }`}
-                  >
-                    ⌨️ Typing Keyboard
-                  </button>
-                  <button
-                    onClick={() => handleNavigate("/malayalam-dictionary")}
-                    className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-200 cursor-pointer ${
-                      currentPath === "/malayalam-dictionary"
-                        ? "bg-white text-purple-950 shadow-sm font-black"
-                        : "text-slate-500 hover:text-slate-800"
-                    }`}
-                  >
-                    📖 Search Dictionary
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-
+      {/* Main App Page View Outlet */}
+      <div className="flex-1 pt-[68px] pb-24 md:pb-10" id="vamozhi-page-outlet">
         {isHomeOrGeneratorRoute && (
           <>
-            {/* Elegant Hero card */}
-            <Hero />
+            <Hero onNavigate={handleNavigate} />
 
-            {/* Categories bento grid selection */}
-            <Categories 
+            <Categories
               onSelectCategory={(catId) => {
                 setSelectedCategory(catId);
-                const element = document.getElementById("generator");
-                if (element) {
-                  element.scrollIntoView({ behavior: "smooth", block: "start" });
-                }
-                triggerToast(`Category filter locked: ${catId.toUpperCase()} ✨`);
-              }} 
+                const genEl = document.getElementById("generator");
+                if (genEl) genEl.scrollIntoView({ behavior: "smooth" });
+              }}
             />
 
-            {/* Configurable Generation Studio Form */}
             <Generator
-              onGenerate={(generated) => setResults(generated)}
+              onGenerate={(items) => {
+                setResults(items);
+                const el = document.getElementById("results-section");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }}
               onSuccessMessage={(msg) => triggerToast(msg, 'success')}
               currentPath={currentPath}
               selectedCategory={selectedCategory}
-              onCategoryChange={(catId) => setSelectedCategory(catId)}
+              onCategoryChange={(cat) => setSelectedCategory(cat)}
             />
 
-            {/* Output cards result block */}
-            <ResultList
-              results={results}
-              favourites={favourites}
-              onToggleFavourite={handleToggleFavourite}
-              onOpenStoryModal={(caption) => setSelectedStoryCaption(caption)}
-              onSuccessMessage={(msg) => triggerToast(msg, 'success')}
-              onPostCaption={() => setCommunityBoardRefreshKey(prev => prev + 1)}
-            />
+            {results.length > 0 && (
+              <ResultList
+                results={results}
+                favourites={favourites}
+                onToggleFavourite={handleToggleFavourite}
+                onOpenStoryModal={(text) => setSelectedStoryCaption(text)}
+                onSuccessMessage={(msg) => triggerToast(msg, 'success')}
+              />
+            )}
 
-            {/* LIVE COMMUNITY CAPTIONS BOARD */}
-            <CommunityBoard 
-              key={communityBoardRefreshKey} 
-              onSuccessMessage={(msg) => triggerToast(msg, 'success')} 
-            />
-
-            {/* Trending categories lookup grids */}
             <Trending
-              onToggleFavourite={handleToggleFavourite}
               favourites={favourites}
+              onToggleFavourite={handleToggleFavourite}
               onSuccessMessage={(msg) => triggerToast(msg, 'success')}
             />
 
-            {/* Crawlable, rich SEO informative creator guide */}
-            <SeoContent />
-
-            {/* Help & Support accordions FAQ block */}
+            <SeoContent currentPath={currentPath} />
             <FaqSection />
           </>
         )}
 
         {isPhoneticTypingRoute && (
-          <>
-            <TranslitTool onSuccessMessage={(msg) => triggerToast(msg, 'success')} />
-          </>
+          <TranslitTool
+            onSuccessMessage={(msg) => triggerToast(msg, 'success')}
+          />
         )}
 
         {isHashtagsRoute && (
@@ -469,29 +337,45 @@ export default function App() {
           />
         )}
 
-        {isMalayalamNumbersRoute && (
-          <LearningSystem defaultTab="numbers" />
+        {(isLearnMalayalamRoute || isMalayalamNumbersRoute || currentPath.includes("/learn-malayalam")) && (
+          <LearningSystem
+            defaultTab={
+              isMalayalamNumbersRoute 
+                ? "numbers" 
+                : currentPath.includes("tab=study") 
+                ? "study" 
+                : currentPath.includes("tab=exam") 
+                ? "exam" 
+                : "letters"
+            }
+          />
         )}
 
-        {isLearnMalayalamRoute && (
-          <LearningSystem />
+        {currentPath.startsWith("/verify-certificate") && (
+          <CertificateVerificationPage />
         )}
 
         {isMalayalamDictionaryRoute && (
           <DictionarySection onSuccessMessage={(msg, type) => triggerToast(msg, type || 'success')} />
         )}
 
-        {!isHomeOrGeneratorRoute && !isPhoneticTypingRoute && !isMalayalamNumbersRoute && !isLearnMalayalamRoute && !isHashtagsRoute && !isMalayalamDictionaryRoute && (
-          <>
-            <InfoPages currentPath={currentPath} onSuccessMessage={(msg) => triggerToast(msg, 'success')} />
-          </>
+        {!isHomeOrGeneratorRoute && !isPhoneticTypingRoute && !isMalayalamNumbersRoute && !isLearnMalayalamRoute && !currentPath.includes("/learn-malayalam") && !isHashtagsRoute && !isMalayalamDictionaryRoute && !currentPath.startsWith("/verify-certificate") && (
+          <InfoPages currentPath={currentPath} onSuccessMessage={(msg) => triggerToast(msg, 'success')} />
         )}
       </div>
 
-      {/* Corporate footer, copyright & disclaimers */}
+      {/* Footer */}
       <Footer onNavigate={handleNavigate} />
 
-      {/* Interactive Canvas story overlay Modal */}
+      {/* Mobile App Interface Navigation Bottom Bar */}
+      <MobileBottomNav
+        currentPath={currentPath}
+        onNavigate={handleNavigate}
+        favouritesCount={favourites.length}
+        onOpenFavourites={() => setIsFavOpen(true)}
+      />
+
+      {/* Interactive Story Canvas Overlay */}
       {selectedStoryCaption && (
         <StoryModal
           text={selectedStoryCaption}
@@ -500,7 +384,7 @@ export default function App() {
         />
       )}
 
-      {/* Sliding Saved items drawer */}
+      {/* Saved Drawer */}
       <FavouritesDrawer
         isOpen={isFavOpen}
         onClose={() => setIsFavOpen(false)}
@@ -510,10 +394,10 @@ export default function App() {
         onSuccessMessage={(msg) => triggerToast(msg, 'success')}
       />
 
-      {/* Intelligent Floating Live Chat */}
+      {/* Live AI Assistant */}
       <LiveChat />
 
-      {/* Staggered animated floating alerts */}
+      {/* Toast Notifications */}
       <AnimatePresence>
         {toast && (
           <Toast

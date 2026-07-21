@@ -322,8 +322,8 @@ export default function TranslitTool({ onSuccessMessage }: TranslitToolProps) {
         <span className="px-3.5 py-1.5 rounded-full bg-purple-50 text-purple-700 text-xs font-black tracking-widest uppercase inline-block mb-3">
           Phonetic Keyboard Tool
         </span>
-        <h1 className="text-3xl font-black tracking-tight text-neutral-900" id="translit-tool-heading">
-          Manglish to Malayalam Typing
+        <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-neutral-900" id="translit-tool-heading">
+          Manglish to Malayalam Typing Online – Instant Transliteration Tool
         </h1>
         <p className="text-sm text-neutral-500 mt-2">
           Type phonetically in Manglish (e.g., <span className="font-mono text-xs text-purple-700 bg-purple-50/50 px-1 py-0.5 rounded">njan malayaliyanu</span>) and watch it transform instantly into beautiful Malayalam script (<span className="font-bold text-neutral-800">ഞാൻ മലയാളിയാണ്</span>).

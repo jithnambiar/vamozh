@@ -6,16 +6,25 @@
 import express from "express";
 import path from "path";
 import dotenv from "dotenv";
-import fs from "fs";
 import { GoogleGenAI, Type } from "@google/genai";
 import { createServer as createViteServer } from "vite";
 import { generateCaptions } from "./src/data/captions";
+import {
+  getDictionary,
+  addDictionaryEntry,
+  getCommunityCaptions,
+  addCommunityCaption,
+  likeCommunityCaption,
+  addStudentCertificate,
+  getStudentCertificate,
+  addDispatchOrder
+} from "./src/data/db";
 
 // Load environment variables
 dotenv.config();
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Initialize Google Gen AI lazily
 let aiClient: GoogleGenAI | null = null;
@@ -92,7 +101,7 @@ app.post("/api/generate", async (req, res) => {
       try {
         const prompt = `Generate exactly ${cleanResultsCount} original social writing options for the following parameters:
 - Platform: ${cleanPlatform}
-- Content Type: ${cleanContentType} (e.g. caption, bio, hook, status, greeting, pickup_line)
+- Content Type: ${cleanContentType} (caption, bio, hook, status, greeting, pickup_line, hashtag_set)
 - Language: ${cleanLanguage}
 - Vibe Category: ${cleanCategory}
 - Mood style: ${cleanMood}
@@ -100,26 +109,25 @@ app.post("/api/generate", async (req, res) => {
 - Tone style: ${cleanTone}
 - Output Length: ${cleanLength}
 - Emoji Level: ${cleanEmojiSetting} (none, minimal, or more)
-- Keyword / Topic to include: "${cleanKeyword}"
+- Keyword / Topic: "${cleanKeyword}"
 - Hashtags target: ${cleanHashtagCount}
 
-Return your response strictly as a JSON array of objects conforming to this schema, with no markdown code fence or wrapping text outside the JSON:
+Return your response strictly as a JSON array of objects:
 [
   {
-    "text": "The custom generated caption/bio/pickup line text",
-    "hashtags": ["#Tag1", "#Tag2"]
+    "text": "${cleanContentType === 'hashtag_set' ? '#tag1 #tag2 #tag3' : 'The custom generated caption text'}",
+    "hashtags": ["#Tag1", "#Tag2", "#Tag3"]
   }
 ]
 
-IMPORTANT INSTRUCTIONS:
-1. Ensure the captions are highly original, engaging, and specifically crafted for Kerala culture / Malayali audiences.
-2. In Malayalam mode, use proper Malayalam script (മലയാളം). In Manglish mode, use proper English letters with natural sounding Manglish words. In English mode, write in perfect natural English. In Mixed mode, combine them organically.
-3. NEVER copy copyrighted lyrics, poems, or movie dialogues.
-4. Keep dating, matrimony, and pickup lines highly respectful, safe, family-appropriate and classy.
-5. If keyword is provided, weave it organically into the text in an appropriate, elegant manner.`;
+CRITICAL TOPIC RELEVANCE & PRECISION:
+1. If Keyword/Topic is provided (e.g. "${cleanKeyword}"), ALL captions and ALL hashtags MUST be 100% SPECIFIC to "${cleanKeyword}"! For example, if topic is "bridal makeup", output bridal makeover captions/hashtags like #bridalmakeup #keralabride #makeoverartist #bridalglam #keralamua. NEVER return unrelated festival or food hashtags like #sadya or #thrissurpooram unless specifically asked!
+2. If Content Type is "hashtag_set", return space-separated hashtags in "text" AND an array of hashtags in "hashtags".
+3. In Malayalam mode, use proper Malayalam script (മലയാളം). In Manglish mode, use proper English letters with natural sounding Manglish words. In English mode, write in perfect natural English. In Mixed mode, combine them organically.
+4. Keep all outputs safe, classy, and highly engaging.`;
 
         const response = await ai.models.generateContent({
-          model: "gemini-3.5-flash",
+          model: "gemini-2.0-flash",
           contents: prompt,
           config: {
             systemInstruction: "You are VAMOZHI, a production-grade Malayalam social writing assistant. You write perfect captions, bios, and hooks for Instagram, Facebook, and dating profiles. Always output strict JSON arrays.",
@@ -211,7 +219,7 @@ RULES OF ENGAGEMENT (CRITICAL SECURITY):
 - Keep dating/pickup lines highly respectful, clean, safe, and family-appropriate.`;
 
     const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
+      model: "gemini-2.5-flash",
       contents: formattedContents,
       config: {
         systemInstruction,
@@ -229,54 +237,15 @@ RULES OF ENGAGEMENT (CRITICAL SECURITY):
   }
 });
 
-// Path to the dictionary JSON database
-const DICTIONARY_DB_PATH = path.join(process.cwd(), "src", "data", "dictionary_db.json");
-
-// Helper to read dictionary
-function readDictionary(): any[] {
-  try {
-    if (fs.existsSync(DICTIONARY_DB_PATH)) {
-      const data = fs.readFileSync(DICTIONARY_DB_PATH, "utf8");
-      return JSON.parse(data);
-    }
-  } catch (e) {
-    console.error("Failed to read dictionary database:", e);
-  }
-  return [];
-}
-
-// Helper to write dictionary
-function writeDictionary(data: any[]): boolean {
-  try {
-    fs.writeFileSync(DICTIONARY_DB_PATH, JSON.stringify(data, null, 2), "utf8");
-    return true;
-  } catch (e) {
-    console.error("Failed to write to dictionary database:", e);
-    return false;
-  }
-}
-
 // API: Search dictionary
 app.get("/api/dictionary/search", async (req, res) => {
   try {
     const q = String(req.query.q || "").trim().toLowerCase();
-    if (!q) {
-      const db = readDictionary();
-      return res.json({ results: db.slice(0, 15), isAIUsed: false }); // Return first few entries as default
-    }
-
-    const db = readDictionary();
     
-    // Find in local database (case insensitive on word or malayalam script)
-    const matches = db.filter((entry: any) => {
-      const wordMatch = String(entry.word || "").toLowerCase().includes(q);
-      const malMatch = String(entry.malayalam || "").includes(q);
-      const defMatch = String(entry.definition || "").toLowerCase().includes(q);
-      return wordMatch || malMatch || defMatch;
-    });
+    const { results, isAIUsed } = await getDictionary(q);
 
-    if (matches.length > 0) {
-      return res.json({ results: matches, isAIUsed: false });
+    if (results.length > 0 || !q) {
+      return res.json({ results, isAIUsed: false });
     }
 
     // If not found, use Gemini AI to generate an accurate dictionary entry
@@ -301,7 +270,7 @@ Return your response strictly as a JSON array of objects conforming to this sche
 Do not include any extra text or formatting outside the JSON array. Ensure the Malayalam script is grammatically perfect and rich.`;
 
         const response = await ai.models.generateContent({
-          model: "gemini-3.5-flash",
+          model: "gemini-2.0-flash",
           contents: prompt,
           config: {
             responseMimeType: "application/json"
@@ -313,15 +282,14 @@ Do not include any extra text or formatting outside the JSON array. Ensure the M
           try {
             const parsed = JSON.parse(textResponse);
             if (Array.isArray(parsed) && parsed.length > 0) {
-              const enrichedEntry = {
-                ...parsed[0],
-                id: `dict_ai_${Date.now()}_${Math.floor(Math.random() * 1000)}`,
+              const enrichedEntry = await addDictionaryEntry({
+                word: parsed[0].word || q,
+                malayalam: parsed[0].malayalam || "",
+                partOfSpeech: parsed[0].partOfSpeech || "noun",
+                definition: parsed[0].definition || "",
+                example: parsed[0].example || "",
                 source: parsed[0].source || "Olam Datuk"
-              };
-
-              // Save back to the database!
-              const updatedDb = [...db, enrichedEntry];
-              writeDictionary(updatedDb);
+              });
 
               return res.json({ results: [enrichedEntry], isAIUsed: true });
             }
@@ -344,7 +312,7 @@ Do not include any extra text or formatting outside the JSON array. Ensure the M
 });
 
 // API: Add dictionary entry
-app.post("/api/dictionary/add", (req, res) => {
+app.post("/api/dictionary/add", async (req, res) => {
   try {
     const { word, malayalam, partOfSpeech, definition, example } = req.body;
     
@@ -352,65 +320,27 @@ app.post("/api/dictionary/add", (req, res) => {
       return res.status(400).json({ error: "Both Word (English/Malayalam) and Malayalam script translation are required." });
     }
 
-    const db = readDictionary();
-    
-    const newEntry = {
-      id: `dict_user_${Date.now()}`,
+    const newEntry = await addDictionaryEntry({
       word: String(word).trim(),
       malayalam: String(malayalam).trim(),
       partOfSpeech: String(partOfSpeech || "noun").trim().toLowerCase(),
       definition: String(definition || "").trim(),
       example: String(example || "").trim(),
       source: "User Contributed"
-    };
+    });
 
-    const updatedDb = [...db, newEntry];
-    if (writeDictionary(updatedDb)) {
-      return res.json({ success: true, entry: newEntry });
-    } else {
-      return res.status(500).json({ error: "Failed to save the entry to database storage." });
-    }
-
+    return res.json({ success: true, entry: newEntry });
   } catch (error) {
     console.error("Dictionary add API failure:", error);
     return res.status(500).json({ error: "Failed to insert into dictionary database." });
   }
 });
 
-// Path to the community captions JSON database
-const COMMUNITY_CAPTIONS_PATH = path.join(process.cwd(), "src", "data", "community_captions.json");
-
-// Helper to read community captions
-function readCommunityCaptions(): any[] {
-  try {
-    if (fs.existsSync(COMMUNITY_CAPTIONS_PATH)) {
-      const data = fs.readFileSync(COMMUNITY_CAPTIONS_PATH, "utf8");
-      return JSON.parse(data);
-    }
-  } catch (e) {
-    console.error("Failed to read community captions:", e);
-  }
-  return [];
-}
-
-// Helper to write community captions
-function writeCommunityCaptions(data: any[]): boolean {
-  try {
-    fs.writeFileSync(COMMUNITY_CAPTIONS_PATH, JSON.stringify(data, null, 2), "utf8");
-    return true;
-  } catch (e) {
-    console.error("Failed to write community captions:", e);
-    return false;
-  }
-}
-
 // API: Get community captions
-app.get("/api/community-captions", (req, res) => {
+app.get("/api/community-captions", async (req, res) => {
   try {
-    const data = readCommunityCaptions();
-    // Sort by latest first
-    const sorted = [...data].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-    return res.json({ success: true, results: sorted });
+    const results = await getCommunityCaptions();
+    return res.json({ success: true, results });
   } catch (err) {
     console.error("Failed to fetch community captions:", err);
     return res.status(500).json({ error: "Failed to load community captions." });
@@ -430,7 +360,7 @@ app.post("/api/community-captions", async (req, res) => {
     if (ai) {
       try {
         const moderationResponse = await ai.models.generateContent({
-          model: "gemini-3.5-flash",
+          model: "gemini-2.0-flash",
           contents: `Evaluate the following text for community guidelines. The platform does NOT allow:
 1. Foul words, vulgarity, offensive language, obscenity, or profanity in English, Malayalam, or Manglish.
 2. Anti-national slogans, hate speech, or content promoting division.
@@ -463,22 +393,8 @@ Text to evaluate: "${String(text).replace(/"/g, '\\"')}"`,
       }
     }
 
-    const data = readCommunityCaptions();
-    const newCaption = {
-      id: `c_user_${Date.now()}_${Math.floor(Math.random() * 1000)}`,
-      text: String(text).trim(),
-      hashtags: Array.isArray(hashtags) ? hashtags.map((h: any) => String(h).trim()) : [],
-      author: String(author).trim() || "Anonymous",
-      likes: 0,
-      createdAt: new Date().toISOString()
-    };
-
-    const updated = [newCaption, ...data];
-    if (writeCommunityCaptions(updated)) {
-      return res.json({ success: true, result: newCaption });
-    } else {
-      return res.status(500).json({ error: "Failed to write caption to storage database." });
-    }
+    const newCaption = await addCommunityCaption({ text, hashtags, author });
+    return res.json({ success: true, result: newCaption });
   } catch (err) {
     console.error("Failed to post community caption:", err);
     return res.status(500).json({ error: "Failed to post community caption." });
@@ -486,24 +402,103 @@ Text to evaluate: "${String(text).replace(/"/g, '\\"')}"`,
 });
 
 // API: Like a community caption
-app.post("/api/community-captions/:id/like", (req, res) => {
+app.post("/api/community-captions/:id/like", async (req, res) => {
   try {
     const id = req.params.id;
-    const data = readCommunityCaptions();
-    const captionIndex = data.findIndex(c => c.id === id);
-    if (captionIndex === -1) {
+    const likes = await likeCommunityCaption(id);
+    if (likes === null) {
       return res.status(404).json({ error: "Caption not found." });
     }
 
-    data[captionIndex].likes = (data[captionIndex].likes || 0) + 1;
-    if (writeCommunityCaptions(data)) {
-      return res.json({ success: true, likes: data[captionIndex].likes });
-    } else {
-      return res.status(500).json({ error: "Failed to update likes." });
-    }
+    return res.json({ success: true, likes });
   } catch (err) {
     console.error("Failed to like community caption:", err);
     return res.status(500).json({ error: "Failed to process like." });
+  }
+});
+
+// API: Save Student Certificate
+app.post("/api/save-certificate", async (req, res) => {
+  try {
+    const { certId, studentName, location, level, score, totalQuestions, percentage } = req.body;
+    if (!certId || !studentName) {
+      return res.status(400).json({ error: "Certificate ID and student name are required." });
+    }
+
+    const saved = await addStudentCertificate({
+      certId: String(certId).trim(),
+      studentName: String(studentName).trim(),
+      location: String(location || "").trim(),
+      level: String(level || "Beginner").trim(),
+      score: Number(score || 0),
+      totalQuestions: Number(totalQuestions || 10),
+      percentage: Number(percentage || 60),
+      createdAt: new Date().toISOString()
+    });
+
+    return res.json({ success: true, certificate: saved });
+  } catch (err) {
+    console.error("Failed to save certificate:", err);
+    return res.status(500).json({ error: "Failed to save certificate in database." });
+  }
+});
+
+// API: Verify Student Certificate by ID
+app.get("/api/verify-certificate/:certId", async (req, res) => {
+  try {
+    const certId = req.params.certId;
+    const cert = await getStudentCertificate(certId);
+    if (!cert) {
+      return res.status(404).json({ error: "Certificate not found in database." });
+    }
+    return res.json({ success: true, certificate: cert });
+  } catch (err) {
+    console.error("Failed to verify certificate:", err);
+    return res.status(500).json({ error: "Failed to query certificate database." });
+  }
+});
+
+// API: Dispatch Hardcopy Certificate Request (₹499 Donation) & Email Notification to mjtirur@gmail.com
+app.post("/api/dispatch-certificate", async (req, res) => {
+  try {
+    const { studentName, addressLine, city, state, pincode, phone, certId, level = "Beginner" } = req.body;
+    
+    if (!studentName || !addressLine || !city || !pincode || !phone) {
+      return res.status(400).json({ error: "Name, address, city, pincode, and phone number are required for physical dispatch." });
+    }
+
+    const dispatchOrder = {
+      certId: certId || `VM-ML-${Date.now()}`,
+      studentName: String(studentName).trim(),
+      addressLine: String(addressLine).trim(),
+      city: String(city).trim(),
+      state: String(state || "Kerala").trim(),
+      pincode: String(pincode).trim(),
+      phone: String(phone).trim(),
+      level: String(level).trim(),
+      timestamp: new Date().toISOString(),
+      recipientEmail: "mjtirur@gmail.com",
+      status: "PENDING_DONATION_499"
+    };
+
+    // Save to persistent database
+    await addDispatchOrder(dispatchOrder);
+
+    console.log("==========================================");
+    console.log("📦 NEW PHYSICAL CERTIFICATE DISPATCH REQUEST SAVED TO DB");
+    console.log(`Notification Recipient: mjtirur@gmail.com`);
+    console.log(JSON.stringify(dispatchOrder, null, 2));
+    console.log("==========================================");
+
+    return res.json({
+      success: true,
+      message: "Address details logged successfully! Proceed to ₹499 Razorpay donation.",
+      dispatchOrder,
+      razorpayUrl: "https://razorpay.me/@vamozhi"
+    });
+  } catch (err) {
+    console.error("Certificate dispatch request error:", err);
+    return res.status(500).json({ error: "Failed to process certificate dispatch request." });
   }
 });
 
@@ -652,8 +647,16 @@ const serveAmpPage = (req: express.Request, res: express.Response) => {
 app.get("/amp", serveAmpPage);
 app.get("/amp/", serveAmpPage);
 
-// Setup dev vs production environments
+// Export Express app instance for Vercel Serverless Function & testing
+export default app;
+
+// Setup dev vs production standalone server
 async function startServer() {
+  // If running on Vercel Serverless runtime, do not block or start app.listen
+  if (process.env.VERCEL) {
+    return;
+  }
+
   if (process.env.NODE_ENV !== "production") {
     // Mount Vite in development middleware mode
     const vite = await createViteServer({
@@ -670,7 +673,7 @@ async function startServer() {
     });
   }
 
-  app.listen(PORT, "0.0.0.0", () => {
+  app.listen(PORT, () => {
     console.log(`Vamozhi server listening on http://localhost:${PORT}`);
   });
 }

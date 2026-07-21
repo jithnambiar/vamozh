@@ -34,10 +34,10 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Hero
     heroBadge: "100% Free & Fast",
-    heroTitleFirst: "Malayalam Caption",
-    heroTitleSecond: "& Bio Generator",
+    heroTitleFirst: "Malayalam Instagram Caption",
+    heroTitleSecond: "Generator",
     heroTagline: "Your Vibe. Your Words.",
-    heroSubtitle: "Instantly generate handwritten, original Malayalam and Manglish captions, bios, Reel hooks, and hashtags for love, attitude, travel, friendship, and weddings. No boring AI slop.",
+    heroSubtitle: "Generate original Malayalam and Manglish Instagram captions, bios, Reel hooks, and trending hashtags for love, attitude, travel, friendship, and weddings.",
     btnFindPerfect: "Find My Perfect Caption",
     btnTryTransliteration: "Try Transliteration",
     featureHandwritten: "Handwritten Originals",

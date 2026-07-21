@@ -11,6 +11,7 @@ import {
   Hash
 } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
+import { inferCategoryFromTopic } from "../data/captions";
 
 interface HashtagSet {
   id: string;
@@ -153,11 +154,13 @@ export default function HashtagGenerator({ onSuccessMessage, onToggleFavourite, 
     setIsLoading(true);
     setAiResult(null);
 
+    const targetCategory = inferCategoryFromTopic(keyword, category);
+
     const payload = {
       platform,
       contentType: "hashtag_set",
       language: "malayalam",
-      category: category === "all" ? "kerala" : category,
+      category: targetCategory,
       mood: "cheerful",
       occasion: "general",
       tone: "classy",
@@ -178,34 +181,54 @@ export default function HashtagGenerator({ onSuccessMessage, onToggleFavourite, 
       if (response.ok) {
         const data = await response.json();
         if (data.results && data.results.length > 0) {
-          const rawTags = data.results[0].text;
-          // Parse tags back into array
-          const generatedTags = rawTags.split(/\s+/).filter((t: string) => t.startsWith("#"));
-          
+          const item = data.results[0];
+          let generatedTags: string[] = [];
+
+          if (Array.isArray(item.hashtags) && item.hashtags.length > 0) {
+            generatedTags = item.hashtags.map((h: string) => h.trim().startsWith("#") ? h.trim() : `#${h.trim()}`);
+          } else if (typeof item.text === "string" && item.text.trim()) {
+            generatedTags = item.text.split(/\s+/).filter((t: string) => t.startsWith("#"));
+          }
+
+          generatedTags = [...new Set(generatedTags)];
+
+          if (generatedTags.length === 0) {
+            const baseCatTags = PRESET_HASHTAGS.find(p => p.category === targetCategory)?.tags || PRESET_HASHTAGS[0].tags;
+            const kwClean = keyword.toLowerCase().trim().replace(/[^a-z0-9_]/g, "");
+            const kwTags = kwClean ? [`#${kwClean}`, `#${kwClean}kerala`, `#kerala${kwClean}`, `#${kwClean}vibes`] : [];
+            generatedTags = [...new Set([...kwTags, ...baseCatTags, ...PLATFORMS_HASHTAGS[platform]])].slice(0, 15);
+          }
+
           setAiResult({
             id: "ai_generation",
-            name: `✨ AI Custom Hashtags for "${keyword || category}"`,
-            tags: generatedTags.length > 0 ? generatedTags : ["#kerala", "#vamozhi", "#viral", "#reach"],
-            description: `Dynamically optimized with Gemini AI for highest reach on ${platform}.`
+            name: `✨ Custom Topic Hashtags for "${keyword || category}"`,
+            category: targetCategory,
+            tags: generatedTags,
+            reach: "High Reach",
+            description: `Dynamically generated and optimized for highest reach on ${platform}.`
           });
-          onSuccessMessage("AI Custom Hashtags generated successfully! 🔥");
+          onSuccessMessage("Custom Topic Hashtags generated successfully! 🔥");
         }
       } else {
         throw new Error("Failed to call AI");
       }
     } catch (err) {
       console.error(err);
-      // Fallback
-      const baseCategoryTags = PRESET_HASHTAGS.find(p => p.category === category)?.tags || PRESET_HASHTAGS[0].tags;
-      const combined = [...new Set([...baseCategoryTags, `#${keyword || "vamozhivibes"}`.toLowerCase().replace(/[^#a-z0-9_]/g, ""), ...PLATFORMS_HASHTAGS[platform]])];
+      const targetCategory = inferCategoryFromTopic(keyword, category);
+      const baseCategoryTags = PRESET_HASHTAGS.find(p => p.category === targetCategory)?.tags || PRESET_HASHTAGS[0].tags;
+      const kwClean = keyword.toLowerCase().trim().replace(/[^a-z0-9_]/g, "");
+      const kwTags = kwClean ? [`#${kwClean}`, `#${kwClean}kerala`, `#kerala${kwClean}`, `#${kwClean}glam`, `#${kwClean}vibes`] : [];
+      const combined = [...new Set([...kwTags, ...baseCategoryTags, ...PLATFORMS_HASHTAGS[platform]])].slice(0, 15);
       
       setAiResult({
         id: "ai_generation_fallback",
-        name: `💡 Instant Hybrid Hashtags for "${keyword || category}"`,
+        name: `💡 Custom Topic Hashtags for "${keyword || category}"`,
+        category: targetCategory,
         tags: combined,
-        description: "Optimized offline using local reach patterns and platform tags."
+        reach: "High Reach",
+        description: "Optimized using topic reach patterns and platform tags."
       });
-      onSuccessMessage("Local optimized hashtags generated! ✨");
+      onSuccessMessage("Optimized hashtags generated! ✨");
     } finally {
       setIsLoading(false);
     }
@@ -228,9 +251,9 @@ export default function HashtagGenerator({ onSuccessMessage, onToggleFavourite, 
         <span className="px-3 py-1 rounded-full bg-purple-50 text-purple-700 text-[10px] font-black tracking-widest uppercase inline-block mb-3">
           Maximum Reach Engine 🚀
         </span>
-        <h2 className="text-3xl font-black tracking-tight text-neutral-900" id="hashtag-header">
-          {uiLang === 'en' ? "Kerala Hashtag Generator" : "കേരളാ ഹാഷ്‌ടാഗ് ജനറേറ്റർ"}
-        </h2>
+        <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-neutral-900" id="hashtag-header">
+          {uiLang === 'en' ? "Malayalam Instagram Hashtag Generator & Reach Optimizer" : "കേരളാ ഹാഷ്‌ടാഗ് ജനറേറ്റർ"}
+        </h1>
         <p className="text-sm text-neutral-500 mt-2">
           {uiLang === 'en' ? "Get real, active regional hashtags with high reach estimation. Optimize instantly for Instagram, YouTube Shorts, or TikTok." : "സോഷ്യൽ മീഡിയയിൽ ഉയർന്ന റീച്ച് ലഭിക്കുന്നതിന് യഥാർത്ഥ കേരളാ ഹാഷ്‌ടാഗുകൾ കണ്ടെത്തുക. ഇൻസ്റ്റാഗ്രാം, യൂട്യൂബ് എന്നിവയ്ക്ക് അനുയോജ്യമായ രീതിയിൽ തിരഞ്ഞെടുക്കാം."}
         </p>

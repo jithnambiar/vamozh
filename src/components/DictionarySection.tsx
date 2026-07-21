@@ -178,9 +178,14 @@ export default function DictionarySection({ onSuccessMessage }: DictionarySectio
       
       {/* Elegant Landing Page */}
       <div className="max-w-3xl mx-auto text-center mb-12">
-        <h1 className="text-5xl font-black text-slate-900 tracking-tight flex items-center justify-center gap-3">
-          <span className="bg-gradient-to-r from-purple-800 to-pink-600 bg-clip-text text-transparent">മലയാളം</span>
-          <span>ശബ്ദകോശം</span>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight flex flex-col items-center justify-center gap-1.5">
+          <div className="flex items-center gap-2">
+            <span className="bg-gradient-to-r from-purple-800 to-pink-600 bg-clip-text text-transparent">മലയാളം</span>
+            <span>ശബ്ദകോശം</span>
+          </div>
+          <span className="text-xs sm:text-sm font-black uppercase tracking-widest text-purple-900 block mt-1">
+            Olam English-Malayalam Dictionary & Vocabulary Search (192,309 Definitions)
+          </span>
         </h1>
         <p className="text-sm text-slate-500 mt-2 font-medium">
           An interactive English-Malayalam & Malayalam-English dictionary database or Vamozhi AI

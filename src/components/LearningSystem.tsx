@@ -10,15 +10,20 @@ import {
   Smile, 
   MessageCircle, 
   HelpCircle, 
-  Award, 
   Compass, 
   ArrowRight, 
   RefreshCw,
   Trophy,
-  CheckCircle2
+  Gamepad2,
+  GraduationCap,
+  ScrollText
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import MalayalamNumbers from "./MalayalamNumbers";
+import LanguageGames from "./LanguageGames";
+import MalayalamExam from "./MalayalamExam";
+import GurukulamStudyGuides from "./GurukulamStudyGuides";
+import CertificateVerificationPage from "./CertificateVerificationPage";
 
 interface AlphabetLetter {
   char: string;
@@ -28,10 +33,10 @@ interface AlphabetLetter {
 }
 
 interface PhraseItem {
-  malPhrase: string;
+  malayalam: string;
   phonetic: string;
   english: string;
-  category: "greetings" | "travel" | "dining" | "emergency";
+  category: "greetings" | "shopping" | "travel" | "dining" | "emergency";
 }
 
 interface ProverbItem {
@@ -48,154 +53,165 @@ interface QuizQuestion {
   explanation: string;
 }
 
+// 1. Swarangal (Vowels) - 16
 const VOWELS: AlphabetLetter[] = [
-  { char: "അ", phonetic: "a", example: "അമ്മ (Amma)", exampleEng: "Mother" },
-  { char: "ആ", phonetic: "aa", example: "ആന (Aana)", exampleEng: "Elephant" },
-  { char: "ഇ", phonetic: "i", example: "ഇല (Ila)", exampleEng: "Leaf" },
-  { char: "ഈ", phonetic: "ii", example: "ഈച്ച (Iicha)", exampleEng: "Housefly" },
-  { char: "ഉ", phonetic: "u", example: "ഉപ്പ് (Uppu)", exampleEng: "Salt" },
-  { char: "ഊ", phonetic: "uu", example: "ഊഞ്ഞാൽ (Oonjal)", exampleEng: "Swing" },
-  { char: "ഋ", phonetic: "r", example: "ഋഷി (Rishi)", exampleEng: "Sage / Saint" },
-  { char: "ൠ", phonetic: "rr", example: "ൠ (Long r)", exampleEng: "Obsolete long vocalic R" },
-  { char: "ഌ", phonetic: "l", example: "ഌ (Vocalic l)", exampleEng: "Obsolete vocalic L" },
-  { char: "ൡ", phonetic: "ll", example: "ൡ (Long l)", exampleEng: "Obsolete long vocalic L" },
-  { char: "എ", phonetic: "e", example: "എലി (Eli)", exampleEng: "Rat" },
-  { char: "ஏ", phonetic: "E", example: "ഏണി (Eani)", exampleEng: "Ladder" },
-  { char: "ഐ", phonetic: "ai", example: "ഐസ്ക്രീം (Ice-cream)", exampleEng: "Ice cream" },
-  { char: "ഒ", phonetic: "o", example: "ഒട്ടകം (Ottakam)", exampleEng: "Camel" },
-  { char: "ഓ", phonetic: "O", example: "ഓട് (Odu)", exampleEng: "Tile" },
-  { char: "ഔ", phonetic: "au", example: "ഔഷധം (Oushadham)", exampleEng: "Medicine" }
+  { char: "അ", phonetic: "A", example: "അമ്മ (Amma)", exampleEng: "Mother" },
+  { char: "ആ", phonetic: "AA", example: "ആന (Aana)", exampleEng: "Elephant" },
+  { char: "ഇ", phonetic: "I", example: "ഇല (Ila)", exampleEng: "Leaf" },
+  { char: "ഈ", phonetic: "EE", example: "ഈച്ച (Eecha)", exampleEng: "Fly" },
+  { char: "ഉ", phonetic: "U", example: "ഉറുമ്പ് (Urumbu)", exampleEng: "Ant" },
+  { char: "ഊ", phonetic: "OO", example: "ഊഞ്ഞാൽ (Oonjal)", exampleEng: "Swing" },
+  { char: "ഋ", phonetic: "RU", example: "ഋഷി (Rishi)", exampleEng: "Sage" },
+  { char: "എ", phonetic: "E", example: "എലി (Eli)", exampleEng: "Rat" },
+  { char: "ഏ", phonetic: "AE", example: "ഏണി (Eani)", exampleEng: "Ladder" },
+  { char: "ഐ", phonetic: "AI", example: "ഐക്യം (Aikyam)", exampleEng: "Unity" },
+  { char: "ഒ", phonetic: "O", example: "ഒട്ടകം (Ottakam)", exampleEng: "Camel" },
+  { char: "ഓ", phonetic: "OA", example: "ഓടൽ (Odal)", exampleEng: "Running" },
+  { char: "ഔ", phonetic: "OU", example: "ഔഷധം (Oushadham)", exampleEng: "Medicine" },
+  { char: "അം", phonetic: "AM", example: "അംബരം (Ambaram)", exampleEng: "Sky" },
+  { char: "അഃ", phonetic: "AH", example: "അന്തഃകരണം (Anthahkaranam)", exampleEng: "Inner Conscience" },
+  { char: "ൠ", phonetic: "RUU", example: "ൠകാരം (Rukaram)", exampleEng: "Long Vocalic R" }
 ];
 
-interface GroupedConsonant {
-  group: string;
-  letters: AlphabetLetter[];
-}
-
-const CONSONANTS_GROUPED: GroupedConsonant[] = [
+// 2. Vyanjanangal (Consonants) - 37 grouped by Varga
+const CONSONANTS_GROUPED = [
   {
-    group: "Kavargam (കവർഗ്ഗം - Gutturals)",
+    group: "Ka-Vargam (ക-വർഗ്ഗം - Gutturals)",
     letters: [
-      { char: "ക", phonetic: "ka", example: "കണ്ണ് (Kannu)", exampleEng: "Eye" },
-      { char: "ഖ", phonetic: "kha", example: "ഖഡ്ഗം (Khadgam)", exampleEng: "Sword" },
-      { char: "ഗ", phonetic: "ga", example: "ഗജം (Gajam)", exampleEng: "Elephant" },
-      { char: "ഘ", phonetic: "gha", example: "ഘടം (Ghatam)", exampleEng: "Clay Pot" },
-      { char: "ങ", phonetic: "nga", example: "ങ (Nga)", exampleEng: "Nasal sound (e.g. മാങ്ങ - Mango)" }
+      { char: "ക", phonetic: "Ka", example: "കണ്ണ് (Kannu)", exampleEng: "Eye" },
+      { char: "ഖ", phonetic: "Kha", example: "ഖനി (Khani)", exampleEng: "Mine" },
+      { char: "ഗ", phonetic: "Ga", example: "ഗജം (Gajam)", exampleEng: "Elephant" },
+      { char: "ഘ", phonetic: "Gha", example: "ഘടികാരം (Ghadikaram)", exampleEng: "Clock" },
+      { char: "ങ", phonetic: "Nga", example: "മാങ്ങ (Maanga)", exampleEng: "Mango" }
     ]
   },
   {
-    group: "Chavargam (ചവർഗ്ഗം - Palatals)",
+    group: "Cha-Vargam (ച-വർഗ്ഗം - Palatals)",
     letters: [
-      { char: "ച", phonetic: "cha", example: "ചായ (Chaya)", exampleEng: "Tea" },
-      { char: "ഛ", phonetic: "chha", example: "ഛായ (Chhaya)", exampleEng: "Shadow / Image" },
-      { char: "ജ", phonetic: "ja", example: "ജലം (Jalam)", exampleEng: "Water" },
-      { char: "ഝ", phonetic: "jha", example: "ഝഷം (Jhasham)", exampleEng: "Fish" },
-      { char: "ഞ", phonetic: "nya", example: "ഞണ്ട് (Nyandu)", exampleEng: "Crab" }
+      { char: "ച", phonetic: "Cha", example: "ചായ (Chaya)", exampleEng: "Tea" },
+      { char: "ഛ", phonetic: "Chha", example: "ഛത്രം (Chhathram)", exampleEng: "Umbrella" },
+      { char: "ജ", phonetic: "Ja", example: "ജലം (Jalam)", exampleEng: "Water" },
+      { char: "ഝ", phonetic: "Jha", example: "ഝഷം (Jhasham)", exampleEng: "Fish" },
+      { char: "ഞ", phonetic: "Nja", example: "ഞണ്ട് (Njandu)", exampleEng: "Crab" }
     ]
   },
   {
-    group: "Thavargam Retroflex (ടവർഗ്ഗം - Cerebrals)",
+    group: "Ta-Vargam (ട-വർഗ്ഗം - Retroflexes)",
     letters: [
-      { char: "ട", phonetic: "ta", example: "ടമാട്ടർ (Tamattar)", exampleEng: "Tomato" },
-      { char: "ഠ", phonetic: "tha", example: "ഠപ്പൂസ് (Thappoos)", exampleEng: "Clapping sound" },
-      { char: "ഡ", phonetic: "da", example: "ഡബ്ബ (Dabba)", exampleEng: "Box / Tin" },
-      { char: "ഢ", phonetic: "dha", example: "ഢക്ക (Dhakka)", exampleEng: "Large traditional drum" },
-      { char: "ണ", phonetic: "na", example: "പണം (Panam)", exampleEng: "Money" }
+      { char: "ട", phonetic: "Ta", example: "ടമാറ്റോ (Tomato)", exampleEng: "Tomato" },
+      { char: "ഠ", phonetic: "Tha", example: "ഠവട്ടൽ (Thavattal)", exampleEng: "Circle" },
+      { char: "ഡ", phonetic: "Da", example: "ഡബ്ബ (Dabba)", exampleEng: "Box" },
+      { char: "ഢ", phonetic: "Dha", example: "ഢാക്ക (Dhaka)", exampleEng: "Dhaka" },
+      { char: "ണ", phonetic: "Na", example: "പണം (Panam)", exampleEng: "Money" }
     ]
   },
   {
-    group: "Thavargam Dental (തവർഗ്ഗം - Dentals)",
+    group: "Tha-Vargam (ത-വർഗ്ഗം - Dentals)",
     letters: [
-      { char: "ത", phonetic: "tha", example: "താലം (Thaalam)", exampleEng: "Plate" },
-      { char: "ഥ", phonetic: "thha", example: "രഥം (Ratham)", exampleEng: "Chariot" },
-      { char: "ദ", phonetic: "da", example: "ദീപം (Deepam)", exampleEng: "Lamp" },
-      { char: "ധ", phonetic: "dha", example: "ധനം (Dhanam)", exampleEng: "Wealth" },
-      { char: "ന", phonetic: "na", example: "നാരങ്ങ (Narangya)", exampleEng: "Lemon" }
+      { char: "ത", phonetic: "Tha", example: "തല (Thala)", exampleEng: "Head" },
+      { char: "ഥ", phonetic: "Thha", example: "രഥം (Ratham)", exampleEng: "Chariot" },
+      { char: "ദ", phonetic: "Da", example: "ദയ (Daya)", exampleEng: "Kindness" },
+      { char: "ധ", phonetic: "Dha", example: "ധനം (Dhanam)", exampleEng: "Wealth" },
+      { char: "ന", phonetic: "Na", example: "നദി (Nadi)", exampleEng: "River" }
     ]
   },
   {
-    group: "Pavargam (പവർഗ്ഗം - Labials)",
+    group: "Pa-Vargam (പ-വർഗ്ഗം - Labials)",
     letters: [
-      { char: "പ", phonetic: "pa", example: "പൂച്ച (Poocha)", exampleEng: "Cat" },
-      { char: "ഫ", phonetic: "pha", example: "ഫലം (Phalam)", exampleEng: "Fruit / Result" },
-      { char: "ബ", phonetic: "ba", example: "ബലൂൺ (Balloon)", exampleEng: "Balloon" },
-      { char: "ഭ", phonetic: "bha", example: "ഭക്ഷണം (Bhakshanam)", exampleEng: "Food" },
-      { char: "മ", phonetic: "ma", example: "മഴ (Mazha)", exampleEng: "Rain" }
+      { char: "പ", phonetic: "Pa", example: "പാല് (Paal)", exampleEng: "Milk" },
+      { char: "ഫ", phonetic: "Pha", example: "ഫലം (Phalam)", exampleEng: "Fruit" },
+      { char: "ബ", phonetic: "Ba", example: "ബസ് (Bus)", exampleEng: "Bus" },
+      { char: "ഭ", phonetic: "Bha", example: "ഭാരതം (Bharatham)", exampleEng: "India" },
+      { char: "മ", phonetic: "Ma", example: "മഴ (Mazha)", exampleEng: "Rain" }
     ]
   },
   {
-    group: "Madhyasthangal (മധ്യസ്ഥങ്ങൾ - Semi-vowels)",
+    group: "Madhyastha & Ushmavukal (ഇടത്തരം & ഊഷ്മാക്കൾ - Liquids & Fricatives)",
     letters: [
-      { char: "യ", phonetic: "ya", example: "യാത്ര (Yaathra)", exampleEng: "Journey" },
-      { char: "ര", phonetic: "ra", example: "രഥം (Ratham)", exampleEng: "Chariot" },
-      { char: "ല", phonetic: "la", example: "ലേഖനം (Lekhanam)", exampleEng: "Article" },
-      { char: "വ", phonetic: "va", example: "വണ്ടർ (Vandur)", exampleEng: "Beetle" }
-    ]
-  },
-  {
-    group: "Ooshmangal (ഊഷ്മാക്കൾ - Sibilants & Aspirate)",
-    letters: [
-      { char: "ശ", phonetic: "sha", example: "ശിവൻ (Shivan)", exampleEng: "Lord Shiva" },
-      { char: "ഷ", phonetic: "sha", example: "ഷൺമുഖൻ (Shanmukhan)", exampleEng: "Six-faced Lord" },
-      { char: "സ", phonetic: "sa", example: "സൂര്യൻ (Sooryan)", exampleEng: "Sun" },
-      { char: "ഹ", phonetic: "ha", example: "ഹംസം (Hamsam)", exampleEng: "Swan" }
-    ]
-  },
-  {
-    group: "Special Consonants (അതിരുപങ്ങൾ)",
-    letters: [
-      { char: "ള", phonetic: "La", example: "വാൾ (VaL)", exampleEng: "Sword" },
-      { char: "ഴ", phonetic: "zha", example: "മഴ (Mazha)", exampleEng: "Rain" },
-      { char: "റ", phonetic: "Ra", example: "റൊട്ടി (Rotti)", exampleEng: "Bread" }
+      { char: "യ", phonetic: "Ya", example: "യാത്ര (Yathra)", exampleEng: "Travel" },
+      { char: "ര", phonetic: "Ra", example: "രാത്രി (Rathri)", exampleEng: "Night" },
+      { char: "ല", phonetic: "La", example: "ലോകം (Lokam)", exampleEng: "World" },
+      { char: "വ", phonetic: "Va", example: "വഴി (Vazhi)", exampleEng: "Path" },
+      { char: "ശ", phonetic: "Sha", example: "ശരീരം (Shareeram)", exampleEng: "Body" },
+      { char: "ഷ", phonetic: "Ssha", example: "ഷഡ്പദം (Shadpadam)", exampleEng: "Insect" },
+      { char: "സ", phonetic: "Sa", example: "സൂര്യൻ (Sooryan)", exampleEng: "Sun" },
+      { char: "ഹ", phonetic: "Ha", example: "ഹംസം (Hamsam)", exampleEng: "Swan" },
+      { char: "ള", phonetic: "Lla", example: "കിളി (Kili)", exampleEng: "Bird" },
+      { char: "ഴ", phonetic: "Zha", example: "വാഴ (Vaazha)", exampleEng: "Banana Tree" },
+      { char: "റ", phonetic: "Rra", example: "റോഡ് (Road)", exampleEng: "Road" },
+      { char: "ഩ", phonetic: "Nna", example: "ഩകാരം (Nnakaram)", exampleEng: "Alveolar Nasal" }
     ]
   }
 ];
 
-const SPECIAL_CHARS: AlphabetLetter[] = [
-  { char: "ൻ", phonetic: "n", example: "അവൻ (Avan)", exampleEng: "He" },
-  { char: "ർ", phonetic: "r", example: "കാർ (Car)", exampleEng: "Car" },
-  { char: "ൽ", phonetic: "l", example: "കൽ (Kal)", exampleEng: "Stone" },
-  { char: "ൾ", phonetic: "L", example: "വാൾ (Val)", exampleEng: "Sword" },
-  { char: "ൺ", phonetic: "N", example: "കൺ (Kan)", exampleEng: "Eye" },
-  { char: "ം", phonetic: "m", example: "സിംഹം (Simham)", exampleEng: "Lion" },
-  { char: "ഃ", phonetic: "h", example: "ദുഃഖം (Dukham)", exampleEng: "Sadness" }
+// 3. Chillus / Special pure consonant markers (7)
+const SPECIAL_CHILLUS: AlphabetLetter[] = [
+  { char: "ൺ", phonetic: "Nn", example: "കണ്ണ് (Kannu) -> കൺ (Kan)", exampleEng: "Eye" },
+  { char: "ൻ", phonetic: "N", example: "അവൻ (Avan)", exampleEng: "He" },
+  { char: "ർ", phonetic: "R", example: "അവർ (Avar)", exampleEng: "They" },
+  { char: "ൽ", phonetic: "L", example: "പാല് (Paal)", exampleEng: "Milk" },
+  { char: "ൾ", phonetic: "Ll", example: "അവൾ (Aval)", exampleEng: "She" },
+  { char: "ൿ", phonetic: "K", example: "തൿ (Thak)", exampleEng: "Pure K sound" },
+  { char: "ൔ", phonetic: "Mm", example: "ൔകാരം (Mkaram)", exampleEng: "Pure M Chillu" }
 ];
 
-const PHRASES: PhraseItem[] = [
-  { malPhrase: "നമസ്കാരം", phonetic: "Namaskaram", english: "Hello / Greetings", category: "greetings" },
-  { malPhrase: "സുഖമാണോ?", phonetic: "Sukhamano?", english: "How are you?", category: "greetings" },
-  { malPhrase: "എനിക്ക് സുഖമാണ്.", phonetic: "Enikku sukhamanu.", english: "I am fine.", category: "greetings" },
-  { malPhrase: "നന്ദി", phonetic: "Nanni", english: "Thank you", category: "greetings" },
-  { malPhrase: "എന്താണ് പേര്?", phonetic: "Enthanu peru?", english: "What is your name?", category: "greetings" },
-  { malPhrase: "എന്റെ പേര്...", phonetic: "Ente peru...", english: "My name is...", category: "greetings" },
-  
-  { malPhrase: "ഇത് എങ്ങോട്ടുള്ള റോഡാണ്?", phonetic: "Ithu engottulla roadanu?", english: "Where does this road lead?", category: "travel" },
-  { malPhrase: "സ്റ്റേഷൻ എവിടെയാണ്?", phonetic: "Station evideyanu?", english: "Where is the station?", category: "travel" },
-  { malPhrase: "വണ്ടി എപ്പോൾ വരും?", phonetic: "Vandi eppol varum?", english: "When will the vehicle/train arrive?", category: "travel" },
-  { malPhrase: "എനിക്ക് കൊച്ചിയിലേക്ക് പോകണം.", phonetic: "Enikku Kochiyilekku pokanam.", english: "I want to go to Kochi.", category: "travel" },
-  
-  { malPhrase: "ഒരു ചായ തരുമോ?", phonetic: "Oru chaya tharumo?", english: "Can you give me a tea?", category: "dining" },
-  { malPhrase: "ഊണ് തയ്യാറായോ?", phonetic: "Oon thairayo?", english: "Is the meal ready?", category: "dining" },
-  { malPhrase: "ഭക്ഷണം വളരെ നല്ലതാണ്!", phonetic: "Bhakshanam valare nallathanu!", english: "The food is very good!", category: "dining" },
-  { malPhrase: "വെള്ളം വേണം.", phonetic: "Vellam venam.", english: "I want water.", category: "dining" },
-  
-  { malPhrase: "എന്നെ സഹായിക്കൂ!", phonetic: "Enne sahayikkoo!", english: "Help me!", category: "emergency" },
-  { malPhrase: "ഡോക്ടർ എവിടെയാണ്?", phonetic: "Doctor evideyanu?", english: "Where is the doctor?", category: "emergency" },
-  { malPhrase: "എന്റെ ഫോൺ കാണുന്നില്ല.", phonetic: "Ente phone kaanunnilla.", english: "I can't find my phone.", category: "emergency" }
+const EVERYDAY_PHRASES: PhraseItem[] = [
+  // Greetings
+  { malayalam: "നമസ്കാരം", phonetic: "Namaskaram", english: "Hello / Greetings", category: "greetings" },
+  { malayalam: "സുഖമാണോ?", phonetic: "Sukhamano?", english: "How are you?", category: "greetings" },
+  { malayalam: "എനിക്ക് സുഖമാണ്.", phonetic: "Enikku sukhamanu.", english: "I am fine.", category: "greetings" },
+  { malayalam: "നന്ദി!", phonetic: "Nanni!", english: "Thank you!", category: "greetings" },
+  { malayalam: "പോയി വരാം.", phonetic: "Poi varam.", english: "Goodbye (See you again)", category: "greetings" },
+  { malayalam: "പേരെന്താണ്?", phonetic: "Parenthanu?", english: "What is your name?", category: "greetings" },
+
+  // Shopping & Market
+  { malayalam: "ഇതിന് എത്ര രൂപയാണ്?", phonetic: "Ithinu ethra roopayanu?", english: "How much is this?", category: "shopping" },
+  { malayalam: "വില കുറയ്ക്കുമോ?", phonetic: "Vila kurakkumo?", english: "Can you reduce the price?", category: "shopping" },
+  { malayalam: "ഇത് നല്ലതാണോ?", phonetic: "Ithu nallathano?", english: "Is this good quality?", category: "shopping" },
+  { malayalam: "ചില്ലറ ഉണ്ടോ?", phonetic: "Chillara undo?", english: "Do you have change?", category: "shopping" },
+
+  // Travel & Taxi
+  { malayalam: "ബസ് സ്റ്റാൻഡ് എവിടെയാണ്?", phonetic: "Bus stand evideyanu?", english: "Where is the bus stand?", category: "travel" },
+  { malayalam: "റെയിൽവേ സ്റ്റേഷനിലേക്ക് പോകാമോ?", phonetic: "Railway station-ilekku pokamo?", english: "Can we go to the railway station?", category: "travel" },
+  { malayalam: "ഇവിടെ നിർത്തു.", phonetic: "Ivide nirthu.", english: "Stop here please.", category: "travel" },
+  { malayalam: "എത്ര സമയമെടുക്കും?", phonetic: "Ethra samayam edukkum?", english: "How long will it take?", category: "travel" },
+
+  // Dining & Tea Shop
+  { malayalam: "ഒരു കപ്പ് ചൂടു ചായ തരുമോ?", phonetic: "Oru cup choodu chaya tharumo?", english: "Can I get a hot cup of tea?", category: "dining" },
+  { malayalam: "ഇവിടെ നല്ല ഭക്ഷണം കിട്ടുമോ?", phonetic: "Ivide nalla bhakshanam kittumo?", english: "Can we get good food here?", category: "dining" },
+  { malayalam: "വെള്ളം തരു.", phonetic: "Vellam tharu.", english: "Please give some water.", category: "dining" },
+  { malayalam: "ബില്ല് തരുമോ?", phonetic: "Bill tharumo?", english: "Can I get the bill?", category: "dining" },
+
+  // Emergency & Help
+  { malayalam: "ദയവായി സഹായിക്കൂ!", phonetic: "Dayavayi sahayikkoo!", english: "Please help me!", category: "emergency" },
+  { malayalam: "അടുത്തുള്ള ഹോസ്പിറ്റൽ എവിടെയാണ്?", phonetic: "Aduthulla hospital evideyanu?", english: "Where is the nearest hospital?", category: "emergency" },
+  { malayalam: "പോലീസിനെ വിളിക്കൂ!", phonetic: "Policine vilikkoo!", english: "Call the police!", category: "emergency" }
 ];
 
-const PROVERBS: ProverbItem[] = [
+const HERITAGE_PROVERBS: ProverbItem[] = [
   { 
     proverb: "മിന്നുന്നതെല്ലാം പൊന്നല്ല.", 
     phonetic: "Minnunnathellam ponnalla.", 
     literal: "All that glitters is not gold.", 
-    meaning: "Appearances can be highly deceptive; do not judge purely by outward looks." 
+    meaning: "Outer appearances can often be deceiving. Value inner character over superficial shine." 
   },
   { 
-    proverb: "പഴുത്ത പ്ലാവില വീഴുമ്പോൾ ചിരിക്കുന്ന പച്ചപ്പിലകളേ, നാളെ നിങ്ങൾക്കും ഈ ഗതി തന്നെയാണ്.", 
-    phonetic: "Pazhutha plaavila veezhumbol chirikkunna pachappilakale, naale ningalkkum ee gathi thanneyanu.", 
-    literal: "Oh green jackfruit leaves laughing at the falling ripe leaves, tomorrow your fate is the same.", 
-    meaning: "Do not mock aging or the misfortune of others; age catches up to all of us." 
+    proverb: "ആഴമളക്കാതെ ആറ്റിൽ ഇറങ്ങരുത്.", 
+    phonetic: "Aazhamalakkadhe aattil irangaruthu.", 
+    literal: "Do not step into the river without gauging its depth.", 
+    meaning: "Look before you leap. Always assess risk before starting a project." 
+  },
+  { 
+    proverb: "അണ്ണാൻ കുഞ്ഞും തന്നാലായത്.", 
+    phonetic: "Annan kunjhum thannalayathu.", 
+    literal: "Even a baby squirrel does its small part.", 
+    meaning: "Every effort, no matter how small, counts towards a greater cause." 
+  },
+  { 
+    proverb: "കിണറ്റിലെ തവള പോലെ.", 
+    phonetic: "Kinattile thavala pole.", 
+    literal: "Like a frog stuck inside a well.", 
+    meaning: "Refers to a narrow-minded person who thinks their limited bubble is the entire universe." 
   },
   { 
     proverb: "ഉപ്പിലിട്ടത് കഞ്ഞിക്ക് കൂട്ടാം, കഞ്ഞി ഉപ്പിലിട്ടതിൽ കൂട്ടരുത്.", 
@@ -208,42 +224,42 @@ const PROVERBS: ProverbItem[] = [
 const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     question: "What is the Malayalam word for 'Mother'?",
-    options: ["അപ്പൻ (Appan)", "അമ്മ (Amma)", "ചേട്ടൻ (Chettan)", "അനിയൻ (Aniyan)"],
+    options: ["അപ്പൻ", "അമ്മ", "ചേട്ടൻ", "അനിയൻ"],
     correct: 1,
-    explanation: "'Amma' represents Mother in Malayalam, while 'Appan' represents Father."
+    explanation: "'അമ്മ' represents Mother in Malayalam."
   },
   {
     question: "How do you ask 'How are you?' in Malayalam?",
-    options: ["എവിടെയാണ്? (Evideyanu?)", "എന്താണ് വിശേഷം? (Enthanu vishesham?)", "സുഖമാണോ? (Sukhamano?)", "പോയി വരാം (Poi varam)"],
+    options: ["എവിടെയാണ്?", "എന്താണ് വിശേഷം?", "സുഖമാണോ?", "പോയി വരാം"],
     correct: 2,
-    explanation: "'Sukhamano?' is the standard and polite way to inquire about someone's well-being in Malayalam."
+    explanation: "'സുഖമാണോ?' is the standard and polite way to inquire about someone's well-being."
   },
   {
     question: "What is the literal meaning of 'Nanni' (നന്ദി) in Malayalam?",
     options: ["Welcome", "Thank You", "Good Morning", "Sorry"],
     correct: 1,
-    explanation: "'Nanni' means 'Thank you' or gratitude."
+    explanation: "'നന്ദി' means 'Thank you' or gratitude."
   },
   {
     question: "Which of these characters is a core Malayalam vowel (Swaram)?",
-    options: ["ക (Ka)", "മ (Ma)", "അ (A)", "റ (Ra)"],
+    options: ["ക", "മ", "അ", "റ"],
     correct: 2,
-    explanation: "'അ' is the very first vowel (Swaram) of the Malayalam alphabet, whereas the others are consonants."
+    explanation: "'അ' is the very first vowel (Swaram) of the Malayalam alphabet."
   },
   {
     question: "What is 'Chaya' (ചായ) in Kerala?",
     options: ["Porridge", "Jackfruit", "Water", "Tea"],
     correct: 3,
-    explanation: "'Chaya' is the beloved, hot milk tea commonly enjoyed across all of Kerala."
+    explanation: "'ചായ' is the beloved hot milk tea commonly enjoyed across Kerala."
   }
 ];
 
 interface LearningSystemProps {
-  defaultTab?: "letters" | "numbers" | "phrases" | "proverbs" | "quiz";
+  defaultTab?: "letters" | "numbers" | "phrases" | "proverbs" | "study" | "games" | "quiz" | "exam";
 }
 
 export default function LearningSystem({ defaultTab = "letters" }: LearningSystemProps) {
-  const [activeSubTab, setActiveSubTab] = useState<"letters" | "numbers" | "phrases" | "proverbs" | "quiz">(defaultTab);
+  const [activeSubTab, setActiveSubTab] = useState<"letters" | "numbers" | "phrases" | "proverbs" | "study" | "games" | "quiz" | "exam">(defaultTab);
   const [letterGroup, setLetterGroup] = useState<"vowels" | "consonants" | "special">("vowels");
   const [phraseCategory, setPhraseCategory] = useState<PhraseItem["category"]>("greetings");
   const [speakActive, setSpeakActive] = useState<string | null>(null);
@@ -303,48 +319,61 @@ export default function LearningSystem({ defaultTab = "letters" }: LearningSyste
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 min-h-screen text-left" id="malayalam-learning-system">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-12 min-h-screen text-left space-y-6" id="malayalam-learning-system">
       
       {/* Immersive Header */}
-      <div className="text-center max-w-3xl mx-auto mb-10">
+      <div className="text-center max-w-3xl mx-auto mb-6">
         <span className="px-3 py-1 rounded-full bg-pink-100 text-pink-800 text-[10px] font-black tracking-widest uppercase inline-block mb-3">
-          Vamozhi Gurukulam (പഠന കേന്ദ്രം)
+          Vamozhi Online Academy (പഠന കേന്ദ്രം)
         </span>
-        <h1 className="text-4xl font-black text-slate-900 tracking-tight">
-          Malayalam Learning System
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+          Learn Malayalam Language for Free
         </h1>
-        <p className="text-sm text-slate-500 mt-2">
-          Step into our interactive digital school to learn the phonetic alphabet, standard conversational phrases, ancient heritage proverbs, and test your skills!
+        <p className="text-sm sm:text-base font-bold text-purple-950 dark:text-purple-300 mt-2">
+          Vamozhi Online Academy • Basic to Advanced Curriculum, Interactive Games & Official Certificate Exam
         </p>
 
-        {/* Tab switchers */}
-        <div className="flex flex-wrap justify-center mt-8 gap-2 bg-slate-100 p-1.5 rounded-2xl max-w-3xl mx-auto">
-          {[
-            { id: "letters", label: "Alphabet", icon: BookOpen },
-            { id: "numbers", label: "Numbers", icon: Smile },
-            { id: "phrases", label: "Everyday Phrases", icon: MessageCircle },
-            { id: "proverbs", label: "Heritage Proverbs", icon: Compass },
-            { id: "quiz", label: "Interactive Quiz", icon: HelpCircle }
-          ].map((tab) => {
-            const Icon = tab.icon;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => {
-                  setActiveSubTab(tab.id as any);
-                  if (tab.id === "quiz") restartQuiz();
-                }}
-                className={`flex-1 min-w-[120px] py-2.5 px-3 rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer ${
-                  activeSubTab === tab.id
-                    ? "bg-white text-purple-900 shadow-sm"
-                    : "text-slate-500 hover:text-slate-900 hover:bg-white/40"
-                }`}
-              >
-                <Icon className="w-4 h-4 shrink-0 text-purple-600" />
-                <span>{tab.label}</span>
-              </button>
-            );
-          })}
+        {/* FLEXIBLE & RESPONSIVE SUB-NAVIGATION MENU BAR */}
+        <div className="mt-5 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md border border-purple-200/80 dark:border-neutral-800 p-2 rounded-3xl shadow-xl shadow-purple-950/5 max-w-5xl mx-auto">
+          <div className="flex flex-wrap justify-center items-center gap-2">
+            {[
+              { id: "letters", label: "Alphabet 🔤", icon: BookOpen, badge: "Basic" },
+              { id: "numbers", label: "Numbers 🔢", icon: Smile, badge: "Basic" },
+              { id: "phrases", label: "Phrases 💬", icon: MessageCircle, badge: "Inter" },
+              { id: "proverbs", label: "Proverbs 🧭", icon: Compass, badge: "Heritage" },
+              { id: "study", label: "Study Guides 📚", icon: ScrollText, badge: "1-4" },
+              { id: "games", label: "Mini Games 🎮", icon: Gamepad2, badge: "Fun" },
+              { id: "quiz", label: "Practice Quiz ❓", icon: HelpCircle, badge: "Test" },
+              { id: "exam", label: "Certificate Exam 🎓", icon: GraduationCap, badge: "Pro" }
+            ].map((tab) => {
+              const Icon = tab.icon;
+              const isActive = activeSubTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => {
+                    setActiveSubTab(tab.id as any);
+                    if (tab.id === "quiz") restartQuiz();
+                  }}
+                  className={`flex-1 min-w-[125px] sm:min-w-[150px] max-w-[210px] py-2.5 px-3 rounded-2xl text-xs font-black uppercase tracking-wider transition-all duration-200 flex items-center justify-between gap-1.5 cursor-pointer border ${
+                    isActive
+                      ? "bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white border-purple-950 shadow-md scale-[1.02]"
+                      : "bg-slate-50/90 hover:bg-purple-50/90 border-slate-200/60 text-slate-700 hover:text-purple-950 hover:border-purple-200"
+                  }`}
+                >
+                  <div className="flex items-center gap-1.5 truncate">
+                    <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? "text-amber-400" : "text-purple-600"}`} />
+                    <span className="truncate">{tab.label}</span>
+                  </div>
+                  <span className={`text-[8px] px-1.5 py-0.5 rounded-full font-black uppercase shrink-0 ${
+                    isActive ? "bg-amber-400 text-purple-950" : "bg-purple-100 text-purple-800"
+                  }`}>
+                    {tab.badge}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
 
@@ -383,7 +412,6 @@ export default function LearningSystem({ defaultTab = "letters" }: LearningSyste
                   </div>
                 </div>
 
-                {/* Right Side Image Container adjusted to content height */}
                 <div className="md:col-span-5 lg:col-span-4 flex flex-col justify-center">
                   <div className="relative w-full h-full min-h-[260px] max-h-[380px] rounded-2xl shadow-md border border-amber-200/80 bg-amber-50 overflow-hidden flex flex-col justify-between">
                     <img
@@ -397,7 +425,6 @@ export default function LearningSystem({ defaultTab = "letters" }: LearningSyste
                         }
                       }}
                     />
-                    {/* Copyright Protected Overlay Banner */}
                     <div className="absolute bottom-0 left-0 right-0 bg-slate-950/80 backdrop-blur-xs py-1.5 px-3 text-center border-t border-white/10">
                       <span className="text-[10px] text-amber-200 font-extrabold uppercase tracking-wider block">
                         Drawing copyright protected
@@ -475,7 +502,7 @@ export default function LearningSystem({ defaultTab = "letters" }: LearningSyste
                 </div>
               )}
 
-              {/* Conditionally Render Consonants Grouped by Vargas (Educational Method) */}
+              {/* Conditionally Render Consonants Grouped by Vargas */}
               {letterGroup === "consonants" && (
                 <div className="space-y-8" id="consonants-varga-sections">
                   {CONSONANTS_GROUPED.map((varga) => (
@@ -524,10 +551,10 @@ export default function LearningSystem({ defaultTab = "letters" }: LearningSyste
                 </div>
               )}
 
-              {/* Conditionally Render Special Chillus & Marks */}
+              {/* Conditionally Render Special Chillus */}
               {letterGroup === "special" && (
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" id="special-grid">
-                  {SPECIAL_CHARS.map((item) => (
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" id="chillus-grid">
+                  {SPECIAL_CHILLUS.map((item) => (
                     <div
                       key={item.char}
                       className="bg-white border border-slate-200/80 rounded-2xl p-5 hover:shadow-sm transition-all text-left flex flex-col justify-between group"
@@ -548,7 +575,7 @@ export default function LearningSystem({ defaultTab = "letters" }: LearningSyste
 
                       <div className="mt-5 pt-3 border-t border-slate-100 flex justify-end">
                         <button
-                          onClick={() => speakText(item.char + ", " + item.example.split(" ")[0], item.char)}
+                          onClick={() => speakText(item.char, item.char)}
                           className={`p-2 rounded-full border transition-all cursor-pointer ${
                             speakActive === item.char
                               ? "bg-pink-600 text-white border-pink-600 animate-pulse"
@@ -569,174 +596,198 @@ export default function LearningSystem({ defaultTab = "letters" }: LearningSyste
 
           {/* Numbers View */}
           {activeSubTab === "numbers" && (
-            <div className="space-y-6" id="learning-numbers-view">
-              <MalayalamNumbers />
-            </div>
+            <MalayalamNumbers />
           )}
 
-          {/* Phrases View */}
+          {/* Everyday Phrases View */}
           {activeSubTab === "phrases" && (
             <div className="space-y-6" id="learning-phrases-view">
-              <div className="flex flex-wrap justify-center gap-2 border-b border-slate-100 pb-4">
+              
+              {/* Category Filter Pills */}
+              <div className="flex flex-wrap gap-2 justify-center border-b border-slate-100 pb-4">
                 {[
-                  { id: "greetings", label: "Greetings" },
-                  { id: "travel", label: "Travel & Transit" },
-                  { id: "dining", label: "Food & Dining" },
-                  { id: "emergency", label: "Help & Safety" }
+                  { id: "greetings", name: "Greetings & Basics 👋" },
+                  { id: "shopping", name: "Shopping & Market 🛒" },
+                  { id: "travel", name: "Travel & Auto 🚕" },
+                  { id: "dining", name: "Dining & Tea Shop ☕" },
+                  { id: "emergency", name: "Emergency & Medical 🚨" }
                 ].map((cat) => (
                   <button
                     key={cat.id}
                     onClick={() => setPhraseCategory(cat.id as any)}
-                    className={`px-4 py-2 text-xs font-extrabold uppercase rounded-lg cursor-pointer ${
-                      phraseCategory === cat.id ? "bg-purple-900 text-white shadow-sm" : "bg-slate-100 text-slate-600"
+                    className={`px-4 py-2 text-xs font-bold rounded-xl transition-all cursor-pointer ${
+                      phraseCategory === cat.id
+                        ? "bg-purple-950 text-white shadow-sm font-black"
+                        : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                     }`}
                   >
-                    {cat.label}
+                    {cat.name}
                   </button>
                 ))}
               </div>
 
+              {/* Phrases Cards List */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {PHRASES.filter(p => p.category === phraseCategory).map((phrase, idx) => (
+                {EVERYDAY_PHRASES.filter((p) => p.category === phraseCategory).map((phrase, idx) => (
                   <div
                     key={idx}
-                    className="bg-white border border-slate-200/80 rounded-2xl p-5 hover:shadow-md transition-all flex items-start justify-between gap-4"
+                    className="bg-white border border-slate-200/80 rounded-2xl p-5 hover:shadow-sm transition-all flex flex-col justify-between space-y-4"
                   >
-                    <div className="text-left flex-1">
-                      <h3 className="text-xl font-extrabold text-purple-950 leading-snug">
-                        {phrase.malPhrase}
-                      </h3>
-                      <p className="text-xs font-semibold text-slate-400 font-mono italic mt-1">
-                        &quot;{phrase.phonetic}&quot;
-                      </p>
-                      <div className="mt-3 inline-block bg-pink-50 border border-pink-100 text-pink-900 font-bold px-3 py-1 rounded-xl text-xs">
-                        {phrase.english}
-                      </div>
+                    <div className="space-y-1.5">
+                      <span className="text-xl font-black text-purple-950 block font-sans">
+                        {phrase.malayalam}
+                      </span>
+                      <span className="text-xs font-mono font-bold text-slate-500 block">
+                        Pronunciation: /{phrase.phonetic}/
+                      </span>
+                      <span className="text-xs font-extrabold text-slate-800 block pt-1">
+                        English: "{phrase.english}"
+                      </span>
                     </div>
 
-                    <button
-                      onClick={() => speakText(phrase.malPhrase, `phrase_${idx}`)}
-                      className={`p-3 rounded-xl border transition-all cursor-pointer ${
-                        speakActive === `phrase_${idx}`
-                          ? "bg-pink-600 text-white border-pink-600 animate-pulse"
-                          : "bg-slate-50 text-slate-500 hover:text-purple-700 hover:bg-purple-50 border-slate-200"
-                      }`}
-                      title="Listen to phrase"
-                    >
-                      <Volume2 className="w-5 h-5" />
-                    </button>
+                    <div className="pt-3 border-t border-slate-100 flex justify-end">
+                      <button
+                        onClick={() => speakText(phrase.malayalam, `phrase_${idx}`)}
+                        className={`p-2.5 rounded-full border transition-all flex items-center gap-1.5 cursor-pointer ${
+                          speakActive === `phrase_${idx}`
+                            ? "bg-pink-600 text-white border-pink-600 animate-pulse"
+                            : "bg-slate-50 text-slate-600 hover:text-purple-900 hover:bg-purple-50 border-slate-100"
+                        }`}
+                      >
+                        <Volume2 className="w-4 h-4" />
+                        <span className="text-[10px] font-black uppercase tracking-wider">Listen Audio</span>
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
           )}
 
-          {/* Proverbs View */}
+          {/* Heritage Proverbs View */}
           {activeSubTab === "proverbs" && (
-            <div className="space-y-6 max-w-4xl mx-auto" id="learning-proverbs-view">
-              {PROVERBS.map((prov, idx) => (
-                <div
-                  key={idx}
-                  className="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 hover:shadow-md transition-all flex flex-col sm:flex-row items-start gap-6"
-                >
-                  <div className="flex-1 text-left space-y-4">
-                    <div>
-                      <span className="px-2.5 py-0.5 rounded bg-amber-100 text-amber-800 text-[9px] font-black uppercase tracking-wider">
-                        Ancient Proverb (പഴഞ്ചൊല്ല്)
-                      </span>
-                      <h3 className="text-2xl font-black text-purple-950 tracking-tight mt-1">
-                        {prov.proverb}
-                      </h3>
-                      <p className="text-xs text-slate-400 font-mono font-medium italic mt-0.5">
-                        &quot;{prov.phonetic}&quot;
-                      </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-3 border-t border-slate-100 text-xs">
-                      <div className="bg-slate-50 p-3 rounded-2xl border border-slate-100">
-                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Literal Translation</span>
-                        <p className="text-slate-700 font-semibold">{prov.literal}</p>
+            <div className="space-y-6" id="learning-proverbs-view">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {HERITAGE_PROVERBS.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="bg-gradient-to-br from-white via-slate-50/50 to-white border border-slate-200/80 rounded-3xl p-6 shadow-sm space-y-4 flex flex-col justify-between"
+                  >
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+                        <span className="text-[10px] font-black text-amber-700 uppercase tracking-widest bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200/60">
+                          Kerala Proverb #{idx + 1} (പഴഞ്ചൊല്ല്)
+                        </span>
+                        <button
+                          onClick={() => speakText(item.proverb, `proverb_${idx}`)}
+                          className="p-2 text-slate-400 hover:text-purple-900 hover:bg-purple-50 rounded-full transition-colors cursor-pointer"
+                          title="Listen"
+                        >
+                          <Volume2 className="w-4 h-4" />
+                        </button>
                       </div>
-                      <div className="bg-purple-50/40 p-3 rounded-2xl border border-purple-100/60">
-                        <span className="text-[10px] font-bold text-purple-600 uppercase tracking-wider block mb-1 font-sans">Moral Wisdom</span>
-                        <p className="text-purple-950 font-semibold leading-relaxed">{prov.meaning}</p>
+
+                      <h3 className="text-xl font-black text-purple-950 font-sans leading-snug">
+                        "{item.proverb}"
+                      </h3>
+
+                      <span className="text-xs font-mono font-bold text-slate-500 block">
+                        Phonetic: /{item.phonetic}/
+                      </span>
+
+                      <div className="bg-slate-100/70 p-3 rounded-2xl space-y-1">
+                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider block">
+                          Literal Translation
+                        </span>
+                        <p className="text-xs text-slate-700 italic">
+                          "{item.literal}"
+                        </p>
+                      </div>
+
+                      <div className="bg-purple-50/60 p-3 rounded-2xl space-y-1 border border-purple-100">
+                        <span className="text-[10px] font-black text-purple-800 uppercase tracking-wider block">
+                          Deeper Meaning & Philosophy
+                        </span>
+                        <p className="text-xs text-purple-950 font-semibold leading-relaxed">
+                          {item.meaning}
+                        </p>
                       </div>
                     </div>
                   </div>
-
-                  <button
-                    onClick={() => speakText(prov.proverb, `proverb_${idx}`)}
-                    className={`p-4 rounded-2xl border transition-all cursor-pointer sm:self-center shrink-0 ${
-                      speakActive === `proverb_${idx}`
-                        ? "bg-pink-600 text-white border-pink-600 animate-pulse"
-                        : "bg-slate-50 text-slate-500 hover:text-purple-700 hover:bg-purple-50 border-slate-200"
-                    }`}
-                    title="Speak proverb"
-                  >
-                    <Volume2 className="w-6 h-6" />
-                  </button>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           )}
 
-          {/* Quiz View */}
+          {/* 3-Level Study Materials View */}
+          {activeSubTab === "study" && (
+            <GurukulamStudyGuides />
+          )}
+
+          {/* Interactive Games View */}
+          {activeSubTab === "games" && (
+            <LanguageGames />
+          )}
+
+          {/* Practice Quiz View */}
           {activeSubTab === "quiz" && (
-            <div className="max-w-xl mx-auto bg-white border border-slate-200 rounded-3xl p-6 md:p-8 shadow-sm" id="learning-quiz-view">
+            <div className="bg-white border border-slate-200/80 rounded-3xl p-6 sm:p-10 max-w-2xl mx-auto shadow-sm space-y-6" id="learning-quiz-view">
               
               {!quizCompleted ? (
-                <div className="space-y-6 text-left">
+                <div className="space-y-6">
                   {/* Progress Header */}
-                  <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                    <span className="text-xs font-black text-slate-400 uppercase tracking-wider">
+                  <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+                    <span className="text-xs font-black text-purple-900 uppercase tracking-wider">
                       Question {currentQ + 1} of {QUIZ_QUESTIONS.length}
                     </span>
-                    <span className="px-3 py-1 bg-purple-50 text-purple-700 rounded-full text-[10px] font-black uppercase">
-                      Score: {quizScore}
+                    <span className="text-xs font-extrabold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+                      Score: {quizScore} PTS
                     </span>
                   </div>
 
-                  {/* Question Title */}
-                  <h3 className="text-lg font-black text-slate-900 tracking-tight leading-snug">
+                  {/* Question */}
+                  <h3 className="text-xl font-black text-slate-900 leading-snug">
                     {QUIZ_QUESTIONS[currentQ].question}
                   </h3>
 
-                  {/* Options List */}
-                  <div className="flex flex-col gap-3">
+                  {/* Options */}
+                  <div className="grid grid-cols-1 gap-3">
                     {QUIZ_QUESTIONS[currentQ].options.map((opt, idx) => {
                       const isSelected = selectedOpt === idx;
                       const isCorrect = idx === QUIZ_QUESTIONS[currentQ].correct;
-                      
-                      let optStyle = "bg-white border-slate-200 hover:bg-slate-50 text-slate-800";
-                      
-                      if (selectedOpt !== null) {
+                      const showResult = selectedOpt !== null;
+
+                      let btnStyle = "bg-slate-50 hover:bg-purple-50/50 border-slate-200/80 text-slate-800";
+                      if (showResult) {
                         if (isCorrect) {
-                          optStyle = "bg-emerald-500 border-transparent text-white font-extrabold";
+                          btnStyle = "bg-emerald-50 border-emerald-500 text-emerald-950 font-black shadow-sm";
                         } else if (isSelected) {
-                          optStyle = "bg-red-500 border-transparent text-white font-extrabold";
+                          btnStyle = "bg-pink-50 border-pink-500 text-pink-950 font-black";
                         } else {
-                          optStyle = "bg-white border-slate-100 text-slate-300 opacity-60";
+                          btnStyle = "bg-slate-50 border-slate-200 text-slate-400 opacity-60";
                         }
                       }
 
                       return (
                         <button
                           key={idx}
-                          onClick={() => handleAnswerClick(idx)}
                           disabled={selectedOpt !== null}
-                          className={`w-full py-4 px-5 rounded-2xl border text-sm font-bold text-left transition-all flex items-center justify-between cursor-pointer ${optStyle}`}
+                          onClick={() => handleAnswerClick(idx)}
+                          className={`p-4 rounded-2xl border text-left font-bold text-xs transition-all cursor-pointer flex items-center justify-between ${btnStyle}`}
                         >
                           <span>{opt}</span>
-                          {selectedOpt !== null && isCorrect && <CheckCircle2 className="w-5 h-5 text-white" />}
+                          {showResult && isCorrect && (
+                            <span className="text-emerald-700 text-xs font-extrabold">✓ Correct</span>
+                          )}
                         </button>
                       );
                     })}
                   </div>
 
-                  {/* Explanation panel */}
+                  {/* Explanation & Next button */}
                   {selectedOpt !== null && (
-                    <div className="pt-4 border-t border-slate-100 animate-fade-in space-y-4">
-                      <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200/60 text-xs">
+                    <div className="space-y-4 pt-2 animate-fade-in">
+                      <div className="p-4 bg-purple-50/80 border border-purple-100 rounded-2xl text-xs space-y-1">
                         <span className="font-extrabold text-slate-400 uppercase tracking-wider block mb-1">Explanation</span>
                         <p className="text-slate-700 font-semibold leading-relaxed">
                           {QUIZ_QUESTIONS[currentQ].explanation}
@@ -783,6 +834,16 @@ export default function LearningSystem({ defaultTab = "letters" }: LearningSyste
                 </div>
               )}
 
+            </div>
+          )}
+
+          {/* Official Certification Exam View & Verification */}
+          {activeSubTab === "exam" && (
+            <div className="space-y-12">
+              <MalayalamExam />
+              <div className="pt-8 border-t border-slate-200/80 dark:border-neutral-800" id="exam-certificate-verification">
+                <CertificateVerificationPage isEmbedded={true} />
+              </div>
             </div>
           )}
         </motion.div>

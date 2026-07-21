@@ -26,7 +26,6 @@ const PLATFORMS = [
   { id: "whatsapp", name: "WhatsApp 💬" },
   { id: "snapchat", name: "Snapchat 👻" },
   { id: "tiktok", name: "TikTok 🎵" },
-  { id: "arike", name: "Arike Dating 💖" },
   { id: "bumble", name: "Bumble 🐝" },
   { id: "matrimony", name: "Matrimony 💍" }
 ] as const;

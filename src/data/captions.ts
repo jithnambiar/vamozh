@@ -2347,6 +2347,49 @@ export function mapToNewSchema(item: any): Required<Omit<CaptionItem, 'category'
   };
 }
 
+export function inferCategoryFromTopic(keyword: string = "", category: string = "all"): string {
+  const kw = keyword.toLowerCase().trim();
+  if (!kw) return category === "all" ? "kerala" : category;
+  
+  if (kw.includes("bridal") || kw.includes("makeup") || kw.includes("makeover") || kw.includes("mua") || kw.includes("beauty") || kw.includes("salon") || kw.includes("glam") || kw.includes("lipstick")) {
+    return "makeover_artist";
+  }
+  if (kw.includes("wedding") || kw.includes("kalyanam") || kw.includes("marriage") || kw.includes("groom") || kw.includes("bride") || kw.includes("tali") || kw.includes("reception")) {
+    return "wedding";
+  }
+  if (kw.includes("photo") || kw.includes("camera") || kw.includes("shoot") || kw.includes("click") || kw.includes("lens") || kw.includes("pic") || kw.includes("portrait")) {
+    return "photography";
+  }
+  if (kw.includes("fashion") || kw.includes("saree") || kw.includes("outfit") || kw.includes("boutique") || kw.includes("dress") || kw.includes("kasavu") || kw.includes("style")) {
+    return "fashion";
+  }
+  if (kw.includes("tech") || kw.includes("gadget") || kw.includes("phone") || kw.includes("app") || kw.includes("mobile") || kw.includes("android") || kw.includes("iphone")) {
+    return "techie";
+  }
+  if (kw.includes("code") || kw.includes("dev") || kw.includes("program") || kw.includes("software") || kw.includes("python") || kw.includes("java") || kw.includes("react")) {
+    return "coder";
+  }
+  if (kw.includes("love") || kw.includes("couple") || kw.includes("romance") || kw.includes("heart") || kw.includes("pranayam") || kw.includes("sneham")) {
+    return "love";
+  }
+  if (kw.includes("attitude") || kw.includes("mass") || kw.includes("single") || kw.includes("ego") || kw.includes("boss")) {
+    return "attitude";
+  }
+  if (kw.includes("travel") || kw.includes("trip") || kw.includes("ride") || kw.includes("bike") || kw.includes("tour") || kw.includes("hills") || kw.includes("vandi") || kw.includes("wayanad") || kw.includes("idukki") || kw.includes("munnar")) {
+    return "travel";
+  }
+  if (kw.includes("funny") || kw.includes("troll") || kw.includes("comedy") || kw.includes("joke") || kw.includes("chiri")) {
+    return "funny";
+  }
+  if (kw.includes("business") || kw.includes("startup") || kw.includes("hustle") || kw.includes("money") || kw.includes("sales")) {
+    return "business";
+  }
+  if (kw.includes("food") || kw.includes("tea") || kw.includes("chaya") || kw.includes("sadya") || kw.includes("biryani") || kw.includes("eat") || kw.includes("porotta")) {
+    return "kerala";
+  }
+  return category === "all" ? "kerala" : category;
+}
+
 export interface GenerateOptions {
   platform: string;
   contentType: string;
@@ -2379,21 +2422,39 @@ export interface GenerateResponse {
 
 // Generates varied, customized caption results with exact-match scoring and robust fallback mapping
 export function generateCaptions(options: GenerateOptions): GenerateResponse {
+  const targetCategory = inferCategoryFromTopic(options.keyword, options.category);
+
   // 1. Immediately handle Hashtag Only sets separately
   if (options.contentType === "hashtag_set") {
-    const categoryHashtags = CATEGORY_HASHTAGS[options.category] || ["#Vamozhi", "#KeralaVibes"];
+    const categoryHashtags = CATEGORY_HASHTAGS[targetCategory] || CATEGORY_HASHTAGS["kerala"];
+    
+    // Build custom keyword-specific hashtags
+    const kwTags: string[] = [];
+    if (options.keyword && options.keyword.trim()) {
+      const cleanKw = options.keyword.toLowerCase().trim().replace(/[^a-z0-9_]/g, "");
+      if (cleanKw) {
+        kwTags.push(`#${cleanKw}`);
+        kwTags.push(`#${cleanKw}kerala`);
+        kwTags.push(`#kerala${cleanKw}`);
+        kwTags.push(`#${cleanKw}vibes`);
+        kwTags.push(`#${cleanKw}glam`);
+        kwTags.push(`#${cleanKw}diaries`);
+        kwTags.push(`#${cleanKw}look`);
+      }
+    }
+
+    const combinedHashtags = [...new Set([...kwTags, ...categoryHashtags])];
     const results = [];
     const hCount = options.hashtagCount === "none" ? 5 : parseInt(options.hashtagCount, 10) || 10;
     
     for (let i = 0; i < options.resultsCount; i++) {
-      // Shuffle and pick hCount hashtags
-      const shuffled = [...categoryHashtags].sort(() => Math.random() - 0.5);
+      const shuffled = [...combinedHashtags].sort(() => Math.random() - 0.5);
       const tags = shuffled.slice(0, hCount);
       const text = tags.join(" ");
       results.push({
-        id: `dyn_hashtag_set_${options.category}_${i}`,
+        id: `dyn_hashtag_set_${targetCategory}_${i}`,
         text: text,
-        hashtags: [], // Already in the text
+        hashtags: tags, // Populate hashtags array properly!
         platform: options.platform,
         language: options.language,
         mood: options.mood,
@@ -2404,7 +2465,7 @@ export function generateCaptions(options: GenerateOptions): GenerateResponse {
     return {
       results,
       isFallbackUsed: false,
-      message: `Generated ${options.resultsCount} custom hashtag sets for #${options.category}!`
+      message: `Generated custom hashtag set for ${options.keyword || targetCategory}!`
     };
   }
 
@@ -2752,8 +2813,17 @@ export function generateCaptions(options: GenerateOptions): GenerateResponse {
 
     // D. Build requested number of hashtags
     const hCount = options.hashtagCount === "none" ? 0 : parseInt(options.hashtagCount, 10) || 5;
-    const categoryHashtags = CATEGORY_HASHTAGS[options.category] || ["#Vamozhi", "#KeralaVibes"];
-    const chosenHashtags = [...categoryHashtags]
+    const baseCategoryHashtags = CATEGORY_HASHTAGS[targetCategory] || CATEGORY_HASHTAGS[options.category] || ["#Vamozhi", "#KeralaVibes"];
+    const kwTags: string[] = [];
+    if (options.keyword && options.keyword.trim()) {
+      const cleanKw = options.keyword.toLowerCase().trim().replace(/[^a-z0-9_]/g, "");
+      if (cleanKw) {
+        kwTags.push(`#${cleanKw}`);
+        kwTags.push(`#${cleanKw}kerala`);
+      }
+    }
+    const combinedTags = [...new Set([...kwTags, ...baseCategoryHashtags])];
+    const chosenHashtags = combinedTags
       .sort(() => Math.random() - 0.5)
       .slice(0, hCount);
 

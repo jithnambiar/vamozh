@@ -4,22 +4,24 @@
  */
 
 import { useState, useEffect, useRef } from "react";
-import { 
-  Menu, 
-  X, 
-  Heart, 
-  Search, 
-  Smartphone, 
-  Sparkles, 
-  BookOpen, 
+import {
+  Sparkles,
+  BookOpen,
+  Hash,
+  Menu,
+  X,
+  Keyboard,
+  GraduationCap,
+  Award,
+  ShieldCheck,
+  Search,
   ChevronRight,
+  Heart,
   Info,
-  Mail,
-  Globe
+  Mail
 } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 import { AnimatePresence, motion } from "motion/react";
-
 
 interface NavbarProps {
   favouritesCount: number;
@@ -28,14 +30,6 @@ interface NavbarProps {
   onNavigate: (path: string) => void;
 }
 
-const SOCIAL_APPS_TOOLS = [
-  { name: "Instagram Captions", path: "/instagram-caption-generator" },
-  { name: "Facebook Posts", path: "/facebook-caption-generator" },
-  { name: "WhatsApp Status", path: "/whatsapp-status-generator" },
-  { name: "Snapchat Captions", path: "/snapchat-caption-generator" },
-  { name: "TikTok Captions", path: "/tiktok-caption-generator" }
-];
-
 const ALL_SEARCHABLE_TOOLS = [
   { name: "Instagram Caption Generator", path: "/instagram-caption-generator" },
   { name: "Facebook Post Generator", path: "/facebook-caption-generator" },
@@ -43,14 +37,16 @@ const ALL_SEARCHABLE_TOOLS = [
   { name: "Snapchat Caption Creator", path: "/snapchat-caption-generator" },
   { name: "TikTok Video Caption", path: "/tiktok-caption-generator" },
   { name: "Manglish to Malayalam Typing", path: "/manglish-to-malayalam" },
+  { name: "Malayalam Dictionary Search", path: "/malayalam-dictionary" },
   { name: "Instagram Reel Hooks", path: "/malayalam-reel-hooks" },
-  { name: "Malayalam Hashtag Sets", path: "/malayalam-hashtags" }
+  { name: "Malayalam Hashtag Sets", path: "/malayalam-hashtags" },
+  { name: "Learn Malayalam Alphabet", path: "/learn-malayalam" },
+  { name: "Malayalam Numbers & Quiz", path: "/malayalam-numbers" }
 ];
 
 export default function Navbar({ favouritesCount, onOpenFavourites, currentPath, onNavigate }: NavbarProps) {
-  const { language, setLanguage, t } = useLanguage();
+  const { language, t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
-
   const [isScrolled, setIsScrolled] = useState(false);
   
   // Search state
@@ -61,7 +57,7 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 15);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -90,7 +86,6 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
     };
   }, [isOpen]);
 
-  // Handle search typing
   const handleSearchChange = (val: string) => {
     setSearchQuery(val);
     if (!val.trim()) {
@@ -116,95 +111,141 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const isGeneratorActive = 
+    currentPath === "/" ||
+    currentPath === "/malayalam-caption-generator" ||
+    currentPath === "/instagram-caption-generator" ||
+    currentPath === "/facebook-caption-generator" ||
+    currentPath === "/whatsapp-status-generator" ||
+    currentPath === "/snapchat-caption-generator" ||
+    currentPath === "/tiktok-caption-generator" ||
+    currentPath === "/malayalam-instagram-bio" ||
+    currentPath === "/malayalam-reel-hooks" ||
+    currentPath === "/arike-bio-generator" ||
+    currentPath === "/bumble-bio-generator" ||
+    currentPath === "/matrimony-bio-generator";
+
+  const isTypingActive = currentPath === "/manglish-to-malayalam";
+  const isDictionaryActive = currentPath === "/malayalam-dictionary";
+  const isLearnActive = currentPath === "/learn-malayalam" || currentPath === "/malayalam-numbers";
+  const isHashtagsActive = currentPath === "/malayalam-hashtags";
+
   return (
     <nav
       id="main-navigation"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm py-2.5"
-          : "bg-white/90 backdrop-blur-md border-b border-slate-100 py-3.5"
+          ? "bg-white/95 backdrop-blur-xl border-b border-slate-200/80 shadow-sm py-2"
+          : "bg-white/90 backdrop-blur-lg border-b border-slate-100 py-3"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-between gap-3">
           
-          {/* Logo / Branding */}
+          {/* Pro App Brand Logo */}
           <div
-            className="flex items-center gap-3 cursor-pointer group shrink-0"
+            className="flex items-center gap-2.5 cursor-pointer group shrink-0"
             onClick={handleLogoClick}
             id="nav-brand-logo"
           >
-            <div className="w-10 h-10 bg-gradient-to-br from-purple-950 via-[#911b5a] to-[#ff2a6d] rounded-xl flex items-center justify-center text-[#fffef0] font-black text-xl shadow-md transform -rotate-3 group-hover:rotate-0 transition-all font-sans">
+            <div className="w-9 h-9 bg-gradient-to-br from-purple-950 via-[#911b5a] to-[#ff2a6d] rounded-xl flex items-center justify-center text-white font-black text-lg shadow-md transform -rotate-3 group-hover:rotate-0 transition-transform font-sans">
               വാ
             </div>
             <div className="text-left">
-              <span className="text-xl font-black tracking-tight text-purple-950 uppercase block leading-none">
-                VAMOZHI
-              </span>
-              <span className="text-[9px] font-extrabold text-pink-600 tracking-wider uppercase block mt-1">
+              <div className="flex items-center gap-1.5">
+                <span className="text-lg font-black tracking-tight text-purple-950 uppercase block leading-none">
+                  VAMOZHI
+                </span>
+                <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse" title="Live Server Ready" />
+              </div>
+              <span className="text-[8px] font-extrabold text-pink-600 tracking-wider uppercase block mt-0.5">
                 Your Vibe. Your Words.
               </span>
             </div>
           </div>
 
-           {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex items-center gap-5" id="desktop-nav-menu">
+          {/* Unified Desktop Navigation Bar with SEPARATE Typing and Dictionary */}
+          <div className="hidden lg:flex items-center gap-1 bg-slate-100/80 p-1 rounded-2xl border border-slate-200/60" id="desktop-unified-nav">
             <button
               onClick={() => onNavigate("/")}
-              className={`text-xs font-black uppercase tracking-wider transition-colors cursor-pointer ${
-                currentPath === "/" || currentPath === "/manglish-to-malayalam" || currentPath === "/malayalam-dictionary" ? "text-purple-900 font-black border-b-2 border-purple-800 pb-0.5" : "text-slate-500 hover:text-purple-800"
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-extrabold tracking-wide transition-all cursor-pointer ${
+                isGeneratorActive
+                  ? "bg-purple-950 text-white shadow-sm"
+                  : "text-slate-600 hover:text-purple-950 hover:bg-white/60"
               }`}
             >
-              Typing & Dictionary ⌨️📖
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              Studio
+            </button>
+
+            <button
+              onClick={() => onNavigate("/manglish-to-malayalam")}
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-extrabold tracking-wide transition-all cursor-pointer ${
+                isTypingActive
+                  ? "bg-purple-950 text-white shadow-sm"
+                  : "text-slate-600 hover:text-purple-950 hover:bg-white/60"
+              }`}
+            >
+              <Keyboard className="w-3.5 h-3.5 text-pink-400" />
+              Typing
+            </button>
+
+            <button
+              onClick={() => onNavigate("/malayalam-dictionary")}
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-extrabold tracking-wide transition-all cursor-pointer ${
+                isDictionaryActive
+                  ? "bg-purple-950 text-white shadow-sm"
+                  : "text-slate-600 hover:text-purple-950 hover:bg-white/60"
+              }`}
+            >
+              <BookOpen className="w-3.5 h-3.5 text-blue-400" />
+              Dictionary
             </button>
 
             <button
               onClick={() => onNavigate("/learn-malayalam")}
-              className={`text-xs font-black uppercase tracking-wider transition-colors cursor-pointer ${
-                currentPath === "/learn-malayalam" ? "text-purple-900 font-black border-b-2 border-purple-800 pb-0.5" : "text-slate-500 hover:text-purple-800"
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-extrabold tracking-wide transition-all cursor-pointer ${
+                isLearnActive
+                  ? "bg-purple-950 text-white shadow-sm"
+                  : "text-slate-600 hover:text-purple-950 hover:bg-white/60"
               }`}
             >
-              Learn Malayalam 🎓
-            </button>
-
-            <button
-              onClick={() => onNavigate("/malayalam-caption-generator")}
-              className={`text-xs font-black uppercase tracking-wider transition-colors cursor-pointer ${
-                currentPath === "/malayalam-caption-generator" || currentPath === "/instagram-caption-generator" || currentPath === "/facebook-caption-generator" || currentPath === "/whatsapp-status-generator" || currentPath === "/snapchat-caption-generator" || currentPath === "/tiktok-caption-generator" || currentPath === "/malayalam-instagram-bio" || currentPath === "/malayalam-reel-hooks" || currentPath === "/arike-bio-generator" || currentPath === "/bumble-bio-generator" || currentPath === "/matrimony-bio-generator" ? "text-purple-900 font-black border-b-2 border-purple-800 pb-0.5" : "text-slate-500 hover:text-purple-800"
-              }`}
-            >
-              Caption Generator ✨
+              <GraduationCap className="w-3.5 h-3.5 text-emerald-400" />
+              Study & Certify
             </button>
 
             <button
               onClick={() => onNavigate("/malayalam-hashtags")}
-              className={`text-xs font-black uppercase tracking-wider transition-colors cursor-pointer ${
-                currentPath === "/malayalam-hashtags" ? "text-purple-900 font-black border-b-2 border-purple-800 pb-0.5" : "text-slate-500 hover:text-purple-800"
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-extrabold tracking-wide transition-all cursor-pointer ${
+                isHashtagsActive
+                  ? "bg-purple-950 text-white shadow-sm"
+                  : "text-slate-600 hover:text-purple-950 hover:bg-white/60"
               }`}
             >
-              Hashtags 🏷️
+              <Hash className="w-3.5 h-3.5 text-pink-400" />
+              Hashtags
             </button>
           </div>
 
-          {/* Find a Tool Search Bar (Desktop) */}
-          <div ref={searchRef} className="hidden md:block relative max-w-xs w-full" id="nav-search-container">
+          {/* Quick Search Input (Desktop) */}
+          <div ref={searchRef} className="hidden md:block relative max-w-[180px] lg:max-w-[210px] w-full" id="nav-search-container">
             <div className="relative">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => handleSearchChange(e.target.value)}
                 onFocus={() => setIsSearchFocused(true)}
-                placeholder={t("findWritingTool")}
-                className="w-full pl-9 pr-4 py-1.5 bg-slate-50 hover:bg-slate-100/80 focus:bg-white text-xs font-medium rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-purple-600 transition-all text-slate-800 placeholder:text-slate-400"
+                placeholder="Search tools..."
+                className="w-full pl-8 pr-3 py-1.5 bg-slate-50 hover:bg-slate-100/80 focus:bg-white text-xs font-medium rounded-full border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-600/20 transition-all text-slate-800 placeholder:text-slate-400"
               />
-              <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
+              <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" />
             </div>
 
-            {/* Suggestions Overlay */}
+            {/* Instant Search Dropdown */}
             {isSearchFocused && searchResults.length > 0 && (
               <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-slate-100 rounded-2xl shadow-2xl py-2 z-50 text-left">
-                <span className="block px-4 py-1 text-[9px] font-extrabold text-slate-400 uppercase tracking-widest border-b border-slate-50 mb-1">
-                  {t("suggestedTools")}
+                <span className="block px-4 py-1 text-[9px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-50 mb-1">
+                  Tools
                 </span>
                 {searchResults.map((tool) => (
                   <button
@@ -220,263 +261,160 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
             )}
           </div>
 
-          {/* Right Action buttons */}
-          <div className="flex items-center gap-2" id="nav-actions">
-            {/* Saved Drawer Icon */}
+          {/* Actions: Saved Items & Menu Drawer Trigger */}
+          <div className="flex items-center gap-1.5" id="nav-actions">
             <button
               onClick={onOpenFavourites}
-              className="relative p-2.5 rounded-full hover:bg-slate-50 transition-colors text-slate-600 group cursor-pointer"
-              aria-label={t("savedItems")}
+              className="relative p-2 bg-slate-50 hover:bg-pink-50 text-slate-700 hover:text-pink-600 rounded-xl border border-slate-200/60 transition-colors group cursor-pointer"
+              aria-label="Saved items"
               id="btn-nav-fav"
             >
-              <Heart className={`w-5 h-5 group-hover:text-red-500 transition-colors ${favouritesCount > 0 ? 'fill-red-500 text-red-500' : ''}`} />
+              <Heart className={`w-4.5 h-4.5 group-hover:text-pink-600 transition-colors ${favouritesCount > 0 ? 'fill-pink-600 text-pink-600' : ''}`} />
               {favouritesCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-pink-600 text-white text-[9px] font-black w-4.5 h-4.5 rounded-full flex items-center justify-center ring-2 ring-white">
+                <span className="absolute -top-1 -right-1 bg-pink-600 text-white text-[9px] font-black w-4.5 h-4.5 rounded-full flex items-center justify-center ring-2 ring-white">
                   {favouritesCount}
                 </span>
               )}
             </button>
 
-            {/* Mobile hamburger toggle */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-full text-slate-600 hover:bg-slate-50 lg:hidden cursor-pointer"
-              aria-label="Toggle main menu"
+              className="p-2 bg-slate-50 hover:bg-slate-100 text-slate-700 rounded-xl border border-slate-200/60 cursor-pointer"
+              aria-label="Open menu"
               id="btn-mobile-menu"
             >
-              {isOpen ? <X className="w-5.5 h-5.5" /> : <Menu className="w-5.5 h-5.5" />}
+              {isOpen ? <X className="w-4.5 h-4.5" /> : <Menu className="w-4.5 h-4.5" />}
             </button>
           </div>
 
         </div>
       </div>
 
-      {/* Mobile Drawer Overlay & Menu wrapped in AnimatePresence */}
+      {/* Slide-Over Drawer with SEPARATE Typing and Dictionary */}
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop Overlay */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-slate-950/60 backdrop-blur-md z-40 lg:hidden"
+              className="fixed inset-0 bg-slate-950/60 backdrop-blur-md z-40"
               onClick={() => setIsOpen(false)}
-              id="mobile-drawer-overlay"
             />
 
-            {/* Mobile Menu Drawer */}
             <motion.div
-              id="mobile-drawer-menu"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 220 }}
-              className="fixed top-0 right-0 bottom-0 w-full sm:max-w-md bg-white z-50 lg:hidden flex flex-col h-full shadow-2xl overflow-hidden"
+              className="fixed top-0 right-0 bottom-0 w-full sm:max-w-sm bg-white z-50 flex flex-col h-full shadow-2xl overflow-hidden"
             >
-              {/* Header */}
-              <div className="p-5 border-b border-slate-100 flex items-center justify-between bg-white shrink-0">
-                <div className="flex items-center gap-3" onClick={handleLogoClick}>
-                  <div className="w-9 h-9 bg-gradient-to-br from-purple-950 via-[#911b5a] to-[#ff2a6d] rounded-lg flex items-center justify-center text-white font-black text-lg transform -rotate-3">
+              {/* Drawer Header */}
+              <div className="p-4 border-b border-slate-100 flex items-center justify-between shrink-0">
+                <div className="flex items-center gap-2.5" onClick={handleLogoClick}>
+                  <div className="w-8 h-8 bg-gradient-to-br from-purple-950 via-[#911b5a] to-[#ff2a6d] rounded-lg flex items-center justify-center text-white font-black text-base transform -rotate-3">
                     വാ
                   </div>
-                  <div className="text-left">
-                    <span className="text-base font-black tracking-tight text-purple-950 uppercase block leading-none">
-                      VAMOZHI
-                    </span>
-                    <span className="text-[8px] font-extrabold text-pink-600 tracking-wider uppercase block mt-0.5">
-                      Your Vibe. Your Words.
-                    </span>
-                  </div>
+                  <span className="text-base font-black tracking-tight text-purple-950 uppercase">
+                    VAMOZHI
+                  </span>
                 </div>
-                
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-2 rounded-full text-slate-500 hover:bg-slate-100 active:scale-90 transition-all cursor-pointer"
-                  aria-label="Close menu"
+                  className="p-1.5 rounded-full text-slate-400 hover:bg-slate-100 cursor-pointer"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
-              {/* Scrollable Content Body */}
-              <div className="flex-1 overflow-y-auto p-5 space-y-6 scrollbar-thin">
-                {/* Mobile Search section */}
-                <div className="space-y-2">
-                  <span className="block text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              {/* Drawer Body */}
+              <div className="flex-1 overflow-y-auto p-4 space-y-5">
+                {/* Search */}
+                <div className="space-y-1.5">
+                  <span className="block text-[9px] font-black text-slate-400 uppercase tracking-widest">
                     Quick Search
                   </span>
-                  <div className="relative w-full">
+                  <div className="relative">
                     <input
                       type="text"
                       value={searchQuery}
                       onChange={(e) => handleSearchChange(e.target.value)}
-                      placeholder={t("searchTools")}
-                      className="w-full pl-10 pr-4 py-2.5 bg-slate-50 text-xs font-semibold rounded-2xl border border-slate-200/80 focus:bg-white focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-100 transition-all text-slate-800"
+                      placeholder="Search tools..."
+                      className="w-full pl-9 pr-3 py-2 bg-slate-50 text-xs font-semibold rounded-xl border border-slate-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-purple-600/20"
                     />
-                    <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+                    <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
                   </div>
-                  
-                  {/* Realtime Search Results */}
-                  <AnimatePresence>
-                    {searchQuery && (
-                      <motion.div 
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        className="border border-slate-100 rounded-2xl bg-slate-50 p-2 space-y-1 max-h-48 overflow-y-auto"
-                      >
-                        {searchResults.length > 0 ? (
-                          searchResults.map((tool) => (
-                            <button
-                              key={tool.name}
-                              onClick={() => handleSearchResultClick(tool.path)}
-                              className="w-full text-left px-3 py-2 text-xs font-bold text-slate-700 hover:bg-purple-50 hover:text-purple-950 rounded-xl transition-all flex items-center justify-between"
-                            >
-                              <span>{tool.name}</span>
-                              <ChevronRight className="w-3 h-3 text-slate-400" />
-                            </button>
-                          ))
-                        ) : (
-                          <div className="px-3 py-2.5 text-xs text-slate-400 text-center font-medium">
-                            No matching tools found
-                          </div>
-                        )}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-
-                {/* Primary Navigation list */}
-                <div className="space-y-2">
-                  <span className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">
-                    Main Pages
-                  </span>
-                  <div className="flex flex-col gap-1.5">
-                    {[
-                      { name: "Typing & Dictionary ⌨️📖", path: "/", icon: <Sparkles className="w-4 h-4 text-purple-600" /> },
-                      { name: "Learn Malayalam 🎓", path: "/learn-malayalam", icon: <BookOpen className="w-4 h-4 text-pink-600" /> },
-                      { name: "Caption Generator ✨", path: "/malayalam-caption-generator", icon: <BookOpen className="w-4 h-4 text-amber-500" /> },
-                      { name: "Hashtags 🏷️", path: "/malayalam-hashtags", icon: <Sparkles className="w-4 h-4 text-pink-500" /> }
-                    ].map((item) => {
-                      const isActive = item.path === "/" 
-                        ? (currentPath === "/" || currentPath === "/manglish-to-malayalam" || currentPath === "/malayalam-dictionary")
-                        : (item.path === "/malayalam-caption-generator"
-                          ? (currentPath === "/malayalam-caption-generator" || currentPath === "/instagram-caption-generator" || currentPath === "/facebook-caption-generator" || currentPath === "/whatsapp-status-generator" || currentPath === "/snapchat-caption-generator" || currentPath === "/tiktok-caption-generator" || currentPath === "/malayalam-instagram-bio" || currentPath === "/malayalam-reel-hooks" || currentPath === "/arike-bio-generator" || currentPath === "/bumble-bio-generator" || currentPath === "/matrimony-bio-generator")
-                          : currentPath === item.path);
-                      return (
+                  {searchQuery && searchResults.length > 0 && (
+                    <div className="border border-slate-100 rounded-xl bg-slate-50 p-1 space-y-1 max-h-40 overflow-y-auto">
+                      {searchResults.map((tool) => (
                         <button
-                          key={item.path}
-                          onClick={() => { onNavigate(item.path); setIsOpen(false); }}
-                          className={`w-full py-3 px-4 rounded-2xl font-bold text-xs uppercase tracking-wider flex items-center justify-between transition-all group ${
-                            isActive 
-                              ? "bg-purple-50 text-purple-950 border-l-4 border-purple-800" 
-                              : "text-slate-700 hover:bg-slate-50 border-l-4 border-transparent"
-                          }`}
+                          key={tool.name}
+                          onClick={() => handleSearchResultClick(tool.path)}
+                          className="w-full text-left px-3 py-1.5 text-xs font-bold text-slate-700 hover:bg-purple-50 rounded-lg transition-colors flex items-center justify-between"
                         >
-                          <div className="flex items-center gap-3">
-                            <span className="p-1 bg-white rounded-lg shadow-sm border border-slate-100 group-hover:scale-110 transition-transform">
-                              {item.icon}
-                            </span>
-                            <span>{item.name}</span>
-                          </div>
-                          <ChevronRight className={`w-3.5 h-3.5 transition-transform group-hover:translate-x-1 ${isActive ? 'text-purple-800' : 'text-slate-400'}`} />
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Saved list fast-access */}
-                <div className="space-y-2">
-                  <span className="block text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                    My Curated Content
-                  </span>
-                  <button
-                    onClick={() => { onOpenFavourites(); setIsOpen(false); }}
-                    className="w-full p-4 rounded-2xl bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white flex items-center justify-between shadow-md active:scale-[0.98] transition-transform cursor-pointer"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-white/10 rounded-xl flex items-center justify-center">
-                        <Heart className="w-4.5 h-4.5 fill-pink-500 text-pink-500" />
-                      </div>
-                      <div className="text-left">
-                        <span className="block text-xs font-black uppercase tracking-wider leading-none">
-                          Saved Favourites
-                        </span>
-                        <span className="text-[10px] text-purple-200 mt-1 block">
-                          Tap to open your custom collection
-                        </span>
-                      </div>
-                    </div>
-                    <span className="bg-pink-600 text-white text-xs font-black px-2.5 py-1 rounded-full border border-pink-400/20">
-                      {favouritesCount}
-                    </span>
-                  </button>
-                </div>
-
-                {/* Popular Social Tools Quick Grid */}
-                <div className="space-y-3">
-                  <span className="block text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                    Quick Writing Tools
-                  </span>
-                  <div className="grid grid-cols-2 gap-2">
-                    {[
-                      { name: "Instagram Captions", path: "/instagram-caption-generator" },
-                      { name: "Facebook Posts", path: "/facebook-caption-generator" },
-                      { name: "WhatsApp Status", path: "/whatsapp-status-generator" },
-                      { name: "TikTok Video Captions", path: "/tiktok-caption-generator" },
-                    ].map((tool) => (
-                      <button
-                        key={tool.name}
-                        onClick={() => { onNavigate(tool.path); setIsOpen(false); }}
-                        className="p-3 bg-slate-50 hover:bg-purple-50/50 rounded-2xl border border-slate-100 text-left transition-all active:scale-95 group cursor-pointer"
-                      >
-                        <span className="text-[11px] font-bold text-slate-800 group-hover:text-purple-900 block leading-tight">
                           {tool.name}
-                        </span>
-                        <span className="text-[9px] text-slate-400 mt-1 block font-medium">
-                          Generate now →
-                        </span>
-                      </button>
-                    ))}
-                  </div>
+                          <ChevronRight className="w-3 h-3 text-slate-400" />
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
-                {/* Info & Contact links */}
-                <div className="pt-4 border-t border-slate-100 flex justify-between items-center text-slate-400">
+                {/* Primary Section Links - Separate Typing and Dictionary */}
+                <div className="space-y-1">
+                  <span className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">
+                    Features & Tools
+                  </span>
+                  {[
+                    { name: "Caption Studio ✨", path: "/", icon: Sparkles },
+                    { name: "Manglish Typing ⌨️", path: "/manglish-to-malayalam", icon: Keyboard },
+                    { name: "Olam Dictionary 📖", path: "/malayalam-dictionary", icon: BookOpen },
+                    { name: "Learn Malayalam 🎓", path: "/learn-malayalam", icon: GraduationCap },
+                    { name: "Hashtag Generator 🏷️", path: "/malayalam-hashtags", icon: Hash }
+                  ].map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <button
+                        key={item.path}
+                        onClick={() => { onNavigate(item.path); setIsOpen(false); }}
+                        className={`w-full py-2.5 px-3 rounded-xl font-bold text-xs flex items-center justify-between transition-colors ${
+                          currentPath === item.path
+                            ? "bg-purple-50 text-purple-950 font-black"
+                            : "text-slate-700 hover:bg-purple-50 hover:text-purple-950"
+                        }`}
+                      >
+                        <div className="flex items-center gap-2.5">
+                          <Icon className="w-4 h-4 text-purple-600" />
+                          <span>{item.name}</span>
+                        </div>
+                        <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Information Pages */}
+                <div className="pt-3 border-t border-slate-100 space-y-1">
+                  <span className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">
+                    Platform Info
+                  </span>
                   <button
                     onClick={() => { onNavigate("/about"); setIsOpen(false); }}
-                    className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider hover:text-purple-800 transition-colors py-2 cursor-pointer"
+                    className="w-full py-2 px-3 text-xs font-semibold text-slate-600 hover:text-purple-900 flex items-center gap-2"
                   >
                     <Info className="w-3.5 h-3.5 text-purple-500" />
-                    {t("about")}
+                    About VAMOZHI
                   </button>
-                  
-                  <span className="text-slate-200">|</span>
-
                   <button
                     onClick={() => { onNavigate("/contact"); setIsOpen(false); }}
-                    className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider hover:text-pink-800 transition-colors py-2 cursor-pointer"
+                    className="w-full py-2 px-3 text-xs font-semibold text-slate-600 hover:text-pink-900 flex items-center gap-2"
                   >
                     <Mail className="w-3.5 h-3.5 text-pink-500" />
-                    {t("contact")}
+                    Contact & Feedback
                   </button>
                 </div>
-
               </div>
-
-              {/* Bottom Main Action Button */}
-              <div className="p-5 border-t border-slate-100 bg-slate-50 shrink-0">
-                <button
-                  onClick={() => { onNavigate("/"); setIsOpen(false); }}
-                  className="w-full py-3.5 bg-gradient-to-r from-purple-950 via-[#911b5a] to-[#ff2a6d] hover:brightness-110 active:scale-[0.98] text-white font-extrabold rounded-2xl shadow-lg shadow-purple-950/15 text-center text-xs uppercase tracking-widest transition-all cursor-pointer"
-                >
-                  {t("launchMainGenerator")}
-                </button>
-              </div>
-
             </motion.div>
           </>
         )}

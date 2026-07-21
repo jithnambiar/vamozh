@@ -20,7 +20,9 @@ import {
   Coffee,
   HeartHandshake,
   Palmtree,
-  Smile
+  Smile,
+  RefreshCw,
+  Download
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useLanguage } from "../context/LanguageContext";
@@ -65,6 +67,46 @@ const HERO_PREVIEWS = [
     hashtags: "#godsowncountry #keralagallery #backwaters",
     bg: "from-emerald-950 via-teal-900 to-cyan-950",
     likes: "9,920"
+  },
+  {
+    id: "friendship",
+    tag: "Chank / Friendship",
+    emoji: "🤝⚡",
+    textMl: "ലോകം മുഴുവൻ എതിർത്താലും കൂടെ നിൽക്കുന്ന കുറച്ച് ചങ്കുകൾ... അതാണ് ഏറ്റവും വലിയ സമ്പാദ്യം! ⚡❤️",
+    textManglish: "Lokam muzhuvan ethirthalum koode nilkkunna kurachu changukal... athanu ettavum valiya sampaadhyam! ⚡❤️",
+    hashtags: "#chankuyir #friendship #keralafriends",
+    bg: "from-blue-950 via-indigo-900 to-purple-950",
+    likes: "11,450"
+  },
+  {
+    id: "travel",
+    tag: "Travel / Wanderlust",
+    emoji: "🧭🚗",
+    textMl: "വഴികളില്ലാത്ത കാടുകളിലേക്കും ആകാശത്തോളം ഉയരമുള്ള മലകളിലേക്കും... യാത്രകൾ തുടരുന്നു! 🏔️✨",
+    textManglish: "Vazhikalillatha kaadukalilekkum aakaashatholam uyarammulla malakalilekkum... yaathrakal thudarunnu! 🏔️✨",
+    hashtags: "#keralatravel #wanderlust #wayanadvibes",
+    bg: "from-teal-950 via-emerald-900 to-slate-950",
+    likes: "14,200"
+  },
+  {
+    id: "nostalgia",
+    tag: "Nostalgia / School",
+    emoji: "🎒📚",
+    textMl: "തിരികെ പോകാൻ പറ്റാത്ത ആ പഴയ സ്കൂൾ നാളുകൾ... ഓർമ്മകൾക്ക് എന്തൊരു മധുരമാണ്! 🎒💛",
+    textManglish: "Thirike pokan pattatha aa pazhaya school naalukal... ormakalkku enthoru madhuramaanu! 🎒💛",
+    hashtags: "#nostalgia #schoolmemories #malayalam",
+    bg: "from-amber-950 via-orange-950 to-purple-950",
+    likes: "16,780"
+  },
+  {
+    id: "mass",
+    tag: "Mass / Swag",
+    emoji: "🦁⚡",
+    textMl: "വാക്കുകൾ കൊണ്ട് തെളിയിക്കേണ്ട ആവശ്യമില്ല... പ്രവർത്തികൾ സംസാരിക്കട്ടെ! 👑⚡",
+    textManglish: "Vaakkukal kondu theliyikkenda aavashyamilla... pravarthikal samsaarikkatte! 👑⚡",
+    hashtags: "#massdialogue #malayalammass #swag",
+    bg: "from-red-950 via-purple-950 to-slate-950",
+    likes: "18,900"
   }
 ];
 
@@ -78,11 +120,127 @@ const VIBE_CHIPS = [
 
 export default function Hero() {
   const { t, language } = useLanguage();
-  const [activePreviewIndex, setActivePreviewIndex] = useState(0);
+  
+  // Pick a random preview index on each load!
+  const [activePreviewIndex, setActivePreviewIndex] = useState(() => Math.floor(Math.random() * HERO_PREVIEWS.length));
   const [copied, setCopied] = useState(false);
   const [scriptMode, setScriptMode] = useState<"ml" | "manglish">("ml");
 
+  // Pick new random caption on each load or button click
+  const handleShufflePreview = () => {
+    setActivePreviewIndex((prev) => (prev + 1) % HERO_PREVIEWS.length);
+  };
+
   const currentPreview = HERO_PREVIEWS[activePreviewIndex];
+
+  // Canvas Instagram Story (1080x1920) Image Download Generator
+  const handleDownloadImage = () => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1920;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    // Background Gradient (Story Deep Rich Tone)
+    const gradient = ctx.createLinearGradient(0, 0, 1080, 1920);
+    gradient.addColorStop(0, "#090d16");
+    gradient.addColorStop(0.3, "#2e1065");
+    gradient.addColorStop(0.7, "#581c87");
+    gradient.addColorStop(1, "#831843");
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 1080, 1920);
+
+    // Decorative Story Outer Frame
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.12)";
+    ctx.lineWidth = 16;
+    ctx.strokeRect(50, 50, 980, 1820);
+
+    ctx.strokeStyle = "#fbbf24";
+    ctx.lineWidth = 4;
+    ctx.strokeRect(75, 75, 930, 1770);
+
+    // Top Story Header Badge
+    ctx.font = "bold 32px sans-serif";
+    ctx.fillStyle = "#fef08a";
+    ctx.textAlign = "center";
+    ctx.fillText(`✨ ${currentPreview.tag.toUpperCase()}`, 540, 260);
+
+    // Watermark Brand Title (VAMOZHI with MALAYALAM directly under it)
+    ctx.font = "900 56px sans-serif";
+    ctx.fillStyle = "#ffffff";
+    ctx.fillText("VAMOZHI", 540, 330);
+
+    ctx.font = "bold 24px sans-serif";
+    ctx.fillStyle = "#fde68a";
+    ctx.fillText("MALAYALAM", 540, 365);
+
+    // Golden Divider Line
+    ctx.strokeStyle = "rgba(251, 191, 36, 0.8)";
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(400, 405);
+    ctx.lineTo(680, 405);
+    ctx.stroke();
+
+    // Center Quote Card Frame Box (Instagram Story Focus Area)
+    ctx.fillStyle = "rgba(15, 23, 42, 0.6)";
+    ctx.beginPath();
+    ctx.roundRect(120, 580, 840, 780, 48);
+    ctx.fill();
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.25)";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Opening Quote Symbol
+    ctx.font = "900 90px Georgia, serif";
+    ctx.fillStyle = "#f59e0b";
+    ctx.fillText("“", 540, 700);
+
+    // Main Caption Text Wrapping
+    const textToRender = scriptMode === "ml" ? currentPreview.textMl : currentPreview.textManglish;
+    ctx.font = "bold 48px sans-serif";
+    ctx.fillStyle = "#ffffff";
+
+    const words = textToRender.split(" ");
+    let line = "";
+    let y = 800;
+    const maxWidth = 740;
+    const lineHeight = 72;
+
+    for (let n = 0; n < words.length; n++) {
+      const testLine = line + words[n] + " ";
+      const metrics = ctx.measureText(testLine);
+      if (metrics.width > maxWidth && n > 0) {
+        ctx.fillText(line.trim(), 540, y);
+        line = words[n] + " ";
+        y += lineHeight;
+      } else {
+        line = testLine;
+      }
+    }
+    ctx.fillText(line.trim(), 540, y);
+
+    // Hashtags
+    ctx.font = "bold 32px monospace";
+    ctx.fillStyle = "#fef08a";
+    ctx.fillText(currentPreview.hashtags, 540, y + 110);
+
+    // Story Bottom Call-To-Action & Watermark
+    ctx.font = "bold 30px sans-serif";
+    ctx.fillStyle = "rgba(255, 255, 255, 0.85)";
+    ctx.fillText("Created with Vamozhi.com 🌐", 540, 1680);
+
+    ctx.font = "600 24px sans-serif";
+    ctx.fillStyle = "rgba(253, 230, 138, 0.75)";
+    ctx.fillText("Swipe Up • Share to Instagram Story", 540, 1740);
+
+    // Download Trigger
+    const image = canvas.toDataURL("image/png");
+    const link = document.createElement("a");
+    link.download = `vamozhi-story-${currentPreview.id}.png`;
+    link.href = image;
+    link.click();
+  };
 
   const scrollToId = (id: string) => {
     const element = document.getElementById(id);
@@ -382,23 +540,41 @@ export default function Hero() {
                     </p>
                   </div>
 
-                  {/* Copy Button overlay */}
-                  <div className="z-10 flex justify-center">
+                  {/* Copy, Download Image & Next Caption Action Row */}
+                  <div className="z-10 flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
                     <button
                       onClick={handleCopyPreview}
-                      className="px-4 py-2 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer border border-white/20 active:scale-95 shadow-md"
+                      className="px-3 py-1.5 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer border border-white/20 active:scale-95 shadow-md"
                     >
                       {copied ? (
                         <>
                           <Check className="w-3.5 h-3.5 text-emerald-400" />
-                          <span>Copied to Clipboard!</span>
+                          <span>Copied!</span>
                         </>
                       ) : (
                         <>
                           <Copy className="w-3.5 h-3.5 text-white" />
-                          <span>Copy Caption</span>
+                          <span>Copy</span>
                         </>
                       )}
+                    </button>
+
+                    <button
+                      onClick={handleDownloadImage}
+                      title="Download Post as PNG Image"
+                      className="px-3 py-1.5 bg-emerald-500/30 hover:bg-emerald-500/40 backdrop-blur-md text-emerald-200 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer border border-emerald-400/40 active:scale-95 shadow-md"
+                    >
+                      <Download className="w-3.5 h-3.5 text-emerald-300" />
+                      <span>Download Image 🖼️</span>
+                    </button>
+
+                    <button
+                      onClick={handleShufflePreview}
+                      title="Show Next Random Caption"
+                      className="px-2.5 py-1.5 bg-amber-400/20 hover:bg-amber-400/30 backdrop-blur-md text-amber-300 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer border border-amber-400/30 active:scale-95 shadow-md"
+                    >
+                      <RefreshCw className="w-3.5 h-3.5" />
+                      <span>Next 🎲</span>
                     </button>
                   </div>
                 </motion.div>

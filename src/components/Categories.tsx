@@ -93,20 +93,20 @@ export default function Categories({ onSelectCategory }: CategoriesProps) {
     : CATEGORY_ITEMS.filter(cat => cat.tag === activeFilter);
 
   return (
-    <section className="py-14 md:py-20 bg-gradient-to-b from-[#faf9f6] via-slate-50/50 to-[#faf9f6]" id="categories">
+    <section className="py-8 sm:py-12 bg-gradient-to-b from-[#faf9f6] via-slate-50/50 to-[#faf9f6]" id="categories">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 mb-8 sm:mb-10">
           <div className="text-left max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100/70 text-purple-900 text-xs font-black uppercase tracking-wider mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100/70 text-purple-900 text-[10px] sm:text-xs font-black uppercase tracking-wider mb-2">
               <Compass className="w-3.5 h-3.5 text-purple-700" />
               Curated Mood Library
             </div>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight" id="categories-heading">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tight" id="categories-heading">
               {language === 'en' ? "Explore Caption Categories" : "വിഭാഗങ്ങൾ കണ്ടെത്തൂ"}
             </h2>
-            <p className="text-sm sm:text-base text-slate-500 mt-2 font-medium">
+            <p className="text-xs sm:text-sm text-slate-500 mt-1.5 font-medium">
               {language === 'en' ? "Select any category to auto-load handcrafted Malayalam & Manglish captions into the Generator Studio." : "കൂടുതൽ വരികൾ ജനറേറ്ററിലേക്ക് ലോഡ് ചെയ്യുന്നതിനായി ഏതെങ്കിലും ഒരു വിഭാഗം തിരഞ്ഞെടുക്കുക."}
             </p>
           </div>
@@ -117,7 +117,7 @@ export default function Categories({ onSelectCategory }: CategoriesProps) {
               <button
                 key={filter}
                 onClick={() => setActiveFilter(filter)}
-                className={`px-4 py-2 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all cursor-pointer shrink-0 ${
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all cursor-pointer shrink-0 ${
                   activeFilter === filter
                     ? "bg-purple-950 text-white shadow-md shadow-purple-950/10 scale-[1.02]"
                     : "bg-white hover:bg-slate-100 text-slate-600 border border-slate-200/80"
@@ -129,8 +129,8 @@ export default function Categories({ onSelectCategory }: CategoriesProps) {
           </div>
         </div>
 
-        {/* Categories Bento Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5" id="categories-grid-container">
+        {/* Categories Bento Grid - Perfect Fit Layout */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-5" id="categories-grid-container">
           {filteredCategories.map((item) => {
             const translation = CATEGORY_TRANSLATIONS[item.id];
             const name = language === 'en' || !translation ? item.name : translation.name;
@@ -140,31 +140,34 @@ export default function Categories({ onSelectCategory }: CategoriesProps) {
               <div
                 key={item.id}
                 onClick={() => onSelectCategory(item.id)}
-                className="group bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/90 hover:border-purple-400 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col justify-between text-left relative overflow-hidden"
+                className="group bg-white rounded-3xl p-4 sm:p-5 border border-slate-200/90 hover:border-purple-400 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col justify-between h-full text-left relative overflow-hidden"
                 id={`category-card-${item.id}`}
               >
                 {/* Top Subtle Gradient Stripe */}
-                <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${item.color} opacity-80 group-hover:h-1.5 transition-all duration-300`} />
+                <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${item.color} opacity-80 group-hover:h-2 transition-all duration-300`} />
 
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-3xl sm:text-4xl block group-hover:scale-110 transition-transform origin-left">
-                      {item.emoji}
-                    </span>
-                    <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 bg-slate-50 px-2 py-0.5 rounded-md border border-slate-100">
-                      {item.count}
-                    </span>
+                <div className="space-y-2.5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-2.5">
+                      <span className="text-3xl sm:text-4xl block group-hover:scale-110 transition-transform origin-left">
+                        {item.emoji}
+                      </span>
+                      <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 bg-slate-50 px-2 py-0.5 rounded-md border border-slate-100">
+                        {item.count}
+                      </span>
+                    </div>
+
+                    <h3 className="font-extrabold text-slate-900 text-base sm:text-lg group-hover:text-purple-900 transition-colors flex items-center gap-1">
+                      {name}
+                    </h3>
                   </div>
 
-                  <h3 className="font-extrabold text-slate-900 text-base sm:text-lg group-hover:text-purple-900 transition-colors flex items-center gap-1">
-                    {name}
-                  </h3>
-                  <p className="text-xs text-slate-500 mt-1.5 leading-relaxed font-normal">
+                  <p className="text-xs text-slate-500 leading-relaxed font-normal min-h-[36px] line-clamp-2">
                     {desc}
                   </p>
                 </div>
 
-                <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-black text-purple-900 uppercase tracking-wider group-hover:text-pink-600 transition-colors">
+                <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-black text-purple-900 uppercase tracking-wider group-hover:text-pink-600 transition-colors">
                   <span>{language === 'en' ? "Open Studio" : "തുടങ്ങാം"}</span>
                   <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </div>
