@@ -365,7 +365,7 @@ export default function LearningSystem({ defaultTab = "letters" }: LearningSyste
                 <div className="md:col-span-4 flex justify-center">
                   <div className="relative w-full h-auto max-w-[260px] rounded-2xl shadow-md border border-amber-200/80 bg-amber-50 overflow-hidden group">
                     <img
-                      src="https://vamozhi.com/ezhuthachan_drawing.jpg"
+                      src="https://www.redbridge.in/assets/ezhuthachan.png"
                       alt="Thunchaththu Ezhuthachan Portrait Drawing"
                       referrerPolicy="no-referrer"
                       className="w-full h-auto object-cover rounded-2xl aspect-[3/4] block"

@@ -4,6 +4,7 @@
  */
 
 import { useState, useEffect } from "react";
+import { Keyboard, GraduationCap, Sparkles, Hash } from "lucide-react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import LearningSystem from "./components/LearningSystem";
@@ -267,7 +268,7 @@ export default function App() {
   };
 
   // Determine which page content group is active
-  const isHomeOrGeneratorRoute = currentPath === "/" || 
+  const isHomeOrGeneratorRoute = 
     currentPath === "/malayalam-caption-generator" ||
     currentPath === "/instagram-caption-generator" ||
     currentPath === "/facebook-caption-generator" ||
@@ -280,11 +281,23 @@ export default function App() {
     currentPath === "/bumble-bio-generator" ||
     currentPath === "/matrimony-bio-generator";
 
-  const isPhoneticTypingRoute = currentPath === "/manglish-to-malayalam";
+  const isPhoneticTypingRoute = currentPath === "/" || currentPath === "/manglish-to-malayalam";
   const isMalayalamNumbersRoute = currentPath === "/malayalam-numbers";
   const isLearnMalayalamRoute = currentPath === "/learn-malayalam";
   const isHashtagsRoute = currentPath === "/malayalam-hashtags";
   const isMalayalamDictionaryRoute = currentPath === "/malayalam-dictionary";
+
+  // Super-route selectors for Tab Bar grouping
+  const isTypingAndDictionaryActive = isPhoneticTypingRoute || isMalayalamDictionaryRoute;
+  const isLearnMalayalamActive = isLearnMalayalamRoute || isMalayalamNumbersRoute;
+  const isCaptionGeneratorActive = isHomeOrGeneratorRoute;
+  const isHashtagsActive = isHashtagsRoute;
+
+  const isMainWorkspaceRoute = 
+    isTypingAndDictionaryActive || 
+    isLearnMalayalamActive || 
+    isCaptionGeneratorActive || 
+    isHashtagsActive;
 
   return (
     <div className="min-h-screen flex flex-col bg-[#faf9f6] text-neutral-800" id="app-root-container">
@@ -300,6 +313,90 @@ export default function App() {
 
       {/* Main Container Views Switching */}
       <div className="flex-1 pt-[130px]" id="vamozhi-page-outlet">
+        
+        {/* Dynamic Main Workspace Tabs (Adheres to user's ordered layout request) */}
+        {isMainWorkspaceRoute && (
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8" id="vamozhi-tools-dashboard-tabs">
+            <div className="bg-white border border-slate-200/80 p-2 rounded-3xl shadow-sm flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
+              <div className="flex flex-wrap items-center gap-1.5 w-full lg:w-auto overflow-x-auto no-scrollbar" id="primary-tools-switcher">
+                <button
+                  onClick={() => handleNavigate("/")}
+                  className={`flex items-center gap-2 px-5 py-3 rounded-2xl text-xs font-black uppercase tracking-wider transition-all duration-300 cursor-pointer shrink-0 ${
+                    isTypingAndDictionaryActive
+                      ? "bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white shadow-md shadow-purple-950/10 scale-[1.02]"
+                      : "bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-slate-800"
+                  }`}
+                >
+                  <Keyboard className="w-4 h-4 text-pink-500" />
+                  Typing & Dictionary
+                </button>
+
+                <button
+                  onClick={() => handleNavigate("/learn-malayalam")}
+                  className={`flex items-center gap-2 px-5 py-3 rounded-2xl text-xs font-black uppercase tracking-wider transition-all duration-300 cursor-pointer shrink-0 ${
+                    isLearnMalayalamActive
+                      ? "bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white shadow-md shadow-purple-950/10 scale-[1.02]"
+                      : "bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-slate-800"
+                  }`}
+                >
+                  <GraduationCap className="w-4 h-4 text-purple-500" />
+                  Learn Malayalam
+                </button>
+
+                <button
+                  onClick={() => handleNavigate("/malayalam-caption-generator")}
+                  className={`flex items-center gap-2 px-5 py-3 rounded-2xl text-xs font-black uppercase tracking-wider transition-all duration-300 cursor-pointer shrink-0 ${
+                    isCaptionGeneratorActive
+                      ? "bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white shadow-md shadow-purple-950/10 scale-[1.02]"
+                      : "bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-slate-800"
+                  }`}
+                >
+                  <Sparkles className="w-4 h-4 text-amber-500" />
+                  Caption Generator
+                </button>
+
+                <button
+                  onClick={() => handleNavigate("/malayalam-hashtags")}
+                  className={`flex items-center gap-2 px-5 py-3 rounded-2xl text-xs font-black uppercase tracking-wider transition-all duration-300 cursor-pointer shrink-0 ${
+                    isHashtagsActive
+                      ? "bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white shadow-md shadow-purple-950/10 scale-[1.02]"
+                      : "bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-slate-800"
+                  }`}
+                >
+                  <Hash className="w-4 h-4 text-pink-500" />
+                  Hashtags
+                </button>
+              </div>
+
+              {/* Quick Sub-Toggles for nested tools (like Typing vs Dictionary) */}
+              {isTypingAndDictionaryActive && (
+                <div className="flex items-center gap-1 bg-slate-50 p-1 rounded-2xl shrink-0 self-center" id="sub-tool-toggle">
+                  <button
+                    onClick={() => handleNavigate("/")}
+                    className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+                      currentPath !== "/malayalam-dictionary"
+                        ? "bg-white text-purple-950 shadow-sm font-black"
+                        : "text-slate-500 hover:text-slate-800"
+                    }`}
+                  >
+                    ⌨️ Typing Keyboard
+                  </button>
+                  <button
+                    onClick={() => handleNavigate("/malayalam-dictionary")}
+                    className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+                      currentPath === "/malayalam-dictionary"
+                        ? "bg-white text-purple-950 shadow-sm font-black"
+                        : "text-slate-500 hover:text-slate-800"
+                    }`}
+                  >
+                    📖 Search Dictionary
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
         {isHomeOrGeneratorRoute && (
           <>
             {/* Elegant Hero card */}
