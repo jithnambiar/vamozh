@@ -4,7 +4,6 @@ import {
   Sparkles, 
   AlignLeft, 
   Globe, 
-  Filter, 
   MessageSquare, 
   Loader2,
   Mic,
@@ -125,24 +124,9 @@ export default function Generator({
     } else if (currentPath === "/tiktok-caption-generator") {
       setContentType("photo-caption");
       setPlatform("tiktok");
-    } else if (currentPath === "/malayalam-instagram-bio") {
-      setContentType("bio");
-      setPlatform("instagram");
     } else if (currentPath === "/malayalam-reel-hooks") {
       setContentType("hook");
       setPlatform("instagram");
-    } else if (currentPath === "/arike-bio-generator") {
-      setContentType("bio");
-      setPlatform("arike");
-      setCategory("love");
-    } else if (currentPath === "/bumble-bio-generator") {
-      setContentType("bio");
-      setPlatform("bumble");
-      setCategory("love");
-    } else if (currentPath === "/matrimony-bio-generator") {
-      setContentType("bio");
-      setPlatform("matrimony");
-      setCategory("love");
     }
   }, [currentPath]);
 
@@ -282,9 +266,7 @@ export default function Generator({
           {uiLang === 'en' ? "Interactive Writing Studio" : "ഇന്ററാക്ടീവ് റൈറ്റിംഗ് സ്റ്റുഡിയോ"}
         </span>
         <h2 className="text-3xl font-black tracking-tight text-neutral-900" id="generator-heading">
-          {contentType === "bio" ? (uiLang === 'en' ? "Malayalam Profile Bio Creator" : "മലയാളം പ്രൊഫൈൽ ബയോ ക്രിയേറ്റർ") : 
-           contentType === "hook" ? (uiLang === 'en' ? "Malayalam Reel Hooks Creator" : "മലയാളം റീൽ ഹൂക്ക്സ് ക്രിയേറ്റർ") : 
-           contentType === "pickup_line" ? (uiLang === 'en' ? "Classy Malayalam Pickup Lines" : "പിക്ക്അപ്പ് ലൈൻസ്") : 
+          {contentType === "hook" ? (uiLang === 'en' ? "Malayalam Reel Hooks Creator" : "മലയാളം റീൽ ഹൂക്ക്സ് ക്രിയേറ്റർ") : 
            (uiLang === 'en' ? "Social Caption Generator" : "സോഷ്യൽ ക്യാപ്ഷൻ ജനറേറ്റർ")}
         </h2>
         <p className="text-sm text-neutral-500 mt-2">
@@ -311,7 +293,7 @@ export default function Generator({
         <div className="flex flex-col gap-6 text-left">
           
           {/* CORE FIELDS (Simple, high-impact grid) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6" id="core-fields-grid">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6" id="core-fields-grid">
             
             {/* 1. Content Type */}
             <div className="flex flex-col gap-1.5" id="field-content-type">
@@ -319,12 +301,10 @@ export default function Generator({
                 <AlignLeft className="w-3.5 h-3.5 text-purple-700" />
                 {t("step1")}
               </label>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2" id="input-content-type">
+              <div className="grid grid-cols-2 gap-2" id="input-content-type">
                 {[
                   { id: "photo-caption", label: uiLang === 'en' ? "Photo Caption" : "ഫോട്ടോ ക്യാപ്ഷൻ" },
-                  { id: "bio", label: uiLang === 'en' ? "Profile Bio" : "പ്രൊഫൈൽ ബയോ" },
-                  { id: "hook", label: uiLang === 'en' ? "Reel Hook" : "റീൽ ഹൂക്ക്" },
-                  { id: "pickup_line", label: uiLang === 'en' ? "Pickup Line" : "പിക്ക്അപ്പ് ലൈൻ" }
+                  { id: "hook", label: uiLang === 'en' ? "Reel Hook" : "റീൽ ഹൂക്ക്" }
                 ].map((type) => (
                   <button
                     key={type.id}
@@ -342,27 +322,7 @@ export default function Generator({
               </div>
             </div>
 
-            {/* 2. Vibe Category */}
-            <div className="flex flex-col gap-1.5" id="field-vibe-category">
-              <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
-                <Filter className="w-3.5 h-3.5 text-purple-700" />
-                {t("step4")}
-              </label>
-              <select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-xs font-bold focus:outline-none focus:ring-1 focus:ring-slate-900 cursor-pointer text-slate-800 h-[46px]"
-                id="input-category-select"
-              >
-                {CATEGORIES.map((cat) => (
-                  <option key={cat.id} value={cat.id}>
-                    {t("cat_" + cat.id.replace("-", ""))}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* 3. Language Selector */}
+            {/* 2. Language Selector */}
             <div className="flex flex-col gap-1.5" id="field-language">
               <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
                 <Globe className="w-3.5 h-3.5 text-purple-700" />
@@ -389,7 +349,7 @@ export default function Generator({
               </div>
             </div>
 
-            {/* 4. Keyword */}
+            {/* 3. Keyword */}
             <div className="flex flex-col gap-1.5" id="field-keyword">
               <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5 justify-between">
                 <span className="flex items-center gap-1.5">

@@ -42,9 +42,6 @@ const ALL_SEARCHABLE_TOOLS = [
   { name: "WhatsApp Status Generator", path: "/whatsapp-status-generator" },
   { name: "Snapchat Caption Creator", path: "/snapchat-caption-generator" },
   { name: "TikTok Video Caption", path: "/tiktok-caption-generator" },
-  { name: "Arike Dating Bio", path: "/arike-bio-generator" },
-  { name: "Bumble Profile Bio", path: "/bumble-bio-generator" },
-  { name: "Matrimony Bio Generator", path: "/matrimony-bio-generator" },
   { name: "Manglish to Malayalam Typing", path: "/manglish-to-malayalam" },
   { name: "Instagram Reel Hooks", path: "/malayalam-reel-hooks" },
   { name: "Malayalam Hashtag Sets", path: "/malayalam-hashtags" }

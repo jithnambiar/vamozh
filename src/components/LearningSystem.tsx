@@ -361,134 +361,48 @@ export default function LearningSystem({ defaultTab = "letters" }: LearningSyste
             <div className="space-y-8" id="learning-letters-view">
               
               {/* Thunchath Ezhuthachan Biography Card */}
-              <div className="bg-gradient-to-br from-amber-50/60 via-orange-50/20 to-transparent border border-amber-200/60 rounded-3xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-8 items-center" id="ezhuthachan-biography">
-                <div className="md:col-span-4 flex justify-center">
-                  <div className="relative w-full h-auto max-w-[260px] rounded-2xl shadow-md border border-amber-200/80 bg-amber-50 overflow-hidden group">
+              <div className="bg-gradient-to-br from-amber-50/60 via-orange-50/20 to-transparent border border-amber-200/60 rounded-3xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-stretch text-left" id="ezhuthachan-biography">
+                <div className="md:col-span-7 lg:col-span-8 space-y-4 flex flex-col justify-between">
+                  <div className="space-y-4">
+                    <span className="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[10px] font-extrabold uppercase tracking-wider inline-block">
+                      Father of Malayalam Literature (മലയാളഭാഷയുടെ പിതാവ്)
+                    </span>
+                    <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                      Thunchaththu Ramanujan Ezhuthachan
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                      Ezhuthachan (16th Century, Tirur, Kerala) is the revered father of the Malayalam language. He revolutionized Kerala's literary culture by standardizing the <strong>56-letter Grantha-based Malayalam script (Lipi)</strong>, allowing all people to read and learn without class division.
+                    </p>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                      His masterpieces, including <em>Adhyathmaramayanam Kilippattu</em> and <em>Mahabharatham Kilippattu</em>, formulated the foundational grammar, linguistic beauty, and poetic structure of modern Malayalam. Malayalam was officially recognized as a <strong>Classical Language</strong> in 2013, representing over 38 million speakers worldwide.
+                    </p>
+                  </div>
+                  <div className="bg-amber-100/50 border border-amber-200/40 rounded-xl p-3.5 text-xs text-amber-900 flex flex-col gap-1 font-medium mt-2">
+                    <span className="font-bold">Did you know?</span>
+                    <span>The modern Malayalam alphabet contains 56 core letters: 16 Swarangal (Vowels), 37 Vyanjanangal (Consonants) and 3 Yogavahangal / Chillus (Special/pure letters). Learn the complete system below.</span>
+                  </div>
+                </div>
+
+                {/* Right Side Image Container adjusted to content height */}
+                <div className="md:col-span-5 lg:col-span-4 flex flex-col justify-center">
+                  <div className="relative w-full h-full min-h-[260px] max-h-[380px] rounded-2xl shadow-md border border-amber-200/80 bg-amber-50 overflow-hidden flex flex-col justify-between">
                     <img
                       src="https://www.redbridge.in/assets/ezhuthachan.png"
                       alt="Thunchaththu Ezhuthachan Portrait Drawing"
                       referrerPolicy="no-referrer"
-                      className="w-full h-auto object-cover rounded-2xl aspect-[3/4] block"
+                      className="w-full h-full object-cover rounded-2xl block"
                       onError={(e) => {
-                        // Fallback to local Vite path /ezhuthachan_drawing.jpg if the live web URL fails
                         if (e.currentTarget.src !== window.location.origin + "/ezhuthachan_drawing.jpg") {
                           e.currentTarget.src = "/ezhuthachan_drawing.jpg";
-                        } else {
-                          // Fallback to elegant vector SVG illustration if no image asset is found
-                          e.currentTarget.style.display = 'none';
-                          const fallback = document.getElementById('ezhuthachan-svg-fallback');
-                          if (fallback) fallback.classList.remove('hidden');
                         }
                       }}
                     />
-                    <div id="ezhuthachan-svg-fallback" className="w-full h-auto">
-                      <svg viewBox="0 0 400 400" className="w-full h-auto rounded-2xl bg-amber-50">
-                        <defs>
-                          <radialGradient id="sun-glow" cx="50%" cy="40%" r="50%">
-                            <stop offset="0%" stopColor="#fffbeb" stopOpacity="1" />
-                            <stop offset="100%" stopColor="#fef3c7" stopOpacity="1" />
-                          </radialGradient>
-                          <linearGradient id="shawl-grad" x1="0" y1="0" x2="1" y2="1">
-                            <stop offset="0%" stopColor="#ea580c" />
-                            <stop offset="100%" stopColor="#c2410c" />
-                          </linearGradient>
-                        </defs>
-
-                        <rect width="100%" height="100%" fill="url(#sun-glow)" />
-
-                        {/* Background Aura / Traditional Temple Arch */}
-                        <path d="M 80 400 A 120 120 0 0 1 320 400" fill="none" stroke="#fcd34d" strokeWidth="8" strokeLinecap="round" opacity="0.4" />
-                        <path d="M 100 400 A 100 100 0 0 1 300 400" fill="none" stroke="#fcd34d" strokeWidth="4" strokeLinecap="round" opacity="0.3" strokeDasharray="6 6" />
-
-                        {/* Sacred Flame (Nilavilakku) on the side */}
-                        <g transform="translate(60, 240)">
-                          <path d="M -15 80 L 15 80 L 10 70 L -10 70 Z" fill="#d97706" />
-                          <line x1="0" y1="70" x2="0" y2="20" stroke="#d97706" strokeWidth="8" />
-                          <path d="M -20 20 Q 0 35 20 20 Q 0 10 -20 20" fill="#b45309" />
-                          <path d="M 0 15 Q -8 5 0 -12 Q 8 5 0 15 Z" fill="#f97316" />
-                          <path d="M 0 10 Q -4 3 0 -5 Q 4 3 0 10 Z" fill="#fdba74" />
-                        </g>
-
-                        {/* Ezhuthachan Figure */}
-                        <circle cx="200" cy="115" r="28" fill="#1e293b" />
-                        <circle cx="200" cy="80" r="18" fill="#1e293b" /> {/* Kuduma */}
-
-                        <circle cx="158" cy="155" r="10" fill="#fbcfe8" opacity="0.7" />
-                        <circle cx="242" cy="155" r="10" fill="#fbcfe8" opacity="0.7" />
-
-                        {/* Face */}
-                        <path d="M 160 140 Q 200 110 240 140 Q 240 195 200 205 Q 160 195 160 140 Z" fill="#fed7aa" stroke="#c2410c" strokeWidth="2.5" />
-
-                        {/* Forehead Bhasmam */}
-                        <path d="M 175 142 L 225 142" stroke="#ffffff" strokeWidth="3.5" />
-                        <path d="M 175 148 L 225 148" stroke="#ffffff" strokeWidth="3.5" />
-                        <path d="M 175 154 L 225 154" stroke="#ffffff" strokeWidth="3.5" />
-                        <circle cx="200" cy="148" r="3.5" fill="#dc2626" />
-
-                        {/* Eyes closed in contemplation */}
-                        <path d="M 172 165 Q 185 172 192 165" fill="none" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" />
-                        <path d="M 208 165 Q 215 172 228 165" fill="none" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" />
-
-                        {/* Eyebrows */}
-                        <path d="M 170 159 Q 183 154 194 160" fill="none" stroke="#1e293b" strokeWidth="2" strokeLinecap="round" />
-                        <path d="M 206 160 Q 217 154 230 159" fill="none" stroke="#1e293b" strokeWidth="2" strokeLinecap="round" />
-
-                        <path d="M 200 165 L 200 180 Q 200 183 204 181" fill="none" stroke="#c2410c" strokeWidth="2" strokeLinecap="round" />
-                        <path d="M 188 190 Q 200 198 212 190" fill="none" stroke="#b91c1c" strokeWidth="2.5" strokeLinecap="round" />
-
-                        {/* Beard */}
-                        <path d="M 160 185 Q 200 245 240 185 Q 200 235 160 185" fill="#f8fafc" stroke="#64748b" strokeWidth="1.5" />
-
-                        {/* Rudraksha Beads */}
-                        <g stroke="#7c2d12" strokeWidth="1.5" fill="#ea580c">
-                          <circle cx="200" cy="225" r="4.5" />
-                          <circle cx="188" cy="228" r="4.5" />
-                          <circle cx="212" cy="228" r="4.5" />
-                          <circle cx="177" cy="233" r="4.5" />
-                          <circle cx="223" cy="233" r="4.5" />
-                        </g>
-
-                        {/* Saffron Shawl */}
-                        <path d="M 110 400 L 290 400 L 260 260 L 140 260 Z" fill="#fed7aa" />
-                        <path d="M 130 265 C 130 265 170 330 200 330 C 230 330 270 265 270 265 L 290 400 L 110 400 Z" fill="url(#shawl-grad)" opacity="0.95" stroke="#7c2d12" strokeWidth="1.5" />
-
-                        {/* Thaliyola Palm-leaf manuscript */}
-                        <g transform="translate(140, 310)">
-                          <rect x="-10" y="5" width="140" height="15" rx="3" fill="#fef08a" stroke="#ca8a04" strokeWidth="1.5" />
-                          <path d="M 5 12 Q 15 8 25 12 T 45 12 T 65 12 T 85 12 T 105 12" fill="none" stroke="#71717a" strokeWidth="1" strokeDasharray="3 3" />
-                          <path d="M 100 25 C 105 15 120 15 125 25 L 120 35 Z" fill="#fed7aa" stroke="#c2410c" strokeWidth="1.5" />
-                          <line x1="102" y1="-5" x2="116" y2="28" stroke="#334155" strokeWidth="3.5" strokeLinecap="round" />
-                          <line x1="102" y1="-5" x2="116" y2="28" stroke="#94a3b8" strokeWidth="1.5" strokeLinecap="round" />
-                          <path d="M -5 20 C -10 10 5 10 10 20 Z" fill="#fed7aa" stroke="#c2410c" strokeWidth="1.5" />
-                        </g>
-                      </svg>
-                    </div>
-
-                    {/* Copyright Protected Notice Overlay */}
-                    <div className="absolute bottom-0 left-0 right-0 bg-neutral-900/80 backdrop-blur-xs py-2 px-3 text-center border-t border-white/5">
+                    {/* Copyright Protected Overlay Banner */}
+                    <div className="absolute bottom-0 left-0 right-0 bg-slate-950/80 backdrop-blur-xs py-1.5 px-3 text-center border-t border-white/10">
                       <span className="text-[10px] text-amber-200 font-extrabold uppercase tracking-wider block">
                         Drawing copyright protected
                       </span>
                     </div>
-                  </div>
-                </div>
-                
-                <div className="md:col-span-8 space-y-4 text-left">
-                  <span className="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[10px] font-extrabold uppercase tracking-wider">
-                    Father of Malayalam Literature (മലയാളഭാഷയുടെ പിതാവ്)
-                  </span>
-                  <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-                    Thunchaththu Ramanujan Ezhuthachan
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                    Ezhuthachan (16th Century, Tirur, Kerala) is the revered father of the Malayalam language. He revolutionized Kerala's literary culture by standardizing the <strong>56-letter Grantha-based Malayalam script (Lipi)</strong>, allowing all people to read and learn without class division.
-                  </p>
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                    His masterpieces, including <em>Adhyathmaramayanam Kilippattu</em> and <em>Mahabharatham Kilippattu</em>, formulated the foundational grammar, linguistic beauty, and poetic structure of modern Malayalam. Malayalam was officially recognized as a <strong>Classical Language</strong> in 2013, representing over 38 million speakers worldwide.
-                  </p>
-                  <div className="bg-amber-100/50 border border-amber-200/40 rounded-xl p-3.5 text-xs text-amber-900 flex flex-col gap-1 font-medium">
-                    <span className="font-bold">Did you know?</span>
-                    <span>The modern Malayalam alphabet contains 56 core letters: 16 Swarangal (Vowels), 37 Vyanjanangal (Consonants) and 3 Yogavahangal / Chillus (Special/pure letters). Learn the complete system below.</span>
                   </div>
                 </div>
               </div>
