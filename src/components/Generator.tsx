@@ -157,7 +157,7 @@ export default function Generator({
       tone: "classy",
       length: "medium",
       emojiSetting: "minimal",
-      resultsCount: 5,
+      resultsCount: 12,
       keyword,
       hashtagCount: "5"
     });
@@ -179,7 +179,7 @@ export default function Generator({
         tone: "classy",
         length: "medium",
         emojiSetting: "minimal",
-        resultsCount: 5,
+        resultsCount: 12,
         keyword,
         hashtagCount: "5"
       });
@@ -211,7 +211,7 @@ export default function Generator({
       tone: "classy",
       length: "medium",
       emojiSetting: "minimal",
-      resultsCount: 5,
+      resultsCount: 12,
       keyword,
       hashtagCount: "5"
     };
@@ -276,17 +276,11 @@ export default function Generator({
     <section className="py-12 px-4 sm:px-6 max-w-5xl mx-auto" id="generator">
       
       {/* Dynamic Header based on route */}
-      <div className="text-center max-w-2xl mx-auto mb-10">
-        <span className="px-3 py-1 rounded-full bg-purple-50 text-purple-700 text-[10px] font-black tracking-widest uppercase inline-block mb-3">
-          {uiLang === 'en' ? "Interactive Writing Studio" : "ഇന്ററാക്ടീവ് റൈറ്റിംഗ് സ്റ്റുഡിയോ"}
-        </span>
-        <h2 className="text-3xl font-black tracking-tight text-neutral-900" id="generator-heading">
+      <div className="text-center max-w-2xl mx-auto mb-6">
+        <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-neutral-900" id="generator-heading">
           {contentType === "hook" ? (uiLang === 'en' ? "Malayalam Reel Hooks Creator" : "മലയാളം റീൽ ഹൂക്ക്സ് ക്രിയേറ്റർ") : 
            (uiLang === 'en' ? "Social Caption Generator" : "സോഷ്യൽ ക്യാപ്ഷൻ ജനറേറ്റർ")}
         </h2>
-        <p className="text-sm text-neutral-500 mt-2">
-          {uiLang === 'en' ? "Change any filter to instantly display pre-set options from our hand-crafted database. Use the button to generate personalized versions with Gemini AI!" : "താഴെയുള്ള ഫിൽട്ടറുകൾ മാറ്റുമ്പോൾത്തന്നെ വരികൾ തത്സമയം ലഭിക്കും. അതോടൊപ്പം ജെമിനി AI ഉപയോഗിച്ച് പ്രത്യേക വരികൾ നിർമ്മിക്കാനും താഴെയുള്ള ബട്ടൺ പ്രയോജനപ്പെടുത്താം!"}
-        </p>
       </div>
 
       {/* Main Form Glass Bento Layout */}

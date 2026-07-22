@@ -22,7 +22,13 @@ import {
   Palmtree,
   Smile,
   RefreshCw,
-  Download
+  Download,
+  GraduationCap,
+  Book,
+  Languages,
+  Hash,
+  Lightbulb,
+  Film
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useLanguage } from "../context/LanguageContext";
@@ -89,6 +95,16 @@ const HERO_PREVIEWS = [
     likes: "14,200"
   },
   {
+    id: "reel-hooks",
+    tag: "Reel Hooks & Ideas",
+    emoji: "🎬💡",
+    textMl: "ബിസിനസ്സ് വളർത്താൻ 5 റീൽ ഹുക്കുകൾ: 1. 'നിങ്ങൾ ഈ തെറ്റ് ചെയ്യുന്നുണ്ടോ?', 2. 'ആരും പറയാത്ത രഹസ്യം!' 🎬🔥",
+    textManglish: "Business valarthan 5 Reel hooks: 1. 'Ninkal ee thettu cheyyunundo?', 2. 'Aarum parayatha rahasyam!' 🎬🔥",
+    hashtags: "#reelhooks #contentideas #vamozhi",
+    bg: "from-fuchsia-950 via-purple-900 to-indigo-950",
+    likes: "18,420"
+  },
+  {
     id: "nostalgia",
     tag: "Nostalgia / School",
     emoji: "🎒📚",
@@ -110,15 +126,20 @@ const HERO_PREVIEWS = [
   }
 ];
 
+interface HeroProps {
+  onNavigate?: (path: string) => void;
+  onSelectCategory?: (categorySlug: string) => void;
+}
+
 const VIBE_CHIPS = [
-  { label: "☕ Kattans & Rain", keyword: "chaya rain", icon: Coffee },
-  { label: "🌴 Kerala Pride", keyword: "kerala", icon: Palmtree },
-  { label: "😎 Attitude Lines", keyword: "attitude", icon: Flame },
-  { label: "💖 Love & Romance", keyword: "love", icon: HeartHandshake },
-  { label: "🤪 Funny & Trolls", keyword: "funny", icon: Smile },
+  { label: "☕ Kattans & Rain", cat: "kattan-chai", icon: Coffee },
+  { label: "🌴 Kerala Pride", cat: "kerala-vibes", icon: Palmtree },
+  { label: "😎 Attitude Lines", cat: "attitude", icon: Flame },
+  { label: "💖 Love & Romance", cat: "love", icon: HeartHandshake },
+  { label: "🤪 Funny & Trolls", cat: "funny", icon: Smile },
 ];
 
-export default function Hero() {
+export default function Hero({ onNavigate, onSelectCategory }: HeroProps) {
   const { t, language } = useLanguage();
   
   // Pick a random preview index on each load!
@@ -290,22 +311,20 @@ export default function Hero() {
           {/* Left Column: Copy & Actions */}
           <div className="lg:col-span-7 flex flex-col items-start gap-4 md:gap-6 text-left" id="hero-left-content">
             
-            {/* Live Indicator Pill */}
+            {/* Trust Badges */}
             <motion.div
               initial={{ opacity: 0, y: -15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-purple-900/10 via-pink-900/10 to-orange-900/10 border border-purple-200/80 shadow-sm"
+              className="flex flex-wrap items-center gap-2"
               id="hero-badge"
             >
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-500 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-pink-600"></span>
-              </span>
-              <span className="text-xs font-black uppercase tracking-wider text-purple-950 flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-pink-600" />
-                {t("heroBadge")}
-              </span>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white text-xs font-black shadow-xs">
+                <span>🚀 5000+ Creators Using it for Caption & Hashtags</span>
+              </div>
+              <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-900 text-xs font-black">
+                <span>Specially Formulated for Kerala Creators ❤️</span>
+              </div>
             </motion.div>
 
             {/* Main Headline */}
@@ -313,12 +332,12 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-slate-900 leading-[1.08] font-sans"
+              className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-slate-900 leading-[1.1] font-sans"
               id="hero-title"
             >
-              {t("heroTitleFirst")} <br />
+              Learn, Create & <br />
               <span className="bg-gradient-to-r from-purple-950 via-pink-600 to-amber-600 bg-clip-text text-transparent italic font-serif">
-                {t("heroTitleSecond")}
+                Explore Malayalam
               </span>
             </motion.h1>
 
@@ -327,36 +346,109 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-base sm:text-lg md:text-xl text-slate-600 max-w-2xl font-normal leading-relaxed"
+              className="text-base sm:text-lg text-slate-600 max-w-2xl font-normal leading-relaxed"
               id="hero-description"
             >
-              {t("heroSubtitle")}
+              Find the perfect Malayalam and Manglish captions, quotes, Reel hooks and trending hashtags for instagram, whatsapp, snapchat and more.
             </motion.p>
 
-            {/* Primary Action Buttons */}
+            {/* Primary Action Buttons (Strictly in user's exact order) */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto mt-2"
+              className="flex flex-wrap items-center gap-2.5 sm:gap-3 w-full mt-2"
               id="hero-buttons"
             >
+              {/* 1. Learn Malayalam */}
               <button
-                onClick={() => scrollToId("generator")}
-                className="px-8 py-4 bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white rounded-2xl font-bold shadow-xl shadow-purple-950/20 hover:shadow-2xl hover:scale-[1.01] active:scale-[0.98] transition-all flex items-center justify-center gap-2.5 group cursor-pointer text-sm md:text-base uppercase tracking-wider"
-                id="btn-hero-generate"
+                onClick={() => {
+                  if (onNavigate) onNavigate("/learn-malayalam");
+                  else { window.history.pushState(null, "", "/learn-malayalam"); window.dispatchEvent(new Event("popstate")); }
+                }}
+                className="px-5 py-3.5 bg-purple-950 hover:bg-purple-900 text-white rounded-2xl font-extrabold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer text-xs sm:text-sm"
+                id="btn-hero-learn"
               >
-                <Zap className="w-5 h-5 text-amber-400 fill-amber-400" />
-                {t("btnFindPerfect")}
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <GraduationCap className="w-4 h-4 text-purple-300" />
+                <span>Learn Malayalam</span>
               </button>
 
+              {/* 2. Dictionary */}
               <button
-                onClick={() => scrollToId("categories")}
-                className="px-8 py-4 bg-white hover:bg-slate-50 text-slate-800 border border-slate-200/90 font-bold rounded-2xl transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm hover:shadow-md text-sm md:text-base uppercase tracking-wider"
-                id="btn-hero-categories"
+                onClick={() => {
+                  if (onNavigate) onNavigate("/malayalam-dictionary");
+                  else { window.history.pushState(null, "", "/malayalam-dictionary"); window.dispatchEvent(new Event("popstate")); }
+                }}
+                className="px-4 py-3.5 bg-white hover:bg-slate-50 text-slate-800 border border-slate-200/90 rounded-2xl font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs hover:shadow-sm text-xs sm:text-sm"
+                id="btn-hero-dictionary"
               >
-                {language === 'en' ? "Explore Categories" : "വിഭാഗങ്ങൾ കാണുക"}
+                <Book className="w-4 h-4 text-purple-600" />
+                <span>Dictionary</span>
+              </button>
+
+              {/* 3. English to Malayalam */}
+              <button
+                onClick={() => {
+                  if (onNavigate) onNavigate("/manglish-to-malayalam");
+                  else { window.history.pushState(null, "", "/manglish-to-malayalam"); window.dispatchEvent(new Event("popstate")); }
+                }}
+                className="px-4 py-3.5 bg-white hover:bg-slate-50 text-slate-800 border border-slate-200/90 rounded-2xl font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs hover:shadow-sm text-xs sm:text-sm"
+                id="btn-hero-translit"
+              >
+                <Languages className="w-4 h-4 text-purple-600" />
+                <span>English to Malayalam</span>
+              </button>
+
+              {/* 4. Create Caption & Quote */}
+              <button
+                onClick={() => {
+                  if (onNavigate) onNavigate("/malayalam-caption-generator");
+                  else { window.history.pushState(null, "", "/malayalam-caption-generator"); window.dispatchEvent(new Event("popstate")); }
+                }}
+                className="px-4 py-3.5 bg-gradient-to-r from-purple-800 to-pink-600 hover:from-purple-900 hover:to-pink-700 text-white rounded-2xl font-extrabold shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer text-xs sm:text-sm"
+                id="btn-hero-create"
+              >
+                <Sparkles className="w-4 h-4 text-amber-300" />
+                <span>Create Caption & Quote</span>
+              </button>
+
+              {/* 5. Hashtag Generator */}
+              <button
+                onClick={() => {
+                  if (onNavigate) onNavigate("/malayalam-hashtags");
+                  else { window.history.pushState(null, "", "/malayalam-hashtags"); window.dispatchEvent(new Event("popstate")); }
+                }}
+                className="px-4 py-3.5 bg-white hover:bg-slate-50 text-slate-800 border border-slate-200/90 rounded-2xl font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs hover:shadow-sm text-xs sm:text-sm"
+                id="btn-hero-hashtags"
+              >
+                <Hash className="w-4 h-4 text-purple-600" />
+                <span>Hashtag Generator</span>
+              </button>
+
+              {/* 6. Content Ideas */}
+              <button
+                onClick={() => {
+                  if (onNavigate) onNavigate("/malayalam-reel-hooks");
+                  else { window.history.pushState(null, "", "/malayalam-reel-hooks"); window.dispatchEvent(new Event("popstate")); }
+                }}
+                className="px-4 py-3.5 bg-white hover:bg-slate-50 text-slate-800 border border-slate-200/90 rounded-2xl font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs hover:shadow-sm text-xs sm:text-sm"
+                id="btn-hero-content-ideas"
+              >
+                <Lightbulb className="w-4 h-4 text-amber-500" />
+                <span>Content Ideas</span>
+              </button>
+
+              {/* 7. Reel Hooks */}
+              <button
+                onClick={() => {
+                  if (onNavigate) onNavigate("/malayalam-reel-hooks");
+                  else { window.history.pushState(null, "", "/malayalam-reel-hooks"); window.dispatchEvent(new Event("popstate")); }
+                }}
+                className="px-4 py-3.5 bg-white hover:bg-slate-50 text-slate-800 border border-slate-200/90 rounded-2xl font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs hover:shadow-sm text-xs sm:text-sm"
+                id="btn-hero-reel-hooks"
+              >
+                <Film className="w-4 h-4 text-pink-500" />
+                <span>Reel Hooks</span>
               </button>
             </motion.div>
 
@@ -377,7 +469,15 @@ export default function Hero() {
                     <button
                       key={chip.label}
                       onClick={() => {
-                        scrollToId("generator");
+                        if (onNavigate) {
+                          onNavigate("/malayalam-caption-generator");
+                        } else {
+                          window.history.pushState(null, "", "/malayalam-caption-generator");
+                          window.dispatchEvent(new Event("popstate"));
+                        }
+                        if (onSelectCategory) {
+                          onSelectCategory(chip.cat);
+                        }
                       }}
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/80 hover:bg-white border border-slate-200/80 hover:border-purple-300 text-slate-700 hover:text-purple-900 rounded-xl text-xs font-semibold shadow-2xs hover:shadow-sm transition-all cursor-pointer group"
                     >
@@ -399,10 +499,10 @@ export default function Hero() {
             >
               <div className="flex flex-col">
                 <span className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight flex items-center gap-1">
-                  10,000+
-                  <TrendingUp className="w-4 h-4 text-emerald-500 inline-block" />
+                  1,000+
+                  <GraduationCap className="w-5 h-5 text-emerald-500 inline-block" />
                 </span>
-                <span className="text-xs text-slate-500 font-medium">Kerala Creators</span>
+                <span className="text-xs text-slate-500 font-medium">Kids Learned & Certified from Vamozhi</span>
               </div>
 
               <div className="flex flex-col">
@@ -572,12 +672,19 @@ export default function Hero() {
                     </button>
 
                     <button
-                      onClick={handleDownloadImage}
-                      title="Download Post as PNG Image"
-                      className="px-3 py-1.5 bg-emerald-500/30 hover:bg-emerald-500/40 backdrop-blur-md text-emerald-200 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer border border-emerald-400/40 active:scale-95 shadow-md"
+                      onClick={() => {
+                        if (onNavigate) {
+                          onNavigate("/malayalam-reel-hooks");
+                        } else {
+                          window.history.pushState(null, "", "/malayalam-reel-hooks");
+                          window.dispatchEvent(new Event("popstate"));
+                        }
+                      }}
+                      title="Explore Reel Hooks & Content Ideas"
+                      className="px-3 py-1.5 bg-gradient-to-r from-pink-500/30 to-purple-500/30 hover:from-pink-500/40 hover:to-purple-500/40 backdrop-blur-md text-pink-200 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer border border-pink-400/40 active:scale-95 shadow-md"
                     >
-                      <Download className="w-3.5 h-3.5 text-emerald-300" />
-                      <span>Download Image 🖼️</span>
+                      <Lightbulb className="w-3.5 h-3.5 text-amber-300" />
+                      <span>Get More Ideas 💡</span>
                     </button>
 
                     <button

@@ -107,14 +107,14 @@ export default function LiveChat() {
         throw new Error("Chat response status not OK");
       }
     } catch (err) {
-      console.warn("Live chat API request failed, using backup helper:", err);
-      // Fallback response helper
+      console.warn("Live chat API request fallback:", err);
+      // Friendly local fallback response (Never asks for API key)
       const fallbackMsg: ChatMessage = {
         id: `assistant_${Date.now()}`,
         role: "assistant",
         content: uiLang === "en" 
-          ? "I am currently running in offline backup mode. Please make sure you have configured your Gemini API Key in Settings > Secrets to unleash full conversational capabilities! 🔌💡"
-          : "ഞാൻ ഇപ്പോൾ ഓഫ്‌ലൈൻ ബാക്കപ്പ് മോഡിലാണ്. പൂർണ്ണ സംഭാഷണങ്ങൾക്കായി Settings > Secrets-ൽ ജെമിനി API കീ നൽകിയിട്ടുണ്ടെന്ന് ഉറപ്പാക്കുക! 🔌💡",
+          ? "Namaskaram! 🌴 You can explore 1,000+ Malayalam captions, 1,655+ quotes, dictionary search, and Manglish typing right here on Vamozhi! Try selecting any category at the top to generate instant lines. ✨"
+          : "നമസ്കാരം! 🌴 1,000+ മലയാളം ക്യാപ്ഷനുകളും 1,655+ ഉദ്ധരണികളും ഡിക്ഷണറിയും ഇവിടെ സൗജന്യമായി ഉപയോഗിക്കാം! വരികൾ ലഭിക്കാനായി മുകളിലെ ഏത് വിഭാഗവും തിരഞ്ഞെടുക്കുക. ✨",
         timestamp: new Date()
       };
       setMessages((prev) => [...prev, fallbackMsg]);

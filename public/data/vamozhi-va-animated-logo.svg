@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Animated Vamozhi Malayalam letter Va logo</title>
+  <desc id="desc">The Malayalam letter Va is drawn with a moving pen point, then settles into a gentle floating motion.</desc>
+  <defs>
+    <linearGradient id="brand" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#22104f"/>
+      <stop offset="0.48" stop-color="#7b176f"/>
+      <stop offset="1" stop-color="#ff4f69"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="74%" cy="20%" r="78%">
+      <stop offset="0" stop-color="#ffb3be" stop-opacity=".28"/>
+      <stop offset=".55" stop-color="#b62d88" stop-opacity=".08"/>
+      <stop offset="1" stop-color="#1b0b43" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softShadow" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#120525" flood-opacity=".38"/>
+    </filter>
+    <filter id="penGlow" x="-250%" y="-250%" width="500%" height="500%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <clipPath id="inside"><rect x="8" y="8" width="496" height="496" rx="112"/></clipPath>
+  </defs>
+
+  <style>
+    .bg { animation: bgPulse 5.2s ease-in-out infinite; transform-origin: 256px 256px; }
+    .letter { animation: settle 5.2s cubic-bezier(.2,.8,.2,1) infinite; transform-origin: 256px 256px; }
+    .outline {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 0;
+      animation: write 5.2s ease-in-out infinite;
+    }
+    .solid { opacity: 1; animation: reveal 5.2s ease-in-out infinite; }
+    .pen { opacity: 0; animation: penFade 5.2s ease-in-out infinite; }
+    .shine { animation: shine 5.2s ease-in-out infinite; }
+    @keyframes write {
+      0%, 5% { stroke-dashoffset: 1000; opacity: 1; }
+      32%, 82% { stroke-dashoffset: 0; opacity: 1; }
+      94%, 100% { stroke-dashoffset: 0; opacity: 0; }
+    }
+    @keyframes reveal {
+      0%, 25% { opacity: 0; }
+      38%, 94% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    @keyframes settle {
+      0%, 34% { transform: translateY(0) scale(1); }
+      43% { transform: translateY(-7px) scale(1.025); }
+      55% { transform: translateY(0) scale(1); }
+      72% { transform: translateY(-4px) scale(1.008); }
+      88%, 100% { transform: translateY(0) scale(1); }
+    }
+    @keyframes penFade {
+      0%, 5% { opacity: 0; }
+      8%, 30% { opacity: 1; }
+      36%, 100% { opacity: 0; }
+    }
+    @keyframes bgPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.018); }
+    }
+    @keyframes shine {
+      0%, 42% { transform: translateX(-520px) rotate(18deg); opacity: 0; }
+      48% { opacity: .5; }
+      64% { transform: translateX(520px) rotate(18deg); opacity: 0; }
+      100% { transform: translateX(520px) rotate(18deg); opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .bg, .letter, .outline, .solid, .pen, .shine { animation: none !important; }
+      .outline, .pen { opacity: 0; }
+      .solid { opacity: 1; }
+    }
+  </style>
+
+  <g clip-path="url(#inside)">
+    <rect class="bg" x="8" y="8" width="496" height="496" rx="112" fill="url(#brand)"/>
+    <rect x="8" y="8" width="496" height="496" rx="112" fill="url(#glow)"/>
+    <path d="M-100 435 C70 350 115 520 290 418 C392 359 446 351 615 264" fill="none" stroke="#ffffff" stroke-opacity=".055" stroke-width="58"/>
+    <rect class="shine" x="-90" y="-80" width="70" height="700" rx="35" fill="#fff" opacity="0"/>
+  </g>
+
+  <g class="letter" filter="url(#softShadow)">
+    <g transform="translate(47 350) scale(.435 -.435)">
+      <path class="solid" d="M373 574Q462 574 524.5 550.0Q587 526 626.5 485.0Q666 444 684.5 393.5Q703 343 703 290Q703 227 687 182Q672 140 647 105H849V562H996V0H507L458 70Q485 97 507.0 126.5Q529 156 541.5 193.0Q554 230 554 279Q554 335 531.0 377.5Q508 420 467.5 443.5Q427 467 374 467Q318 467 276.5 444.0Q235 421 212.0 379.0Q189 337 189 281Q189 235 200.5 198.0Q212 161 234.5 129.0Q257 97 291 64L191 -12Q147 25 112.0 67.5Q77 110 57.0 162.5Q37 215 37 281Q37 335 56.0 387.0Q75 439 115.5 481.5Q156 524 220.0 549.0Q284 574 373 574Z" fill="#fff"/>
+      <path class="outline" pathLength="1000" d="M373 574Q462 574 524.5 550.0Q587 526 626.5 485.0Q666 444 684.5 393.5Q703 343 703 290Q703 227 687 182Q672 140 647 105H849V562H996V0H507L458 70Q485 97 507.0 126.5Q529 156 541.5 193.0Q554 230 554 279Q554 335 531.0 377.5Q508 420 467.5 443.5Q427 467 374 467Q318 467 276.5 444.0Q235 421 212.0 379.0Q189 337 189 281Q189 235 200.5 198.0Q212 161 234.5 129.0Q257 97 291 64L191 -12Q147 25 112.0 67.5Q77 110 57.0 162.5Q37 215 37 281Q37 335 56.0 387.0Q75 439 115.5 481.5Q156 524 220.0 549.0Q284 574 373 574Z" fill="none" stroke="#fff" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+
+  <circle class="pen" r="7" fill="#ffd4dc" stroke="#fff" stroke-width="3" filter="url(#penGlow)">
+    <animateMotion dur="5.2s" repeatCount="indefinite" keyTimes="0;0.05;0.12;0.2;0.3;0.36;1" calcMode="spline" keySplines=".2 0 .4 1;.2 0 .4 1;.2 0 .4 1;.2 0 .4 1;.2 0 .4 1;.2 0 .4 1" path="M142 270 C142 198 202 157 269 176 C330 192 355 237 340 288 C330 319 305 331 279 336 C317 319 350 311 420 311 L420 177 L464 177 L464 350"/>
+  </circle>
+
+  <rect x="8.75" y="8.75" width="494.5" height="494.5" rx="111.25" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="1.5"/>
+</svg>

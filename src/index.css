@@ -35,3 +35,36 @@ section {
   scroll-margin-top: 80px;
 }
 
+/* Brand Logo Section Styles */
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.brand-logo__icon {
+  display: block;
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.brand-logo__wordmark {
+  line-height: 1;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .brand-logo {
+    gap: 8px;
+  }
+
+  .brand-logo__icon {
+    width: 40px;
+    height: 40px;
+  }
+}
+

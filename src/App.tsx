@@ -22,9 +22,11 @@ import Toast from "./components/Toast";
 import TranslitTool from "./components/TranslitTool";
 import InfoPages from "./components/InfoPages";
 import HashtagGenerator from "./components/HashtagGenerator";
-import LiveChat from "./components/LiveChat";
 import CertificateVerificationPage from "./components/CertificateVerificationPage";
 import MalayalamQuotes from "./components/MalayalamQuotes";
+import GeneratorTabs from "./components/shared/GeneratorTabs";
+import ScrollToTop from "./components/ScrollToTop";
+import ReelHooksPage from "./components/ReelHooksPage";
 import { AnimatePresence } from "motion/react";
 
 interface ResultItem {
@@ -258,38 +260,31 @@ export default function App() {
   const handleNavigate = (path: string) => {
     window.history.pushState(null, "", path);
     setCurrentPath(path);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  const isHomePage = currentPath === "/";
 
   const isMalayalamQuotesRoute = currentPath === "/malayalam-quotes";
 
-  const isHomeOrGeneratorRoute = 
-    currentPath === "/" ||
+  const isReelHooksRoute = currentPath === "/malayalam-reel-hooks";
+
+  const isCaptionCreatorRoute = 
     currentPath === "/malayalam-caption-generator" ||
+    currentPath === "/caption-creator" ||
     currentPath === "/instagram-caption-generator" ||
     currentPath === "/facebook-caption-generator" ||
     currentPath === "/whatsapp-status-generator" ||
     currentPath === "/snapchat-caption-generator" ||
     currentPath === "/tiktok-caption-generator" ||
     currentPath === "/malayalam-instagram-bio" ||
-    currentPath === "/malayalam-reel-hooks" ||
     currentPath === "/bumble-bio-generator" ||
-    currentPath === "/matrimony-bio-generator" ||
-    isMalayalamQuotesRoute;
-
-  const [generatorMode, setGeneratorMode] = useState<"caption" | "quotes">(
-    isMalayalamQuotesRoute ? "quotes" : "caption"
-  );
-
-  useEffect(() => {
-    if (isMalayalamQuotesRoute) {
-      setGeneratorMode("quotes");
-    }
-  }, [currentPath]);
+    currentPath === "/matrimony-bio-generator";
 
   const isPhoneticTypingRoute = currentPath === "/manglish-to-malayalam";
   const isMalayalamNumbersRoute = currentPath === "/malayalam-numbers";
   const isLearnMalayalamRoute = currentPath === "/learn-malayalam";
-  const isHashtagsRoute = currentPath === "/malayalam-hashtags";
+  const isHashtagsRoute = currentPath === "/malayalam-hashtags" || currentPath === "/hashtag-generator";
   const isMalayalamDictionaryRoute = currentPath === "/malayalam-dictionary";
 
   return (
@@ -304,103 +299,106 @@ export default function App() {
 
       {/* Main App Page View Outlet */}
       <div className="flex-1 pt-[68px] pb-24 md:pb-10" id="vamozhi-page-outlet">
-        {isHomeOrGeneratorRoute && (
+        
+        {/* 1. Dedicated Homepage View */}
+        {isHomePage && (
           <>
-            <Hero onNavigate={handleNavigate} />
+            <Hero 
+              onNavigate={handleNavigate} 
+              onSelectCategory={(catId) => {
+                handleNavigate("/malayalam-caption-generator");
+                setSelectedCategory(catId);
+              }}
+            />
 
-            {/* Generator Mode Switcher Bar */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center" id="generator-mode-selector">
-              <div className="inline-flex items-center bg-white dark:bg-neutral-900 p-1.5 rounded-3xl border border-purple-200 dark:border-neutral-800 shadow-lg gap-2">
-                <button
-                  onClick={() => {
-                    setGeneratorMode("caption");
-                    if (currentPath === "/malayalam-quotes") {
-                      handleNavigate("/");
-                    }
-                  }}
-                  className={`px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-black transition-all cursor-pointer flex items-center gap-2 ${
-                    generatorMode === "caption"
-                      ? "bg-purple-950 text-white shadow-md ring-2 ring-purple-600/50"
-                      : "text-neutral-600 dark:text-neutral-300 hover:text-purple-900 hover:bg-purple-50 dark:hover:bg-neutral-800"
-                  }`}
-                >
-                  <span>✨</span>
-                  <span>Caption Generator (ക്യാപ്ഷൻ ജനറേറ്റർ)</span>
-                </button>
-
-                <button
-                  onClick={() => {
-                    setGeneratorMode("quotes");
-                    if (currentPath !== "/malayalam-quotes") {
-                      handleNavigate("/malayalam-quotes");
-                    }
-                  }}
-                  className={`px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-black transition-all cursor-pointer flex items-center gap-2 ${
-                    generatorMode === "quotes"
-                      ? "bg-purple-950 text-white shadow-md ring-2 ring-purple-600/50"
-                      : "text-neutral-600 dark:text-neutral-300 hover:text-purple-900 hover:bg-purple-50 dark:hover:bg-neutral-800"
-                  }`}
-                >
-                  <span>📜</span>
-                  <span>Malayalam Quotes (മലയാളം ഉദ്ധരണികൾ)</span>
-                </button>
-              </div>
-            </div>
-
-            {generatorMode === "caption" ? (
-              <>
-                <Categories
-                  onSelectCategory={(catId) => {
-                    setSelectedCategory(catId);
-                    const genEl = document.getElementById("generator");
-                    if (genEl) genEl.scrollIntoView({ behavior: "smooth" });
-                  }}
-                />
-
-                <Generator
-                  onGenerate={(items) => {
-                    setResults(items);
-                    const el = document.getElementById("results-section");
-                    if (el) el.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  onSuccessMessage={(msg) => triggerToast(msg, 'success')}
-                  currentPath={currentPath}
-                  selectedCategory={selectedCategory}
-                  onCategoryChange={(cat) => setSelectedCategory(cat)}
-                />
-
-                {results.length > 0 && (
-                  <ResultList
-                    results={results}
-                    favourites={favourites}
-                    onToggleFavourite={handleToggleFavourite}
-                    onOpenStoryModal={(text) => setSelectedStoryCaption(text)}
-                    onSuccessMessage={(msg) => triggerToast(msg, 'success')}
-                  />
-                )}
-
-                <Trending
-                  favourites={favourites}
-                  onToggleFavourite={handleToggleFavourite}
-                  onSuccessMessage={(msg) => triggerToast(msg, 'success')}
-                />
-              </>
-            ) : (
-              <MalayalamQuotes
-                onSuccessMessage={(msg) => triggerToast(msg, 'success')}
-                favourites={favourites}
-                onToggleFavourite={handleToggleFavourite}
-              />
-            )}
+            <Trending
+              favourites={favourites}
+              onToggleFavourite={handleToggleFavourite}
+              onSuccessMessage={(msg) => triggerToast(msg, 'success')}
+            />
 
             <SeoContent currentPath={currentPath} />
             <FaqSection />
           </>
         )}
 
+        {/* 2. Dedicated Caption Creator Page View */}
+        {isCaptionCreatorRoute && (
+          <div className="py-6 max-w-7xl mx-auto space-y-6">
+            <GeneratorTabs
+              currentMode="caption"
+              onModeChange={(mode) => {
+                if (mode === "quotes") {
+                  handleNavigate("/malayalam-quotes");
+                }
+              }}
+            />
+
+            <Categories
+              onSelectCategory={(catId) => {
+                setSelectedCategory(catId);
+                const genEl = document.getElementById("generator");
+                if (genEl) genEl.scrollIntoView({ behavior: "smooth" });
+              }}
+            />
+
+            <Generator
+              onGenerate={(items) => {
+                setResults(items);
+                const el = document.getElementById("results-section");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }}
+              onSuccessMessage={(msg) => triggerToast(msg, 'success')}
+              currentPath={currentPath}
+              selectedCategory={selectedCategory}
+              onCategoryChange={(cat) => setSelectedCategory(cat)}
+            />
+
+            {results.length > 0 && (
+              <ResultList
+                results={results}
+                favourites={favourites}
+                onToggleFavourite={handleToggleFavourite}
+                onOpenStoryModal={(text) => setSelectedStoryCaption(text)}
+                onSuccessMessage={(msg) => triggerToast(msg, 'success')}
+              />
+            )}
+          </div>
+        )}
+
+        {/* 3. Dedicated Quote Creator Page View */}
+        {isMalayalamQuotesRoute && (
+          <div className="py-6 max-w-7xl mx-auto space-y-6">
+            <GeneratorTabs
+              currentMode="quotes"
+              onModeChange={(mode) => {
+                if (mode === "caption") {
+                  handleNavigate("/malayalam-caption-generator");
+                }
+              }}
+            />
+
+            <MalayalamQuotes
+              onSuccessMessage={(msg) => triggerToast(msg, 'success')}
+              favourites={favourites}
+              onToggleFavourite={handleToggleFavourite}
+              onOpenStoryModal={(text) => setSelectedStoryCaption(text)}
+            />
+          </div>
+        )}
+
         {isPhoneticTypingRoute && (
           <TranslitTool
             onSuccessMessage={(msg) => triggerToast(msg, 'success')}
+          />
+        )}
+
+        {isReelHooksRoute && (
+          <ReelHooksPage
+            onSuccessMessage={(msg) => triggerToast(msg, 'success')}
+            onToggleFavourite={handleToggleFavourite}
+            favourites={favourites}
+            onOpenStoryModal={(text) => setSelectedStoryCaption(text)}
           />
         )}
 
@@ -434,7 +432,7 @@ export default function App() {
           <DictionarySection onSuccessMessage={(msg, type) => triggerToast(msg, type || 'success')} />
         )}
 
-        {!isHomeOrGeneratorRoute && !isPhoneticTypingRoute && !isMalayalamNumbersRoute && !isLearnMalayalamRoute && !currentPath.includes("/learn-malayalam") && !isHashtagsRoute && !isMalayalamDictionaryRoute && !currentPath.startsWith("/verify-certificate") && (
+        {!isHomePage && !isCaptionCreatorRoute && !isMalayalamQuotesRoute && !isReelHooksRoute && !isPhoneticTypingRoute && !isMalayalamNumbersRoute && !isLearnMalayalamRoute && !currentPath.includes("/learn-malayalam") && !isHashtagsRoute && !isMalayalamDictionaryRoute && !currentPath.startsWith("/verify-certificate") && (
           <InfoPages currentPath={currentPath} onSuccessMessage={(msg) => triggerToast(msg, 'success')} />
         )}
       </div>
@@ -469,8 +467,8 @@ export default function App() {
         onSuccessMessage={(msg) => triggerToast(msg, 'success')}
       />
 
-      {/* Live AI Assistant */}
-      <LiveChat />
+      {/* Scroll to Top Floating Trigger */}
+      <ScrollToTop />
 
       {/* Toast Notifications */}
       <AnimatePresence>

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Sparkles, Keyboard, BookOpen, GraduationCap, Hash, Heart } from "lucide-react";
+import { Home, Keyboard, BookOpen, GraduationCap, Hash, Heart } from "lucide-react";
 import { motion } from "motion/react";
 
 interface MobileBottomNavProps {
@@ -41,10 +41,10 @@ export default function MobileBottomNav({
 
   const tabs = [
     {
-      id: "studio",
-      label: "Studio",
+      id: "home",
+      label: "Home",
       path: "/",
-      icon: Sparkles,
+      icon: Home,
       isActive: isGenerator
     },
     {
@@ -63,7 +63,7 @@ export default function MobileBottomNav({
     },
     {
       id: "learn",
-      label: "Study & Cert",
+      label: "Learn",
       path: "/learn-malayalam",
       icon: GraduationCap,
       isActive: isLearn
@@ -85,7 +85,12 @@ export default function MobileBottomNav({
           return (
             <button
               key={tab.id}
-              onClick={() => onNavigate(tab.path)}
+              onClick={() => {
+                onNavigate(tab.path);
+                if (tab.path === "/") {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+              }}
               className={`relative flex flex-col items-center justify-center py-1 px-2.5 rounded-2xl transition-all duration-300 cursor-pointer ${
                 tab.isActive
                   ? "text-purple-950 font-black"

@@ -6,19 +6,11 @@
 import { useState, useEffect, useMemo } from "react";
 import { 
   Search, 
-  RefreshCw, 
-  Copy, 
-  Check, 
-  Share2, 
-  Heart, 
-  Download, 
-  Quote, 
-  Eye, 
-  EyeOff, 
-  Loader2,
-  Palette,
-  Facebook
+  Loader2
 } from "lucide-react";
+import CategorySelector, { CategoryItem } from "./shared/CategorySelector";
+import ResultGrid, { GridItem } from "./shared/ResultGrid";
+import GenerateMoreButton from "./shared/GenerateMoreButton";
 
 export interface QuoteItem {
   id: number;
@@ -36,6 +28,7 @@ interface MalayalamQuotesProps {
   onSuccessMessage: (msg: string) => void;
   favourites?: string[];
   onToggleFavourite?: (text: string) => void;
+  onOpenStoryModal?: (text: string) => void;
 }
 
 const CATEGORY_MAP: Record<string, { en: string; ml: string; emoji: string }> = {
@@ -68,7 +61,7 @@ const CARD_THEMES = [
   { id: "spiritual", name: "Spiritual Gold", bgGrad: "from-amber-900 via-orange-950 to-amber-950", cardBg: "#78350f", textCol: "#ffffff", authorCol: "#fef08a" }
 ];
 
-export default function MalayalamQuotes({ onSuccessMessage, favourites = [], onToggleFavourite }: MalayalamQuotesProps) {
+export default function MalayalamQuotes({ onSuccessMessage, favourites = [], onToggleFavourite, onOpenStoryModal }: MalayalamQuotesProps) {
   const [quotes, setQuotes] = useState<QuoteItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -78,6 +71,51 @@ export default function MalayalamQuotes({ onSuccessMessage, favourites = [], onT
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedThemeIndex, setSelectedThemeIndex] = useState<number>(0);
   const [showEnglish, setShowEnglish] = useState<boolean>(false);
+
+  // Grid results visible count state (initial 6 results)
+  const [visibleCount, setVisibleCount] = useState<number>(6);
+
+  const categorySelectorItems: CategoryItem[] = useMemo(() => {
+    return Object.entries(CATEGORY_MAP).map(([id, meta]) => ({
+      id,
+      nameEn: meta.en,
+      nameMl: meta.ml,
+      emoji: meta.emoji
+    }));
+  }, []);
+
+  // Filtered pool of quotes based on category and search query
+  const filteredQuotes = useMemo(() => {
+    if (!quotes.length) return [];
+    
+    return quotes.filter((q) => {
+      // Category check
+      const matchesCategory = 
+        selectedCategory === "all" || 
+        q.category === selectedCategory || 
+        (Array.isArray(q.categories) && q.categories.includes(selectedCategory));
+
+      // Search query check (author or keywords)
+      const qLower = searchQuery.trim().toLowerCase();
+      const matchesSearch = 
+        !qLower || 
+        q.malayalam.toLowerCase().includes(qLower) || 
+        q.english.toLowerCase().includes(qLower) || 
+        (q.author && q.author.toLowerCase().includes(qLower));
+
+      return matchesCategory && matchesSearch;
+    });
+  }, [quotes, selectedCategory, searchQuery]);
+
+  const gridQuoteItems: GridItem[] = useMemo(() => {
+    return filteredQuotes.slice(0, visibleCount).map((q) => ({
+      id: q.id,
+      text: q.malayalam,
+      englishText: q.english,
+      author: q.author || "അജ്ഞാതൻ",
+      categoryBadge: CATEGORY_MAP[q.category]?.ml || q.category
+    }));
+  }, [filteredQuotes, visibleCount]);
 
   // Active Quote State
   const [currentQuote, setCurrentQuote] = useState<QuoteItem | null>(null);
@@ -125,29 +163,6 @@ export default function MalayalamQuotes({ onSuccessMessage, favourites = [], onT
       isMounted = false;
     };
   }, []);
-
-  // Filtered pool of quotes based on category and search query
-  const filteredQuotes = useMemo(() => {
-    if (!quotes.length) return [];
-    
-    return quotes.filter((q) => {
-      // Category check
-      const matchesCategory = 
-        selectedCategory === "all" || 
-        q.category === selectedCategory || 
-        (Array.isArray(q.categories) && q.categories.includes(selectedCategory));
-
-      // Search query check (author or keywords)
-      const qLower = searchQuery.trim().toLowerCase();
-      const matchesSearch = 
-        !qLower || 
-        q.malayalam.toLowerCase().includes(qLower) || 
-        q.english.toLowerCase().includes(qLower) || 
-        (q.author && q.author.toLowerCase().includes(qLower));
-
-      return matchesCategory && matchesSearch;
-    });
-  }, [quotes, selectedCategory, searchQuery]);
 
   // Sync favourite status
   useEffect(() => {
@@ -409,34 +424,15 @@ export default function MalayalamQuotes({ onSuccessMessage, favourites = [], onT
         </div>
 
         {/* Malayalam Category Filter Pills */}
-        <div className="space-y-2">
-          <span className="text-[11px] font-black text-slate-400 uppercase tracking-wider block">
-            വിഭാഗം തിഞ്ഞെടുക്കൂ (Categories):
-          </span>
-          <div className="flex flex-wrap gap-2 max-h-40 overflow-y-auto pr-1">
-            {Object.entries(CATEGORY_MAP).map(([catKey, catMeta]) => {
-              const isSelected = selectedCategory === catKey;
-              return (
-                <button
-                  key={catKey}
-                  onClick={() => {
-                    setSelectedCategory(catKey);
-                    // Automatically trigger a random selection in new category
-                    setTimeout(() => handleGenerateNextQuote(), 50);
-                  }}
-                  className={`px-3.5 py-1.5 rounded-2xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                    isSelected
-                      ? "bg-purple-950 text-white shadow-md ring-2 ring-purple-500/50"
-                      : "bg-slate-100 dark:bg-neutral-800 text-slate-700 dark:text-neutral-300 hover:bg-purple-50 dark:hover:bg-neutral-700"
-                  }`}
-                >
-                  <span>{catMeta.emoji}</span>
-                  <span>{catMeta.ml}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
+        <CategorySelector
+          categories={categorySelectorItems}
+          selectedCategory={selectedCategory}
+          onSelectCategory={(catKey) => {
+            setSelectedCategory(catKey);
+            setVisibleCount(6);
+            setTimeout(() => handleGenerateNextQuote(), 50);
+          }}
+        />
 
         {/* Counter Badge */}
         <div className="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-neutral-800 text-xs text-slate-500">
@@ -456,7 +452,7 @@ export default function MalayalamQuotes({ onSuccessMessage, favourites = [], onT
 
       </div>
 
-      {/* Main Quote Display Card */}
+      {/* Loading & Error States */}
       {isLoading ? (
         <div className="bg-white dark:bg-neutral-900 border border-slate-200/80 dark:border-neutral-800 rounded-3xl p-12 text-center space-y-4">
           <Loader2 className="w-10 h-10 text-purple-600 animate-spin mx-auto" />
@@ -474,172 +470,39 @@ export default function MalayalamQuotes({ onSuccessMessage, favourites = [], onT
             വീണ്ടും ശ്രമിക്കുക
           </button>
         </div>
-      ) : currentQuote ? (
-        <div className="space-y-6">
-          
-          {/* Card Frame Container with Active Visual Theme */}
-          <div 
-            className={`bg-gradient-to-br ${currentTheme.bgGrad} rounded-3xl p-6 sm:p-12 text-white shadow-2xl relative overflow-hidden transition-all duration-300 border border-white/15`}
-            id="quote-display-canvas-frame"
-          >
-            {/* Background Radial Glow */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/15 via-transparent to-transparent pointer-events-none" />
-
-            {/* Top Bar inside Card */}
-            <div className="flex items-center justify-between border-b border-white/15 pb-4 mb-6 relative z-10">
-              <div className="flex items-center gap-2">
-                <Quote className="w-6 h-6 text-amber-400" />
-                <span className="text-xs font-black uppercase tracking-widest text-amber-300">
-                  {CATEGORY_MAP[currentQuote.category]?.ml || "പൊതുവായത്"}
-                </span>
-              </div>
-
-              {/* Theme Color Selector Pill Bar */}
-              <div className="flex items-center gap-1.5 bg-black/30 backdrop-blur-md p-1 rounded-2xl border border-white/15">
-                <Palette className="w-3.5 h-3.5 text-white/70 ml-1.5 hidden sm:inline" />
-                {CARD_THEMES.map((thm, idx) => (
-                  <button
-                    key={thm.id}
-                    onClick={() => setSelectedThemeIndex(idx)}
-                    title={thm.name}
-                    className={`w-5 h-5 rounded-full transition-transform cursor-pointer border ${
-                      selectedThemeIndex === idx ? "scale-125 ring-2 ring-white" : "opacity-70 hover:opacity-100"
-                    }`}
-                    style={{ backgroundColor: thm.cardBg }}
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* Quote Body */}
-            <div className="space-y-6 my-4 text-center relative z-10 px-2 sm:px-6">
-              
-              {/* Primary Malayalam Quote */}
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black leading-relaxed tracking-tight font-sans drop-shadow-md">
-                “{currentQuote.malayalam}”
-              </h2>
-
-              {/* Author Name */}
-              <div className="pt-2">
-                <span className="text-base sm:text-xl font-bold text-amber-300 block tracking-wide">
-                  — {currentQuote.author ? currentQuote.author : "അജ്ഞാതൻ (Unknown)"}
-                </span>
-              </div>
-
-              {/* Optional English Original Toggle Display */}
-              {showEnglish && currentQuote.english && (
-                <div className="mt-4 pt-4 border-t border-white/15 text-sm font-serif italic text-purple-100/90 leading-relaxed max-w-2xl mx-auto bg-black/20 p-4 rounded-2xl">
-                  "{currentQuote.english}"
-                </div>
-              )}
-
-            </div>
-
-            {/* Small Credit Below Inside Display */}
-            <div className="pt-6 border-t border-white/15 text-center text-[10px] text-white/60 font-medium relative z-10">
-              Malayalam Translation © vamozhi.com
-            </div>
-
-          </div>
-
-          {/* Generator Controls & Action Toolbar */}
-          <div className="bg-white dark:bg-neutral-900 border border-slate-200/80 dark:border-neutral-800 rounded-3xl p-5 shadow-sm space-y-4">
-            
-            {/* Primary Action Buttons Bar */}
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              
-              {/* Generate Next Button */}
-              <button
-                onClick={handleGenerateNextQuote}
-                className="px-6 py-3 bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 hover:from-purple-900 hover:to-indigo-900 text-white text-sm font-black rounded-2xl shadow-lg hover:shadow-xl transition-all cursor-pointer flex items-center gap-2 border border-purple-800/50"
-              >
-                <RefreshCw className="w-4 h-4 text-amber-400" />
-                <span>മറ്റൊരു ഉദ്ധരണി (Generate Next) 🎲</span>
-              </button>
-
-              {/* English Toggle Button */}
-              <button
-                onClick={() => setShowEnglish(!showEnglish)}
-                className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-neutral-800 text-slate-800 dark:text-neutral-200 text-xs font-extrabold rounded-2xl transition-all cursor-pointer flex items-center gap-1.5 border border-slate-200 dark:border-neutral-700"
-              >
-                {showEnglish ? <EyeOff className="w-3.5 h-3.5 text-purple-600" /> : <Eye className="w-3.5 h-3.5 text-purple-600" />}
-                <span>{showEnglish ? "Hide English" : "Show English Original 🌐"}</span>
-              </button>
-
-            </div>
-
-            {/* Secondary Utility Actions Toolbar */}
-            <div className="flex flex-wrap items-center justify-between gap-2.5 pt-3 border-t border-slate-100 dark:border-neutral-800">
-              
-              {/* Copy Utilities */}
-              <div className="flex flex-wrap items-center gap-2">
-                <button
-                  onClick={handleCopyQuoteOnly}
-                  className="px-3.5 py-2 bg-slate-100 dark:bg-neutral-800 hover:bg-slate-200 dark:hover:bg-neutral-700 text-slate-800 dark:text-slate-200 text-xs font-extrabold rounded-xl transition-all cursor-pointer flex items-center gap-1.5 border border-slate-200 dark:border-neutral-700"
-                  title="Copy raw quote text"
-                >
-                  {copiedType === "quote" ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5 text-purple-600" />}
-                  <span>{copiedType === "quote" ? "Copied!" : "Copy Quote"}</span>
-                </button>
-
-                <button
-                  onClick={handleCopyQuoteWithAuthor}
-                  className="px-3.5 py-2 bg-purple-50 dark:bg-purple-950/40 hover:bg-purple-100 text-purple-900 dark:text-purple-200 text-xs font-extrabold rounded-xl transition-all cursor-pointer flex items-center gap-1.5 border border-purple-200 dark:border-purple-800"
-                  title="Copy quote with author attribution"
-                >
-                  {copiedType === "withAuthor" ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5 text-purple-600" />}
-                  <span>{copiedType === "withAuthor" ? "Copied!" : "Copy with Author"}</span>
-                </button>
-              </div>
-
-              {/* Share, Download & Favourite */}
-              <div className="flex flex-wrap items-center gap-2">
-                <button
-                  onClick={handleWhatsappShare}
-                  className="px-3.5 py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-extrabold rounded-xl transition-all cursor-pointer flex items-center gap-1.5 border border-emerald-200"
-                >
-                  <Share2 className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>WhatsApp</span>
-                </button>
-
-                <button
-                  onClick={handleFacebookShare}
-                  className="px-3.5 py-2 bg-blue-50 hover:bg-blue-100 text-blue-800 text-xs font-extrabold rounded-xl transition-all cursor-pointer flex items-center gap-1.5 border border-blue-200"
-                >
-                  <Facebook className="w-3.5 h-3.5 text-blue-600" />
-                  <span>Facebook</span>
-                </button>
-
-                <button
-                  onClick={handleDownloadQuoteCard}
-                  className="px-3.5 py-2 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white text-xs font-black rounded-xl border border-pink-500/50 shadow-sm transition-all cursor-pointer flex items-center gap-1.5"
-                  title="Download quote card image"
-                >
-                  <Download className="w-3.5 h-3.5 text-white" />
-                  <span>Download Card 🖼️</span>
-                </button>
-
-                <button
-                  onClick={handleFavouriteClick}
-                  className={`p-2 rounded-xl border transition-all cursor-pointer ${
-                    isFav 
-                      ? "bg-rose-50 dark:bg-rose-950/40 border-rose-200 text-rose-600" 
-                      : "bg-slate-100 dark:bg-neutral-800 border-slate-200 dark:border-neutral-700 text-slate-500 hover:text-rose-600"
-                  }`}
-                  title={isFav ? "Remove from Favourites" : "Save to Favourites"}
-                >
-                  <Heart className={`w-4 h-4 ${isFav ? "fill-rose-600" : ""}`} />
-                </button>
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
       ) : (
-        <div className="bg-white dark:bg-neutral-900 border border-slate-200/80 dark:border-neutral-800 rounded-3xl p-8 text-center text-slate-500 text-sm font-medium">
-          തിരഞ്ഞെടുത്ത വിഭാഗത്തിൽ ഉദ്ധരണികൾ ലഭ്യമല്ല. ദയവായി മറ്റൊന്ന് ശ്രമിക്കുക.
+        /* 2-Column Desktop / 1-Column Mobile Quotes Grid */
+        <div className="space-y-6" id="quotes-result-grid-section">
+          <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-neutral-800 pb-3">
+            <h3 className="text-lg sm:text-xl font-black text-slate-900 dark:text-slate-100 tracking-tight">
+              മലയാളം ഉദ്ധരണികൾ (Malayalam Quotes)
+            </h3>
+            <span className="text-xs font-bold text-slate-500 bg-slate-100 dark:bg-neutral-800 px-3 py-1 rounded-xl">
+              {gridQuoteItems.length} of {filteredQuotes.length}
+            </span>
+          </div>
+
+          <ResultGrid
+            type="quote"
+            items={gridQuoteItems}
+            favourites={favourites}
+            onSuccessMessage={onSuccessMessage}
+            onToggleFavourite={onToggleFavourite}
+            onOpenStoryModal={onOpenStoryModal}
+          />
+
+          {/* Generate More Button */}
+          <GenerateMoreButton
+            onGenerateMore={() => {
+              setVisibleCount(prev => prev + 6);
+              onSuccessMessage("6 കൂടുതൽ ഉദ്ധരണികൾ കൂടി ചേർത്തു! ✨");
+            }}
+            onReset={() => {
+              setVisibleCount(6);
+              onSuccessMessage("6 ഉദ്ധരണികളിലേക്ക് തിരിച്ചു വന്നു.");
+            }}
+            canReset={visibleCount > 6}
+          />
         </div>
       )}
 

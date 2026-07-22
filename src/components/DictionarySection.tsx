@@ -184,11 +184,11 @@ export default function DictionarySection({ onSuccessMessage }: DictionarySectio
             <span>ശബ്ദകോശം</span>
           </div>
           <span className="text-xs sm:text-sm font-black uppercase tracking-widest text-purple-900 block mt-1">
-            Olam English-Malayalam Dictionary & Vocabulary Search (192,309 Definitions)
+            English-Malayalam & Malayalam-English Dictionary
           </span>
         </h1>
         <p className="text-sm text-slate-500 mt-2 font-medium">
-          An interactive English-Malayalam & Malayalam-English dictionary database or Vamozhi AI
+          Instant English to Malayalam and Malayalam to English word definitions and meanings.
         </p>
 
         {/* Mode Toggle Tabs */}
@@ -472,26 +472,6 @@ export default function DictionarySection({ onSuccessMessage }: DictionarySectio
               </motion.div>
             )}
           </AnimatePresence>
-
-
-
-          {/* Olam Open Source Credit Card */}
-          <div className="bg-slate-50 border border-slate-200 rounded-3xl p-6 text-left space-y-3">
-            <h4 className="text-xs font-black text-slate-800 uppercase tracking-wider">Open Source Citation</h4>
-            <p className="text-[11px] text-slate-500 leading-relaxed">
-              We credit and thank **olam.in** (Kailash Nadh & contributors) for licensing their dictionary datasets (Datuk, Ekkurup, Enml) under open source terms, empowering free language utilities globally.
-            </p>
-            <a 
-              href="https://olam.in/" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="text-[10px] font-black uppercase tracking-widest text-purple-900 hover:text-purple-700 inline-flex items-center gap-1 hover:underline cursor-pointer"
-            >
-              <span>Visit Olam.in</span>
-              <ExternalLink className="w-3 h-3" />
-            </a>
-          </div>
-
         </div>
 
       </div>

@@ -219,12 +219,8 @@ export default function StoryModal({ text, onClose, onSuccess }: StoryModalProps
     
     // Bottom watermark
     ctx.fillStyle = selectedPreset.watermarkColor;
-    ctx.font = 'bold 32px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText("vamozhi.com", canvas.width / 2, canvas.height - 180);
-    
-    ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
-    ctx.font = '300 24px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText("MALAYALAM INSTAGRAM CAPTION GENERATOR", canvas.width / 2, canvas.height - 130);
+    ctx.font = 'bold 36px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText("© vamozhi.com", canvas.width / 2, canvas.height - 150);
   };
 
   const handleDownload = () => {

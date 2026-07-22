@@ -18,7 +18,10 @@ import {
   ChevronRight,
   Heart,
   Info,
-  Mail
+  Mail,
+  Home,
+  ChevronDown,
+  Film
 } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 import { AnimatePresence, motion } from "motion/react";
@@ -32,13 +35,14 @@ interface NavbarProps {
 
 const ALL_SEARCHABLE_TOOLS = [
   { name: "Instagram Caption Generator", path: "/instagram-caption-generator" },
+  { name: "Malayalam Reel Hooks & Content Ideas (റീൽ ഹുക്കുകളും ആശയങ്ങളും)", path: "/malayalam-reel-hooks" },
   { name: "Facebook Post Generator", path: "/facebook-caption-generator" },
   { name: "WhatsApp Status Generator", path: "/whatsapp-status-generator" },
   { name: "Snapchat Caption Creator", path: "/snapchat-caption-generator" },
   { name: "TikTok Video Caption", path: "/tiktok-caption-generator" },
   { name: "Manglish to Malayalam Typing", path: "/manglish-to-malayalam" },
   { name: "Malayalam Dictionary Search", path: "/malayalam-dictionary" },
-  { name: "Instagram Reel Hooks", path: "/malayalam-reel-hooks" },
+  { name: "Malayalam Reel Hooks", path: "/malayalam-reel-hooks" },
   { name: "Malayalam Quotes (മലയാളം ഉദ്ധരണികൾ)", path: "/malayalam-quotes" },
   { name: "Learn Malayalam Alphabet", path: "/learn-malayalam" },
   { name: "Malayalam Numbers & Quiz", path: "/malayalam-numbers" }
@@ -48,6 +52,8 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
   const { language, t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isCreatorSubmenuOpen, setIsCreatorSubmenuOpen] = useState(false);
+  const creatorSubmenuRef = useRef<HTMLDivElement>(null);
   
   // Search state
   const [searchQuery, setSearchQuery] = useState("");
@@ -63,11 +69,14 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Handle outside click to close search suggestions
+  // Handle outside click to close search suggestions and creator menu
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
         setIsSearchFocused(false);
+      }
+      if (creatorSubmenuRef.current && !creatorSubmenuRef.current.contains(event.target as Node)) {
+        setIsCreatorSubmenuOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -111,16 +120,16 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const isGeneratorActive = 
-    currentPath === "/" ||
+  const isCreatorToolsActive = 
     currentPath === "/malayalam-caption-generator" ||
+    currentPath === "/malayalam-quotes" ||
+    currentPath === "/malayalam-reel-hooks" ||
     currentPath === "/instagram-caption-generator" ||
     currentPath === "/facebook-caption-generator" ||
     currentPath === "/whatsapp-status-generator" ||
     currentPath === "/snapchat-caption-generator" ||
     currentPath === "/tiktok-caption-generator" ||
     currentPath === "/malayalam-instagram-bio" ||
-    currentPath === "/malayalam-reel-hooks" ||
     currentPath === "/arike-bio-generator" ||
     currentPath === "/bumble-bio-generator" ||
     currentPath === "/matrimony-bio-generator";
@@ -143,40 +152,143 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
         <div className="flex items-center justify-between gap-3">
           
           {/* Pro App Brand Logo */}
-          <div
-            className="flex items-center gap-2.5 cursor-pointer group shrink-0"
-            onClick={handleLogoClick}
+          <a
+            href="/"
+            className="brand-logo cursor-pointer shrink-0"
+            aria-label="Vamozhi Home"
+            onClick={(e) => {
+              e.preventDefault();
+              handleLogoClick();
+            }}
             id="nav-brand-logo"
           >
-            <div className="w-9 h-9 bg-gradient-to-br from-purple-950 via-[#911b5a] to-[#ff2a6d] rounded-xl flex items-center justify-center text-white font-black text-lg shadow-md transform -rotate-3 group-hover:rotate-0 transition-transform font-sans">
-              വാ
-            </div>
-            <div className="text-left">
+            <img
+              src="/assets/vamozhi-va-animated-logo.svg"
+              alt=""
+              width="48"
+              height="48"
+              className="brand-logo__icon shrink-0"
+            />
+            <div className="brand-logo__wordmark text-left">
               <div className="flex items-center gap-1.5">
-                <span className="text-lg font-black tracking-tight text-purple-950 uppercase block leading-none">
+                <span className="text-lg font-black tracking-tight bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent uppercase block leading-none">
                   VAMOZHI
                 </span>
-                <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse" title="Live Server Ready" />
+                <span className="text-[10px] font-extrabold text-purple-600 dark:text-purple-400 leading-none">.com</span>
+                <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" title="Live Server Ready" />
               </div>
-              <span className="text-[8px] font-extrabold text-pink-600 tracking-wider uppercase block mt-0.5">
+              <span className="text-[8px] font-extrabold text-pink-600 dark:text-pink-400 tracking-wider uppercase block mt-0.5">
                 Your Vibe. Your Words.
               </span>
             </div>
-          </div>
+          </a>
 
           {/* Unified Desktop Navigation Bar with SEPARATE Typing and Dictionary */}
           <div className="hidden lg:flex items-center gap-1 bg-slate-100/80 p-1 rounded-2xl border border-slate-200/60" id="desktop-unified-nav">
             <button
-              onClick={() => onNavigate("/")}
+              onClick={handleLogoClick}
               className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-extrabold tracking-wide transition-all cursor-pointer ${
-                isGeneratorActive
+                currentPath === "/"
                   ? "bg-purple-950 text-white shadow-sm"
                   : "text-slate-600 hover:text-purple-950 hover:bg-white/60"
               }`}
             >
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              Studio
+              <Home className="w-3.5 h-3.5 text-amber-400" />
+              Home
             </button>
+
+            {/* Creator Dropdown Menu */}
+            <div 
+              className="relative"
+              ref={creatorSubmenuRef}
+              onMouseEnter={() => setIsCreatorSubmenuOpen(true)}
+              onMouseLeave={() => setIsCreatorSubmenuOpen(false)}
+            >
+              <button
+                onClick={() => setIsCreatorSubmenuOpen(!isCreatorSubmenuOpen)}
+                aria-haspopup="true"
+                aria-expanded={isCreatorSubmenuOpen}
+                aria-label="Creator tools menu"
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-extrabold tracking-wide transition-all cursor-pointer ${
+                  isCreatorToolsActive
+                    ? "bg-purple-950 text-white shadow-sm"
+                    : "text-slate-600 hover:text-purple-950 hover:bg-white/60"
+                }`}
+              >
+                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                <span>Creator</span>
+                <ChevronDown className={`w-3 h-3 transition-transform ${isCreatorSubmenuOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {/* Accessible Submenu */}
+              {isCreatorSubmenuOpen && (
+                <div 
+                  className="absolute top-full left-0 pt-1.5 w-60 z-[100] before:content-[''] before:absolute before:-top-3 before:left-0 before:right-0 before:h-3"
+                  role="menu"
+                  aria-orientation="vertical"
+                >
+                  <div className="bg-white dark:bg-neutral-900 border border-slate-200/90 dark:border-neutral-800 rounded-2xl shadow-2xl py-2 text-left">
+                    <div className="px-3.5 py-1 text-[9px] font-black text-purple-700 dark:text-purple-400 uppercase tracking-widest border-b border-slate-100 dark:border-neutral-800 mb-1">
+                      Creator Suite
+                    </div>
+
+                    <button
+                      onClick={() => { onNavigate("/malayalam-caption-generator"); setIsCreatorSubmenuOpen(false); }}
+                      role="menuitem"
+                      className={`w-full text-left px-3.5 py-2 text-xs font-bold transition-colors flex items-center justify-between cursor-pointer ${
+                        currentPath === "/malayalam-caption-generator"
+                          ? "bg-purple-50 text-purple-950 dark:bg-neutral-800 dark:text-purple-300 font-black"
+                          : "text-slate-700 dark:text-slate-200 hover:bg-purple-50 hover:text-purple-950 dark:hover:bg-neutral-800"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <Sparkles className="w-4 h-4 text-amber-500 shrink-0" />
+                        <div className="flex flex-col">
+                          <span>Caption Creator</span>
+                          <span className="text-[10px] font-normal text-slate-400">ക്യാപ്ഷൻ ക്രിയേറ്റർ</span>
+                        </div>
+                      </div>
+                    </button>
+
+                    <button
+                      onClick={() => { onNavigate("/malayalam-quotes"); setIsCreatorSubmenuOpen(false); }}
+                      role="menuitem"
+                      className={`w-full text-left px-3.5 py-2 text-xs font-bold transition-colors flex items-center justify-between cursor-pointer ${
+                        currentPath === "/malayalam-quotes"
+                          ? "bg-purple-50 text-purple-950 dark:bg-neutral-800 dark:text-purple-300 font-black"
+                          : "text-slate-700 dark:text-slate-200 hover:bg-purple-50 hover:text-purple-950 dark:hover:bg-neutral-800"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <BookOpen className="w-4 h-4 text-purple-500 shrink-0" />
+                        <div className="flex flex-col">
+                          <span>Quote Creator</span>
+                          <span className="text-[10px] font-normal text-slate-400">മലയാളം ഉദ്ധരണികൾ</span>
+                        </div>
+                      </div>
+                    </button>
+
+                    <button
+                      onClick={() => { onNavigate("/malayalam-reel-hooks"); setIsCreatorSubmenuOpen(false); }}
+                      role="menuitem"
+                      className={`w-full text-left px-3.5 py-2 text-xs font-bold transition-colors flex items-center justify-between cursor-pointer ${
+                        currentPath === "/malayalam-reel-hooks"
+                          ? "bg-purple-50 text-purple-950 dark:bg-neutral-800 dark:text-purple-300 font-black"
+                          : "text-slate-700 dark:text-slate-200 hover:bg-purple-50 hover:text-purple-950 dark:hover:bg-neutral-800"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <Film className="w-4 h-4 text-pink-500 shrink-0" />
+                        <div className="flex flex-col">
+                          <span>Reel Hooks & Ideas 🎬</span>
+                          <span className="text-[10px] font-normal text-slate-400">റീൽ ഹുക്കുകളും ആശയങ്ങളും</span>
+                        </div>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
 
             <button
               onClick={() => onNavigate("/manglish-to-malayalam")}
@@ -211,7 +323,7 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
               }`}
             >
               <GraduationCap className="w-3.5 h-3.5 text-emerald-400" />
-              Study & Certify
+              Learn
             </button>
 
             <button
@@ -312,17 +424,13 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
             >
               {/* Drawer Header */}
               <div className="p-4 border-b border-slate-100 flex items-center justify-between shrink-0">
-                <div className="flex items-center gap-2.5" onClick={handleLogoClick}>
-                  <div className="w-8 h-8 bg-gradient-to-br from-purple-950 via-[#911b5a] to-[#ff2a6d] rounded-lg flex items-center justify-center text-white font-black text-base transform -rotate-3">
-                    വാ
-                  </div>
-                  <span className="text-base font-black tracking-tight text-purple-950 uppercase">
-                    VAMOZHI
-                  </span>
-                </div>
+                <span className="text-sm font-black uppercase tracking-wider text-slate-800">
+                  Vamozhi Menu
+                </span>
                 <button
                   onClick={() => setIsOpen(false)}
                   className="p-1.5 rounded-full text-slate-400 hover:bg-slate-100 cursor-pointer"
+                  aria-label="Close menu"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -367,9 +475,11 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
                     Features & Tools
                   </span>
                   {[
-                    { name: "Caption Studio ✨", path: "/", icon: Sparkles },
+                    { name: "Caption Creator ✨", path: "/malayalam-caption-generator", icon: Sparkles },
+                    { name: "Quote Creator ✍️", path: "/malayalam-quotes", icon: BookOpen },
+                    { name: "Reel Hooks & Ideas 🎬", path: "/malayalam-reel-hooks", icon: Film },
                     { name: "Manglish Typing ⌨️", path: "/manglish-to-malayalam", icon: Keyboard },
-                    { name: "Olam Dictionary 📖", path: "/malayalam-dictionary", icon: BookOpen },
+                    { name: "Malayalam Dictionary 📖", path: "/malayalam-dictionary", icon: BookOpen },
                     { name: "Learn Malayalam 🎓", path: "/learn-malayalam", icon: GraduationCap },
                     { name: "Hashtag Generator 🏷️", path: "/malayalam-hashtags", icon: Hash }
                   ].map((item) => {

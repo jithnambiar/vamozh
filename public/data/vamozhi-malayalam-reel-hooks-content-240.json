@@ -1,0 +1,2947 @@
+{
+  "name": "Vamozhi Malayalam Reel Hooks and Content Ideas",
+  "description": "Curated Malayalam Reel hooks and practical content ideas for business creators.",
+  "version": "1.0.0",
+  "language": "ml",
+  "website": "https://vamozhi.com",
+  "copyright": "© vamozhi.com",
+  "license_note": "Created for use within Vamozhi products. Review before redistribution.",
+  "total_categories": 16,
+  "total_hooks": 160,
+  "total_content_ideas": 80,
+  "total_entries": 240,
+  "categories": [
+    {
+      "slug": "beauty-parlour",
+      "name_en": "Beauty Parlour",
+      "name_ml": "ബ്യൂട്ടി പാർലർ",
+      "priority": 1,
+      "hook_count": 10,
+      "content_idea_count": 5
+    },
+    {
+      "slug": "makeup-artists",
+      "name_en": "Makeup Artists",
+      "name_ml": "മേക്കപ്പ് ആർട്ടിസ്റ്റുകൾ",
+      "priority": 2,
+      "hook_count": 10,
+      "content_idea_count": 5
+    },
+    {
+      "slug": "bridal-makeup",
+      "name_en": "Bridal Makeup",
+      "name_ml": "ബ്രൈഡൽ മേക്കപ്പ്",
+      "priority": 3,
+      "hook_count": 10,
+      "content_idea_count": 5
+    },
+    {
+      "slug": "skincare-clinics",
+      "name_en": "Skincare Clinics",
+      "name_ml": "സ്കിൻകെയർ ക്ലിനിക്കുകൾ",
+      "priority": 4,
+      "hook_count": 10,
+      "content_idea_count": 5
+    },
+    {
+      "slug": "dental-clinics",
+      "name_en": "Dental Clinics",
+      "name_ml": "ഡെന്റൽ ക്ലിനിക്കുകൾ",
+      "priority": 5,
+      "hook_count": 10,
+      "content_idea_count": 5
+    },
+    {
+      "slug": "mens-salon",
+      "name_en": "Men's Salon",
+      "name_ml": "മെൻസ് സലൂൺ",
+      "priority": 6,
+      "hook_count": 10,
+      "content_idea_count": 5
+    },
+    {
+      "slug": "restaurants-cafes",
+      "name_en": "Restaurants and Cafés",
+      "name_ml": "റെസ്റ്റോറന്റുകളും കഫേകളും",
+      "priority": 7,
+      "hook_count": 10,
+      "content_idea_count": 5
+    },
+    {
+      "slug": "bakeries-home-bakers",
+      "name_en": "Bakeries and Home Bakers",
+      "name_ml": "ബേക്കറികളും ഹോം ബേക്കേഴ്സും",
+      "priority": 8,
+      "hook_count": 10,
+      "content_idea_count": 5
+    },
+    {
+      "slug": "boutique-fashion",
+      "name_en": "Boutique and Fashion",
+      "name_ml": "ബൂട്ടിക്കും ഫാഷനും",
+      "priority": 9,
+      "hook_count": 10,
+      "content_idea_count": 5
+    },
+    {
+      "slug": "jewellery",
+      "name_en": "Jewellery Businesses",
+      "name_ml": "ജ്വല്ലറി ബിസിനസുകൾ",
+      "priority": 10,
+      "hook_count": 10,
+      "content_idea_count": 5
+    },
+    {
+      "slug": "fitness-centres",
+      "name_en": "Fitness Centres and Gyms",
+      "name_ml": "ഫിറ്റ്നസ് സെന്ററുകളും ജിമ്മുകളും",
+      "priority": 11,
+      "hook_count": 10,
+      "content_idea_count": 5
+    },
+    {
+      "slug": "instagram-business",
+      "name_en": "Instagram Businesses",
+      "name_ml": "ഇൻസ്റ്റഗ്രാം ബിസിനസുകൾ",
+      "priority": 12,
+      "hook_count": 10,
+      "content_idea_count": 5
+    },
+    {
+      "slug": "ecommerce-business",
+      "name_en": "E-commerce Businesses",
+      "name_ml": "ഇ-കൊമേഴ്‌സ് ബിസിനസുകൾ",
+      "priority": 13,
+      "hook_count": 10,
+      "content_idea_count": 5
+    },
+    {
+      "slug": "real-estate",
+      "name_en": "Real Estate",
+      "name_ml": "റിയൽ എസ്റ്റേറ്റ്",
+      "priority": 14,
+      "hook_count": 10,
+      "content_idea_count": 5
+    },
+    {
+      "slug": "education-coaching",
+      "name_en": "Education and Coaching",
+      "name_ml": "വിദ്യാഭ്യാസവും കോച്ചിംഗും",
+      "priority": 15,
+      "hook_count": 10,
+      "content_idea_count": 5
+    },
+    {
+      "slug": "travel-tourism",
+      "name_en": "Travel and Tourism",
+      "name_ml": "യാത്രയും ടൂറിസവും",
+      "priority": 16,
+      "hook_count": 10,
+      "content_idea_count": 5
+    }
+  ],
+  "hooks": [
+    {
+      "id": "hook-beauty-parlour-001",
+      "hook_ml": "പാർലറിൽ പോകുന്നതിന് മുമ്പ് നിങ്ങൾ പറയേണ്ട മൂന്ന് കാര്യങ്ങൾ ഇതാണ്.",
+      "category_slug": "beauty-parlour",
+      "hook_type": "problem",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-beauty-parlour-002",
+      "hook_ml": "ഒരു ചെറിയ ഹെയർകട്ട് മാറ്റം മുഖത്തിന്റെ ലുക്ക് എങ്ങനെ മാറ്റുമെന്ന് നോക്കൂ.",
+      "category_slug": "beauty-parlour",
+      "hook_type": "transformation",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-beauty-parlour-003",
+      "hook_ml": "ഫേഷ്യൽ തിരഞ്ഞെടുക്കുമ്പോൾ വില മാത്രം നോക്കുന്നത് എന്തുകൊണ്ട് ശരിയല്ല?",
+      "category_slug": "beauty-parlour",
+      "hook_type": "myth",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-beauty-parlour-004",
+      "hook_ml": "ഈ മുടിക്ക് ഞങ്ങൾ നൽകിയ മാറ്റം അവസാനം വരെ കണ്ടുനോക്കൂ.",
+      "category_slug": "beauty-parlour",
+      "hook_type": "curiosity",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-beauty-parlour-005",
+      "hook_ml": "പാർലർ സർവീസ് ബുക്ക് ചെയ്യുന്നതിന് മുമ്പ് ഈ ചോദ്യം ചോദിച്ചിട്ടുണ്ടോ?",
+      "category_slug": "beauty-parlour",
+      "hook_type": "checklist",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-beauty-parlour-006",
+      "hook_ml": "വീട്ടിൽ ചെയ്യുന്ന ഈ സാധാരണ തെറ്റ് നിങ്ങളുടെ മുടിയെ വരണ്ടതാക്കാം.",
+      "category_slug": "beauty-parlour",
+      "hook_type": "mistake",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-beauty-parlour-007",
+      "hook_ml": "അഞ്ച് മിനിറ്റിൽ കൂടുതൽ ഫ്രഷ് ആയി തോന്നാൻ സഹായിക്കുന്ന പാർലർ ടിപ്പ്.",
+      "category_slug": "beauty-parlour",
+      "hook_type": "quick-tip",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-beauty-parlour-008",
+      "hook_ml": "എല്ലാ ഹെയർ സ്പായും ഒരുപോലെയല്ല; വ്യത്യാസം ഇതാണ്.",
+      "category_slug": "beauty-parlour",
+      "hook_type": "comparison",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-beauty-parlour-009",
+      "hook_ml": "ഒരു ക്ലയന്റിന്റെ യഥാർത്ഥ before-and-after മാറ്റം കാണാം.",
+      "category_slug": "beauty-parlour",
+      "hook_type": "behind-the-scenes",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-beauty-parlour-010",
+      "hook_ml": "നിങ്ങളുടെ അടുത്ത പാർലർ സന്ദർശനത്തിൽ ഏത് സർവീസ് തിരഞ്ഞെടുക്കണം?",
+      "category_slug": "beauty-parlour",
+      "hook_type": "question",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-makeup-artists-001",
+      "hook_ml": "മേക്കപ്പ് cakey ആകുന്നതിന്റെ കാരണം foundation മാത്രമല്ല.",
+      "category_slug": "makeup-artists",
+      "hook_type": "problem",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-makeup-artists-002",
+      "hook_ml": "ഒരേ മുഖത്ത് warm tone ഉം cool tone ഉം എങ്ങനെ വ്യത്യാസപ്പെടുന്നു എന്ന് നോക്കൂ.",
+      "category_slug": "makeup-artists",
+      "hook_type": "transformation",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-makeup-artists-003",
+      "hook_ml": "ഫോട്ടോയിൽ മേക്കപ്പ് നന്നായി കാണാൻ ഈ ഘട്ടം ഒഴിവാക്കരുത്.",
+      "category_slug": "makeup-artists",
+      "hook_type": "myth",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-makeup-artists-004",
+      "hook_ml": "ഈ ലുക്ക് തുടങ്ങിയത് എവിടെ നിന്നാണെന്ന് അവസാനം കണ്ടാൽ മനസ്സിലാകും.",
+      "category_slug": "makeup-artists",
+      "hook_type": "curiosity",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-makeup-artists-005",
+      "hook_ml": "മേക്കപ്പ് appointment ന് മുമ്പ് artist നോട് പറയേണ്ട കാര്യങ്ങൾ ഏതൊക്കെ?",
+      "category_slug": "makeup-artists",
+      "hook_type": "checklist",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-makeup-artists-006",
+      "hook_ml": "ചെറിയ കണ്ണുകൾ കൂടുതൽ തുറന്നതായി കാണിക്കാൻ ഈ ലളിതമായ technique പരീക്ഷിക്കാം.",
+      "category_slug": "makeup-artists",
+      "hook_type": "mistake",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-makeup-artists-007",
+      "hook_ml": "Lipstick shade തിരഞ്ഞെടുക്കുമ്പോൾ skin tone മാത്രം മതിയോ?",
+      "category_slug": "makeup-artists",
+      "hook_type": "quick-tip",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-makeup-artists-008",
+      "hook_ml": "Natural makeup എന്നത് makeup ഇല്ലാത്തത് പോലെയല്ല; വ്യത്യാസം കാണാം.",
+      "category_slug": "makeup-artists",
+      "hook_type": "comparison",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-makeup-artists-009",
+      "hook_ml": "ഒരു മണിക്കൂർ നീണ്ട makeover ഇരുപത് സെക്കൻഡിൽ കാണാം.",
+      "category_slug": "makeup-artists",
+      "hook_type": "behind-the-scenes",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-makeup-artists-010",
+      "hook_ml": "നിങ്ങളുടെ മുഖഭാവം മറയ്ക്കാതെ enhance ചെയ്യുന്ന മേക്കപ്പ് ഇങ്ങനെയാണ്.",
+      "category_slug": "makeup-artists",
+      "hook_type": "question",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-bridal-makeup-001",
+      "hook_ml": "വിവാഹദിവസത്തെ makeup തീരുമാനിക്കുന്നതിന് മുമ്പ് ഈ Reel save ചെയ്യൂ.",
+      "category_slug": "bridal-makeup",
+      "hook_type": "problem",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-bridal-makeup-002",
+      "hook_ml": "Bridal trial വേണ്ടതാണോ എന്ന് സംശയമുണ്ടെങ്കിൽ ഇത് കാണൂ.",
+      "category_slug": "bridal-makeup",
+      "hook_type": "transformation",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-bridal-makeup-003",
+      "hook_ml": "Jewellery ധരിച്ചതിന് ശേഷമാണ് ഈ bridal look പൂർണ്ണമായത്.",
+      "category_slug": "bridal-makeup",
+      "hook_type": "myth",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-bridal-makeup-004",
+      "hook_ml": "രാവിലെ മുതൽ രാത്രി വരെ bridal makeup നിലനിർത്താൻ എന്താണ് ശ്രദ്ധിക്കുന്നത്?",
+      "category_slug": "bridal-makeup",
+      "hook_type": "curiosity",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-bridal-makeup-005",
+      "hook_ml": "Bride ന്റെ personality നഷ്ടപ്പെടാതെ ഒരു look സൃഷ്ടിച്ചത് ഇങ്ങനെയാണ്.",
+      "category_slug": "bridal-makeup",
+      "hook_type": "checklist",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-bridal-makeup-006",
+      "hook_ml": "Wedding outfit നോട് makeup match ചെയ്യുമ്പോൾ ഈ തെറ്റ് ഒഴിവാക്കൂ.",
+      "category_slug": "bridal-makeup",
+      "hook_type": "mistake",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-bridal-makeup-007",
+      "hook_ml": "HD makeup ഉം traditional finish ഉം തമ്മിലുള്ള വ്യത്യാസം അറിയാമോ?",
+      "category_slug": "bridal-makeup",
+      "hook_type": "quick-tip",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-bridal-makeup-008",
+      "hook_ml": "ഈ bride ആവശ്യപ്പെട്ടത് വളരെ ലളിതമായ ഒരു look ആയിരുന്നു; ഫലം കാണൂ.",
+      "category_slug": "bridal-makeup",
+      "hook_type": "comparison",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-bridal-makeup-009",
+      "hook_ml": "Bridal booking ന് മുമ്പ് artist നോട് ചോദിക്കേണ്ട അഞ്ച് ചോദ്യങ്ങൾ.",
+      "category_slug": "bridal-makeup",
+      "hook_type": "behind-the-scenes",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-bridal-makeup-010",
+      "hook_ml": "ഒരു bridal transformation ന്റെ ഏറ്റവും മനോഹരമായ നിമിഷം ഇതാണ്.",
+      "category_slug": "bridal-makeup",
+      "hook_type": "question",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-skincare-clinics-001",
+      "hook_ml": "Social media യിൽ കണ്ട skincare routine എല്ലാവർക്കും യോജിക്കണമെന്നില്ല.",
+      "category_slug": "skincare-clinics",
+      "hook_type": "problem",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-skincare-clinics-002",
+      "hook_ml": "Acne വന്നാൽ ആദ്യം ചെയ്യേണ്ടത് പുതിയ product വാങ്ങുന്നതാണോ?",
+      "category_slug": "skincare-clinics",
+      "hook_type": "transformation",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-skincare-clinics-003",
+      "hook_ml": "Sunscreen ഉപയോഗിച്ചിട്ടും ഫലം തോന്നാത്തതിന്റെ സാധാരണ കാരണങ്ങൾ ഇവയാണ്.",
+      "category_slug": "skincare-clinics",
+      "hook_type": "myth",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-skincare-clinics-004",
+      "hook_ml": "Skin type ഉം skin condition ഉം ഒരേ കാര്യമല്ല.",
+      "category_slug": "skincare-clinics",
+      "hook_type": "curiosity",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-skincare-clinics-005",
+      "hook_ml": "ഈ ലക്ഷണങ്ങൾ ഉണ്ടെങ്കിൽ skincare advice മാത്രം മതിയാകാതിരിക്കാം.",
+      "category_slug": "skincare-clinics",
+      "hook_type": "checklist",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-skincare-clinics-006",
+      "hook_ml": "ഒരു treatment തിരഞ്ഞെടുക്കുന്നതിന് മുമ്പ് consultation എന്തുകൊണ്ട് പ്രധാനമാണ്?",
+      "category_slug": "skincare-clinics",
+      "hook_type": "mistake",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-skincare-clinics-007",
+      "hook_ml": "Pigmentation ഒറ്റ രാത്രിയിൽ മാറുമെന്ന വാഗ്ദാനം വിശ്വസിക്കുന്നതിന് മുമ്പ് ഇത് അറിയൂ.",
+      "category_slug": "skincare-clinics",
+      "hook_type": "quick-tip",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-skincare-clinics-008",
+      "hook_ml": "Skincare ൽ കൂടുതൽ products എന്നത് കൂടുതൽ ഫലം എന്നർത്ഥമല്ല.",
+      "category_slug": "skincare-clinics",
+      "hook_type": "comparison",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-skincare-clinics-009",
+      "hook_ml": "Clinic treatment കഴിഞ്ഞുള്ള aftercare ഒഴിവാക്കിയാൽ എന്ത് സംഭവിക്കാം?",
+      "category_slug": "skincare-clinics",
+      "hook_type": "behind-the-scenes",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-skincare-clinics-010",
+      "hook_ml": "നിങ്ങളുടെ routine ലളിതമാക്കേണ്ട സമയം വന്നോ എന്ന് ഇങ്ങനെ മനസ്സിലാക്കാം.",
+      "category_slug": "skincare-clinics",
+      "hook_type": "question",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-dental-clinics-001",
+      "hook_ml": "പല്ലുവേദന മാറിയാൽ പ്രശ്നവും മാറിയോ? എല്ലായ്പ്പോഴും അങ്ങനെ ആവണമെന്നില്ല.",
+      "category_slug": "dental-clinics",
+      "hook_type": "problem",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-dental-clinics-002",
+      "hook_ml": "Brushing ചെയ്യുമ്പോൾ bleeding വരുന്നത് സാധാരണമാണെന്ന് കരുതുന്നുണ്ടോ?",
+      "category_slug": "dental-clinics",
+      "hook_type": "transformation",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-dental-clinics-003",
+      "hook_ml": "Scaling ചെയ്താൽ പല്ല് ദുർബലമാകുമെന്നത് സത്യമാണോ?",
+      "category_slug": "dental-clinics",
+      "hook_type": "myth",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-dental-clinics-004",
+      "hook_ml": "Toothbrush തിരഞ്ഞെടുക്കുമ്പോൾ soft, medium, hard—ഏതാണ് നല്ലത്?",
+      "category_slug": "dental-clinics",
+      "hook_type": "curiosity",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-dental-clinics-005",
+      "hook_ml": "Bad breath മറയ്ക്കുന്നതും അതിന്റെ കാരണം കണ്ടെത്തുന്നതും രണ്ടാണ്.",
+      "category_slug": "dental-clinics",
+      "hook_type": "checklist",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-dental-clinics-006",
+      "hook_ml": "കുട്ടിയുടെ ആദ്യ dental visit എപ്പോൾ ആക്കണം?",
+      "category_slug": "dental-clinics",
+      "hook_type": "mistake",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-dental-clinics-007",
+      "hook_ml": "Aligners തുടങ്ങുന്നതിന് മുമ്പ് അറിയേണ്ട മൂന്ന് കാര്യങ്ങൾ.",
+      "category_slug": "dental-clinics",
+      "hook_type": "quick-tip",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-dental-clinics-008",
+      "hook_ml": "ഈ ചെറിയ brushing mistake പലരും ദിവസവും ആവർത്തിക്കുന്നു.",
+      "category_slug": "dental-clinics",
+      "hook_type": "comparison",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-dental-clinics-009",
+      "hook_ml": "Dental check-up വേദന വന്നശേഷം മാത്രം മതിയോ?",
+      "category_slug": "dental-clinics",
+      "hook_type": "behind-the-scenes",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-dental-clinics-010",
+      "hook_ml": "ഒരു smile consultation ൽ യഥാർത്ഥത്തിൽ എന്താണ് നടക്കുന്നത് എന്ന് കാണാം.",
+      "category_slug": "dental-clinics",
+      "hook_type": "question",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-mens-salon-001",
+      "hook_ml": "നിങ്ങളുടെ face shape ന് യോജിച്ച haircut ഇതായിരിക്കാം.",
+      "category_slug": "mens-salon",
+      "hook_type": "problem",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-mens-salon-002",
+      "hook_ml": "Barber നോട് ‘short ആക്കൂ’ എന്ന് മാത്രം പറയാതെ ഇത് പറയൂ.",
+      "category_slug": "mens-salon",
+      "hook_type": "transformation",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-mens-salon-003",
+      "hook_ml": "Fade haircut fresh ആയി നിലനിർത്താൻ എത്ര ഇടവേളയിൽ trim വേണം?",
+      "category_slug": "mens-salon",
+      "hook_type": "myth",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-mens-salon-004",
+      "hook_ml": "ഈ beard shape മുഖത്തിന്റെ look തന്നെ മാറ്റി.",
+      "category_slug": "mens-salon",
+      "hook_type": "curiosity",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-mens-salon-005",
+      "hook_ml": "Hair styling product തിരഞ്ഞെടുക്കുമ്പോൾ matte ഉം shine ഉം തമ്മിലുള്ള വ്യത്യാസം ഇതാണ്.",
+      "category_slug": "mens-salon",
+      "hook_type": "checklist",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-mens-salon-006",
+      "hook_ml": "Dandruff ഉള്ളപ്പോൾ പലരും ചെയ്യുന്ന ഈ തെറ്റ് ഒഴിവാക്കൂ.",
+      "category_slug": "mens-salon",
+      "hook_type": "mistake",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-mens-salon-007",
+      "hook_ml": "ഒരു complete grooming transformation അവസാനം വരെ കാണൂ.",
+      "category_slug": "mens-salon",
+      "hook_type": "quick-tip",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-mens-salon-008",
+      "hook_ml": "Curly hair ഉള്ള പുരുഷന്മാർ haircut ന് മുമ്പ് അറിയേണ്ടത്.",
+      "category_slug": "mens-salon",
+      "hook_type": "comparison",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-mens-salon-009",
+      "hook_ml": "Beard വളർത്തുന്നതിലും പ്രധാനമാണ് ശരിയായ maintenance.",
+      "category_slug": "mens-salon",
+      "hook_type": "behind-the-scenes",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-mens-salon-010",
+      "hook_ml": "അടുത്ത haircut ന് ഈ reference save ചെയ്ത് വയ്ക്കൂ.",
+      "category_slug": "mens-salon",
+      "hook_type": "question",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-restaurants-cafes-001",
+      "hook_ml": "ഈ dish kitchen ൽ നിന്ന് table ലേക്ക് എത്തുന്നത് വരെ കണ്ടിട്ടുണ്ടോ?",
+      "category_slug": "restaurants-cafes",
+      "hook_type": "problem",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-restaurants-cafes-002",
+      "hook_ml": "ഞങ്ങളുടെ menu യിലെ ഏറ്റവും കൂടുതൽ order ചെയ്യുന്ന item ഇതാണ്.",
+      "category_slug": "restaurants-cafes",
+      "hook_type": "transformation",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-restaurants-cafes-003",
+      "hook_ml": "മഴയുള്ള വൈകുന്നേരത്തിന് ഈ combination മതി.",
+      "category_slug": "restaurants-cafes",
+      "hook_type": "myth",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-restaurants-cafes-004",
+      "hook_ml": "ആദ്യ bite ന് മുമ്പ് തന്നെ ഇഷ്ടപ്പെടുന്ന ഒരു dish.",
+      "category_slug": "restaurants-cafes",
+      "hook_type": "curiosity",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-restaurants-cafes-005",
+      "hook_ml": "ഈ secret ingredient രുചിയെ എങ്ങനെ മാറ്റുന്നു എന്ന് നോക്കൂ.",
+      "category_slug": "restaurants-cafes",
+      "hook_type": "checklist",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-restaurants-cafes-006",
+      "hook_ml": "₹500 budget ൽ രണ്ട് പേർക്ക് ഇവിടെ എന്തൊക്കെ കഴിക്കാം?",
+      "category_slug": "restaurants-cafes",
+      "hook_type": "mistake",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-restaurants-cafes-007",
+      "hook_ml": "Chef recommend ചെയ്യുന്ന ഇന്നത്തെ special പരിചയപ്പെടാം.",
+      "category_slug": "restaurants-cafes",
+      "hook_type": "quick-tip",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-restaurants-cafes-008",
+      "hook_ml": "Coffee ഇഷ്ടമുള്ളവർ ഈ making process miss ചെയ്യരുത്.",
+      "category_slug": "restaurants-cafes",
+      "hook_type": "comparison",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-restaurants-cafes-009",
+      "hook_ml": "ഒരു busy dinner service ന്റെ പിന്നാമ്പുറം ഇങ്ങനെയാണ്.",
+      "category_slug": "restaurants-cafes",
+      "hook_type": "behind-the-scenes",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-restaurants-cafes-010",
+      "hook_ml": "നിങ്ങൾ spicy team ആണോ creamy team ആണോ?",
+      "category_slug": "restaurants-cafes",
+      "hook_type": "question",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-bakeries-home-bakers-001",
+      "hook_ml": "ഈ cake ന്റെ ഉള്ളിലെ surprise അവസാനം മാത്രമേ കാണൂ.",
+      "category_slug": "bakeries-home-bakers",
+      "hook_type": "problem",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-bakeries-home-bakers-002",
+      "hook_ml": "ഒരു custom cake idea യാഥാർത്ഥ്യമാകുന്നത് ഇങ്ങനെയാണ്.",
+      "category_slug": "bakeries-home-bakers",
+      "hook_type": "transformation",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-bakeries-home-bakers-003",
+      "hook_ml": "Freshly baked bread ന്റെ ഈ sound കേൾക്കൂ.",
+      "category_slug": "bakeries-home-bakers",
+      "hook_type": "myth",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-bakeries-home-bakers-004",
+      "hook_ml": "Buttercream smooth ആക്കാൻ patience എത്ര വേണമെന്ന് നോക്കൂ.",
+      "category_slug": "bakeries-home-bakers",
+      "hook_type": "curiosity",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-bakeries-home-bakers-005",
+      "hook_ml": "₹1000 budget ൽ എന്ത് custom cake ലഭിക്കും?",
+      "category_slug": "bakeries-home-bakers",
+      "hook_type": "checklist",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-bakeries-home-bakers-006",
+      "hook_ml": "Oven തുറക്കുന്ന ഈ നിമിഷമാണ് ഞങ്ങളുടെ favourite.",
+      "category_slug": "bakeries-home-bakers",
+      "hook_type": "mistake",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-bakeries-home-bakers-007",
+      "hook_ml": "Chocolate lovers ഈ filling കണ്ടാൽ scroll ചെയ്യില്ല.",
+      "category_slug": "bakeries-home-bakers",
+      "hook_type": "quick-tip",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-bakeries-home-bakers-008",
+      "hook_ml": "ഒരു order pack ചെയ്യുന്നതിന് മുമ്പ് ഞങ്ങൾ പരിശോധിക്കുന്ന കാര്യങ്ങൾ.",
+      "category_slug": "bakeries-home-bakers",
+      "hook_type": "comparison",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-bakeries-home-bakers-009",
+      "hook_ml": "Home baker ന്റെ ഒരു ദിവസം ഇത്ര busy ആണെന്ന് കരുതിയോ?",
+      "category_slug": "bakeries-home-bakers",
+      "hook_type": "behind-the-scenes",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-bakeries-home-bakers-010",
+      "hook_ml": "നിങ്ങളുടെ അടുത്ത celebration ന് ഏത് flavour തിരഞ്ഞെടുക്കും?",
+      "category_slug": "bakeries-home-bakers",
+      "hook_type": "question",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-boutique-fashion-001",
+      "hook_ml": "ഒരേ outfit മൂന്ന് രീതിയിൽ style ചെയ്യാം.",
+      "category_slug": "boutique-fashion",
+      "hook_type": "problem",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-boutique-fashion-002",
+      "hook_ml": "ഈ colour combination നിങ്ങൾ പ്രതീക്ഷിച്ചതിനേക്കാൾ നന്നായി work ചെയ്യും.",
+      "category_slug": "boutique-fashion",
+      "hook_type": "transformation",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-boutique-fashion-003",
+      "hook_ml": "Body shape മറയ്ക്കേണ്ടതല്ല; ശരിയായ fit കണ്ടെത്തുകയാണ് വേണ്ടത്.",
+      "category_slug": "boutique-fashion",
+      "hook_type": "myth",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-boutique-fashion-004",
+      "hook_ml": "Fabric തിരഞ്ഞെടുക്കുമ്പോൾ photo മാത്രം നോക്കരുത്.",
+      "category_slug": "boutique-fashion",
+      "hook_type": "curiosity",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-boutique-fashion-005",
+      "hook_ml": "ഒരു plain kurti festive look ആക്കുന്നത് ഇങ്ങനെയാണ്.",
+      "category_slug": "boutique-fashion",
+      "hook_type": "checklist",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-boutique-fashion-006",
+      "hook_ml": "ഈ outfit ന്റെ detailing അടുത്ത് നിന്ന് കാണൂ.",
+      "category_slug": "boutique-fashion",
+      "hook_type": "mistake",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-boutique-fashion-007",
+      "hook_ml": "Online dress order ചെയ്യുന്നതിന് മുമ്പ് ഈ measurements എടുക്കൂ.",
+      "category_slug": "boutique-fashion",
+      "hook_type": "quick-tip",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-boutique-fashion-008",
+      "hook_ml": "Office മുതൽ evening outing വരെ ഉപയോഗിക്കാവുന്ന ഒരു look.",
+      "category_slug": "boutique-fashion",
+      "hook_type": "comparison",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-boutique-fashion-009",
+      "hook_ml": "Tailoring fit മാറ്റിയപ്പോൾ outfit എങ്ങനെ മാറി എന്ന് നോക്കൂ.",
+      "category_slug": "boutique-fashion",
+      "hook_type": "behind-the-scenes",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-boutique-fashion-010",
+      "hook_ml": "ഈ ആഴ്ചയിലെ പുതിയ arrivals ൽ നിങ്ങളുടെ favourite ഏത്?",
+      "category_slug": "boutique-fashion",
+      "hook_type": "question",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-jewellery-001",
+      "hook_ml": "ഈ necklace അടുത്ത് കാണുമ്പോഴാണ് യഥാർത്ഥ detailing മനസ്സിലാകുന്നത്.",
+      "category_slug": "jewellery",
+      "hook_type": "problem",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-jewellery-002",
+      "hook_ml": "ഒരേ saree ക്ക് രണ്ട് jewellery moods; നിങ്ങൾ ഏത് തിരഞ്ഞെടുക്കും?",
+      "category_slug": "jewellery",
+      "hook_type": "transformation",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-jewellery-003",
+      "hook_ml": "Daily wear jewellery വാങ്ങുമ്പോൾ ശ്രദ്ധിക്കേണ്ട മൂന്ന് കാര്യങ്ങൾ.",
+      "category_slug": "jewellery",
+      "hook_type": "myth",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-jewellery-004",
+      "hook_ml": "ഈ earrings മുഖത്തിന്റെ look എങ്ങനെ മാറ്റുന്നു എന്ന് നോക്കൂ.",
+      "category_slug": "jewellery",
+      "hook_type": "curiosity",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-jewellery-005",
+      "hook_ml": "Bridal set തിരഞ്ഞെടുക്കുമ്പോൾ outfit neckline മറക്കരുത്.",
+      "category_slug": "jewellery",
+      "hook_type": "checklist",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-jewellery-006",
+      "hook_ml": "Minimal jewellery ഇഷ്ടമുള്ളവർക്ക് ഈ collection ആണ്.",
+      "category_slug": "jewellery",
+      "hook_type": "mistake",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-jewellery-007",
+      "hook_ml": "Jewellery ന്റെ shine കൂടുതൽ കാലം നിലനിർത്താൻ ഇങ്ങനെ സൂക്ഷിക്കൂ.",
+      "category_slug": "jewellery",
+      "hook_type": "quick-tip",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-jewellery-008",
+      "hook_ml": "ഒരു handcrafted piece പൂർത്തിയാകാൻ എത്ര ഘട്ടങ്ങളുണ്ടെന്ന് അറിയാമോ?",
+      "category_slug": "jewellery",
+      "hook_type": "comparison",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-jewellery-009",
+      "hook_ml": "Budget അനുസരിച്ച് gift തിരഞ്ഞെടുക്കാൻ ഈ Reel save ചെയ്യൂ.",
+      "category_slug": "jewellery",
+      "hook_type": "behind-the-scenes",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-jewellery-010",
+      "hook_ml": "Gold tone ആണോ silver tone ആണോ നിങ്ങളെ കൂടുതൽ suit ചെയ്യുന്നത്?",
+      "category_slug": "jewellery",
+      "hook_type": "question",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-fitness-centres-001",
+      "hook_ml": "Gym തുടങ്ങുന്ന ആദ്യ ആഴ്ചയിൽ ഈ തെറ്റ് ചെയ്യരുത്.",
+      "category_slug": "fitness-centres",
+      "hook_type": "problem",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-fitness-centres-002",
+      "hook_ml": "Weight കുറയാത്തത് workout മോശമാണെന്നർത്ഥമല്ല.",
+      "category_slug": "fitness-centres",
+      "hook_type": "transformation",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-fitness-centres-003",
+      "hook_ml": "Squat ചെയ്യുമ്പോൾ നിങ്ങളുടെ knees ഇങ്ങനെ പോകുന്നുണ്ടോ?",
+      "category_slug": "fitness-centres",
+      "hook_type": "myth",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-fitness-centres-004",
+      "hook_ml": "Beginner ആണെങ്കിൽ ഈ മൂന്ന് exercises കൊണ്ട് തുടങ്ങാം.",
+      "category_slug": "fitness-centres",
+      "hook_type": "curiosity",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-fitness-centres-005",
+      "hook_ml": "ഒരു മണിക്കൂർ ഇല്ലേ? ഈ പത്ത് മിനിറ്റ് routine പരീക്ഷിക്കൂ.",
+      "category_slug": "fitness-centres",
+      "hook_type": "checklist",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-fitness-centres-006",
+      "hook_ml": "Fitness progress scale ൽ മാത്രം അളക്കരുത്.",
+      "category_slug": "fitness-centres",
+      "hook_type": "mistake",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-fitness-centres-007",
+      "hook_ml": "Workout ന് മുമ്പ് warm-up ഒഴിവാക്കുന്നതിന് മുമ്പ് ഇത് കാണൂ.",
+      "category_slug": "fitness-centres",
+      "hook_type": "quick-tip",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-fitness-centres-008",
+      "hook_ml": "Heavy weight എടുക്കുന്നതിന് മുമ്പ് form ശരിയാണോ എന്ന് നോക്കൂ.",
+      "category_slug": "fitness-centres",
+      "hook_type": "comparison",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-fitness-centres-009",
+      "hook_ml": "Consistency ഉണ്ടാക്കാൻ motivation നെക്കാൾ സഹായിക്കുന്ന കാര്യം ഇതാണ്.",
+      "category_slug": "fitness-centres",
+      "hook_type": "behind-the-scenes",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-fitness-centres-010",
+      "hook_ml": "നിങ്ങളുടെ ആദ്യ gym session യഥാർത്ഥത്തിൽ എങ്ങനെയായിരിക്കും?",
+      "category_slug": "fitness-centres",
+      "hook_type": "question",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-instagram-business-001",
+      "hook_ml": "നിങ്ങളുടെ product നല്ലതാണെങ്കിലും Instagram ൽ sale വരാത്തതിന്റെ കാരണം ഇതാകാം.",
+      "category_slug": "instagram-business",
+      "hook_type": "problem",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-instagram-business-002",
+      "hook_ml": "Followers കുറവാണെങ്കിലും customers നേടാൻ കഴിയുമോ? തീർച്ചയായും.",
+      "category_slug": "instagram-business",
+      "hook_type": "transformation",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-instagram-business-003",
+      "hook_ml": "ഒരു product post ചെയ്യുന്നതിന് മുമ്പ് ഈ മൂന്ന് shots എടുക്കൂ.",
+      "category_slug": "instagram-business",
+      "hook_type": "myth",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-instagram-business-004",
+      "hook_ml": "DM ൽ price മാത്രം അയച്ചാൽ conversation അവിടെ അവസാനിക്കാം.",
+      "category_slug": "instagram-business",
+      "hook_type": "curiosity",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-instagram-business-005",
+      "hook_ml": "Instagram bio കണ്ടാൽ customer ന് നിങ്ങൾ എന്താണ് വിൽക്കുന്നത് മനസ്സിലാകുന്നുണ്ടോ?",
+      "category_slug": "instagram-business",
+      "hook_type": "checklist",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-instagram-business-006",
+      "hook_ml": "Views കിട്ടുന്ന Reel ഉം sales കൊണ്ടുവരുന്ന Reel ഉം ഒരുപോലെയല്ല.",
+      "category_slug": "instagram-business",
+      "hook_type": "mistake",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-instagram-business-007",
+      "hook_ml": "ഒരു ആഴ്ച content ഇല്ലേ? ഈ അഞ്ച് post ideas save ചെയ്യൂ.",
+      "category_slug": "instagram-business",
+      "hook_type": "quick-tip",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-instagram-business-008",
+      "hook_ml": "Customer review ഒരു ശക്തമായ Reel ആക്കുന്നത് ഇങ്ങനെയാണ്.",
+      "category_slug": "instagram-business",
+      "hook_type": "comparison",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-instagram-business-009",
+      "hook_ml": "Offer പറയുന്നതിന് മുമ്പ് value കാണിക്കേണ്ടത് എന്തുകൊണ്ട്?",
+      "category_slug": "instagram-business",
+      "hook_type": "behind-the-scenes",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-instagram-business-010",
+      "hook_ml": "Small business owners, ഈ caption mistake ഒഴിവാക്കൂ.",
+      "category_slug": "instagram-business",
+      "hook_type": "question",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-ecommerce-business-001",
+      "hook_ml": "Cart ൽ product ചേർത്തിട്ടും customer checkout ചെയ്യാത്തത് എന്തുകൊണ്ട്?",
+      "category_slug": "ecommerce-business",
+      "hook_type": "problem",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-ecommerce-business-002",
+      "hook_ml": "Product page ലെ ഈ ഒരു ഭാഗം conversion നെ ബാധിക്കാം.",
+      "category_slug": "ecommerce-business",
+      "hook_type": "transformation",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-ecommerce-business-003",
+      "hook_ml": "Online order ലഭിച്ചതിന് ശേഷം പിന്നിൽ നടക്കുന്നത് ഇതാണ്.",
+      "category_slug": "ecommerce-business",
+      "hook_type": "myth",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-ecommerce-business-004",
+      "hook_ml": "Free delivery ആണോ faster delivery ആണോ customer കൂടുതൽ വിലമതിക്കുന്നത്?",
+      "category_slug": "ecommerce-business",
+      "hook_type": "curiosity",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-ecommerce-business-005",
+      "hook_ml": "Product photo മാത്രം മതിയാകില്ല; ഈ video കൂടി ചേർക്കൂ.",
+      "category_slug": "ecommerce-business",
+      "hook_type": "checklist",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-ecommerce-business-006",
+      "hook_ml": "Return കുറയ്ക്കാൻ description ൽ ഈ വിവരങ്ങൾ വ്യക്തമാക്കൂ.",
+      "category_slug": "ecommerce-business",
+      "hook_type": "mistake",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-ecommerce-business-007",
+      "hook_ml": "ഒരു unboxing experience വീണ്ടും order ചെയ്യാൻ പ്രേരിപ്പിക്കുമോ?",
+      "category_slug": "ecommerce-business",
+      "hook_type": "quick-tip",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-ecommerce-business-008",
+      "hook_ml": "Best seller ആയ product ന് പിന്നിലെ customer insight ഇതാണ്.",
+      "category_slug": "ecommerce-business",
+      "hook_type": "comparison",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-ecommerce-business-009",
+      "hook_ml": "Discount ഇല്ലാതെയും sale നേടാൻ സഹായിക്കുന്ന മൂന്ന് കാര്യങ്ങൾ.",
+      "category_slug": "ecommerce-business",
+      "hook_type": "behind-the-scenes",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-ecommerce-business-010",
+      "hook_ml": "നിങ്ങളുടെ checkout mobile ൽ എത്ര എളുപ്പമാണ്? ഇപ്പോൾ പരിശോധിക്കൂ.",
+      "category_slug": "ecommerce-business",
+      "hook_type": "question",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-real-estate-001",
+      "hook_ml": "ഈ വീട്ടിന്റെ ഏറ്റവും മനോഹരമായ ഭാഗം entrance അല്ല.",
+      "category_slug": "real-estate",
+      "hook_type": "problem",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-real-estate-002",
+      "hook_ml": "ഈ budget ൽ ഇത്ര space പ്രതീക്ഷിച്ചിരുന്നോ?",
+      "category_slug": "real-estate",
+      "hook_type": "transformation",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-real-estate-003",
+      "hook_ml": "Property കാണാൻ പോകുമ്പോൾ paint colour മാത്രം നോക്കരുത്.",
+      "category_slug": "real-estate",
+      "hook_type": "myth",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-real-estate-004",
+      "hook_ml": "Home loan eligibility അറിയാതെ property search തുടങ്ങരുത്.",
+      "category_slug": "real-estate",
+      "hook_type": "curiosity",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-real-estate-005",
+      "hook_ml": "ഈ location ന്റെ മൂന്ന് practical advantages നോക്കാം.",
+      "category_slug": "real-estate",
+      "hook_type": "checklist",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-real-estate-006",
+      "hook_ml": "Ready-to-move ആണോ under-construction ആണോ നിങ്ങൾക്ക് യോജിക്കുന്നത്?",
+      "category_slug": "real-estate",
+      "hook_type": "mistake",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-real-estate-007",
+      "hook_ml": "ഒരു site visit ൽ ചോദിക്കേണ്ട അഞ്ച് ചോദ്യങ്ങൾ.",
+      "category_slug": "real-estate",
+      "hook_type": "quick-tip",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-real-estate-008",
+      "hook_ml": "ഈ floor plan കുടുംബജീവിതത്തിൽ എങ്ങനെ work ചെയ്യും എന്ന് നോക്കൂ.",
+      "category_slug": "real-estate",
+      "hook_type": "comparison",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-real-estate-009",
+      "hook_ml": "Property price നു പുറമേ വരുന്ന ചെലവുകൾ അറിയാമോ?",
+      "category_slug": "real-estate",
+      "hook_type": "behind-the-scenes",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-real-estate-010",
+      "hook_ml": "മുപ്പത് സെക്കൻഡിൽ ഈ വീടിന്റെ complete tour കാണാം.",
+      "category_slug": "real-estate",
+      "hook_type": "question",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-education-coaching-001",
+      "hook_ml": "മണിക്കൂറുകളോളം പഠിച്ചിട്ടും ഓർമ്മയിൽ നിൽക്കുന്നില്ലേ?",
+      "category_slug": "education-coaching",
+      "hook_type": "problem",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-education-coaching-002",
+      "hook_ml": "Notes വീണ്ടും വായിക്കുന്നത് മാത്രം പഠനം അല്ല.",
+      "category_slug": "education-coaching",
+      "hook_type": "transformation",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-education-coaching-003",
+      "hook_ml": "Exam ന് ഏഴ് ദിവസം ബാക്കി; ഇനി എന്ത് ചെയ്യണം?",
+      "category_slug": "education-coaching",
+      "hook_type": "myth",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-education-coaching-004",
+      "hook_ml": "ഈ ഒരു study technique ഇന്ന് തന്നെ പരീക്ഷിക്കൂ.",
+      "category_slug": "education-coaching",
+      "hook_type": "curiosity",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-education-coaching-005",
+      "hook_ml": "Mistake notebook നിങ്ങളുടെ score മാറ്റാൻ എങ്ങനെ സഹായിക്കും?",
+      "category_slug": "education-coaching",
+      "hook_type": "checklist",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-education-coaching-006",
+      "hook_ml": "English സംസാരിക്കാൻ grammar perfect ആകുന്നത് വരെ കാത്തിരിക്കരുത്.",
+      "category_slug": "education-coaching",
+      "hook_type": "mistake",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-education-coaching-007",
+      "hook_ml": "ഒരു difficult chapter ചെറുതായി വിഭജിക്കുന്നത് ഇങ്ങനെയാണ്.",
+      "category_slug": "education-coaching",
+      "hook_type": "quick-tip",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-education-coaching-008",
+      "hook_ml": "പഠിക്കാൻ mood വരുന്നത് കാത്തിരുന്നാൽ സമയം പോകും.",
+      "category_slug": "education-coaching",
+      "hook_type": "comparison",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-education-coaching-009",
+      "hook_ml": "Mock test എഴുതുന്നത് മാർക്ക് അറിയാൻ മാത്രം അല്ല.",
+      "category_slug": "education-coaching",
+      "hook_type": "behind-the-scenes",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-education-coaching-010",
+      "hook_ml": "നിങ്ങളുടെ study timetable യാഥാർത്ഥ്യത്തിൽ work ചെയ്യുന്നുണ്ടോ?",
+      "category_slug": "education-coaching",
+      "hook_type": "question",
+      "tone_slug": "professional",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-travel-tourism-001",
+      "hook_ml": "ഈ കേരള destination ഇപ്പോഴും നിങ്ങളുടെ travel list ൽ ഇല്ലേ?",
+      "category_slug": "travel-tourism",
+      "hook_type": "problem",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-travel-tourism-002",
+      "hook_ml": "Weekend trip ന് വലിയ budget വേണ്ടെന്ന് ഈ plan തെളിയിക്കും.",
+      "category_slug": "travel-tourism",
+      "hook_type": "transformation",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-travel-tourism-003",
+      "hook_ml": "ഈ സ്ഥലത്ത് എത്താൻ ഏറ്റവും നല്ല സമയം ആളുകൾ പറയുന്നത് അല്ല.",
+      "category_slug": "travel-tourism",
+      "hook_type": "myth",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-travel-tourism-004",
+      "hook_ml": "Tourist spot ന് അപ്പുറം നാട്ടുകാർ ഇഷ്ടപ്പെടുന്ന സ്ഥലം ഇതാണ്.",
+      "category_slug": "travel-tourism",
+      "hook_type": "curiosity",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-travel-tourism-005",
+      "hook_ml": "₹3000 budget ൽ ഈ trip എങ്ങനെ plan ചെയ്യാം?",
+      "category_slug": "travel-tourism",
+      "hook_type": "checklist",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-travel-tourism-006",
+      "hook_ml": "ഈ view ലഭിക്കാൻ എത്ര ദൂരം നടക്കണം എന്ന് അറിയാമോ?",
+      "category_slug": "travel-tourism",
+      "hook_type": "mistake",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-travel-tourism-007",
+      "hook_ml": "മഴക്കാല യാത്രയ്ക്ക് മുമ്പ് ഈ മൂന്ന് കാര്യങ്ങൾ പരിശോധിക്കൂ.",
+      "category_slug": "travel-tourism",
+      "hook_type": "quick-tip",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-travel-tourism-008",
+      "hook_ml": "Family trip plan ചെയ്യുമ്പോൾ itinerary ഇങ്ങനെ balance ചെയ്യാം.",
+      "category_slug": "travel-tourism",
+      "hook_type": "comparison",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-travel-tourism-009",
+      "hook_ml": "ഈ stay യുടെ രാവിലെ കാഴ്ചയ്ക്കാണ് ഇവിടെ വീണ്ടും വരേണ്ടത്.",
+      "category_slug": "travel-tourism",
+      "hook_type": "behind-the-scenes",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "hook-travel-tourism-010",
+      "hook_ml": "പോകുന്നതിന് മുമ്പ് save ചെയ്യേണ്ട complete travel route ഇതാ.",
+      "category_slug": "travel-tourism",
+      "hook_type": "question",
+      "tone_slug": "engaging",
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    }
+  ],
+  "content_ideas": [
+    {
+      "id": "idea-beauty-parlour-001",
+      "title_ml": "ക്ലയന്റ് ട്രാൻസ്ഫോർമേഷൻ",
+      "idea_ml": "അനുമതിയോടെ ഒരു ക്ലയന്റിന്റെ before, process, after ദൃശ്യങ്ങൾ കാണിക്കുക. ഉപയോഗിച്ച സർവീസ് ആരെക്കാണ് അനുയോജ്യമെന്നും ചുരുക്കമായി പറയുക.",
+      "category_slug": "beauty-parlour",
+      "content_format": "demonstration",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-beauty-parlour-001",
+        "hook-beauty-parlour-002"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-beauty-parlour-002",
+      "title_ml": "ഹെയർകട്ട് തിരഞ്ഞെടുക്കാനുള്ള ഗൈഡ്",
+      "idea_ml": "മുഖത്തിന്റെ ആകൃതി അനുസരിച്ച് മൂന്ന് ഹെയർകട്ട് ഓപ്ഷനുകൾ ദൃശ്യമായി താരതമ്യം ചെയ്യുക.",
+      "category_slug": "beauty-parlour",
+      "content_format": "educational",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-beauty-parlour-003",
+        "hook-beauty-parlour-004"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-beauty-parlour-003",
+      "title_ml": "പാർലർ ശുചിത്വം",
+      "idea_ml": "ടൂളുകൾ എങ്ങനെ വൃത്തിയാക്കുന്നു, ടവലുകൾ എങ്ങനെ കൈകാര്യം ചെയ്യുന്നു, ഓരോ ക്ലയന്റിനും മുമ്പ് ചെയ്യുന്ന തയ്യാറെടുപ്പുകൾ എന്നിവ കാണിക്കുക.",
+      "category_slug": "beauty-parlour",
+      "content_format": "behind-the-scenes",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-beauty-parlour-005",
+        "hook-beauty-parlour-006"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-beauty-parlour-004",
+      "title_ml": "സർവീസ് FAQ",
+      "idea_ml": "ക്ലയന്റുകൾ പതിവായി ചോദിക്കുന്ന വില, സമയം, aftercare എന്നിവയിൽ അഞ്ച് ചോദ്യങ്ങൾക്ക് വേഗത്തിൽ മറുപടി നൽകുക.",
+      "category_slug": "beauty-parlour",
+      "content_format": "storytelling",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-beauty-parlour-007",
+        "hook-beauty-parlour-008"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-beauty-parlour-005",
+      "title_ml": "ഒരു ദിവസം പാർലറിൽ",
+      "idea_ml": "കട തുറക്കുന്നതുമുതൽ അവസാന appointment വരെ നടക്കുന്ന ചെറിയ നിമിഷങ്ങൾ ചേർത്ത് behind-the-scenes Reel തയ്യാറാക്കുക.",
+      "category_slug": "beauty-parlour",
+      "content_format": "checklist",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-beauty-parlour-009",
+        "hook-beauty-parlour-010"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-makeup-artists-001",
+      "title_ml": "ഒരേ മോഡലിൽ രണ്ട് ലുക്കുകൾ",
+      "idea_ml": "ഒരേ മോഡലിൽ natural look ഉം glam look ഉം split-screen ആയി അവതരിപ്പിച്ച് രണ്ടിന്റെയും ഉപയോഗസാഹചര്യം പറയുക.",
+      "category_slug": "makeup-artists",
+      "content_format": "demonstration",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-makeup-artists-001",
+        "hook-makeup-artists-002"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-makeup-artists-002",
+      "title_ml": "Base makeup breakdown",
+      "idea_ml": "Skin prep മുതൽ setting വരെ base makeup ന്റെ ഓരോ ഘട്ടവും ചെറിയ close-up ദൃശ്യങ്ങളിലൂടെ കാണിക്കുക.",
+      "category_slug": "makeup-artists",
+      "content_format": "educational",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-makeup-artists-003",
+        "hook-makeup-artists-004"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-makeup-artists-003",
+      "title_ml": "Makeup kit essentials",
+      "idea_ml": "ഒരു professional kit ൽ നിർബന്ധമായും ഉണ്ടാകേണ്ട അഞ്ച് ഉൽപ്പന്നങ്ങളും അവയുടെ ഉപയോഗവും പരിചയപ്പെടുത്തുക.",
+      "category_slug": "makeup-artists",
+      "content_format": "behind-the-scenes",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-makeup-artists-005",
+        "hook-makeup-artists-006"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-makeup-artists-004",
+      "title_ml": "Client brief to final look",
+      "idea_ml": "ക്ലയന്റ് ആവശ്യപ്പെട്ട reference, artist എടുത്ത തീരുമാനം, പൂർത്തിയായ look എന്നിവ ഒരു ചെറിയ കഥയായി അവതരിപ്പിക്കുക.",
+      "category_slug": "makeup-artists",
+      "content_format": "storytelling",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-makeup-artists-007",
+        "hook-makeup-artists-008"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-makeup-artists-005",
+      "title_ml": "Common makeup mistakes",
+      "idea_ml": "Shade matching, blending, lighting എന്നിവയിൽ പതിവായി സംഭവിക്കുന്ന മൂന്ന് തെറ്റുകൾ ശരിയായ രീതിയോടൊപ്പം കാണിക്കുക.",
+      "category_slug": "makeup-artists",
+      "content_format": "checklist",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-makeup-artists-009",
+        "hook-makeup-artists-010"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-bridal-makeup-001",
+      "title_ml": "Bridal consultation story",
+      "idea_ml": "Outfit, jewellery, venue, ceremony time എന്നിവ പരിഗണിച്ച് look തീരുമാനിക്കുന്ന consultation process കാണിക്കുക.",
+      "category_slug": "bridal-makeup",
+      "content_format": "demonstration",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-bridal-makeup-001",
+        "hook-bridal-makeup-002"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-bridal-makeup-002",
+      "title_ml": "Bridal trial comparison",
+      "idea_ml": "Trial look നും wedding-day final look നും ഇടയിൽ നടത്തിയ ചെറിയ മാറ്റങ്ങൾ വിശദീകരിക്കുക.",
+      "category_slug": "bridal-makeup",
+      "content_format": "educational",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-bridal-makeup-003",
+        "hook-bridal-makeup-004"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-bridal-makeup-003",
+      "title_ml": "Long-lasting bridal prep",
+      "idea_ml": "Makeup തുടങ്ങുന്നതിന് മുമ്പുള്ള skin preparation, layering, setting എന്നീ ഘട്ടങ്ങൾ time-lapse ആയി കാണിക്കുക.",
+      "category_slug": "bridal-makeup",
+      "content_format": "behind-the-scenes",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-bridal-makeup-005",
+        "hook-bridal-makeup-006"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-bridal-makeup-004",
+      "title_ml": "Bride reaction Reel",
+      "idea_ml": "അനുമതിയോടെ mirror reveal ഉം bride ന്റെയും കുടുംബത്തിന്റെയും സ്വാഭാവിക പ്രതികരണവും പകർത്തുക.",
+      "category_slug": "bridal-makeup",
+      "content_format": "storytelling",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-bridal-makeup-007",
+        "hook-bridal-makeup-008"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-bridal-makeup-005",
+      "title_ml": "Bridal booking checklist",
+      "idea_ml": "Date, venue, functions, travel, trial, hairstyle എന്നിവ ഉൾപ്പെടുത്തിയ ലളിതമായ booking checklist നൽകുക.",
+      "category_slug": "bridal-makeup",
+      "content_format": "checklist",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-bridal-makeup-009",
+        "hook-bridal-makeup-010"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-skincare-clinics-001",
+      "title_ml": "Skincare myth versus fact",
+      "idea_ml": "ഒരു സാധാരണ skincare myth എടുത്ത് qualified professional ലളിതമായ ഭാഷയിൽ വസ്തുത വിശദീകരിക്കുക. വ്യക്തിഗത ചികിത്സയ്ക്ക് consultation ആവശ്യമാണെന്ന് ചേർക്കുക.",
+      "category_slug": "skincare-clinics",
+      "content_format": "demonstration",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-skincare-clinics-001",
+        "hook-skincare-clinics-002"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-skincare-clinics-002",
+      "title_ml": "Consultation walkthrough",
+      "idea_ml": "രോഗിയുടെ സ്വകാര്യത സംരക്ഷിച്ച് skin history, concerns, examination, plan എന്നിവ എങ്ങനെ വിലയിരുത്തുന്നു എന്ന് കാണിക്കുക.",
+      "category_slug": "skincare-clinics",
+      "content_format": "educational",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-skincare-clinics-003",
+        "hook-skincare-clinics-004"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-skincare-clinics-003",
+      "title_ml": "Ingredient education",
+      "idea_ml": "Niacinamide, retinoid, salicylic acid പോലുള്ള ഒരു ingredient ആരെക്കാണ് പരിഗണിക്കാവുന്നതെന്നും ആരാണ് ശ്രദ്ധിക്കേണ്ടതെന്നും പൊതുവായി വിശദീകരിക്കുക.",
+      "category_slug": "skincare-clinics",
+      "content_format": "behind-the-scenes",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-skincare-clinics-005",
+        "hook-skincare-clinics-006"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-skincare-clinics-004",
+      "title_ml": "Treatment aftercare",
+      "idea_ml": "ഒരു clinic procedure ന് ശേഷം പാലിക്കേണ്ട പൊതുവായ aftercare കാര്യങ്ങൾ checklist രൂപത്തിൽ നൽകുക.",
+      "category_slug": "skincare-clinics",
+      "content_format": "storytelling",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-skincare-clinics-007",
+        "hook-skincare-clinics-008"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-skincare-clinics-005",
+      "title_ml": "When to seek professional help",
+      "idea_ml": "Self-care കടന്ന് professional evaluation പരിഗണിക്കേണ്ട ചില പൊതുവായ skin concerns വിവരിക്കുക; diagnosis അല്ലെങ്കിൽ guarantee നൽകരുത്.",
+      "category_slug": "skincare-clinics",
+      "content_format": "checklist",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-skincare-clinics-009",
+        "hook-skincare-clinics-010"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-dental-clinics-001",
+      "title_ml": "Dental myth versus fact",
+      "idea_ml": "Scaling, root canal അല്ലെങ്കിൽ braces സംബന്ധിച്ച ഒരു സാധാരണ തെറ്റിദ്ധാരണ dentist ലളിതമായി വിശദീകരിക്കുക.",
+      "category_slug": "dental-clinics",
+      "content_format": "demonstration",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-dental-clinics-001",
+        "hook-dental-clinics-002"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-dental-clinics-002",
+      "title_ml": "Correct brushing demonstration",
+      "idea_ml": "മോഡൽ ഉപയോഗിച്ച് ശരിയായ brushing angle, സമയം, pressure എന്നിവ കാണിക്കുക; വ്യക്തിഗത നിർദേശത്തിന് dentist നെ സമീപിക്കാൻ പറയുക.",
+      "category_slug": "dental-clinics",
+      "content_format": "educational",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-dental-clinics-003",
+        "hook-dental-clinics-004"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-dental-clinics-003",
+      "title_ml": "Clinic hygiene tour",
+      "idea_ml": "Instrument sterilisation, disposable materials, chair preparation എന്നിവ രോഗിയുടെ വിവരങ്ങൾ കാണിക്കാതെ അവതരിപ്പിക്കുക.",
+      "category_slug": "dental-clinics",
+      "content_format": "behind-the-scenes",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-dental-clinics-005",
+        "hook-dental-clinics-006"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-dental-clinics-004",
+      "title_ml": "Treatment journey explanation",
+      "idea_ml": "ഒരു സാധാരണ procedure ന്റെ consultation മുതൽ follow-up വരെയുള്ള ഘട്ടങ്ങൾ animation അല്ലെങ്കിൽ model ഉപയോഗിച്ച് വിശദീകരിക്കുക.",
+      "category_slug": "dental-clinics",
+      "content_format": "storytelling",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-dental-clinics-007",
+        "hook-dental-clinics-008"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-dental-clinics-005",
+      "title_ml": "Dental FAQ series",
+      "idea_ml": "Pain, appointment duration, aftercare, food restrictions, follow-up എന്നിവയിൽ പതിവായി ചോദിക്കുന്ന ചോദ്യങ്ങൾക്ക് ചെറു മറുപടികൾ നൽകുക.",
+      "category_slug": "dental-clinics",
+      "content_format": "checklist",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-dental-clinics-009",
+        "hook-dental-clinics-010"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-mens-salon-001",
+      "title_ml": "Face shape haircut guide",
+      "idea_ml": "Round, oval, square face shapes ന് യോജിക്കുന്ന haircut options model photos അല്ലെങ്കിൽ sketches ഉപയോഗിച്ച് കാണിക്കുക.",
+      "category_slug": "mens-salon",
+      "content_format": "demonstration",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-mens-salon-001",
+        "hook-mens-salon-002"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-mens-salon-002",
+      "title_ml": "Hair and beard transformation",
+      "idea_ml": "Before, consultation, cutting details, final reveal എന്നീ ഘട്ടങ്ങളോടെ ഒരു complete makeover Reel സൃഷ്ടിക്കുക.",
+      "category_slug": "mens-salon",
+      "content_format": "educational",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-mens-salon-003",
+        "hook-mens-salon-004"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-mens-salon-003",
+      "title_ml": "Barber terminology",
+      "idea_ml": "Fade, taper, texture, line-up തുടങ്ങിയ വാക്കുകൾ reference ദൃശ്യങ്ങളോടെ ലളിതമായി വിശദീകരിക്കുക.",
+      "category_slug": "mens-salon",
+      "content_format": "behind-the-scenes",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-mens-salon-005",
+        "hook-mens-salon-006"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-mens-salon-004",
+      "title_ml": "Grooming routine",
+      "idea_ml": "Hair wash, beard care, styling എന്നിവ ഉൾപ്പെടുന്ന ഒരു ലളിതമായ weekly grooming routine അവതരിപ്പിക്കുക.",
+      "category_slug": "mens-salon",
+      "content_format": "storytelling",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-mens-salon-007",
+        "hook-mens-salon-008"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-mens-salon-005",
+      "title_ml": "Product selection guide",
+      "idea_ml": "Wax, clay, pomade, gel എന്നിവയുടെ finish, hold, അനുയോജ്യമായ hairstyle എന്നിവ താരതമ്യം ചെയ്യുക.",
+      "category_slug": "mens-salon",
+      "content_format": "checklist",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-mens-salon-009",
+        "hook-mens-salon-010"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-restaurants-cafes-001",
+      "title_ml": "Signature dish story",
+      "idea_ml": "പ്രധാന dish ന്റെ ingredient preparation, cooking, plating, customer table എന്നിവ വേഗത്തിലുള്ള ദൃശ്യങ്ങളായി കാണിക്കുക.",
+      "category_slug": "restaurants-cafes",
+      "content_format": "demonstration",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-restaurants-cafes-001",
+        "hook-restaurants-cafes-002"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-restaurants-cafes-002",
+      "title_ml": "Budget menu guide",
+      "idea_ml": "ഒരാൾക്കും രണ്ടുപേർക്കും ഒരു കുടുംബത്തിനും വ്യത്യസ്ത budget ൽ തിരഞ്ഞെടുക്കാവുന്ന menu combinations നൽകുക.",
+      "category_slug": "restaurants-cafes",
+      "content_format": "educational",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-restaurants-cafes-003",
+        "hook-restaurants-cafes-004"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-restaurants-cafes-003",
+      "title_ml": "Meet the chef",
+      "idea_ml": "Chef ന്റെ ഇഷ്ടപ്പെട്ട dish, cooking philosophy, ഒരു quick tip എന്നിവ ഉൾപ്പെടുത്തിയ ചെറിയ പരിചയപ്പെടുത്തൽ തയ്യാറാക്കുക.",
+      "category_slug": "restaurants-cafes",
+      "content_format": "behind-the-scenes",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-restaurants-cafes-005",
+        "hook-restaurants-cafes-006"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-restaurants-cafes-004",
+      "title_ml": "Customer favourite countdown",
+      "idea_ml": "ആഴ്ചയിലെ ഏറ്റവും കൂടുതൽ order ലഭിച്ച മൂന്ന് വിഭവങ്ങൾ മൂന്നിൽ നിന്ന് ഒന്നിലേക്ക് countdown ആയി അവതരിപ്പിക്കുക.",
+      "category_slug": "restaurants-cafes",
+      "content_format": "storytelling",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-restaurants-cafes-007",
+        "hook-restaurants-cafes-008"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-restaurants-cafes-005",
+      "title_ml": "Behind the service",
+      "idea_ml": "Opening prep, kitchen coordination, plating, service എന്നിവ ചേർത്ത് restaurant ന്റെ ഒരു ദിവസം കാണിക്കുക.",
+      "category_slug": "restaurants-cafes",
+      "content_format": "checklist",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-restaurants-cafes-009",
+        "hook-restaurants-cafes-010"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-bakeries-home-bakers-001",
+      "title_ml": "Custom cake journey",
+      "idea_ml": "Customer sketch അല്ലെങ്കിൽ brief മുതൽ sponge, decoration, final packed cake വരെ മുഴുവൻ യാത്ര കാണിക്കുക.",
+      "category_slug": "bakeries-home-bakers",
+      "content_format": "demonstration",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-bakeries-home-bakers-001",
+        "hook-bakeries-home-bakers-002"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-bakeries-home-bakers-002",
+      "title_ml": "Flavour comparison",
+      "idea_ml": "മൂന്ന് ജനപ്രിയ cake flavours ന്റെ texture, filling, sweetness എന്നിവ താരതമ്യം ചെയ്ത് ആരെക്കാണ് യോജിക്കുക എന്ന് പറയുക.",
+      "category_slug": "bakeries-home-bakers",
+      "content_format": "educational",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-bakeries-home-bakers-003",
+        "hook-bakeries-home-bakers-004"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-bakeries-home-bakers-003",
+      "title_ml": "Baking behind the scenes",
+      "idea_ml": "Ingredients അളക്കൽ, mixing, oven, cooling, finishing എന്നിവ satisfying close-up shots ആയി ചിത്രീകരിക്കുക.",
+      "category_slug": "bakeries-home-bakers",
+      "content_format": "behind-the-scenes",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-bakeries-home-bakers-005",
+        "hook-bakeries-home-bakers-006"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-bakeries-home-bakers-004",
+      "title_ml": "Ordering guide",
+      "idea_ml": "Size, flavour, design, date, delivery എന്നീ വിവരങ്ങൾ നൽകി custom order എങ്ങനെ place ചെയ്യാം എന്ന് വ്യക്തമാക്കുക.",
+      "category_slug": "bakeries-home-bakers",
+      "content_format": "storytelling",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-bakeries-home-bakers-007",
+        "hook-bakeries-home-bakers-008"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-bakeries-home-bakers-005",
+      "title_ml": "Packaging and delivery",
+      "idea_ml": "Cake സുരക്ഷിതമായി board, box, support എന്നിവ ഉപയോഗിച്ച് pack ചെയ്യുന്നതും delivery tips ഉം കാണിക്കുക.",
+      "category_slug": "bakeries-home-bakers",
+      "content_format": "checklist",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-bakeries-home-bakers-009",
+        "hook-bakeries-home-bakers-010"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-boutique-fashion-001",
+      "title_ml": "One piece three looks",
+      "idea_ml": "ഒരേ dress casual, office, festive എന്നിങ്ങനെ accessories മാറ്റി മൂന്ന് രീതിയിൽ style ചെയ്യുക.",
+      "category_slug": "boutique-fashion",
+      "content_format": "demonstration",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-boutique-fashion-001",
+        "hook-boutique-fashion-002"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-boutique-fashion-002",
+      "title_ml": "Fabric education",
+      "idea_ml": "Cotton, linen, georgette പോലുള്ള മൂന്ന് fabrics ന്റെ fall, comfort, occasion എന്നിവ close-up സഹിതം വിശദീകരിക്കുക.",
+      "category_slug": "boutique-fashion",
+      "content_format": "educational",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-boutique-fashion-003",
+        "hook-boutique-fashion-004"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-boutique-fashion-003",
+      "title_ml": "From sketch to outfit",
+      "idea_ml": "Design sketch, fabric selection, cutting, stitching, fitting, final look എന്നിവ ഒരു transformation Reel ആക്കുക.",
+      "category_slug": "boutique-fashion",
+      "content_format": "behind-the-scenes",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-boutique-fashion-005",
+        "hook-boutique-fashion-006"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-boutique-fashion-004",
+      "title_ml": "Measurement guide",
+      "idea_ml": "Online ordering ന് ആവശ്യമായ bust, waist, hip, length measurements ശരിയായി എടുക്കുന്ന വിധം കാണിക്കുക.",
+      "category_slug": "boutique-fashion",
+      "content_format": "storytelling",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-boutique-fashion-007",
+        "hook-boutique-fashion-008"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-boutique-fashion-005",
+      "title_ml": "New arrival styling",
+      "idea_ml": "ഒരു പുതിയ collection ൽ നിന്ന് മൂന്ന് pieces തിരഞ്ഞെടുക്കി footwear, bag, jewellery എന്നിവ ചേർത്ത് complete looks നൽകുക.",
+      "category_slug": "boutique-fashion",
+      "content_format": "checklist",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-boutique-fashion-009",
+        "hook-boutique-fashion-010"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-jewellery-001",
+      "title_ml": "Jewellery styling comparison",
+      "idea_ml": "ഒരേ outfit ന് minimal, statement എന്നിങ്ങനെ രണ്ട് jewellery combinations side-by-side കാണിക്കുക.",
+      "category_slug": "jewellery",
+      "content_format": "demonstration",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-jewellery-001",
+        "hook-jewellery-002"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-jewellery-002",
+      "title_ml": "Craftsmanship story",
+      "idea_ml": "Design drawing മുതൽ finishing വരെ ഒരു handcrafted piece ന്റെ നിർമ്മാണഘട്ടങ്ങൾ close-up ആയി അവതരിപ്പിക്കുക.",
+      "category_slug": "jewellery",
+      "content_format": "educational",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-jewellery-003",
+        "hook-jewellery-004"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-jewellery-003",
+      "title_ml": "Jewellery care guide",
+      "idea_ml": "Storage, perfume contact, cleaning എന്നിവയിൽ ചെയ്യേണ്ടതും ഒഴിവാക്കേണ്ടതുമായ കാര്യങ്ങൾ കാണിക്കുക.",
+      "category_slug": "jewellery",
+      "content_format": "behind-the-scenes",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-jewellery-005",
+        "hook-jewellery-006"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-jewellery-004",
+      "title_ml": "Gift guide by budget",
+      "idea_ml": "മൂന്ന് budget ranges ൽ birthday, wedding, anniversary ആവശ്യങ്ങൾക്ക് gift options നൽകുക.",
+      "category_slug": "jewellery",
+      "content_format": "storytelling",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-jewellery-007",
+        "hook-jewellery-008"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-jewellery-005",
+      "title_ml": "Bridal pairing guide",
+      "idea_ml": "Outfit colour, neckline, hairstyle എന്നിവ അനുസരിച്ച് necklace, earrings, headpiece തിരഞ്ഞെടുക്കുന്ന വിധം കാണിക്കുക.",
+      "category_slug": "jewellery",
+      "content_format": "checklist",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-jewellery-009",
+        "hook-jewellery-010"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-fitness-centres-001",
+      "title_ml": "Beginner gym orientation",
+      "idea_ml": "Trainer നൊപ്പം warm-up area, basic machines, safe starting weights, cool-down എന്നിവ പരിചയപ്പെടുത്തുക.",
+      "category_slug": "fitness-centres",
+      "content_format": "demonstration",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-fitness-centres-001",
+        "hook-fitness-centres-002"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-fitness-centres-002",
+      "title_ml": "Exercise form check",
+      "idea_ml": "ഒരു exercise ന്റെ common mistake ഉം corrected form ഉം side-by-side കാണിക്കുക; വ്യക്തിഗത പരിക്ക് അല്ലെങ്കിൽ ആരോഗ്യസ്ഥിതിക്ക് professional advice നിർദേശിക്കുക.",
+      "category_slug": "fitness-centres",
+      "content_format": "educational",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-fitness-centres-003",
+        "hook-fitness-centres-004"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-fitness-centres-003",
+      "title_ml": "Member progress story",
+      "idea_ml": "അനുമതിയോടെ weight മാത്രം അല്ലാതെ strength, energy, consistency തുടങ്ങിയ യാഥാർത്ഥ്യമായ പുരോഗതി പങ്കുവയ്ക്കുക.",
+      "category_slug": "fitness-centres",
+      "content_format": "behind-the-scenes",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-fitness-centres-005",
+        "hook-fitness-centres-006"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-fitness-centres-004",
+      "title_ml": "Short workout routine",
+      "idea_ml": "സാധാരണ ആരോഗ്യമുള്ള തുടക്കക്കാർക്കുള്ള ലളിതമായ full-body routine കാണിച്ച് modifications നൽകുക.",
+      "category_slug": "fitness-centres",
+      "content_format": "storytelling",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-fitness-centres-007",
+        "hook-fitness-centres-008"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-fitness-centres-005",
+      "title_ml": "Fitness myth series",
+      "idea_ml": "Spot reduction, sweat, supplements പോലുള്ള ഒരു myth എടുത്ത് qualified trainer തെളിവ് അടിസ്ഥാനമാക്കിയ പൊതുവിവരം നൽകുക.",
+      "category_slug": "fitness-centres",
+      "content_format": "checklist",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-fitness-centres-009",
+        "hook-fitness-centres-010"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-instagram-business-001",
+      "title_ml": "Product problem-solution Reel",
+      "idea_ml": "Customer നേരിടുന്ന ഒരു പ്രശ്നം ആദ്യം കാണിച്ച് product അത് എങ്ങനെ പരിഹരിക്കുന്നു എന്ന് demonstration വഴി അവതരിപ്പിക്കുക.",
+      "category_slug": "instagram-business",
+      "content_format": "demonstration",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-instagram-business-001",
+        "hook-instagram-business-002"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-instagram-business-002",
+      "title_ml": "Founder story",
+      "idea_ml": "Business തുടങ്ങാനുള്ള കാരണം, ആദ്യ order, ഇന്നത്തെ ലക്ഷ്യം എന്നിവ സ്വാഭാവിക voice-over ഉപയോഗിച്ച് പറയുക.",
+      "category_slug": "instagram-business",
+      "content_format": "educational",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-instagram-business-003",
+        "hook-instagram-business-004"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-instagram-business-003",
+      "title_ml": "Customer FAQ content",
+      "idea_ml": "Price, delivery, customization, return, order process എന്നിവയിൽ കൂടുതൽ ലഭിക്കുന്ന അഞ്ച് DM ചോദ്യങ്ങൾക്ക് മറുപടി നൽകുക.",
+      "category_slug": "instagram-business",
+      "content_format": "behind-the-scenes",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-instagram-business-005",
+        "hook-instagram-business-006"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-instagram-business-004",
+      "title_ml": "Weekly content plan",
+      "idea_ml": "Education, product demo, proof, behind-the-scenes, offer എന്നീ അഞ്ച് content pillars ഒരു ആഴ്ചയായി ക്രമീകരിച്ച് കാണിക്കുക.",
+      "category_slug": "instagram-business",
+      "content_format": "storytelling",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-instagram-business-007",
+        "hook-instagram-business-008"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-instagram-business-005",
+      "title_ml": "Social proof Reel",
+      "idea_ml": "Customer review text, product usage shot, result അല്ലെങ്കിൽ experience എന്നിവ permission സഹിതം ചേർത്ത് വിശ്വാസം വളർത്തുന്ന Reel ഉണ്ടാക്കുക.",
+      "category_slug": "instagram-business",
+      "content_format": "checklist",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-instagram-business-009",
+        "hook-instagram-business-010"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-ecommerce-business-001",
+      "title_ml": "Order journey",
+      "idea_ml": "Website order notification മുതൽ picking, quality check, packing, dispatch വരെ മുഴുവൻ process വേഗത്തിൽ കാണിക്കുക.",
+      "category_slug": "ecommerce-business",
+      "content_format": "demonstration",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-ecommerce-business-001",
+        "hook-ecommerce-business-002"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-ecommerce-business-002",
+      "title_ml": "Product detail demonstration",
+      "idea_ml": "Size, scale, texture, use, key feature എന്നിവ customer നേരിട്ട് കാണുന്നതുപോലെ close-up വീഡിയോയിൽ അവതരിപ്പിക്കുക.",
+      "category_slug": "ecommerce-business",
+      "content_format": "educational",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-ecommerce-business-003",
+        "hook-ecommerce-business-004"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-ecommerce-business-003",
+      "title_ml": "Unboxing improvement",
+      "idea_ml": "Current packaging ഉം improved packaging ഉം side-by-side കാണിച്ച് protection, branding, sustainability വിശദീകരിക്കുക.",
+      "category_slug": "ecommerce-business",
+      "content_format": "behind-the-scenes",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-ecommerce-business-005",
+        "hook-ecommerce-business-006"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-ecommerce-business-004",
+      "title_ml": "Conversion checklist",
+      "idea_ml": "Product title, images, benefits, reviews, shipping, return policy എന്നിവ ഉൾപ്പെട്ട product-page checklist പങ്കുവയ്ക്കുക.",
+      "category_slug": "ecommerce-business",
+      "content_format": "storytelling",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-ecommerce-business-007",
+        "hook-ecommerce-business-008"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-ecommerce-business-005",
+      "title_ml": "Customer objection series",
+      "idea_ml": "Price, quality, size, delivery, trust എന്നിവയിൽ ഓരോ objection നും proof സഹിതം മറുപടി പറയുന്ന Reel series തയ്യാറാക്കുക.",
+      "category_slug": "ecommerce-business",
+      "content_format": "checklist",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-ecommerce-business-009",
+        "hook-ecommerce-business-010"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-real-estate-001",
+      "title_ml": "Honest property walkthrough",
+      "idea_ml": "Entrance മുതൽ ഓരോ room വരെയും natural sequence ൽ കാണിച്ച് size, light, storage, limitations എന്നിവ വ്യക്തമായി പറയുക.",
+      "category_slug": "real-estate",
+      "content_format": "demonstration",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-real-estate-001",
+        "hook-real-estate-002"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-real-estate-002",
+      "title_ml": "Locality guide",
+      "idea_ml": "School, hospital, transport, shopping, travel time എന്നിവ map overlays ഉപയോഗിച്ച് ഒരു പ്രദേശത്തിന്റെ practical value വിശദീകരിക്കുക.",
+      "category_slug": "real-estate",
+      "content_format": "educational",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-real-estate-003",
+        "hook-real-estate-004"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-real-estate-003",
+      "title_ml": "Buyer checklist",
+      "idea_ml": "Legal documents, water, parking, maintenance, connectivity എന്നിവ site visit ൽ പരിശോധിക്കാനുള്ള checklist നൽകുക.",
+      "category_slug": "real-estate",
+      "content_format": "behind-the-scenes",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-real-estate-005",
+        "hook-real-estate-006"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-real-estate-004",
+      "title_ml": "Budget breakdown",
+      "idea_ml": "Base price, registration, taxes, maintenance, interiors പോലുള്ള സാധാരണ ചെലവുകൾ illustrative example ഉപയോഗിച്ച് വിശദീകരിക്കുക.",
+      "category_slug": "real-estate",
+      "content_format": "storytelling",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-real-estate-007",
+        "hook-real-estate-008"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-real-estate-005",
+      "title_ml": "Floor-plan explanation",
+      "idea_ml": "ഒരു floor plan screen ൽ കാണിച്ച് room flow, ventilation, privacy, furniture placement എന്നിവ വിശദീകരിക്കുക.",
+      "category_slug": "real-estate",
+      "content_format": "checklist",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-real-estate-009",
+        "hook-real-estate-010"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-education-coaching-001",
+      "title_ml": "One-minute concept lesson",
+      "idea_ml": "ഒരു ബുദ്ധിമുട്ടുള്ള concept ലളിതമായ analogy, diagram, quick example എന്നിവ ഉപയോഗിച്ച് ഒരു മിനിറ്റിൽ പഠിപ്പിക്കുക.",
+      "category_slug": "education-coaching",
+      "content_format": "demonstration",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-education-coaching-001",
+        "hook-education-coaching-002"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-education-coaching-002",
+      "title_ml": "Study method demonstration",
+      "idea_ml": "Active recall അല്ലെങ്കിൽ spaced repetition ഒരു യഥാർത്ഥ chapter ൽ എങ്ങനെ ഉപയോഗിക്കാം എന്ന് ഘട്ടംഘട്ടമായി കാണിക്കുക.",
+      "category_slug": "education-coaching",
+      "content_format": "educational",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-education-coaching-003",
+        "hook-education-coaching-004"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-education-coaching-003",
+      "title_ml": "Common exam mistakes",
+      "idea_ml": "Question വായിക്കൽ, time allocation, revision എന്നിവയിൽ വിദ്യാർത്ഥികൾ ചെയ്യുന്ന മൂന്ന് തെറ്റുകളും പരിഹാരവും നൽകുക.",
+      "category_slug": "education-coaching",
+      "content_format": "behind-the-scenes",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-education-coaching-005",
+        "hook-education-coaching-006"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-education-coaching-004",
+      "title_ml": "Student progress story",
+      "idea_ml": "അനുമതിയോടെ ഒരു വിദ്യാർത്ഥിയുടെ challenge, changed habit, measurable improvement എന്നിവ realistic ആയി പങ്കുവയ്ക്കുക.",
+      "category_slug": "education-coaching",
+      "content_format": "storytelling",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-education-coaching-007",
+        "hook-education-coaching-008"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-education-coaching-005",
+      "title_ml": "Seven-day revision plan",
+      "idea_ml": "ഒരു ആഴ്ചയുടെ revision plan subjects, mock tests, error review, rest എന്നിവയോടെ screen graphic ആയി നൽകുക.",
+      "category_slug": "education-coaching",
+      "content_format": "checklist",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-education-coaching-009",
+        "hook-education-coaching-010"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-travel-tourism-001",
+      "title_ml": "Complete weekend itinerary",
+      "idea_ml": "Travel route, timings, food stops, stay, approximate budget എന്നിവ morning-to-evening sequence ആയി നൽകുക.",
+      "category_slug": "travel-tourism",
+      "content_format": "demonstration",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-travel-tourism-001",
+        "hook-travel-tourism-002"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-travel-tourism-002",
+      "title_ml": "Destination reality check",
+      "idea_ml": "Best season, crowd, road condition, walking difficulty, network availability എന്നിവ മനോഹര ദൃശ്യങ്ങളോടൊപ്പം സത്യസന്ധമായി പറയുക.",
+      "category_slug": "travel-tourism",
+      "content_format": "educational",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-travel-tourism-003",
+        "hook-travel-tourism-004"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-travel-tourism-003",
+      "title_ml": "Budget breakdown Reel",
+      "idea_ml": "Transport, stay, food, tickets, local travel എന്നിവയുടെ ചെലവ് screen text ഉപയോഗിച്ച് വ്യക്തമായി കാണിക്കുക.",
+      "category_slug": "travel-tourism",
+      "content_format": "behind-the-scenes",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-travel-tourism-005",
+        "hook-travel-tourism-006"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-travel-tourism-004",
+      "title_ml": "Hidden local experience",
+      "idea_ml": "പ്രാദേശിക ഭക്ഷണം, craft, market അല്ലെങ്കിൽ lesser-known viewpoint ഉത്തരവാദിത്തമുള്ള യാത്രാനിർദേശങ്ങളോടെ പരിചയപ്പെടുത്തുക.",
+      "category_slug": "travel-tourism",
+      "content_format": "storytelling",
+      "difficulty": "medium",
+      "suggested_hook_ids": [
+        "hook-travel-tourism-007",
+        "hook-travel-tourism-008"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    },
+    {
+      "id": "idea-travel-tourism-005",
+      "title_ml": "Packing checklist",
+      "idea_ml": "Beach, hill, monsoon അല്ലെങ്കിൽ family trip എന്നിവയിൽ ഒന്നിന് യോജിച്ച compact packing checklist നൽകുക.",
+      "category_slug": "travel-tourism",
+      "content_format": "checklist",
+      "difficulty": "easy",
+      "suggested_hook_ids": [
+        "hook-travel-tourism-009",
+        "hook-travel-tourism-010"
+      ],
+      "language": "ml",
+      "source": "vamozhi.com",
+      "copyright": "© vamozhi.com"
+    }
+  ]
+}

@@ -23,14 +23,26 @@ export default function Footer({ onNavigate }: FooterProps) {
           
           {/* Brand Col */}
           <div className="md:col-span-5 text-left flex flex-col gap-4">
-            <div className="flex items-center gap-3" onClick={() => onNavigate("/")}>
-              <div className="w-9 h-9 bg-gradient-to-br from-purple-950 via-[#911b5a] to-[#ff2a6d] rounded-xl flex items-center justify-center text-[#fffef0] font-black text-base shadow-md transform -rotate-3 hover:rotate-0 transition-all font-sans cursor-pointer">
-                വാ
-              </div>
-              <span className="font-extrabold text-lg text-white tracking-tight uppercase cursor-pointer">
-                VAMOZHI
+            <a 
+              href="/" 
+              className="brand-logo cursor-pointer" 
+              aria-label="Vamozhi Home"
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigate("/");
+              }}
+            >
+              <img
+                src="/assets/vamozhi-va-animated-logo.svg"
+                alt=""
+                width="48"
+                height="48"
+                className="brand-logo__icon"
+              />
+              <span className="brand-logo__wordmark font-extrabold text-lg bg-gradient-to-r from-blue-400 via-indigo-400 to-violet-400 bg-clip-text text-transparent tracking-tight uppercase">
+                VAMOZHI<span className="text-purple-300 text-xs font-bold">.com</span>
               </span>
-            </div>
+            </a>
             <p className="text-xs text-neutral-400 leading-relaxed max-w-sm">
               {language === 'en'
                 ? "Your Vibe. Your Words. In Malayalam. The premier social writing platform and phonetic transliteration suite designed with absolute love for Kerala creators, brands, and lovers around the globe."
