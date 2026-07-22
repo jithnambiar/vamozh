@@ -298,7 +298,7 @@ export default function MalayalamExam() {
           <div className="bg-gradient-to-br from-purple-950 via-purple-900 to-indigo-950 rounded-3xl p-6 sm:p-10 text-white shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="space-y-3 max-w-2xl">
               <span className="px-3.5 py-1 bg-amber-400/20 text-amber-300 rounded-full text-[10px] font-black uppercase tracking-widest border border-amber-400/30 inline-block">
-                Vamozhi Malayalam Academy • Official Examination
+                Vamozhi Malayalam • Official Examination
               </span>
               <h2 className="text-3xl sm:text-4xl font-black tracking-tight">
                 Malayalam Language Certification Exams
@@ -385,7 +385,7 @@ export default function MalayalamExam() {
                   <strong>മലയാളം:</strong> മലയാള ഭാഷയെ പ്രോത്സാഹിപ്പിക്കുന്നതിനും പ്രചരിപ്പിക്കുന്നതിനുമായി നൽകുന്ന ഒരു <strong>സ്നേഹ ബഹുമാന സർട്ടിഫിക്കറ്റാണിത് (Inspiration Certificate)</strong>. ഇത് യൂണിവേഴ്സിറ്റി ബിരുദമല്ല, മറിച്ച് മലയാള പഠനത്തോടുള്ള നിങ്ങളുടെ താല്പര്യത്തെ ആദരിക്കുന്നതിനുള്ള സാംസ്കാരിക ബഹുമാന പത്രമാണ്!
                 </p>
                 <p className="text-amber-900 font-extrabold">
-                  <strong>English:</strong> Issued by Vamozhi Online Academy as an <strong>Honorary Inspiration Certificate</strong> to promote the Malayalam language worldwide. Not an accredited government degree.
+                  <strong>English:</strong> Issued by Vamozhi Malayalam as an <strong>Honorary Inspiration Certificate</strong> to promote the Malayalam language worldwide. Not an accredited government degree.
                 </p>
               </div>
             </div>
@@ -759,7 +759,7 @@ export default function MalayalamExam() {
 
               {/* Inspiration Certificate Footnote */}
               <div className="pt-4 border-t border-slate-200/80 text-center text-[9px] text-slate-500 font-medium">
-                * Honorary Cultural Inspiration & Achievement Certificate issued by Vamozhi Online Academy to promote and preserve the Malayalam language worldwide. Not an accredited university degree.
+                * Honorary Cultural Inspiration & Achievement Certificate issued by Vamozhi Malayalam to promote and preserve the Malayalam language worldwide. Not an accredited university degree.
               </div>
 
             </div>

@@ -122,7 +122,7 @@ export default function CertificateVerificationPage({ isEmbedded = false }: Cert
             Vamozhi Certificate Verification
           </h1>
           <p className="text-xs sm:text-sm text-purple-200 leading-relaxed">
-            Verify the authenticity, academic level, issue date, and student transcript of any official diploma issued by <strong>Vamozhi Online Academy</strong>.
+            Verify the authenticity, academic level, issue date, and student transcript of any official diploma issued by <strong>Vamozhi Malayalam</strong>.
           </p>
         </div>
 

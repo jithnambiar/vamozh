@@ -31,15 +31,31 @@ const PLATFORMS = [
 ] as const;
 
 const CATEGORIES = [
-  { id: "love", name: "Love 💖" },
-  { id: "attitude", name: "Attitude 😎" },
-  { id: "travel", name: "Travel ✈️" },
-  { id: "friendship", name: "Friendship 👬" },
-  { id: "motivation", name: "Motivation 🎯" },
-  { id: "aesthetic", name: "Aesthetic 🍂" },
-  { id: "funny", name: "Funny 🤪" },
-  { id: "kerala", name: "Kerala 🌴" },
-  { id: "nostalgia", name: "Nostalgia 📻" }
+  { id: "love", name: "Love 💖 (പ്രണയം)" },
+  { id: "attitude", name: "Attitude 😎 (ആറ്റിറ്റ്യൂഡ്)" },
+  { id: "life", name: "Life 🌿 (ജീവിതം)" },
+  { id: "motivation", name: "Motivation 🎯 (പ്രചോദനം)" },
+  { id: "friendship", name: "Friendship 👬 (സൗഹൃദം)" },
+  { id: "travel", name: "Travel ✈️ (യാത്ര)" },
+  { id: "wedding", name: "Wedding 💍 (വിവാഹം)" },
+  { id: "birthday", name: "Birthday 🎂 (ജന്മദിനം)" },
+  { id: "funny", name: "Funny 🤪 (തമാശ)" },
+  { id: "reels", name: "Reels 🎬 (റീൽസ്)" },
+  { id: "kerala", name: "Kerala 🌴 (കേരളം)" },
+  { id: "nature", name: "Nature 🍃 (പ്രകൃതി)" },
+  { id: "happiness", name: "Happiness 😊 (സന്തോഷം)" },
+  { id: "sadness", name: "Sadness 🌧️ (വിഷാദം)" },
+  { id: "breakup", name: "Breakup 💔 (വിരഹം)" },
+  { id: "family", name: "Family 🏡 (കുടുംബം)" },
+  { id: "success", name: "Success 🏆 (വിജയം)" },
+  { id: "self-love", name: "Self Love ✨ (സ്വയംസ്നേഹം)" },
+  { id: "spirituality", name: "Spirituality 🕉️ (ആത്മീയം)" },
+  { id: "festivals", name: "Festivals 🎆 (ആഘോഷങ്ങൾ)" },
+  { id: "good-morning", name: "Good Morning 🌅 (സുപ്രഭാതം)" },
+  { id: "good-night", name: "Good Night 🌙 (ശുഭരാത്രി)" },
+  { id: "photography", name: "Photography 📸 (ഫോട്ടോഗ്രഫി)" },
+  { id: "nostalgia", name: "Nostalgia 📻 (ഓർമ്മകൾ)" },
+  { id: "rain", name: "Rain ☔ (മഴ)" }
 ] as const;
 
 export default function Generator({ 

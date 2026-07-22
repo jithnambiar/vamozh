@@ -32,9 +32,9 @@ const HERO_PREVIEWS = [
     id: "rain",
     tag: "Aesthetic / Rain",
     emoji: "☕☔",
-    textMl: "മഴയും ഒരു കപ്പ് കട്ടൻ ചായയും... കൂടെ പ്രിയപ്പെട്ട നിന്റെ ഓർമ്മകളും. ☕☔️",
-    textManglish: "Mazhayum oru cup kattan chayayum... koode priyapetta ninte ormakalum. ☕☔️",
-    hashtags: "#chayavibes #keralarain #monsoon",
+    textMl: "കുളിർകാറ്റും ഒരു കപ്പ് ചായയും... മഴത്തുള്ളികളിൽ അലിഞ്ഞിറങ്ങുന്ന പ്രിയപ്പെട്ട ഓർമ്മകളും! ☕☔️",
+    textManglish: "Kulirkaattum oru cup chayayum... mazhathullikalil alinjirangunna priyapetta ormakalum! ☕☔️",
+    hashtags: "#chayavibes #keralarain #monsoonvibes",
     bg: "from-indigo-950 via-purple-900 to-pink-800",
     likes: "8,492"
   },
@@ -42,9 +42,9 @@ const HERO_PREVIEWS = [
     id: "attitude",
     tag: "Attitude / Class",
     emoji: "😎🔥",
-    textMl: "സ്വന്തം വഴികളിലൂടെ ഒറ്റയ്ക്ക് നടന്നു തീർത്തവനാണ് മറ്റുള്ളവരുടെ വിജയം കണ്ട് അസൂയപ്പെടാത്തത്. 🔥👑",
-    textManglish: "Swantham vazhikaliloode ottaykku nadannu theerthavanu mattullavarude vijayam kandu asooyappedathathu. 🔥👑",
-    hashtags: "#attitude #keralaboy #classy",
+    textMl: "സ്വന്തം വഴികളിലൂടെ തനിച്ചു നടന്നു ജയിച്ചവനാണ്... മറ്റുള്ളവരുടെ വളർച്ചയിൽ അസൂയപ്പെടാത്തത്! 🔥👑",
+    textManglish: "Swantham vazhikaliloode thanichu nadannu jayichavanaanu... mattullavarude valarchayil asooyappedathathu! 🔥👑",
+    hashtags: "#attitude #keralaboy #classyvibes",
     bg: "from-zinc-950 via-slate-900 to-purple-950",
     likes: "12,340"
   },
@@ -52,9 +52,9 @@ const HERO_PREVIEWS = [
     id: "love",
     tag: "Love / Romantic",
     emoji: "💖🌸",
-    textMl: "ചിലർ കടന്നു വരുന്നത് നമ്മുടെ ആകാശത്തിലെ മനോഹരമായ മഴവില്ലാവാനാണ്... 🌸✨",
-    textManglish: "Chilar kadannu varunnathu nammude aakashathile manoharamaaya mazhavillavaanaanu... 🌸✨",
-    hashtags: "#lovequotes #malayalamlove #chank",
+    textMl: "മൗനങ്ങൾക്ക് പോലും സംഗീതത്തിന്റെ മധുരമുണ്ട്... നീയെന്നരികിൽ ഉള്ളപ്പോൾ! 🌸✨",
+    textManglish: "Maunangalkku polum sangeethathinte madhuramundu... neeyennarikil ullappol! 🌸✨",
+    hashtags: "#lovequotes #malayalamlove #purelove",
     bg: "from-rose-950 via-pink-900 to-purple-900",
     likes: "15,810"
   },
@@ -62,9 +62,9 @@ const HERO_PREVIEWS = [
     id: "kerala",
     tag: "Kerala Pride",
     emoji: "🌴🚣",
-    textMl: "പച്ചപ്പും നീലാകാശവും കയലോളങ്ങളും... ഇത് എന്റെ സ്വന്തം ദൈവാധീനമുള്ള നാട്! 🌴💚",
-    textManglish: "Pachappum neelaakashavum kayalolangalum... ithu ente swantham god's own country! 🌴💚",
-    hashtags: "#godsowncountry #keralagallery #backwaters",
+    textMl: "ഓളപ്പരപ്പിലെ വെയിലും നീലാകാശവും... പ്രകൃതി സ്നേഹത്തോടെ ഹൃദയത്തോട് ചേർത്തുവെച്ച എൻ്റെ നാട്! 🌴💚",
+    textManglish: "Olapparappile veyilum neelaakashavum... prakruthi snehathode hridayathodu cherthuwecha ente naadu! 🌴💚",
+    hashtags: "#godsowncountry #keralagallery #keralatourism",
     bg: "from-emerald-950 via-teal-900 to-cyan-950",
     likes: "9,920"
   },
@@ -72,9 +72,9 @@ const HERO_PREVIEWS = [
     id: "friendship",
     tag: "Chank / Friendship",
     emoji: "🤝⚡",
-    textMl: "ലോകം മുഴുവൻ എതിർത്താലും കൂടെ നിൽക്കുന്ന കുറച്ച് ചങ്കുകൾ... അതാണ് ഏറ്റവും വലിയ സമ്പാദ്യം! ⚡❤️",
-    textManglish: "Lokam muzhuvan ethirthalum koode nilkkunna kurachu changukal... athanu ettavum valiya sampaadhyam! ⚡❤️",
-    hashtags: "#chankuyir #friendship #keralafriends",
+    textMl: "ജീവിതത്തിലെ കൊടുങ്കാറ്റുകളിൽ തണലായി കൂടെ നിൽക്കുന്ന ചങ്കുകൾ... അതാണ് ഏറ്റവും വലിയ സമ്പാദ്യം! ⚡❤️",
+    textManglish: "Jeevithathile kodunkaattukalil thanalaayi koode nilkkunna changukal... athanu ettavum valiya sampaadhyam! ⚡❤️",
+    hashtags: "#chankuyir #friendshipgoals #keralafriends",
     bg: "from-blue-950 via-indigo-900 to-purple-950",
     likes: "11,450"
   },
@@ -82,8 +82,8 @@ const HERO_PREVIEWS = [
     id: "travel",
     tag: "Travel / Wanderlust",
     emoji: "🧭🚗",
-    textMl: "വഴികളില്ലാത്ത കാടുകളിലേക്കും ആകാശത്തോളം ഉയരമുള്ള മലകളിലേക്കും... യാത്രകൾ തുടരുന്നു! 🏔️✨",
-    textManglish: "Vazhikalillatha kaadukalilekkum aakaashatholam uyarammulla malakalilekkum... yaathrakal thudarunnu! 🏔️✨",
+    textMl: "അതിരുകളില്ലാത്ത ആകാശവും, വഴികളില്ലാത്ത കാടുകളും... യാത്രകൾ നമ്മെ പുനർജനിക്കാൻ പഠിപ്പിക്കുന്നു! 🏔️✨",
+    textManglish: "Athirukalillatha aakashavum, vazhikalillatha kaadukalum... yaathrakal namme punarjanikkaan padippikkunnu! 🏔️✨",
     hashtags: "#keralatravel #wanderlust #wayanadvibes",
     bg: "from-teal-950 via-emerald-900 to-slate-950",
     likes: "14,200"
@@ -92,8 +92,8 @@ const HERO_PREVIEWS = [
     id: "nostalgia",
     tag: "Nostalgia / School",
     emoji: "🎒📚",
-    textMl: "തിരികെ പോകാൻ പറ്റാത്ത ആ പഴയ സ്കൂൾ നാളുകൾ... ഓർമ്മകൾക്ക് എന്തൊരു മധുരമാണ്! 🎒💛",
-    textManglish: "Thirike pokan pattatha aa pazhaya school naalukal... ormakalkku enthoru madhuramaanu! 🎒💛",
+    textMl: "കാലം മാറിയെങ്കിലും മായാതെ നിൽക്കുന്ന ചില ഓർമ്മകളുണ്ട്... ബാല്യത്തിന്റെ അവിസ്മരണീയമായ സുഗന്ധം പോലെ! 🎒💛",
+    textManglish: "Kaalam maariyengilum maayaathe nilkkunna chila ormakalundu... baalyathinte avismaraneeyamaaya sugandham pole! 🎒💛",
     hashtags: "#nostalgia #schoolmemories #malayalam",
     bg: "from-amber-950 via-orange-950 to-purple-950",
     likes: "16,780"
@@ -102,8 +102,8 @@ const HERO_PREVIEWS = [
     id: "mass",
     tag: "Mass / Swag",
     emoji: "🦁⚡",
-    textMl: "വാക്കുകൾ കൊണ്ട് തെളിയിക്കേണ്ട ആവശ്യമില്ല... പ്രവർത്തികൾ സംസാരിക്കട്ടെ! 👑⚡",
-    textManglish: "Vaakkukal kondu theliyikkenda aavashyamilla... pravarthikal samsaarikkatte! 👑⚡",
+    textMl: "വാക്കുകൾ കൊണ്ടു തെളിയിക്കേണ്ട ആവശ്യമില്ല... സമയമാകുമ്പോൾ ചരിത്രം ഉത്തരം നൽകും! 👑⚡",
+    textManglish: "Vaakkukal kondu theliyikkenda aavashyamilla... samayamaakumbol charithram uthram nalkum! 👑⚡",
     hashtags: "#massdialogue #malayalammass #swag",
     bg: "from-red-950 via-purple-950 to-slate-950",
     likes: "18,900"
@@ -159,27 +159,18 @@ export default function Hero() {
     ctx.lineWidth = 4;
     ctx.strokeRect(75, 75, 930, 1770);
 
-    // Top Story Header Badge
-    ctx.font = "bold 32px sans-serif";
+    // Top Story Header Category Badge
+    ctx.font = "bold 34px sans-serif";
     ctx.fillStyle = "#fef08a";
     ctx.textAlign = "center";
-    ctx.fillText(`✨ ${currentPreview.tag.toUpperCase()}`, 540, 260);
+    ctx.fillText(`✨ ${currentPreview.tag.toUpperCase()}`, 540, 280);
 
-    // Watermark Brand Title (VAMOZHI with MALAYALAM directly under it)
-    ctx.font = "900 56px sans-serif";
-    ctx.fillStyle = "#ffffff";
-    ctx.fillText("VAMOZHI", 540, 330);
-
-    ctx.font = "bold 24px sans-serif";
-    ctx.fillStyle = "#fde68a";
-    ctx.fillText("MALAYALAM", 540, 365);
-
-    // Golden Divider Line
+    // Decorative Golden Divider Line
     ctx.strokeStyle = "rgba(251, 191, 36, 0.8)";
     ctx.lineWidth = 4;
     ctx.beginPath();
-    ctx.moveTo(400, 405);
-    ctx.lineTo(680, 405);
+    ctx.moveTo(400, 330);
+    ctx.lineTo(680, 330);
     ctx.stroke();
 
     // Center Quote Card Frame Box (Instagram Story Focus Area)
@@ -196,43 +187,64 @@ export default function Hero() {
     ctx.fillStyle = "#f59e0b";
     ctx.fillText("“", 540, 700);
 
-    // Main Caption Text Wrapping
+    // Main Caption Text Wrapping with Dynamic Font Scaling & Vertical Centering
     const textToRender = scriptMode === "ml" ? currentPreview.textMl : currentPreview.textManglish;
-    ctx.font = "bold 48px sans-serif";
+    
+    const getLines = (fSize: number) => {
+      ctx.font = `bold ${fSize}px sans-serif`;
+      const words = textToRender.split(" ");
+      const linesArray: string[] = [];
+      let currentLine = "";
+      const maxWidth = 720;
+      for (let n = 0; n < words.length; n++) {
+        const testLine = currentLine + words[n] + " ";
+        const metrics = ctx.measureText(testLine);
+        if (metrics.width > maxWidth && n > 0) {
+          linesArray.push(currentLine.trim());
+          currentLine = words[n] + " ";
+        } else {
+          currentLine = testLine;
+        }
+      }
+      linesArray.push(currentLine.trim());
+      return linesArray;
+    };
+
+    let fontSize = 46;
+    let lineHeight = 70;
+    let lines = getLines(fontSize);
+
+    if (lines.length > 4) {
+      fontSize = 38;
+      lineHeight = 58;
+      lines = getLines(fontSize);
+    }
+    if (lines.length > 5) {
+      fontSize = 32;
+      lineHeight = 50;
+      lines = getLines(fontSize);
+    }
+
+    ctx.font = `bold ${fontSize}px sans-serif`;
     ctx.fillStyle = "#ffffff";
 
-    const words = textToRender.split(" ");
-    let line = "";
-    let y = 800;
-    const maxWidth = 740;
-    const lineHeight = 72;
+    // Vertical centering inside quote box
+    const totalTextHeight = lines.length * lineHeight;
+    let startY = 940 - (totalTextHeight / 2) + (lineHeight / 2);
 
-    for (let n = 0; n < words.length; n++) {
-      const testLine = line + words[n] + " ";
-      const metrics = ctx.measureText(testLine);
-      if (metrics.width > maxWidth && n > 0) {
-        ctx.fillText(line.trim(), 540, y);
-        line = words[n] + " ";
-        y += lineHeight;
-      } else {
-        line = testLine;
-      }
+    for (let i = 0; i < lines.length; i++) {
+      ctx.fillText(lines[i], 540, startY + (i * lineHeight));
     }
-    ctx.fillText(line.trim(), 540, y);
 
     // Hashtags
-    ctx.font = "bold 32px monospace";
+    ctx.font = "bold 30px monospace";
     ctx.fillStyle = "#fef08a";
-    ctx.fillText(currentPreview.hashtags, 540, y + 110);
+    ctx.fillText(currentPreview.hashtags, 540, startY + (lines.length * lineHeight) + 40);
 
-    // Story Bottom Call-To-Action & Watermark
-    ctx.font = "bold 30px sans-serif";
-    ctx.fillStyle = "rgba(255, 255, 255, 0.85)";
-    ctx.fillText("Created with Vamozhi.com 🌐", 540, 1680);
-
-    ctx.font = "600 24px sans-serif";
-    ctx.fillStyle = "rgba(253, 230, 138, 0.75)";
-    ctx.fillText("Swipe Up • Share to Instagram Story", 540, 1740);
+    // Story Bottom Watermark Footer
+    ctx.font = "bold 34px sans-serif";
+    ctx.fillStyle = "#ffffff";
+    ctx.fillText("© vamozhi.com", 540, 1720);
 
     // Download Trigger
     const image = canvas.toDataURL("image/png");
@@ -515,7 +527,7 @@ export default function Hero() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.98 }}
                   transition={{ duration: 0.25 }}
-                  className={`aspect-square relative overflow-hidden bg-gradient-to-br ${currentPreview.bg} flex flex-col justify-between p-6 text-center shadow-inner`}
+                  className={`min-h-[380px] sm:min-h-[420px] relative overflow-hidden bg-gradient-to-br ${currentPreview.bg} flex flex-col justify-between p-4 sm:p-6 text-center shadow-inner rounded-b-[28px]`}
                 >
                   <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent pointer-events-none" />
                   

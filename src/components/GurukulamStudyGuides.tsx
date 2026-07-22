@@ -49,7 +49,7 @@ export default function GurukulamStudyGuides() {
       <div className="bg-gradient-to-br from-purple-950 via-purple-900 to-indigo-950 rounded-[32px] p-6 sm:p-10 text-white shadow-2xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
         <div className="space-y-3 max-w-2xl">
           <span className="px-4 py-1.5 bg-amber-400/20 text-amber-300 rounded-full text-xs font-black uppercase tracking-widest border border-amber-400/30 inline-block">
-            Vamozhi Online Academy • Curriculum 🌐
+            Vamozhi Malayalam • Curriculum 🌐
           </span>
           <h2 className="text-2xl sm:text-4xl font-black tracking-tight leading-tight">
             Complete Malayalam Study System (ദ്വിഭാഷാ പഠന രീതി)

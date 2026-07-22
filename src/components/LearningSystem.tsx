@@ -324,13 +324,13 @@ export default function LearningSystem({ defaultTab = "letters" }: LearningSyste
       {/* Immersive Header */}
       <div className="text-center max-w-3xl mx-auto mb-6">
         <span className="px-3 py-1 rounded-full bg-pink-100 text-pink-800 text-[10px] font-black tracking-widest uppercase inline-block mb-3">
-          Vamozhi Online Academy (പഠന കേന്ദ്രം)
+          Vamozhi Malayalam (പഠന കേന്ദ്രം)
         </span>
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
           Learn Malayalam Language for Free
         </h1>
         <p className="text-sm sm:text-base font-bold text-purple-950 dark:text-purple-300 mt-2">
-          Vamozhi Online Academy • Basic to Advanced Curriculum, Interactive Games & Official Certificate Exam
+          Vamozhi Malayalam • Basic to Advanced Curriculum, Interactive Games & Official Certificate Exam
         </p>
 
         {/* FLEXIBLE & RESPONSIVE SUB-NAVIGATION MENU BAR */}

@@ -365,15 +365,6 @@ export default function ResultList({
                     </button>
 
                     <button
-                      onClick={() => handleDownloadCaptionCardImage(displayQuote, item.hashtags, item.id)}
-                      className="px-3.5 py-2 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white text-xs font-black rounded-xl border border-pink-500/50 shadow-sm transition-all cursor-pointer flex items-center gap-1.5"
-                      title="Download 1080x1080 Instagram Post PNG Image"
-                    >
-                      <Download className="w-3.5 h-3.5 text-white" />
-                      Download Image 🖼️
-                    </button>
-
-                    <button
                       onClick={() => handleWhatsappShare(displayQuote, item.hashtags)}
                       className="px-3.5 py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-extrabold rounded-xl border border-emerald-200 transition-all cursor-pointer flex items-center gap-1.5"
                     >

@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { getLoadedCaptionsSync } from "./captionLoader";
+
 export interface CaptionItem {
   id: string;
   text: string;
@@ -68,14 +70,14 @@ export const OPENING_PHRASES: Record<string, Record<string, string[]>> = {
       "Chila pranaya nimishangal... ",
       "Nee koodeyullappol... ",
       "Ente manassu niranja snehatthode... ",
-      "Our special bond... ",
+      "Oru manoharamaya bandham... ",
       "Nee ennum ente lokamanu... "
     ],
     attitude: [
       "Oru karyam orthu vecholu... ",
       "Ente life, ente rules! ",
-      "Arudeyum munnil thala kunikkaan premamilla. ",
-      "Silent but deadly vibe... ",
+      "Arudeyum munnil thala kunikkaan sheelamilla. ",
+      "Silent, calm, but unstoppable vibe... ",
       "Njan ennum enikku mathramulla brand aanu. "
     ],
     travel: [
@@ -87,14 +89,14 @@ export const OPENING_PHRASES: Record<string, Record<string, string[]>> = {
     ],
     funny: [
       "Sherikkum ithoru comedy aanu... ",
-      "Chirichu chirichu chakaam! ",
+      "Chirichu chirichu rasikkaam! ",
       "Ente daivame, ithu enthuvade... ",
       "Diet okke naale thudangaam... ",
       "Oru chiri koodi undel nalla life! "
     ],
     kerala: [
       "Daivathinte swantham naattil ninnu... ",
-      "Kerala thanima niranja vazhikal... */ ",
+      "Kerala thanima niranja vazhikal... ",
       "Pure Malayali vibes only... ",
       "Pachappum kayalukalum koode nalla chaya! ",
       "Naadan styling and feels... "
@@ -2523,7 +2525,9 @@ export function generateCaptions(options: GenerateOptions): GenerateResponse {
   }
 
   const fullDb = generateDatabase();
-  const mappedDb = fullDb.map(rawItem => mapToNewSchema(rawItem));
+  const loadedPool = getLoadedCaptionsSync();
+  const combinedRawDb = [...fullDb, ...loadedPool];
+  const mappedDb = combinedRawDb.map(rawItem => mapToNewSchema(rawItem));
   const cleanContentType = options.contentType === "hook" ? "reel-hook" : options.contentType;
 
   // 2. Strict content type segregation (e.g. bios should never return captions)

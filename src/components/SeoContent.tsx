@@ -139,6 +139,20 @@ export default function SeoContent() {
             </p>
           </div>
 
+          {/* Paragraph 7: Indexable Malayalam Quotes Section */}
+          <div className="space-y-4 pt-6 border-t border-slate-200" id="malayalam-quotes-seo">
+            <h3 className="text-2xl font-black text-neutral-900 flex items-center gap-2">
+              <Heart className="w-6 h-6 text-rose-600" />
+              ഓരോ മനസ്സിനും ചേരുന്ന മലയാളം ഉദ്ധരണികൾ
+            </h3>
+            <p className="text-base text-neutral-800 leading-relaxed font-bold">
+              ജീവിതം, പ്രണയം, വിജയം, സൗഹൃദം, പ്രചോദനം തുടങ്ങി വിവിധ വിഭാഗങ്ങളിലുള്ള മനോഹരമായ മലയാളം ഉദ്ധരണികൾ കണ്ടെത്തൂ. ഇഷ്ടപ്പെട്ട quote പകർത്താനും പങ്കിടാനും ചിത്രമായി ഡൗൺലോഡ് ചെയ്യാനും കഴിയും.
+            </p>
+            <p className="text-sm text-neutral-600 leading-relaxed">
+              വഴികാട്ടിയാകുന്ന മഹദ്‌വചനങ്ങൾ, പ്രചോദനാത്മകമായ ചിന്തകൾ, ആഴമുള്ള തത്ത്വചിന്തകൾ എന്നിവ 1,655-ലധികം വിവർത്തനം ചെയ്ത ഉദ്ധരണികളുടെ ശേഖരത്തിൽ നിന്നും നിങ്ങൾക്ക് എളുപ്പത്തിൽ കണ്ടെത്താം. ഒരു ക്ലിക്കിൽ നിങ്ങളുടെ സോഷ്യൽ മീഡിയ പോസ്റ്റുകളിലേക്ക് പകർത്താനും, വാട്സ്ആപ്പിലും ഫേസ്ബുക്കിലും നേരിട്ട് പങ്കിടാനും, വിവിധ കളർ തീമുകളിൽ ചിത്രങ്ങളായി (PNG Card Download) ഡൗൺലോഡ് ചെയ്യാനും വിമോഴി സൗകര്യമൊരുക്കുന്നു.
+            </p>
+          </div>
+
         </div>
       </div>
     </section>

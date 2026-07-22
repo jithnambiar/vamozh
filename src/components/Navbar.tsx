@@ -39,7 +39,7 @@ const ALL_SEARCHABLE_TOOLS = [
   { name: "Manglish to Malayalam Typing", path: "/manglish-to-malayalam" },
   { name: "Malayalam Dictionary Search", path: "/malayalam-dictionary" },
   { name: "Instagram Reel Hooks", path: "/malayalam-reel-hooks" },
-  { name: "Malayalam Hashtag Sets", path: "/malayalam-hashtags" },
+  { name: "Malayalam Quotes (മലയാളം ഉദ്ധരണികൾ)", path: "/malayalam-quotes" },
   { name: "Learn Malayalam Alphabet", path: "/learn-malayalam" },
   { name: "Malayalam Numbers & Quiz", path: "/malayalam-numbers" }
 ];
