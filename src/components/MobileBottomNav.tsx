@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Home, Keyboard, BookOpen, GraduationCap, Hash, Heart } from "lucide-react";
+import { Home, Sparkles, Keyboard, GraduationCap, BookOpen, Heart } from "lucide-react";
 import { motion } from "motion/react";
 
 interface MobileBottomNavProps {
@@ -21,10 +21,10 @@ export default function MobileBottomNav({
 }: MobileBottomNavProps) {
   
   const isHome = currentPath === "/";
+  const isCreator = currentPath === "/malayalam-caption-generator" || currentPath === "/malayalam-quotes" || currentPath === "/malayalam-reel-hooks" || currentPath === "/malayalam-instagram-bio";
   const isTyping = currentPath === "/manglish-to-malayalam";
-  const isDictionary = currentPath === "/malayalam-dictionary";
   const isLearn = currentPath === "/learn-malayalam" || currentPath === "/malayalam-numbers" || currentPath === "/verify-certificate";
-  const isHashtags = currentPath === "/malayalam-hashtags";
+  const isDictionary = currentPath === "/malayalam-dictionary";
 
   const tabs = [
     {
@@ -35,18 +35,18 @@ export default function MobileBottomNav({
       isActive: isHome
     },
     {
+      id: "creator",
+      label: "Creator",
+      path: "/malayalam-caption-generator",
+      icon: Sparkles,
+      isActive: isCreator
+    },
+    {
       id: "typing",
       label: "Typing",
       path: "/manglish-to-malayalam",
       icon: Keyboard,
       isActive: isTyping
-    },
-    {
-      id: "dictionary",
-      label: "Dict",
-      path: "/malayalam-dictionary",
-      icon: BookOpen,
-      isActive: isDictionary
     },
     {
       id: "learn",
@@ -56,11 +56,11 @@ export default function MobileBottomNav({
       isActive: isLearn
     },
     {
-      id: "hashtags",
-      label: "Hashtags",
-      path: "/malayalam-hashtags",
-      icon: Hash,
-      isActive: isHashtags
+      id: "dictionary",
+      label: "Dict",
+      path: "/malayalam-dictionary",
+      icon: BookOpen,
+      isActive: isDictionary
     }
   ];
 
