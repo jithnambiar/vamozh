@@ -352,103 +352,51 @@ export default function Hero({ onNavigate, onSelectCategory }: HeroProps) {
               Find the perfect Malayalam and Manglish captions, quotes, Reel hooks and trending hashtags for instagram, whatsapp, snapchat and more.
             </motion.p>
 
-            {/* Primary Action Buttons (Strictly in user's exact order) */}
+            {/* Primary Action Buttons (Simplified Hierarchy) */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex flex-wrap items-center gap-2.5 sm:gap-3 w-full mt-2"
+              className="flex flex-wrap items-center gap-3.5 w-full mt-2"
               id="hero-buttons"
             >
-              {/* 1. Learn Malayalam */}
-              <button
-                onClick={() => {
-                  if (onNavigate) onNavigate("/learn-malayalam");
-                  else { window.history.pushState(null, "", "/learn-malayalam"); window.dispatchEvent(new Event("popstate")); }
-                }}
-                className="px-5 py-3.5 bg-purple-950 hover:bg-purple-900 text-white rounded-2xl font-extrabold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer text-xs sm:text-sm"
-                id="btn-hero-learn"
-              >
-                <GraduationCap className="w-4 h-4 text-purple-300" />
-                <span>Learn Malayalam</span>
-              </button>
-
-              {/* 2. Dictionary */}
-              <button
-                onClick={() => {
-                  if (onNavigate) onNavigate("/malayalam-dictionary");
-                  else { window.history.pushState(null, "", "/malayalam-dictionary"); window.dispatchEvent(new Event("popstate")); }
-                }}
-                className="px-4 py-3.5 bg-white hover:bg-slate-50 text-slate-800 border border-slate-200/90 rounded-2xl font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs hover:shadow-sm text-xs sm:text-sm"
-                id="btn-hero-dictionary"
-              >
-                <Book className="w-4 h-4 text-purple-600" />
-                <span>Dictionary</span>
-              </button>
-
-              {/* 3. English to Malayalam */}
-              <button
-                onClick={() => {
-                  if (onNavigate) onNavigate("/manglish-to-malayalam");
-                  else { window.history.pushState(null, "", "/manglish-to-malayalam"); window.dispatchEvent(new Event("popstate")); }
-                }}
-                className="px-4 py-3.5 bg-white hover:bg-slate-50 text-slate-800 border border-slate-200/90 rounded-2xl font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs hover:shadow-sm text-xs sm:text-sm"
-                id="btn-hero-translit"
-              >
-                <Languages className="w-4 h-4 text-purple-600" />
-                <span>English to Malayalam</span>
-              </button>
-
-              {/* 4. Create Caption & Quote */}
+              {/* Primary CTA */}
               <button
                 onClick={() => {
                   if (onNavigate) onNavigate("/malayalam-caption-generator");
                   else { window.history.pushState(null, "", "/malayalam-caption-generator"); window.dispatchEvent(new Event("popstate")); }
                 }}
-                className="px-4 py-3.5 bg-gradient-to-r from-purple-800 to-pink-600 hover:from-purple-900 hover:to-pink-700 text-white rounded-2xl font-extrabold shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer text-xs sm:text-sm"
-                id="btn-hero-create"
+                className="px-6 py-4 bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 hover:from-purple-900 hover:to-indigo-900 text-white rounded-2xl font-extrabold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer text-sm"
+                id="btn-hero-primary-create"
               >
                 <Sparkles className="w-4 h-4 text-amber-300" />
-                <span>Create Caption & Quote</span>
+                <span>Create Captions</span>
               </button>
 
-              {/* 5. Hashtag Generator */}
-              <button
-                onClick={() => {
-                  if (onNavigate) onNavigate("/malayalam-hashtags");
-                  else { window.history.pushState(null, "", "/malayalam-hashtags"); window.dispatchEvent(new Event("popstate")); }
-                }}
-                className="px-4 py-3.5 bg-white hover:bg-slate-50 text-slate-800 border border-slate-200/90 rounded-2xl font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs hover:shadow-sm text-xs sm:text-sm"
-                id="btn-hero-hashtags"
-              >
-                <Hash className="w-4 h-4 text-purple-600" />
-                <span>Hashtag Generator</span>
-              </button>
-
-              {/* 6. Content Ideas */}
+              {/* Secondary CTA */}
               <button
                 onClick={() => {
                   if (onNavigate) onNavigate("/malayalam-reel-hooks");
                   else { window.history.pushState(null, "", "/malayalam-reel-hooks"); window.dispatchEvent(new Event("popstate")); }
                 }}
-                className="px-4 py-3.5 bg-white hover:bg-slate-50 text-slate-800 border border-slate-200/90 rounded-2xl font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs hover:shadow-sm text-xs sm:text-sm"
-                id="btn-hero-content-ideas"
-              >
-                <Lightbulb className="w-4 h-4 text-amber-500" />
-                <span>Content Ideas</span>
-              </button>
-
-              {/* 7. Reel Hooks */}
-              <button
-                onClick={() => {
-                  if (onNavigate) onNavigate("/malayalam-reel-hooks");
-                  else { window.history.pushState(null, "", "/malayalam-reel-hooks"); window.dispatchEvent(new Event("popstate")); }
-                }}
-                className="px-4 py-3.5 bg-white hover:bg-slate-50 text-slate-800 border border-slate-200/90 rounded-2xl font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs hover:shadow-sm text-xs sm:text-sm"
-                id="btn-hero-reel-hooks"
+                className="px-5 py-4 bg-white hover:bg-slate-50 text-slate-800 border border-slate-200/90 rounded-2xl font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs hover:shadow-sm text-sm"
+                id="btn-hero-secondary-explore"
               >
                 <Film className="w-4 h-4 text-pink-500" />
-                <span>Reel Hooks</span>
+                <span>Explore Creator Tools</span>
+              </button>
+
+              {/* Text Link */}
+              <button
+                onClick={() => {
+                  if (onNavigate) onNavigate("/learn-malayalam");
+                  else { window.history.pushState(null, "", "/learn-malayalam"); window.dispatchEvent(new Event("popstate")); }
+                }}
+                className="px-3 py-2 text-sm font-extrabold text-purple-700 hover:text-purple-900 underline underline-offset-4 flex items-center gap-1.5 cursor-pointer ml-1"
+                id="btn-hero-text-learn"
+              >
+                <GraduationCap className="w-4 h-4 text-purple-600 inline" />
+                <span>Learn Malayalam</span>
               </button>
             </motion.div>
 
@@ -502,19 +450,19 @@ export default function Hero({ onNavigate, onSelectCategory }: HeroProps) {
                   1,000+
                   <GraduationCap className="w-5 h-5 text-emerald-500 inline-block" />
                 </span>
-                <span className="text-xs text-slate-500 font-medium">Kids Learned & Certified from Vamozhi</span>
+                <span className="text-xs text-slate-500 font-medium">Learned & Certified</span>
               </div>
 
               <div className="flex flex-col">
                 <span className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
                   100% Free
                 </span>
-                <span className="text-xs text-slate-500 font-medium">No Sign-up Needed</span>
+                <span className="text-xs text-slate-500 font-medium">No Sign-up Required</span>
               </div>
 
               <div className="flex flex-col col-span-2 sm:col-span-1">
                 <span className="text-2xl md:text-3xl font-black text-purple-900 tracking-tight">
-                  0.2s
+                  Instant Results
                 </span>
                 <span className="text-xs text-slate-500 font-medium">Instant Generation</span>
               </div>

@@ -52,9 +52,21 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
   const { language, t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isCreatorSubmenuOpen, setIsCreatorSubmenuOpen] = useState(false);
-  const creatorSubmenuRef = useRef<HTMLDivElement>(null);
   
+  // Dropdown states for Desktop
+  const [isCreatorOpen, setIsCreatorOpen] = useState(false);
+  const [isWriteOpen, setIsWriteOpen] = useState(false);
+  const [isLearnOpen, setIsLearnOpen] = useState(false);
+  
+  // Accordion states for Mobile Drawer
+  const [isMobileCreatorOpen, setIsMobileCreatorOpen] = useState(true);
+  const [isMobileWriteOpen, setIsMobileWriteOpen] = useState(false);
+  const [isMobileLearnOpen, setIsMobileLearnOpen] = useState(false);
+
+  const creatorRef = useRef<HTMLDivElement>(null);
+  const writeRef = useRef<HTMLDivElement>(null);
+  const learnRef = useRef<HTMLDivElement>(null);
+
   // Search state
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<{ name: string; path: string }[]>([]);
@@ -69,18 +81,39 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Handle outside click to close search suggestions and creator menu
+  // Handle outside click & Keyboard Escape key for accessible dropdowns
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
         setIsSearchFocused(false);
       }
-      if (creatorSubmenuRef.current && !creatorSubmenuRef.current.contains(event.target as Node)) {
-        setIsCreatorSubmenuOpen(false);
+      if (creatorRef.current && !creatorRef.current.contains(event.target as Node)) {
+        setIsCreatorOpen(false);
+      }
+      if (writeRef.current && !writeRef.current.contains(event.target as Node)) {
+        setIsWriteOpen(false);
+      }
+      if (learnRef.current && !learnRef.current.contains(event.target as Node)) {
+        setIsLearnOpen(false);
       }
     };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsCreatorOpen(false);
+        setIsWriteOpen(false);
+        setIsLearnOpen(false);
+        setIsSearchFocused(false);
+        setIsOpen(false);
+      }
+    };
+
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
   // Lock body scroll when mobile menu is open
@@ -120,24 +153,29 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const isCreatorToolsActive = 
+  const isCreatorActive = 
     currentPath === "/malayalam-caption-generator" ||
     currentPath === "/malayalam-quotes" ||
     currentPath === "/malayalam-reel-hooks" ||
+    currentPath === "/malayalam-hashtags" ||
+    currentPath === "/malayalam-instagram-bio" ||
     currentPath === "/instagram-caption-generator" ||
     currentPath === "/facebook-caption-generator" ||
     currentPath === "/whatsapp-status-generator" ||
     currentPath === "/snapchat-caption-generator" ||
     currentPath === "/tiktok-caption-generator" ||
-    currentPath === "/malayalam-instagram-bio" ||
     currentPath === "/arike-bio-generator" ||
     currentPath === "/bumble-bio-generator" ||
     currentPath === "/matrimony-bio-generator";
 
-  const isTypingActive = currentPath === "/manglish-to-malayalam";
-  const isDictionaryActive = currentPath === "/malayalam-dictionary";
-  const isLearnActive = currentPath === "/learn-malayalam" || currentPath === "/malayalam-numbers";
-  const isHashtagsActive = currentPath === "/malayalam-hashtags";
+  const isWriteActive = 
+    currentPath === "/manglish-to-malayalam" ||
+    currentPath === "/malayalam-dictionary";
+
+  const isLearnActive = 
+    currentPath === "/learn-malayalam" || 
+    currentPath === "/malayalam-numbers" ||
+    currentPath === "/verify-certificate";
 
   return (
     <nav
@@ -164,179 +202,238 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
           >
             <img
               src="/assets/vamozhi-va-animated-logo.svg"
-              alt=""
+              alt="Vamozhi Logo"
               width="48"
               height="48"
               className="brand-logo__icon shrink-0"
             />
             <div className="brand-logo__wordmark text-left">
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1">
                 <span className="text-lg font-black tracking-tight bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent uppercase block leading-none">
                   VAMOZHI
                 </span>
                 <span className="text-[10px] font-extrabold text-purple-600 dark:text-purple-400 leading-none">.com</span>
-                <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" title="Live Server Ready" />
               </div>
-              <span className="text-[8px] font-extrabold text-pink-600 dark:text-pink-400 tracking-wider uppercase block mt-0.5">
-                Your Vibe. Your Words.
-              </span>
             </div>
           </a>
 
-          {/* Unified Desktop Navigation Bar with SEPARATE Typing and Dictionary */}
+          {/* Unified Desktop Navigation Bar */}
           <div className="hidden lg:flex items-center gap-1 bg-slate-100/80 p-1 rounded-2xl border border-slate-200/60" id="desktop-unified-nav">
+            {/* 1. Home */}
             <button
               onClick={handleLogoClick}
               className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-extrabold tracking-wide transition-all cursor-pointer ${
                 currentPath === "/"
                   ? "bg-purple-950 text-white shadow-sm"
-                  : "text-slate-600 hover:text-purple-950 hover:bg-white/60"
+                  : "text-slate-700 hover:text-purple-950 hover:bg-white/60"
               }`}
             >
-              <Home className="w-3.5 h-3.5 text-amber-400" />
+              <Home className="w-3.5 h-3.5 text-amber-500" />
               Home
             </button>
 
-            {/* Creator Dropdown Menu */}
+            {/* 2. Creator Dropdown */}
             <div 
               className="relative"
-              ref={creatorSubmenuRef}
-              onMouseEnter={() => setIsCreatorSubmenuOpen(true)}
-              onMouseLeave={() => setIsCreatorSubmenuOpen(false)}
+              ref={creatorRef}
+              onMouseEnter={() => setIsCreatorOpen(true)}
+              onMouseLeave={() => setIsCreatorOpen(false)}
             >
               <button
-                onClick={() => setIsCreatorSubmenuOpen(!isCreatorSubmenuOpen)}
+                onClick={() => setIsCreatorOpen(!isCreatorOpen)}
                 aria-haspopup="true"
-                aria-expanded={isCreatorSubmenuOpen}
+                aria-expanded={isCreatorOpen}
                 aria-label="Creator tools menu"
                 className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-extrabold tracking-wide transition-all cursor-pointer ${
-                  isCreatorToolsActive
+                  isCreatorActive
                     ? "bg-purple-950 text-white shadow-sm"
-                    : "text-slate-600 hover:text-purple-950 hover:bg-white/60"
+                    : "text-slate-700 hover:text-purple-950 hover:bg-white/60"
                 }`}
               >
-                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                <Sparkles className="w-3.5 h-3.5 text-pink-500" />
                 <span>Creator</span>
-                <ChevronDown className={`w-3 h-3 transition-transform ${isCreatorSubmenuOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown className={`w-3 h-3 transition-transform ${isCreatorOpen ? 'rotate-180' : ''}`} />
               </button>
 
-              {/* Accessible Submenu */}
-              {isCreatorSubmenuOpen && (
+              {isCreatorOpen && (
                 <div 
-                  className="absolute top-full left-0 pt-1.5 w-60 z-[100] before:content-[''] before:absolute before:-top-3 before:left-0 before:right-0 before:h-3"
+                  className="absolute top-full left-0 pt-1.5 w-64 z-[100] before:content-[''] before:absolute before:-top-3 before:left-0 before:right-0 before:h-3"
                   role="menu"
                   aria-orientation="vertical"
                 >
-                  <div className="bg-white dark:bg-neutral-900 border border-slate-200/90 dark:border-neutral-800 rounded-2xl shadow-2xl py-2 text-left">
-                    <div className="px-3.5 py-1 text-[9px] font-black text-purple-700 dark:text-purple-400 uppercase tracking-widest border-b border-slate-100 dark:border-neutral-800 mb-1">
+                  <div className="bg-white border border-slate-200/90 rounded-2xl shadow-2xl py-2 text-left">
+                    <div className="px-3.5 py-1 text-[9px] font-black text-purple-700 uppercase tracking-widest border-b border-slate-100 mb-1">
                       Creator Suite
                     </div>
 
-                    <button
-                      onClick={() => { onNavigate("/malayalam-caption-generator"); setIsCreatorSubmenuOpen(false); }}
-                      role="menuitem"
-                      className={`w-full text-left px-3.5 py-2 text-xs font-bold transition-colors flex items-center justify-between cursor-pointer ${
-                        currentPath === "/malayalam-caption-generator"
-                          ? "bg-purple-50 text-purple-950 dark:bg-neutral-800 dark:text-purple-300 font-black"
-                          : "text-slate-700 dark:text-slate-200 hover:bg-purple-50 hover:text-purple-950 dark:hover:bg-neutral-800"
-                      }`}
-                    >
-                      <div className="flex items-center gap-2.5">
-                        <Sparkles className="w-4 h-4 text-amber-500 shrink-0" />
-                        <div className="flex flex-col">
-                          <span>Caption Creator</span>
-                          <span className="text-[10px] font-normal text-slate-400">ക്യാപ്ഷൻ ക്രിയേറ്റർ</span>
-                        </div>
-                      </div>
-                    </button>
-
-                    <button
-                      onClick={() => { onNavigate("/malayalam-quotes"); setIsCreatorSubmenuOpen(false); }}
-                      role="menuitem"
-                      className={`w-full text-left px-3.5 py-2 text-xs font-bold transition-colors flex items-center justify-between cursor-pointer ${
-                        currentPath === "/malayalam-quotes"
-                          ? "bg-purple-50 text-purple-950 dark:bg-neutral-800 dark:text-purple-300 font-black"
-                          : "text-slate-700 dark:text-slate-200 hover:bg-purple-50 hover:text-purple-950 dark:hover:bg-neutral-800"
-                      }`}
-                    >
-                      <div className="flex items-center gap-2.5">
-                        <BookOpen className="w-4 h-4 text-purple-500 shrink-0" />
-                        <div className="flex flex-col">
-                          <span>Quote Creator</span>
-                          <span className="text-[10px] font-normal text-slate-400">മലയാളം ഉദ്ധരണികൾ</span>
-                        </div>
-                      </div>
-                    </button>
-
-                    <button
-                      onClick={() => { onNavigate("/malayalam-reel-hooks"); setIsCreatorSubmenuOpen(false); }}
-                      role="menuitem"
-                      className={`w-full text-left px-3.5 py-2 text-xs font-bold transition-colors flex items-center justify-between cursor-pointer ${
-                        currentPath === "/malayalam-reel-hooks"
-                          ? "bg-purple-50 text-purple-950 dark:bg-neutral-800 dark:text-purple-300 font-black"
-                          : "text-slate-700 dark:text-slate-200 hover:bg-purple-50 hover:text-purple-950 dark:hover:bg-neutral-800"
-                      }`}
-                    >
-                      <div className="flex items-center gap-2.5">
-                        <Film className="w-4 h-4 text-pink-500 shrink-0" />
-                        <div className="flex flex-col">
-                          <span>Reel Hooks & Ideas 🎬</span>
-                          <span className="text-[10px] font-normal text-slate-400">റീൽ ഹുക്കുകളും ആശയങ്ങളും</span>
-                        </div>
-                      </div>
-                    </button>
+                    {[
+                      { name: "Captions & Quotes", desc: "ക്യാപ്ഷൻ & ഉദ്ധരണികൾ", path: "/malayalam-caption-generator", icon: Sparkles },
+                      { name: "Reel Hooks", desc: "റീൽ ഹുക്കുകൾ", path: "/malayalam-reel-hooks", icon: Film },
+                      { name: "Content Ideas", desc: "കണ്ടന്റ് ആശയങ്ങൾ", path: "/malayalam-reel-hooks", icon: Film },
+                      { name: "Hashtag Generator", desc: "ഹാഷ്‌ടാഗ് ജനറേറ്റർ", path: "/malayalam-hashtags", icon: Hash },
+                      { name: "Instagram Bio Generator", desc: "ഇൻസ്റ്റാഗ്രാം ബയോ", path: "/malayalam-instagram-bio", icon: Sparkles }
+                    ].map((item) => {
+                      const Icon = item.icon;
+                      return (
+                        <button
+                          key={item.name + item.path}
+                          onClick={() => { onNavigate(item.path); setIsCreatorOpen(false); }}
+                          role="menuitem"
+                          className={`w-full text-left px-3.5 py-2 text-xs font-bold transition-colors flex items-center justify-between cursor-pointer ${
+                            currentPath === item.path
+                              ? "bg-purple-50 text-purple-950 font-black"
+                              : "text-slate-700 hover:bg-purple-50 hover:text-purple-950"
+                          }`}
+                        >
+                          <div className="flex items-center gap-2.5">
+                            <Icon className="w-4 h-4 text-purple-600 shrink-0" />
+                            <div className="flex flex-col">
+                              <span>{item.name}</span>
+                              <span className="text-[10px] font-normal text-slate-500">{item.desc}</span>
+                            </div>
+                          </div>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               )}
             </div>
 
-            <button
-              onClick={() => onNavigate("/manglish-to-malayalam")}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-extrabold tracking-wide transition-all cursor-pointer ${
-                isTypingActive
-                  ? "bg-purple-950 text-white shadow-sm"
-                  : "text-slate-600 hover:text-purple-950 hover:bg-white/60"
-              }`}
+            {/* 3. Write Dropdown */}
+            <div 
+              className="relative"
+              ref={writeRef}
+              onMouseEnter={() => setIsWriteOpen(true)}
+              onMouseLeave={() => setIsWriteOpen(false)}
             >
-              <Keyboard className="w-3.5 h-3.5 text-pink-400" />
-              Typing
-            </button>
+              <button
+                onClick={() => setIsWriteOpen(!isWriteOpen)}
+                aria-haspopup="true"
+                aria-expanded={isWriteOpen}
+                aria-label="Write tools menu"
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-extrabold tracking-wide transition-all cursor-pointer ${
+                  isWriteActive
+                    ? "bg-purple-950 text-white shadow-sm"
+                    : "text-slate-700 hover:text-purple-950 hover:bg-white/60"
+                }`}
+              >
+                <Keyboard className="w-3.5 h-3.5 text-purple-600" />
+                <span>Write</span>
+                <ChevronDown className={`w-3 h-3 transition-transform ${isWriteOpen ? 'rotate-180' : ''}`} />
+              </button>
 
-            <button
-              onClick={() => onNavigate("/malayalam-dictionary")}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-extrabold tracking-wide transition-all cursor-pointer ${
-                isDictionaryActive
-                  ? "bg-purple-950 text-white shadow-sm"
-                  : "text-slate-600 hover:text-purple-950 hover:bg-white/60"
-              }`}
-            >
-              <BookOpen className="w-3.5 h-3.5 text-blue-400" />
-              Dictionary
-            </button>
+              {isWriteOpen && (
+                <div 
+                  className="absolute top-full left-0 pt-1.5 w-56 z-[100] before:content-[''] before:absolute before:-top-3 before:left-0 before:right-0 before:h-3"
+                  role="menu"
+                  aria-orientation="vertical"
+                >
+                  <div className="bg-white border border-slate-200/90 rounded-2xl shadow-2xl py-2 text-left">
+                    <div className="px-3.5 py-1 text-[9px] font-black text-purple-700 uppercase tracking-widest border-b border-slate-100 mb-1">
+                      Writing & Transliteration
+                    </div>
 
-            <button
-              onClick={() => onNavigate("/learn-malayalam")}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-extrabold tracking-wide transition-all cursor-pointer ${
-                isLearnActive
-                  ? "bg-purple-950 text-white shadow-sm"
-                  : "text-slate-600 hover:text-purple-950 hover:bg-white/60"
-              }`}
-            >
-              <GraduationCap className="w-3.5 h-3.5 text-emerald-400" />
-              Learn
-            </button>
+                    {[
+                      { name: "Malayalam Typing", desc: "മംഗ്ലീഷ് ടൈപ്പിംഗ്", path: "/manglish-to-malayalam", icon: Keyboard },
+                      { name: "Dictionary", desc: "മലയാളം നിഘണ്ടു", path: "/malayalam-dictionary", icon: BookOpen }
+                    ].map((item) => {
+                      const Icon = item.icon;
+                      return (
+                        <button
+                          key={item.path}
+                          onClick={() => { onNavigate(item.path); setIsWriteOpen(false); }}
+                          role="menuitem"
+                          className={`w-full text-left px-3.5 py-2 text-xs font-bold transition-colors flex items-center justify-between cursor-pointer ${
+                            currentPath === item.path
+                              ? "bg-purple-50 text-purple-950 font-black"
+                              : "text-slate-700 hover:bg-purple-50 hover:text-purple-950"
+                          }`}
+                        >
+                          <div className="flex items-center gap-2.5">
+                            <Icon className="w-4 h-4 text-purple-600 shrink-0" />
+                            <div className="flex flex-col">
+                              <span>{item.name}</span>
+                              <span className="text-[10px] font-normal text-slate-500">{item.desc}</span>
+                            </div>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
 
-            <button
-              onClick={() => onNavigate("/malayalam-hashtags")}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-extrabold tracking-wide transition-all cursor-pointer ${
-                isHashtagsActive
-                  ? "bg-purple-950 text-white shadow-sm"
-                  : "text-slate-600 hover:text-purple-950 hover:bg-white/60"
-              }`}
+            {/* 4. Learn Dropdown */}
+            <div 
+              className="relative"
+              ref={learnRef}
+              onMouseEnter={() => setIsLearnOpen(true)}
+              onMouseLeave={() => setIsLearnOpen(false)}
             >
-              <Hash className="w-3.5 h-3.5 text-pink-400" />
-              Hashtags
-            </button>
+              <button
+                onClick={() => setIsLearnOpen(!isLearnOpen)}
+                aria-haspopup="true"
+                aria-expanded={isLearnOpen}
+                aria-label="Learn Malayalam menu"
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-extrabold tracking-wide transition-all cursor-pointer ${
+                  isLearnActive
+                    ? "bg-purple-950 text-white shadow-sm"
+                    : "text-slate-700 hover:text-purple-950 hover:bg-white/60"
+                }`}
+              >
+                <GraduationCap className="w-3.5 h-3.5 text-amber-500" />
+                <span>Learn</span>
+                <ChevronDown className={`w-3 h-3 transition-transform ${isLearnOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {isLearnOpen && (
+                <div 
+                  className="absolute top-full left-0 pt-1.5 w-60 z-[100] before:content-[''] before:absolute before:-top-3 before:left-0 before:right-0 before:h-3"
+                  role="menu"
+                  aria-orientation="vertical"
+                >
+                  <div className="bg-white border border-slate-200/90 rounded-2xl shadow-2xl py-2 text-left">
+                    <div className="px-3.5 py-1 text-[9px] font-black text-amber-600 uppercase tracking-widest border-b border-slate-100 mb-1">
+                      Learn & Certify
+                    </div>
+
+                    {[
+                      { name: "Alphabet", desc: "അക്ഷരമാല പഠിക്കാം", path: "/learn-malayalam", icon: GraduationCap },
+                      { name: "Numbers", desc: "മലയാളം അക്കങ്ങൾ", path: "/malayalam-numbers", icon: Award },
+                      { name: "Phrases", desc: "പ്രധാന ശൈലികൾ", path: "/learn-malayalam", icon: GraduationCap },
+                      { name: "Games", desc: "പഠന ഗെയിമുകൾ", path: "/learn-malayalam", icon: GraduationCap },
+                      { name: "Practice", desc: "പരിശീലനം", path: "/learn-malayalam", icon: GraduationCap },
+                      { name: "Certification", desc: "സർട്ടിഫിക്കറ്റ് പരീക്ഷ", path: "/learn-malayalam", icon: ShieldCheck }
+                    ].map((item, idx) => {
+                      const Icon = item.icon;
+                      return (
+                        <button
+                          key={item.name + idx}
+                          onClick={() => { onNavigate(item.path); setIsLearnOpen(false); }}
+                          role="menuitem"
+                          className={`w-full text-left px-3.5 py-2 text-xs font-bold transition-colors flex items-center justify-between cursor-pointer ${
+                            currentPath === item.path
+                              ? "bg-amber-50 text-amber-950 font-black"
+                              : "text-slate-700 hover:bg-amber-50/70 hover:text-amber-950"
+                          }`}
+                        >
+                          <div className="flex items-center gap-2.5">
+                            <Icon className="w-4 h-4 text-amber-600 shrink-0" />
+                            <div className="flex flex-col">
+                              <span>{item.name}</span>
+                              <span className="text-[10px] font-normal text-slate-500">{item.desc}</span>
+                            </div>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
+
           </div>
 
           {/* Quick Search Input (Desktop) */}
@@ -373,7 +470,7 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
             )}
           </div>
 
-          {/* Actions: Saved Items & Menu Drawer Trigger */}
+          {/* Actions: Saved Items & Mobile Menu Trigger (lg:hidden) */}
           <div className="flex items-center gap-1.5" id="nav-actions">
             <button
               onClick={onOpenFavourites}
@@ -389,10 +486,11 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
               )}
             </button>
 
+            {/* Hamburger trigger only visible on screens below desktop breakpoint */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 bg-slate-50 hover:bg-slate-100 text-slate-700 rounded-xl border border-slate-200/60 cursor-pointer"
-              aria-label="Open menu"
+              className="p-2 bg-slate-50 hover:bg-slate-100 text-slate-700 rounded-xl border border-slate-200/60 cursor-pointer lg:hidden"
+              aria-label="Open mobile menu"
               id="btn-mobile-menu"
             >
               {isOpen ? <X className="w-4.5 h-4.5" /> : <Menu className="w-4.5 h-4.5" />}
@@ -469,39 +567,160 @@ export default function Navbar({ favouritesCount, onOpenFavourites, currentPath,
                   )}
                 </div>
 
-                {/* Primary Section Links - Separate Typing and Dictionary */}
-                <div className="space-y-1">
+                {/* Primary Section Links */}
+                <div className="space-y-2">
                   <span className="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">
                     Features & Tools
                   </span>
-                  {[
-                    { name: "Caption Creator ✨", path: "/malayalam-caption-generator", icon: Sparkles },
-                    { name: "Quote Creator ✍️", path: "/malayalam-quotes", icon: BookOpen },
-                    { name: "Reel Hooks & Ideas 🎬", path: "/malayalam-reel-hooks", icon: Film },
-                    { name: "Manglish Typing ⌨️", path: "/manglish-to-malayalam", icon: Keyboard },
-                    { name: "Malayalam Dictionary 📖", path: "/malayalam-dictionary", icon: BookOpen },
-                    { name: "Learn Malayalam 🎓", path: "/learn-malayalam", icon: GraduationCap },
-                    { name: "Hashtag Generator 🏷️", path: "/malayalam-hashtags", icon: Hash }
-                  ].map((item) => {
-                    const Icon = item.icon;
-                    return (
-                      <button
-                        key={item.path}
-                        onClick={() => { onNavigate(item.path); setIsOpen(false); }}
-                        className={`w-full py-2.5 px-3 rounded-xl font-bold text-xs flex items-center justify-between transition-colors ${
-                          currentPath === item.path
-                            ? "bg-purple-50 text-purple-950 font-black"
-                            : "text-slate-700 hover:bg-purple-50 hover:text-purple-950"
-                        }`}
-                      >
-                        <div className="flex items-center gap-2.5">
-                          <Icon className="w-4 h-4 text-purple-600" />
-                          <span>{item.name}</span>
-                        </div>
-                        <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-                      </button>
-                    );
-                  })}
+
+                  {/* 1. Home Link */}
+                  <button
+                    onClick={() => { handleLogoClick(); setIsOpen(false); }}
+                    className={`w-full py-2.5 px-3 rounded-xl font-bold text-xs flex items-center justify-between transition-colors cursor-pointer ${
+                      currentPath === "/"
+                        ? "bg-purple-950 text-white font-black"
+                        : "text-slate-700 hover:bg-purple-50 hover:text-purple-950"
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <Home className="w-4 h-4 text-amber-500" />
+                      <span>Home</span>
+                    </div>
+                    <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+                  </button>
+
+                  {/* 2. Creator Accordion */}
+                  <div className="rounded-2xl border border-purple-100 bg-purple-50/30 overflow-hidden">
+                    <button
+                      onClick={() => setIsMobileCreatorOpen(!isMobileCreatorOpen)}
+                      className="w-full py-2.5 px-3 font-bold text-xs flex items-center justify-between text-purple-950 bg-purple-100/50 hover:bg-purple-100/80 transition-colors cursor-pointer"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <Sparkles className="w-4 h-4 text-pink-500" />
+                        <span className="font-extrabold text-purple-950">Creator</span>
+                      </div>
+                      <ChevronDown className={`w-3.5 h-3.5 text-purple-700 transition-transform duration-200 ${isMobileCreatorOpen ? "rotate-180" : ""}`} />
+                    </button>
+
+                    {isMobileCreatorOpen && (
+                      <div className="p-1 space-y-1 bg-white border-t border-purple-100/80">
+                        {[
+                          { name: "Captions & Quotes", path: "/malayalam-caption-generator", icon: Sparkles },
+                          { name: "Reel Hooks", path: "/malayalam-reel-hooks", icon: Film },
+                          { name: "Content Ideas", path: "/malayalam-reel-hooks", icon: Film },
+                          { name: "Hashtag Generator", path: "/malayalam-hashtags", icon: Hash },
+                          { name: "Instagram Bio Generator", path: "/malayalam-instagram-bio", icon: Sparkles }
+                        ].map((item, idx) => {
+                          const SubIcon = item.icon;
+                          return (
+                            <button
+                              key={item.name + idx}
+                              onClick={() => { onNavigate(item.path); setIsOpen(false); }}
+                              className={`w-full text-left py-2 px-2.5 rounded-xl text-xs font-bold transition-colors flex items-center justify-between cursor-pointer ${
+                                currentPath === item.path
+                                  ? "bg-purple-100/80 text-purple-950 font-black"
+                                  : "text-slate-700 hover:bg-purple-50 hover:text-purple-950"
+                              }`}
+                            >
+                              <div className="flex items-center gap-2.5">
+                                <SubIcon className="w-3.5 h-3.5 text-purple-600 shrink-0" />
+                                <span>{item.name}</span>
+                              </div>
+                              <ChevronRight className="w-3 h-3 text-slate-400" />
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 3. Write Accordion */}
+                  <div className="rounded-2xl border border-purple-100 bg-purple-50/30 overflow-hidden">
+                    <button
+                      onClick={() => setIsMobileWriteOpen(!isMobileWriteOpen)}
+                      className="w-full py-2.5 px-3 font-bold text-xs flex items-center justify-between text-purple-950 bg-purple-100/50 hover:bg-purple-100/80 transition-colors cursor-pointer"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <Keyboard className="w-4 h-4 text-purple-600" />
+                        <span className="font-extrabold text-purple-950">Write</span>
+                      </div>
+                      <ChevronDown className={`w-3.5 h-3.5 text-purple-700 transition-transform duration-200 ${isMobileWriteOpen ? "rotate-180" : ""}`} />
+                    </button>
+
+                    {isMobileWriteOpen && (
+                      <div className="p-1 space-y-1 bg-white border-t border-purple-100/80">
+                        {[
+                          { name: "Malayalam Typing", path: "/manglish-to-malayalam", icon: Keyboard },
+                          { name: "Dictionary", path: "/malayalam-dictionary", icon: BookOpen }
+                        ].map((item) => {
+                          const SubIcon = item.icon;
+                          return (
+                            <button
+                              key={item.path}
+                              onClick={() => { onNavigate(item.path); setIsOpen(false); }}
+                              className={`w-full text-left py-2 px-2.5 rounded-xl text-xs font-bold transition-colors flex items-center justify-between cursor-pointer ${
+                                currentPath === item.path
+                                  ? "bg-purple-100/80 text-purple-950 font-black"
+                                  : "text-slate-700 hover:bg-purple-50 hover:text-purple-950"
+                              }`}
+                            >
+                              <div className="flex items-center gap-2.5">
+                                <SubIcon className="w-3.5 h-3.5 text-purple-600 shrink-0" />
+                                <span>{item.name}</span>
+                              </div>
+                              <ChevronRight className="w-3 h-3 text-slate-400" />
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 4. Learn Accordion */}
+                  <div className="rounded-2xl border border-amber-100 bg-amber-50/30 overflow-hidden">
+                    <button
+                      onClick={() => setIsMobileLearnOpen(!isMobileLearnOpen)}
+                      className="w-full py-2.5 px-3 font-bold text-xs flex items-center justify-between text-amber-950 bg-amber-100/50 hover:bg-amber-100/80 transition-colors cursor-pointer"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <GraduationCap className="w-4 h-4 text-amber-600" />
+                        <span className="font-extrabold text-amber-950">Learn</span>
+                      </div>
+                      <ChevronDown className={`w-3.5 h-3.5 text-amber-700 transition-transform duration-200 ${isMobileLearnOpen ? "rotate-180" : ""}`} />
+                    </button>
+
+                    {isMobileLearnOpen && (
+                      <div className="p-1 space-y-1 bg-white border-t border-amber-100/80">
+                        {[
+                          { name: "Alphabet", path: "/learn-malayalam", icon: GraduationCap },
+                          { name: "Numbers", path: "/malayalam-numbers", icon: Award },
+                          { name: "Phrases", path: "/learn-malayalam", icon: GraduationCap },
+                          { name: "Games", path: "/learn-malayalam", icon: GraduationCap },
+                          { name: "Practice", path: "/learn-malayalam", icon: GraduationCap },
+                          { name: "Certification", path: "/learn-malayalam", icon: ShieldCheck }
+                        ].map((item, idx) => {
+                          const SubIcon = item.icon;
+                          return (
+                            <button
+                              key={item.name + idx}
+                              onClick={() => { onNavigate(item.path); setIsOpen(false); }}
+                              className={`w-full text-left py-2 px-2.5 rounded-xl text-xs font-bold transition-colors flex items-center justify-between cursor-pointer ${
+                                currentPath === item.path
+                                  ? "bg-amber-100/80 text-amber-950 font-black"
+                                  : "text-slate-700 hover:bg-amber-50/70 hover:text-amber-950"
+                              }`}
+                            >
+                              <div className="flex items-center gap-2.5">
+                                <SubIcon className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                                <span>{item.name}</span>
+                              </div>
+                              <ChevronRight className="w-3 h-3 text-slate-400" />
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 {/* Information Pages */}

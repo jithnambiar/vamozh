@@ -55,7 +55,7 @@ export default function Categories({ onSelectCategory }: CategoriesProps) {
         
         {/* Flexible & Responsive Category Chips Container */}
         <div className="bg-white dark:bg-neutral-900 border border-slate-200/80 dark:border-neutral-800 rounded-3xl p-6 shadow-sm space-y-4">
-          <div className="flex flex-wrap items-center justify-center gap-2.5">
+          <div className="flex overflow-x-auto md:flex-wrap items-center justify-start md:justify-center gap-2.5 pb-2 md:pb-0 scrollbar-none">
             {visibleCategories.map((cat) => (
               <CategoryChip
                 key={cat.id}

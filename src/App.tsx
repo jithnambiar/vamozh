@@ -27,6 +27,7 @@ import MalayalamQuotes from "./components/MalayalamQuotes";
 import GeneratorTabs from "./components/shared/GeneratorTabs";
 import ScrollToTop from "./components/ScrollToTop";
 import ReelHooksPage from "./components/ReelHooksPage";
+import ProductPathways from "./components/ProductPathways";
 import { AnimatePresence } from "motion/react";
 
 interface ResultItem {
@@ -310,6 +311,8 @@ export default function App() {
                 setSelectedCategory(catId);
               }}
             />
+
+            <ProductPathways onNavigate={handleNavigate} />
 
             <Trending
               favourites={favourites}

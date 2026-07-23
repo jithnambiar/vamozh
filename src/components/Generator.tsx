@@ -277,7 +277,7 @@ export default function Generator({
       
       {/* Dynamic Header based on route */}
       <div className="text-center max-w-2xl mx-auto mb-6">
-        <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-neutral-900" id="generator-heading">
+        <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-[#545454]" id="generator-heading">
           {contentType === "hook" ? (uiLang === 'en' ? "Malayalam Reel Hooks Creator" : "മലയാളം റീൽ ഹൂക്ക്സ് ക്രിയേറ്റർ") : 
            (uiLang === 'en' ? "Social Caption Generator" : "സോഷ്യൽ ക്യാപ്ഷൻ ജനറേറ്റർ")}
         </h2>
@@ -301,14 +301,14 @@ export default function Generator({
 
         <div className="flex flex-col gap-6 text-left">
           
-          {/* CORE FIELDS (Simple, high-impact grid) */}
+          {/* CORE FIELDS (Simple 1 -> 2 -> 3 control sequence) */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6" id="core-fields-grid">
             
-            {/* 1. Content Type */}
+            {/* Step 1. Choose Content Type */}
             <div className="flex flex-col gap-1.5" id="field-content-type">
               <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
                 <AlignLeft className="w-3.5 h-3.5 text-purple-700" />
-                {t("step1")}
+                1. Choose Content Type
               </label>
               <div className="grid grid-cols-2 gap-2" id="input-content-type">
                 {[
@@ -321,7 +321,7 @@ export default function Generator({
                     onClick={() => setContentType(type.id)}
                     className={`py-2.5 px-3 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
                       contentType === type.id
-                        ? "bg-slate-900 text-white border-transparent shadow-sm"
+                        ? "bg-purple-950 text-white border-transparent shadow-sm"
                         : "bg-white hover:bg-slate-50 text-slate-700 border-slate-200"
                     }`}
                   >
@@ -331,11 +331,11 @@ export default function Generator({
               </div>
             </div>
 
-            {/* 2. Language Selector */}
+            {/* Step 2. Select Language */}
             <div className="flex flex-col gap-1.5" id="field-language">
               <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
                 <Globe className="w-3.5 h-3.5 text-purple-700" />
-                {t("step3")}
+                2. Select Language
               </label>
               <div className="grid grid-cols-2 gap-2" id="input-language">
                 {[
@@ -348,8 +348,8 @@ export default function Generator({
                     onClick={() => setLanguage(lang.id as any)}
                     className={`py-2.5 px-1 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
                       language === lang.id
-                        ? "border-purple-600 bg-purple-50 text-purple-700 font-extrabold"
-                        : "bg-white hover:bg-slate-50 text-slate-600 border-slate-200"
+                        ? "border-purple-600 bg-purple-50 text-purple-950 font-extrabold"
+                        : "bg-white hover:bg-slate-50 text-slate-700 border-slate-200"
                     }`}
                   >
                     {lang.label}
@@ -358,12 +358,12 @@ export default function Generator({
               </div>
             </div>
 
-            {/* 3. Keyword */}
+            {/* Step 3. Add Keywords */}
             <div className="flex flex-col gap-1.5" id="field-keyword">
               <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5 justify-between">
                 <span className="flex items-center gap-1.5">
                   <MessageSquare className="w-3.5 h-3.5 text-purple-700" />
-                  {t("step6")}
+                  3. Add Keywords
                 </span>
               </label>
               <div className="relative flex items-center w-full">
@@ -372,7 +372,7 @@ export default function Generator({
                   value={keyword}
                   onChange={(e) => setKeyword(e.target.value)}
                   placeholder={uiLang === 'en' ? "E.g., tea, rain, kochi, puzha" : "ഉദാ: ചായ, മഴ, കൊച്ചി, പുഴ"}
-                  className="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-200 bg-white text-xs font-semibold focus:outline-none focus:ring-1 focus:ring-slate-900 transition-all placeholder:text-slate-400 h-[46px]"
+                  className="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-200 bg-white text-xs font-semibold focus:outline-none focus:ring-1 focus:ring-purple-600 transition-all placeholder:text-slate-400 h-[46px]"
                   id="input-keyword"
                 />
                 <button
@@ -381,7 +381,7 @@ export default function Generator({
                   className={`absolute right-2 p-2 rounded-lg transition-all cursor-pointer ${
                     isListeningKeyword 
                       ? "bg-red-600 text-white animate-pulse" 
-                      : "text-slate-400 hover:text-purple-700 hover:bg-slate-150"
+                      : "text-slate-400 hover:text-purple-700 hover:bg-slate-100"
                   }`}
                   title="Speak keyword in Malayalam"
                 >
@@ -393,8 +393,8 @@ export default function Generator({
           </div>
 
           <div className="text-center mt-2" id="info-live-matching-banner">
-            <span className="text-[10px] text-slate-500 font-bold bg-slate-50 border border-slate-100 rounded-full py-1 px-4 inline-block">
-              💡 {uiLang === 'en' ? "Presets matching your choices are shown instantly below. Click below to generate fresh, custom AI ideas." : "തെരഞ്ഞെടുത്ത വരികൾ താഴെ തത്സമയം നൽകിയിട്ടുണ്ട്. ജെമിനി AI വഴി പുതിയ വരികൾ നിർമ്മിക്കാൻ താഴെയുള്ള ബട്ടൺ ക്ലിക്ക് ചെയ്യുക."}
+            <span className="text-[11px] text-slate-600 font-semibold bg-slate-50 border border-slate-200/80 rounded-full py-1.5 px-4 inline-block">
+              💡 Quick Generate uses curated content. Custom AI creates fresh results using your keywords.
             </span>
           </div>
 
@@ -405,31 +405,31 @@ export default function Generator({
           <button
             type="button"
             onClick={handleNormalGenerate}
-            className="w-full sm:w-auto px-8 py-4 bg-slate-100 hover:bg-slate-200 text-slate-800 text-sm font-extrabold rounded-2xl transition-all flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider border border-slate-200"
+            className="w-full sm:w-auto px-7 py-3.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-extrabold rounded-2xl transition-all flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider"
             id="btn-normal-generate"
           >
-            <AlignLeft className="w-4.5 h-4.5 text-purple-700" />
-            {uiLang === 'en' ? "Normal Generate" : "സാധാരണ ജനറേറ്റ് ചെയ്യുക"}
+            <AlignLeft className="w-4 h-4 text-purple-300" />
+            {uiLang === 'en' ? "Quick Generate" : "ക്വിക്ക് ജനറേറ്റ്"}
           </button>
 
           <button
             type="button"
             onClick={handleVamozhiAiGenerate}
-            className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-purple-800 via-pink-600 to-orange-500 hover:scale-[0.98] text-white text-sm font-extrabold rounded-2xl transition-all shadow-md shadow-pink-100 flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider"
+            className="w-full sm:w-auto px-7 py-3.5 bg-gradient-to-r from-purple-900 via-pink-600 to-orange-500 hover:opacity-95 text-white text-xs font-extrabold rounded-2xl transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider"
             id="btn-vamozhi-ai-generate"
           >
-            <Sparkles className="w-4.5 h-4.5 animate-pulse" />
-            {uiLang === 'en' ? "Vamozhi AI" : "വമൊഴി AI 🪄"}
+            <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
+            {uiLang === 'en' ? "Custom AI Generate" : "കസ്റ്റം AI ജനറേറ്റ് 🪄"}
           </button>
 
           <button
             type="button"
             onClick={handleReset}
-            className="w-full sm:w-auto px-6 py-4 bg-white hover:bg-slate-50 text-slate-500 hover:text-slate-800 text-sm font-bold rounded-2xl transition-all flex items-center justify-center gap-1.5 cursor-pointer uppercase tracking-wider border border-slate-200"
+            className="w-full sm:w-auto px-5 py-3.5 bg-white hover:bg-slate-50 text-slate-600 hover:text-slate-900 text-xs font-bold rounded-2xl transition-all flex items-center justify-center gap-1.5 cursor-pointer uppercase tracking-wider border border-slate-200"
             id="btn-reset-generator"
             title="Reset all filters to defaults"
           >
-            <RotateCcw className="w-4 h-4 text-slate-500" />
+            <RotateCcw className="w-3.5 h-3.5 text-slate-500" />
             {uiLang === 'en' ? "Reset" : "റീസെറ്റ്"}
           </button>
         </div>

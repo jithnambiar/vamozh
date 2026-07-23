@@ -248,41 +248,57 @@ export default function HashtagGenerator({ onSuccessMessage, onToggleFavourite, 
       
       {/* 1. Header Section */}
       <div className="text-center max-w-2xl mx-auto mb-10">
-        <span className="px-3 py-1 rounded-full bg-purple-50 text-purple-700 text-[10px] font-black tracking-widest uppercase inline-block mb-3">
-          Maximum Reach Engine 🚀
+        <span className="px-3.5 py-1.5 rounded-full bg-purple-100 text-purple-900 text-[11px] font-black tracking-widest uppercase inline-block mb-3">
+          Hashtag Discovery Engine 🚀
         </span>
         <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-neutral-900" id="hashtag-header">
-          {uiLang === 'en' ? "Malayalam Instagram Hashtag Generator & Reach Optimizer" : "കേരളാ ഹാഷ്‌ടാഗ് ജനറേറ്റർ"}
+          {uiLang === 'en' ? "Malayalam Instagram Hashtag Generator & Reach Insights" : "കേരളാ ഹാഷ്‌ടാഗ് ജനറേറ്റർ"}
         </h1>
-        <p className="text-sm text-neutral-500 mt-2">
-          {uiLang === 'en' ? "Get real, active regional hashtags with high reach estimation. Optimize instantly for Instagram, YouTube Shorts, or TikTok." : "സോഷ്യൽ മീഡിയയിൽ ഉയർന്ന റീച്ച് ലഭിക്കുന്നതിന് യഥാർത്ഥ കേരളാ ഹാഷ്‌ടാഗുകൾ കണ്ടെത്തുക. ഇൻസ്റ്റാഗ്രാം, യൂട്യൂബ് എന്നിവയ്ക്ക് അനുയോജ്യമായ രീതിയിൽ തിരഞ്ഞെടുക്കാം."}
+        <p className="text-sm text-neutral-600 mt-2">
+          {uiLang === 'en' ? "Get real, active regional hashtags with volume estimation. Optimize instantly for Instagram, YouTube Shorts, or TikTok." : "സോഷ്യൽ മീഡിയയിൽ ഉയർന്ന റീച്ച് ലഭിക്കുന്നതിന് യഥാർത്ഥ കേരളാ ഹാഷ്‌ടാഗുകൾ കണ്ടെത്തുക. ഇൻസ്റ്റാഗ്രാം, യൂട്യൂബ് എന്നിവയ്ക്ക് അനുയോജ്യമായ രീതിയിൽ തിരഞ്ഞെടുക്കാം."}
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
-        {/* Left Side: Configuration Panel */}
-        <div className="lg:col-span-5 bg-white rounded-[32px] p-6 border border-slate-200 shadow-sm relative">
+        {/* Left Side: Sticky Configuration Panel */}
+        <div className="lg:col-span-5 bg-white rounded-[32px] p-6 border border-slate-200 shadow-sm relative lg:sticky lg:top-[85px]">
           
           {isLoading && (
             <div className="absolute inset-0 bg-white/80 backdrop-blur-xs z-30 flex flex-col items-center justify-center gap-3 rounded-[32px] animate-fade-in">
               <Loader2 className="w-10 h-10 text-purple-800 animate-spin" />
               <span className="text-xs font-extrabold text-purple-950 uppercase tracking-widest animate-pulse">
-                Analyzing Reach...
+                Generating Hashtags...
               </span>
             </div>
           )}
 
-          <h3 className="text-sm font-black text-slate-800 uppercase tracking-wider mb-4 flex items-center gap-2">
-            <TrendingUp className="w-4 h-4 text-purple-700" />
-            Reach Settings
-          </h3>
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-xs font-black text-slate-800 uppercase tracking-wider flex items-center gap-2">
+              <TrendingUp className="w-4 h-4 text-purple-700" />
+              Hashtag Settings
+            </h3>
+            <button
+              type="button"
+              onClick={() => {
+                setPlatform("instagram");
+                setCategory("all");
+                setKeyword("");
+                setSearchQuery("");
+                setAiResult(null);
+                onSuccessMessage("Hashtag filters reset.");
+              }}
+              className="text-[11px] font-bold text-slate-500 hover:text-purple-900 transition-colors cursor-pointer uppercase tracking-wider"
+            >
+              Reset Filters
+            </button>
+          </div>
 
           <form onSubmit={handleAiGenerateHashtags} className="flex flex-col gap-5 text-left">
             
             {/* Platform Selection */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-[11px] font-extrabold text-slate-700 uppercase tracking-wider">
+              <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider">
                 1. Target Platform
               </label>
               <div className="grid grid-cols-2 gap-2">
@@ -298,8 +314,8 @@ export default function HashtagGenerator({ onSuccessMessage, onToggleFavourite, 
                     onClick={() => setPlatform(p.id)}
                     className={`py-2.5 px-2 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
                       platform === p.id
-                        ? "bg-purple-50 text-purple-700 border-purple-500 font-extrabold shadow-xs"
-                        : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50"
+                        ? "bg-purple-950 text-white border-purple-950 font-extrabold shadow-xs"
+                        : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"
                     }`}
                   >
                     {p.name}
@@ -310,7 +326,7 @@ export default function HashtagGenerator({ onSuccessMessage, onToggleFavourite, 
 
             {/* Vibe Category selection */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-[11px] font-extrabold text-slate-700 uppercase tracking-wider">
+              <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider">
                 2. Vibe Category
               </label>
               <select
@@ -333,7 +349,7 @@ export default function HashtagGenerator({ onSuccessMessage, onToggleFavourite, 
 
             {/* Seed Topic Keyword */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-[11px] font-extrabold text-slate-700 uppercase tracking-wider">
+              <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider">
                 3. Seed Topic / Custom Keyword
               </label>
               <input
@@ -348,10 +364,10 @@ export default function HashtagGenerator({ onSuccessMessage, onToggleFavourite, 
             {/* Submit button */}
             <button
               type="submit"
-              className="w-full mt-2 py-3.5 bg-gradient-to-r from-purple-800 via-pink-600 to-orange-500 text-white font-extrabold rounded-2xl text-xs uppercase tracking-wider hover:scale-[0.99] transition-all shadow-md shadow-purple-100 flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full mt-2 py-3.5 bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white font-extrabold rounded-2xl text-xs uppercase tracking-wider hover:opacity-95 transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
             >
-              <Sparkles className="w-4 h-4 animate-pulse" />
-              ✨ Generate Custom AI Hashtags
+              <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
+              Generate Hashtags
             </button>
 
           </form>

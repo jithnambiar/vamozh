@@ -66,7 +66,7 @@ export default function ResultList({
             <span className="text-[11px] font-black text-purple-700 dark:text-purple-400 uppercase tracking-widest block mb-0.5">
               Generated Results
             </span>
-            <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight">
+            <h3 className="text-xl sm:text-2xl font-black text-[#545454] dark:text-slate-100 tracking-tight">
               തിരഞ്ഞെടുത്ത ക്യാപ്ഷനുകൾ (Generated Captions)
             </h3>
           </div>

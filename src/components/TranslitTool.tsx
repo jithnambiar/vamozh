@@ -361,6 +361,24 @@ export default function TranslitTool({ onSuccessMessage }: TranslitToolProps) {
               </div>
             </div>
 
+            {/* Quick Example Chips */}
+            <div className="flex flex-wrap gap-1.5 py-1">
+              <span className="text-[10px] font-bold text-slate-400 self-center">Try example:</span>
+              {[
+                { label: "Njan keralathil ninnanu", text: "njan keralathil ninnanu" },
+                { label: "Ente keralam ethra sundaram", text: "ente keralam ethra sundaram" }
+              ].map((ex) => (
+                <button
+                  key={ex.label}
+                  type="button"
+                  onClick={() => handleTextChange(ex.text)}
+                  className="text-[11px] px-2.5 py-1 bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold rounded-lg transition-all cursor-pointer"
+                >
+                  "{ex.label}"
+                </button>
+              ))}
+            </div>
+
             <textarea
               ref={manglishInputRef}
               value={manglish}

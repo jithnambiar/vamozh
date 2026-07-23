@@ -20,20 +20,7 @@ export default function MobileBottomNav({
   onOpenFavourites
 }: MobileBottomNavProps) {
   
-  const isGenerator = 
-    currentPath === "/" ||
-    currentPath === "/malayalam-caption-generator" ||
-    currentPath === "/instagram-caption-generator" ||
-    currentPath === "/facebook-caption-generator" ||
-    currentPath === "/whatsapp-status-generator" ||
-    currentPath === "/snapchat-caption-generator" ||
-    currentPath === "/tiktok-caption-generator" ||
-    currentPath === "/malayalam-instagram-bio" ||
-    currentPath === "/malayalam-reel-hooks" ||
-    currentPath === "/arike-bio-generator" ||
-    currentPath === "/bumble-bio-generator" ||
-    currentPath === "/matrimony-bio-generator";
-
+  const isHome = currentPath === "/";
   const isTyping = currentPath === "/manglish-to-malayalam";
   const isDictionary = currentPath === "/malayalam-dictionary";
   const isLearn = currentPath === "/learn-malayalam" || currentPath === "/malayalam-numbers" || currentPath === "/verify-certificate";
@@ -45,7 +32,7 @@ export default function MobileBottomNav({
       label: "Home",
       path: "/",
       icon: Home,
-      isActive: isGenerator
+      isActive: isHome
     },
     {
       id: "typing",

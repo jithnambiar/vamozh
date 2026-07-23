@@ -211,53 +211,69 @@ export default function DictionarySection({ onSuccessMessage }: DictionarySectio
           </button>
         </div>
 
-        {/* Mega Search Input Box */}
-        <div className="relative mt-8 max-w-2xl mx-auto" id="dictionary-search-box-container">
-          <div className="relative shadow-xl rounded-3xl overflow-hidden border border-slate-200">
+        {/* Mega Sticky Search Input Box */}
+        <div className="sticky top-[70px] z-20 bg-[#faf9f6]/95 backdrop-blur-md py-4 px-2 rounded-3xl border border-slate-200/60 shadow-sm max-w-4xl mx-auto" id="dictionary-search-box-container">
+          <div className="relative shadow-md rounded-2xl overflow-hidden border border-slate-200 bg-white">
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={searchMode === "en2ml" ? "Type English word (e.g. love, travel, book...)" : "Type Malayalam word (e.g. സ്നേഹം, യാത്ര, മഴ...)"}
-              className="w-full pl-14 pr-32 py-5 bg-white text-base font-medium focus:outline-none text-slate-800 placeholder:text-slate-400"
+              placeholder={searchMode === "en2ml" ? "Search 190,000+ English & Malayalam terms (e.g. love, travel, book...)" : "മലയാളം വാക്ക് തിരയുക (ഉദാ: സ്നേഹം, യാത്ര, മഴ...)"}
+              className="w-full pl-12 pr-24 py-4 bg-white text-sm sm:text-base font-medium focus:outline-none text-slate-800 placeholder:text-slate-400"
             />
-            <Search className="w-6 h-6 text-purple-600 absolute left-5 top-5" />
+            <Search className="w-5 h-5 text-purple-700 absolute left-4 top-4" />
             
-            {/* Action buttons inside input */}
-            <div className="absolute right-3 top-3 flex items-center gap-2">
+            <div className="absolute right-3 top-2.5 flex items-center gap-2">
+              {searchQuery !== "" && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery("")}
+                  className="p-1.5 hover:bg-slate-100 text-slate-400 hover:text-slate-700 rounded-xl transition-all cursor-pointer font-bold text-xs"
+                  title="Clear search query"
+                >
+                  ✕
+                </button>
+              )}
               <button
                 onClick={() => setShowAddForm(!showAddForm)}
-                className="bg-purple-50 hover:bg-purple-100 text-purple-900 py-2.5 px-4 rounded-2xl text-xs font-black uppercase tracking-wider flex items-center gap-1.5 transition-all cursor-pointer"
+                className="bg-purple-950 hover:bg-purple-900 text-white py-2 px-3 rounded-xl text-xs font-extrabold flex items-center gap-1.5 transition-all cursor-pointer shadow-xs"
                 title="Contribute a word to the database"
               >
-                <PlusCircle className="w-4 h-4" />
-                <span>Add Word</span>
+                <PlusCircle className="w-4 h-4 text-purple-300" />
+                <span className="hidden sm:inline">Add Word</span>
               </button>
             </div>
           </div>
 
-          {/* Prompt Suggestions */}
-          <div className="mt-3 text-xs text-slate-400 font-medium">
-            <span>Try searching: </span>
-            {sampleSearches.map((item, idx) => (
-              <button
-                key={idx}
-                onClick={() => setSearchQuery(item.q)}
-                className="text-purple-600 hover:text-purple-800 font-extrabold ml-1 hover:underline cursor-pointer"
-              >
-                {item.label}
-                {idx < sampleSearches.length - 1 && ","}
-              </button>
-            ))}
+          {/* Result count & Alphabetical Filter Chips */}
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-2 px-2 text-xs">
+            <span className="font-extrabold text-slate-700">
+              Showing {results.length} term{results.length !== 1 ? 's' : ''}
+            </span>
+            <div className="flex flex-wrap items-center gap-1">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mr-1">A-Z:</span>
+              {["All", "A", "B", "C", "D", "E", "F", "G", "H", "K", "L", "M", "P", "R", "S", "T"].map((letter) => (
+                <button
+                  key={letter}
+                  type="button"
+                  onClick={() => setSearchQuery(letter === "All" ? "" : letter)}
+                  className={`px-2 py-0.5 rounded-lg text-[11px] font-bold transition-all cursor-pointer ${
+                    (letter === "All" && !searchQuery) || searchQuery.toLowerCase() === letter.toLowerCase()
+                      ? "bg-purple-950 text-white"
+                      : "bg-white hover:bg-slate-100 text-slate-600 border border-slate-200/80"
+                  }`}
+                >
+                  {letter}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Grid containing result cards and side contribute block */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
-        {/* Main Definitions Column */}
-        <div className="lg:col-span-2 space-y-6" id="dictionary-results-column">
+      {/* 2-Column Desktop Grid / 1-Column Mobile Layout */}
+      <div className="max-w-6xl mx-auto mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6" id="dictionary-results-column">
           
           <AnimatePresence mode="wait">
             {isLoading && (
@@ -265,10 +281,10 @@ export default function DictionarySection({ onSuccessMessage }: DictionarySectio
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="bg-white border border-slate-100 rounded-3xl p-12 text-center"
+                className="col-span-full bg-white border border-slate-200 rounded-3xl p-12 text-center"
               >
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-800 mx-auto mb-4"></div>
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Searching our database & Olam files...</p>
+                <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">Searching dictionary database...</p>
               </motion.div>
             )}
 
@@ -276,7 +292,7 @@ export default function DictionarySection({ onSuccessMessage }: DictionarySectio
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="bg-red-50/50 border border-red-100 rounded-3xl p-8 text-center"
+                className="col-span-full bg-red-50/50 border border-red-100 rounded-3xl p-8 text-center"
               >
                 <AlertCircle className="w-8 h-8 text-red-500 mx-auto mb-2" />
                 <p className="text-sm font-bold text-red-900">{error}</p>
@@ -288,7 +304,7 @@ export default function DictionarySection({ onSuccessMessage }: DictionarySectio
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="bg-amber-50/30 border border-amber-100 rounded-3xl p-8 text-center"
+                className="col-span-full bg-amber-50/30 border border-amber-100 rounded-3xl p-8 text-center"
               >
                 <HelpCircle className="w-8 h-8 text-amber-500 mx-auto mb-2" />
                 <p className="text-sm font-bold text-amber-900">Word not found</p>
@@ -296,79 +312,45 @@ export default function DictionarySection({ onSuccessMessage }: DictionarySectio
               </motion.div>
             )}
 
-            {!isLoading && !error && results.length === 0 && searchQuery.trim() === "" && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="bg-white border border-slate-100 rounded-3xl p-8 text-center space-y-4"
+            {!isLoading && !error && results.map((entry) => (
+              <div
+                key={entry.id}
+                className="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm hover:shadow-md hover:border-purple-300 transition-all flex flex-col justify-between space-y-3 text-left group"
+                id={`dict-entry-${entry.id}`}
               >
-                <BookOpen className="w-10 h-10 text-purple-200 mx-auto" />
-                <h3 className="text-base font-black text-slate-800">Your Database is Active</h3>
-                <p className="text-xs text-slate-400 max-w-md mx-auto leading-relaxed">
-                  Start typing in the search box to load English or Malayalam definitions.
-                </p>
-              </motion.div>
-            )}
-
-            {!isLoading && !error && results.length > 0 && (
-              <motion.div 
-                className="space-y-4"
-                initial={{ opacity: 0, y: 5 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                {/* Active Cache Badge */}
-                {isAIUsed && (
-                  <div className="bg-purple-900/10 text-purple-900 py-2 px-4 rounded-xl text-xs font-bold flex items-center justify-between border border-purple-200/50">
-                    <span className="flex items-center gap-1.5">
-                      <Sparkles className="w-4 h-4 text-purple-600 animate-pulse" />
-                      Dynamically compiled via Gemini AI and permanently cached into your dictionary database!
-                    </span>
-                    <span className="text-[10px] font-black uppercase tracking-widest text-purple-900">Live DB Entry</span>
-                  </div>
-                )}
-
-                {results.map((entry) => (
-                  <div
-                    key={entry.id}
-                    className="bg-white border border-slate-200/80 rounded-3xl p-6 md:p-8 hover:shadow-md transition-all space-y-4 text-left"
-                    id={`dict-entry-${entry.id}`}
-                  >
-                    <div className="flex items-start justify-between border-b border-slate-50 pb-3">
-                      <div>
-                        <h3 className="text-2xl font-black text-slate-900 capitalize tracking-tight flex items-baseline gap-2">
-                          <span>{entry.word}</span>
-                          <span className="text-xs font-black text-slate-400 uppercase tracking-widest">
-                            ({entry.partOfSpeech})
-                          </span>
-                        </h3>
-                        <p className="text-sm font-extrabold text-purple-950 mt-1 font-sans">
-                          Malayalam Script: <span className="text-lg text-purple-800 font-semibold">{entry.malayalam}</span>
-                        </p>
-                      </div>
-                      <span className="px-2.5 py-1 bg-slate-100 text-slate-500 rounded-lg text-[9px] font-black uppercase tracking-wider">
-                        {entry.source}
-                      </span>
-                    </div>
-
-                    <div className="space-y-2">
-                      <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">Definition & Meaning:</span>
-                      <p className="text-slate-700 font-semibold text-sm leading-relaxed whitespace-pre-line bg-purple-50/20 p-4 rounded-2xl border border-purple-100/30">
-                        {entry.definition}
+                <div>
+                  <div className="flex items-start justify-between border-b border-slate-100 pb-3 mb-3">
+                    <div>
+                      {/* Malayalam word as the STRONGEST element */}
+                      <h3 className="text-2xl sm:text-3xl font-black text-purple-950 tracking-tight leading-snug">
+                        {entry.malayalam}
+                      </h3>
+                      <p className="text-sm font-bold text-slate-800 mt-1 flex items-baseline gap-2">
+                        <span>{entry.word}</span>
+                        <span className="text-xs font-bold text-slate-500 italic">
+                          ({entry.partOfSpeech})
+                        </span>
                       </p>
                     </div>
-
-                    {entry.example && (
-                      <div className="space-y-2 pt-2 border-t border-slate-100">
-                        <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">Illustrative Example:</span>
-                        <p className="text-xs text-slate-600 font-medium italic pl-3 border-l-2 border-pink-500">
-                          {entry.example}
-                        </p>
-                      </div>
-                    )}
+                    <span className="px-2.5 py-1 bg-purple-50 text-purple-800 rounded-xl text-[10px] font-black uppercase tracking-wider shrink-0 border border-purple-100">
+                      {entry.source || "Olam"}
+                    </span>
                   </div>
-                ))}
-              </motion.div>
-            )}
+
+                  <p className="text-xs sm:text-sm font-medium text-slate-700 leading-relaxed">
+                    <strong className="text-slate-900 font-bold">Meaning: </strong>
+                    {entry.definition}
+                  </p>
+
+                  {entry.example && (
+                    <div className="mt-3 p-3 rounded-2xl bg-slate-50 border border-slate-100 text-xs text-slate-600">
+                      <span className="font-bold text-purple-900">Example: </span>
+                      <span className="italic">"{entry.example}"</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
           </AnimatePresence>
 
         </div>
